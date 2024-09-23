@@ -1,0 +1,21 @@
+Sequência:
+1 - Instalar aplicação via laravel Docker
+    curl -s https://laravel.build/semu-aluguel-mp | bash
+2 - Entrar na pasta da aplicação
+3 - Modificar arquivo .env
+    Alterações necessárias
+4 - Modificar arquivo docker-composer.yml
+    Alterações necessárias
+5 - Subir aplicação
+    ./vendor/bin/sail up -d
+6 - Ver container
+    docker container ls
+7 - Atualizar aplicação
+    ./vendor/bin/sail composer update
+8 - Executar migration
+    ./vendor/bin/sail artisan migrate
+9 - Acessar banco via MysqlWorkBranch com credenciais do arquivo .env
+10 - Acessar aplicação via Browser
+     http://localhost:8080/
+
+
