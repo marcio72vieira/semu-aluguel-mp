@@ -9,6 +9,8 @@
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/styles_sbadmin.css') }}" rel="stylesheet">
     <link href="{{ asset('css/all.min.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('css/datatables.min.css') }}" rel="stylesheet"> --}}
+
 
     <title>Document</title>
 </head>
@@ -52,13 +54,12 @@
                         <div class="sb-sidenav-menu-heading">Interface</div>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                            Layouts
+                            Suporte
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="layout-static.html">Static Navigation</a>
-                                <a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>
+                                <a class="nav-link" href="{{ route('regional.create') }}">Regionais</a>
                             </nav>
                         </div>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
@@ -117,8 +118,9 @@
         {{-- CONTEÚDO --}}
         <div id="layoutSidenav_content">
             <main>
-                <h1>SEMU - CONTROLE DE ALUGUEL SOCIAL</h1>
+
                  @yield('content')
+
             </main>
 
             {{-- RODAPÉ --}}
@@ -142,5 +144,10 @@
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('js/scripts_sbadmin.js') }}"></script>
     <script src="{{ asset('js/all.min.js') }}"></script>
+    <script src="{{ asset('js/jquery371.js') }}"></script>
+    <script src="{{ asset('js/datatables.min.js') }}"></script>
+
+    @yield('scripts')
+
 </body>
 </html>
