@@ -5,20 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Regional extends Model
+class Municipio extends Model
 {
     use HasFactory;
 
-    protected $table = "regionais";
+    protected $table = "municipios";
 
     protected $fillable = [
         'nome',
-        'ativo'
+        'ativo',
+        'regional_id',
     ];
 
-    public function municipios ()
-    {
-        return $this->hasMany(Municipio::class);
+    public function regional(){
+        return $this->belongsTo(Regional::class);
     }
-
 }

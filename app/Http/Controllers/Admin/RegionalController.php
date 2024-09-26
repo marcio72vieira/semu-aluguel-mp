@@ -32,18 +32,27 @@ class RegionalController extends Controller
         // Validar o formulário
         $request->validated();
 
-        // Gravar dados no banco
-        // Regional::create($request->all());
-        Regional::create([
-            'nome' => Str::upper($request->nome),
-            'ativo' => $request->ativo
-        ]);
+        try {
 
-        // Redirecionar o usuário, enviar a mensagem de sucesso
-        return redirect()->route('regional.index')->with('success', 'Regional cadastrada com sucesso!');
+            // Gravar dados no banco
+            // Regional::create($request->all());
+            Regional::create([
+                'nome' => Str::upper($request->nome),
+                'ativo' => $request->ativo
+            ]);
+
+             // Redirecionar o usuário, enviar a mensagem de sucesso
+            return redirect()->route('regional.index')->with('success', 'Regional cadastrada com sucesso!');
+
+        } catch (Exception $e) {
+
+            // Redirecionar o usuário, enviar a mensagem de erro
+            return back()->withInput()->with('error', 'Regional não cadastrada!');
+        }
     }
 
-    // Carregar o formulário editar reginal
+
+    // Carregar o formulário editar regional
     public function edit(Regional $regional)
     {
         // carregar a view
@@ -74,7 +83,22 @@ class RegionalController extends Controller
     }
 
 
-    
-    
+    // Excluir o regional do banco de dados
+    public function destroy(Regional $regional)
+    {
+        try {
+            // Excluir o registro do banco de dados
+            $regional->delete();
+
+            // Redirecionar o usuário, enviar a mensagem de sucesso
+            return redirect()->route('regional.index')->with('success', 'Regional excluída com sucesso!');
+
+        } catch (Exception $e) {
+
+
+            // Redirecionar o usuário, enviar a mensagem de erro
+            return redirect()->route('regional.index')->with('error', 'Regional não excluída!');
+        }
+    }
 
 }
