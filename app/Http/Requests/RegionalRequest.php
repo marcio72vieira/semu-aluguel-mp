@@ -21,8 +21,10 @@ class RegionalRequest extends FormRequest
      */
     public function rules(): array
     {
+        $regionalId = $this->route('regional');
+
         return [
-            'nome' => 'bail|required|min:5|unique:regionais,nome',
+            'nome' => 'bail|required|min:5|unique:regionais,nome,'. ($regionalId ? $regionalId->id : null),
             'ativo' => 'bail|required'
         ];
     }
