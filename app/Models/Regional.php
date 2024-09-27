@@ -21,4 +21,9 @@ class Regional extends Model
         return $this->hasMany(Municipio::class);
     }
 
+    public function unidadesatendimentos ()
+    {
+        return $this->hasMany(Unidadeatendimento::class);
+    }
+
 }

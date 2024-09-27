@@ -17,7 +17,7 @@ class MunicipioController extends Controller
         // Recuperar os registros do banco dados sem pesquisa
         // $municipios = Municipio::orderByDesc('created_at')->paginate(10);
 
-        $municipios = Municipio::with('regional')->paginate(10);
+        $municipios = Municipio::with('regional')->orderByDesc('created_at')->paginate(10);
         return view('municipios.index', ['municipios' => $municipios]);
 
     }
@@ -104,9 +104,5 @@ class MunicipioController extends Controller
             return redirect()->route('municipio.index')->with('error', 'Municipio não excluído!');
         }
     }
-
-
-
-
 
 }

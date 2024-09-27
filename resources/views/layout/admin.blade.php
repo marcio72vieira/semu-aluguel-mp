@@ -57,6 +57,7 @@
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="{{ route('regional.index') }}">Regionais</a>
                                 <a class="nav-link" href="{{ route('municipio.index') }}">Municípios</a>
+                                <a class="nav-link" href="{{ route('tipounidade.index') }}">Tipos Unidade</a>
                                 <a class="nav-link" href="">Unidade de Atendimento</a>
                                 <a class="nav-link" href="{{ url('index-datatables') }}">DataTable</a>
                             </nav>

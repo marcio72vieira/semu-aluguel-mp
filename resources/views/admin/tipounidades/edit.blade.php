@@ -3,11 +3,11 @@
 @section('content')
     <div class="container-fluid px-4">
         <div class="mb-1 hstack gap-2">
-            <h2 class="mt-3">Cadastrar Municípios</h2>
+            <h2 class="mt-3">Editar Tipo de Unidade</h2>
             <ol class="breadcrumb mb-3 mt-3 ms-auto">
                 <li class="breadcrumb-item"><a href="">Dashboard</a></li>
-                <li class="breadcrumb-item"><a class="text-decoration-none" href="">Municípios</a></li>
-                <li class="breadcrumb-item active">Município</li>
+                <li class="breadcrumb-item"><a class="text-decoration-none" href="">Tipos de Unidade</a></li>
+                <li class="breadcrumb-item active">Tipo de Unidade</li>
             </ol>
         </div>
 
@@ -20,50 +20,35 @@
 
                 {{-- <x-alert /> --}}
 
-                <form action="{{ route('municipio.store') }}" method="POST" autocomplete="off">
+                <form action="{{ route('tipounidade.update', ['tipounidade' => $tipounidade->id]) }}" method="POST" autocomplete="off">
                     @csrf
-                    @method('POST')
+                    @method('PUT')
 
                     <div class="row">
                         {{-- Nome --}}
-                        <div class="col-4">
+                        <div class="col-6">
                             <div class="form-group focused">
                                 <label class="form-control-label" for="nome">Nome<span class="small text-danger">*</span></label>
-                                <input type="text" class="form-control" id="nome" name="nome" value="{{old('nome')}}" placeholder="Nome do Município" required >
+                                <input type="text" class="form-control" id="nome" name="nome" value="{{ old('nome', $tipounidade->nome) }}" placeholder="Tipo de Unidade"  >
                                 @error('nome')
                                     <small style="color: red">{{$message}}</small>
                                 @enderror
                             </div>
                         </div>
 
-                        {{-- regional_id --}}
-                        <div class="col-4">
-                            <div class="form-group focused">
-                                <label class="form-control-label" for="regional_id">Regional<span class="small text-danger">*</span></label>
-                                <select name="regional_id" id="regional_id" class="form-control" required>
-                                    <option value="" selected disabled>Escolha...</option>
-                                    @foreach($regionais  as $regional)
-                                        <option value="{{$regional->id}}" {{old('regional_id') == $regional->id ? 'selected' : ''}}>{{$regional->nome}}</option>
-                                    @endforeach
-                                </select>
-                                @error('regional_id')
-                                    <small style="color: red">{{$message}}</small>
-                                @enderror
-                            </div>
-                        </div>
 
                         {{-- ativo --}}
-                        <div class="col-2">
+                        <div class="col-3">
                             <div class="form-group focused">
                                 <label class="form-control-label" for="ativo">Ativo ? <span class="small text-danger">*</span></label>
                                 <div style="margin-top: 7px">
                                     <div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="ativo" id="ativosim" value="1" {{old('ativo') == '1' ? 'checked' : ''}} required>
+                                        <input class="form-check-input" type="radio" name="ativo" id="ativosim" value="1" {{old('ativo', $tipounidade->ativo) == '1' ? 'checked' : ''}} >
                                         <label class="form-check-label" for="ativosim">Sim</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="ativo" id="ativonao" value="0" {{old('ativo') == '0' ? 'checked' : ''}} required>
+                                        <input class="form-check-input" type="radio" name="ativo" id="ativonao" value="0" {{old('ativo', $tipounidade->ativo) == '0' ? 'checked' : ''}} >
                                         <label class="form-check-label" for="ativonao">Não</label>
                                     </div>
                                     <br>
@@ -76,9 +61,9 @@
                         </div>
 
                         <!-- Buttons -->
-                        <div class="col-2">
+                        <div class="col-3">
                                 <div style="margin-top: 30px">
-                                    <a class="btn btn-primary" href="{{ route('municipio.index')}}" role="button">Cancelar</a>
+                                    <a class="btn btn-primary" href="{{ route('tipounidade.index')}}" role="button">Cancelar</a>
                                     <button type="submit" class="btn btn-primary" style="width: 95px;"> Salvar </button>
                                 </div>
                         </div>
