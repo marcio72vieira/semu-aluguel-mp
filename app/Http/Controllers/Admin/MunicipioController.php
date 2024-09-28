@@ -18,14 +18,14 @@ class MunicipioController extends Controller
         // $municipios = Municipio::orderByDesc('created_at')->paginate(10);
 
         $municipios = Municipio::with('regional')->orderByDesc('created_at')->paginate(10);
-        return view('municipios.index', ['municipios' => $municipios]);
+        return view('admin.municipios.index', ['municipios' => $municipios]);
 
     }
 
     public function create()
     {
         $regionais = Regional::where('ativo', '=', '1')->orderBy('nome', 'ASC')->get();
-        return view('municipios.create', ['regionais' => $regionais]);
+        return view('admin.municipios.create', ['regionais' => $regionais]);
     }
 
 
@@ -60,7 +60,7 @@ class MunicipioController extends Controller
     {
         // carregar a view
         $regionais = Regional::where('ativo', '=', '1')->orderBy('nome', 'ASC')->get();
-        return view('municipios.edit', ['regionais' => $regionais, 'municipio' => $municipio]);
+        return view('admin.municipios.edit', ['regionais' => $regionais, 'municipio' => $municipio]);
     }
 
     // Atualizar no banco de dados a regional

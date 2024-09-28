@@ -4,10 +4,17 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\RegionalController;
 use App\Http\Controllers\Admin\MunicipioController;
 use App\Http\Controllers\Admin\TipounidadeController;
-use App\http\Controllers\Admin\UnidadeatendimentoController;
+use App\Http\Controllers\Admin\UnidadeatendimentoController;
+
+
 
 Route::get('/', function () {
     return view('layout.admin');
+});
+
+// TESTE DATATABLE
+Route::get('/index-datatables', function(){
+    return view('datatables.datatables');
 });
 
 
@@ -35,7 +42,7 @@ Route::get('/edit-tipounidade/{tipounidade}', [TipounidadeController::class, 'ed
 Route::put('/update-tipounidade/{tipounidade}', [TipounidadeController::class, 'update'])->name('tipounidade.update');
 Route::delete('/destroy-tipounidade/{tipounidade}', [TipounidadeController::class, 'destroy'])->name('tipounidade.destroy');
 
-// UNIDADES ATENDIMENTO
+// UNIDADE ATENDIMENTO
 Route::get('/index-unidadeatendimento', [UnidadeatendimentoController::class, 'index'])->name('unidadeatendimento.index');
 Route::get('/create-unidadeatendimento', [UnidadeatendimentoController::class, 'create'])->name('unidadeatendimento.create');
 Route::post('/store-unidadeatendimento', [UnidadeatendimentoController::class, 'store'])->name('unidadeatendimento.store');
@@ -44,8 +51,4 @@ Route::put('/update-unidadeatendimento/{unidadeatendimento}', [Unidadeatendiment
 Route::delete('/destroy-unidadeatendimento/{unidadeatendimento}', [UnidadeatendimentoController::class, 'destroy'])->name('unidadeatendimento.destroy');
 
 
-// MUNICÍPIO
-Route::get('/index-datatables', function(){
-    return view('datatables.datatables');
-});
 

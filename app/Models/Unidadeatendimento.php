@@ -25,6 +25,10 @@ class Unidadeatendimento extends Model
         'ativo'
     ];
 
+    public function tipounidade(){
+        return $this->belongsTo(Tipounidade::class);
+    }
+
     public function regional(){
         return $this->belongsTo(Regional::class);
     }
@@ -32,4 +36,5 @@ class Unidadeatendimento extends Model
     public function municipio(){
         return $this->belongsTo(Municipio::class);
     }
+
 }

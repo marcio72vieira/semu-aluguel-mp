@@ -11,7 +11,7 @@ class UnidadeatendimentoRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +21,20 @@ class UnidadeatendimentoRequest extends FormRequest
      */
     public function rules(): array
     {
+        $unidadeatendimentoId = $this->route('unidadeatendimento');
+
         return [
-            //
+            'tipounidade_id'    => 'bail|required',
+            'nome'              => 'bail|required|min:5|unique:unidadesatendimentos,nome,'. ($unidadeatendimentoId ? $unidadeatendimentoId->id : null),
+            'endereco'          => 'bail|required',
+            'numero'            => 'bail|required',
+            //'complemento',
+            'bairro'            => 'bail|required',
+            'cep'               => 'bail|required',
+            'fone'              => 'bail|required',
+            'regional_id'       => 'bail|required',
+            'municipio_id'      => 'bail|required',
+            'ativo'             => 'bail|required',
         ];
     }
 }

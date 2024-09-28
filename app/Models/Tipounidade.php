@@ -16,4 +16,10 @@ class Tipounidade extends Model
         'ativo',
     ];
 
+
+    public function unidadesatendimentos ()
+    {
+        return $this->hasMany(Unidadeatendimento::class);
+    }
+
 }

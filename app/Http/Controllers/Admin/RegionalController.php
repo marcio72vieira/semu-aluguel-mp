@@ -17,13 +17,13 @@ class RegionalController extends Controller
         // Recuperar os registros do banco dados sem pesquisa
         $regionais = Regional::orderByDesc('created_at')->paginate(10);
 
-        return view('regionais.index', ['regionais' => $regionais]);
+        return view('admin.regionais.index', ['regionais' => $regionais]);
     }
 
 
     public function create()
     {
-        return view('regionais.create');
+        return view('admin.regionais.create');
     }
 
 
@@ -56,7 +56,7 @@ class RegionalController extends Controller
     public function edit(Regional $regional)
     {
         // carregar a view
-        return view('regionais.edit', ['regional' => $regional]);
+        return view('admin.regionais.edit', ['regional' => $regional]);
     }
 
     // Atualizar no banco de dados a regional
