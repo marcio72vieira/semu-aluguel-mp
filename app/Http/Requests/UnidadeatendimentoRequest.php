@@ -28,13 +28,13 @@ class UnidadeatendimentoRequest extends FormRequest
             'nome'              => 'bail|required|min:5|unique:unidadesatendimentos,nome,'. ($unidadeatendimentoId ? $unidadeatendimentoId->id : null),
             'endereco'          => 'bail|required',
             'numero'            => 'bail|required',
-            //'complemento',
             'bairro'            => 'bail|required',
             'cep'               => 'bail|required',
             'fone'              => 'bail|required',
-            'regional_id'       => 'bail|required',
             'municipio_id'      => 'bail|required',
             'ativo'             => 'bail|required',
+            //'complemento',
+            //'regional_id'     
         ];
     }
 }

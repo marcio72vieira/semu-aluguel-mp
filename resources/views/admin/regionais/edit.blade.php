@@ -13,7 +13,7 @@
 
         <div class="card mb-4 border-light shadow">
             <div class="card-header hstack gap-2">
-                <span class="small text-danger">Campo marcado com * é de preenchimento obrigatório!</span>
+                <span class="small text-danger p-3"><strong>Campo marcado com * é de preenchimento obrigatório!</strong></span>
             </div>
 
             <div class="card-body">
@@ -57,11 +57,11 @@
                         </div>
 
                         <!-- Buttons -->
-                        <div class="col-2">
-                                <div style="margin-top: 30px">
-                                    <a class="btn btn-primary" href="{{ route('regional.index')}}" role="button">Cancelar</a>
-                                    <button type="submit" class="btn btn-primary" style="width: 95px;"> Salvar </button>
-                                </div>
+                        <div class="col-2 flex-row d-md-flex justify-content-end">
+                            <div style="margin-top: 15px">
+                                <a class="btn btn-outline-secondary" href="{{ route('regional.index')}}" role="button">Cancelar</a>
+                                <button type="submit" class="btn btn-primary" style="width: 95px;"> Salvar </button>
+                            </div>
                         </div>
 
                     </div>

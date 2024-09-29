@@ -9,6 +9,15 @@
     <link href="{{ asset('css/styles_sbadmin.css') }}" rel="stylesheet">
     <link href="{{ asset('css/all.min.css') }}" rel="stylesheet">
 
+    {{-- Inlcuindo o css e js do SELECT2 via CDN Obs: o jquery, deve ficar antes do JS do select2 --}}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    {{-- Incluindo o SweeterAlert2 --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
     {{-- <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">--}}
     {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/2.1.7/css/dataTables.bootstrap5.css" rel="stylesheet"> --}}
@@ -140,8 +149,8 @@
     </div>
 
 
-    {{-- SCRIPTS --}}
-    <script src="{{ asset('js/jquery371.js') }}"></script>
+    {{-- SCRIPTS 
+    <script src="{{ asset('js/jquery371.js') }}"></script>--}}
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('js/scripts_sbadmin.js') }}"></script>
     <script src="{{ asset('js/all.min.js') }}"></script>

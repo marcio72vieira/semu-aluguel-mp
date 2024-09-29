@@ -13,7 +13,7 @@
 
         <div class="card mb-4 border-light shadow">
             <div class="card-header hstack gap-2">
-                <span class="small text-danger"><strong>Campo marcado com * é de preenchimento obrigatório!</strong></span>
+                <span class="small text-danger p-3"><strong>Campo marcado com * é de preenchimento obrigatório!</strong></span>
             </div>
 
             <div class="card-body">
@@ -91,7 +91,7 @@
                     <div class="mb-4 row">
                         <label for="municipio_id" class="col-sm-2 col-form-label">Município <span class="small text-danger">*</span></label>
                         <div class="col-sm-4">
-                            <select name="municipio_id" id="municipio_id" class="form-control" required>
+                            <select name="municipio_id" id="municipio_id" class="form-control select2" required>
                                 <option value="" selected disabled>Escolha...</option>
                                 @foreach($municipios as $municipio)
                                     <option value="{{ $municipio->id }}" {{ old('municipio_id') == $municipio->id ? 'selected' : '' }}>{{ $municipio->nome }}</option>
@@ -104,7 +104,7 @@
                     </div>
 
                     <div class="mb-4 row">
-                        <label for="fone" class="col-sm-2 col-form-label">Ativo ? <span class="small text-danger">*</span></label>
+                        <label for="ativosim" class="col-sm-2 col-form-label">Ativo ? <span class="small text-danger">*</span></label>
                         <div class="col-sm-10">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="ativo" id="ativosim" value="1" {{old('ativo') == '1' ? 'checked' : ''}} reuired>
@@ -118,10 +118,10 @@
                     </div>
 
                     <div class="mb-4 row">
-                        <label for="fone" class="col-sm-2 col-form-label"></label>
+                        <label class="col-sm-2 col-form-label"></label>
                         <div class="col-sm-10">
                             <div style="margin-top: 15px">
-                                <a class="btn btn-primary" href="{{ route('unidadeatendimento.index')}}" role="button">Cancelar</a>
+                                <a class="btn btn-outline-secondary" href="{{ route('unidadeatendimento.index')}}" role="button">Cancelar</a>
                                 <button type="submit" class="btn btn-primary" style="width: 95px;"> Salvar </button>
                             </div>
                         </div>
