@@ -37,4 +37,22 @@ class UnidadeatendimentoRequest extends FormRequest
             //'regional_id'     
         ];
     }
+
+
+    public function messages(): array
+    {
+        return[
+            'tipounidade_id.required' => 'Campo tipo é obrigatório!',
+            'nome.required' => 'Campo nome é obrigatório!',
+            'nome.min' => 'Campo nome deve ter no mínimo 5 caracteres!',
+            'nome.unique' => 'Esta Unidade já está cadastrada!',
+            'endereco.required' => 'Campo endereço é obrigatório!',
+            'numero.required' => 'Campo núemro é obrigatório (digie s/n, se não houver)!',
+            'bairro.required' => 'Campo bairro é obrigatório!',
+            'cep.required' => 'Campo CEP é obrigatório!',
+            'fone.required' => 'Campo telefone é obrigatório!',
+            'municipio_id.required' => 'Campo município é obrigatório!',
+            'ativo.required' => 'Campo ativo é obrigatório!'
+        ];
+    }
 }

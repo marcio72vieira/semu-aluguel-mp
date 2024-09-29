@@ -154,9 +154,15 @@
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('js/scripts_sbadmin.js') }}"></script>
     <script src="{{ asset('js/all.min.js') }}"></script>
+
+    
+    <!--Plugin jQuery para máscaras de campos -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+    
+    <!-- Scripts Customizados, criados por mim mesmo ou para configuração de outras bibliotecas e plugins -->
     <script src="{{ asset('js/scriptsmrc.js') }}"></script>
 
-
+    {{-- Scripts a serem colocados de maneira individual em cada página --}}
     @yield('scripts')
 
 </body>
