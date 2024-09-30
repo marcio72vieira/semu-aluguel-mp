@@ -21,7 +21,7 @@
             DataTable Example
         </div>
         <div class="card-body">
-            <table id="datatablesTeste">
+            <table id="datatablesTeste" class="display cell-border">
                 <thead>
                     <tr>
                         <th>Name</th>

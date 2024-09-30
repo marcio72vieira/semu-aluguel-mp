@@ -19,8 +19,12 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     {{-- <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">--}}
-    {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/2.1.7/css/dataTables.bootstrap5.css" rel="stylesheet"> --}}
+    <link href="https://cdn.datatables.net/2.1.7/css/dataTables.dataTables.css" rel="stylesheet"></link>
+    
+    {{-- até aqui tudo ok pagina referrência: https://datatables.net/examples/styling/bootstrap5.html--}}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet"></link>
+    <link href="https://cdn.datatables.net/2.1.7/css/dataTables.bootstrap5.css" rel="stylesheet"></link>
+    
 
     <title>Document</title>
 </head>
@@ -161,6 +165,8 @@
     
     <!-- Scripts Customizados, criados por mim mesmo ou para configuração de outras bibliotecas e plugins -->
     <script src="{{ asset('js/scriptsmrc.js') }}"></script>
+
+    <script src="https://cdn.datatables.net/2.1.7/js/dataTables.js"></script>
 
     {{-- Scripts a serem colocados de maneira individual em cada página --}}
     @yield('scripts')
