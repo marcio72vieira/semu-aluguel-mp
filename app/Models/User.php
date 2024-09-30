@@ -17,9 +17,17 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'nomecompleto',
+        'nome',
+        'cpf',
+        'regional_id',
+        'municipio_id',
+        'unidadeatendimento_id',
+        'cargo',
+        'perfil',
         'email',
         'password',
+        'primeiroacesso'
     ];
 
     /**
@@ -44,4 +52,22 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+
+    public function regional()
+    {
+        return $this->belongsTo(Regional::class);
+    }
+
+    public function municipio()
+    {
+        return $this->belongsTo(Municipio::class);
+    }
+
+    public function unidadeatendimento()
+    {
+        return $this->belongsTo(Unidadeatendimento::class);
+    }
+
+
 }

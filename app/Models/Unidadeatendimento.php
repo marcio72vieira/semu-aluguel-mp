@@ -25,16 +25,26 @@ class Unidadeatendimento extends Model
         'ativo'
     ];
 
-    public function tipounidade(){
+    public function tipounidade()
+    {
         return $this->belongsTo(Tipounidade::class);
     }
 
-    public function regional(){
+    public function regional()
+    {
         return $this->belongsTo(Regional::class);
     }
 
-    public function municipio(){
+    public function municipio()
+    {
         return $this->belongsTo(Municipio::class);
     }
+
+
+    public function users ()
+    {
+        return $this->hasMany(User::class);
+    }
+
 
 }

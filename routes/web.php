@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RegionalController;
 use App\Http\Controllers\Admin\MunicipioController;
 use App\Http\Controllers\Admin\TipounidadeController;
@@ -16,6 +17,15 @@ Route::get('/', function () {
 Route::get('/index-datatables', function(){
     return view('datatables.datatables');
 });
+
+
+// USUÁRIO
+Route::get('/index-user', [UserController::class, 'index'])->name('user.index');
+Route::get('/create-user', [UserController::class, 'create'])->name('user.create');
+Route::post('/store-user', [UserController::class, 'store'])->name('user.store');
+Route::get('/edit-user/{user}', [UserController::class, 'edit'])->name('user.edit');
+Route::put('/update-user/{user}', [UserController::class, 'update'])->name('user.update');
+Route::delete('/destroy-user/{user}', [UserController::class, 'destroy'])->name('user.destroy');
 
 
 // REGIONAL

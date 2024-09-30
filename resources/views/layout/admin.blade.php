@@ -8,6 +8,7 @@
     {{-- LINKS CSS --}}
     <link href="{{ asset('css/styles_sbadmin.css') }}" rel="stylesheet">
     <link href="{{ asset('css/all.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/stylesmrc_admin.css') }}" rel="stylesheet">
 
     {{-- Inlcuindo o css e js do SELECT2 via CDN Obs: o jquery, deve ficar antes do JS do select2 --}}
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -17,21 +18,21 @@
 
     {{-- Incluindo o SweeterAlert2 --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
+
     {{-- <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">--}}
     <link href="https://cdn.datatables.net/2.1.7/css/dataTables.dataTables.css" rel="stylesheet"></link>
-    
+
     {{-- até aqui tudo ok pagina referrência: https://datatables.net/examples/styling/bootstrap5.html--}}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet"></link>
     <link href="https://cdn.datatables.net/2.1.7/css/dataTables.bootstrap5.css" rel="stylesheet"></link>
-    
+
 
     <title>Document</title>
 </head>
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="index.html">SEMU</a>
+        <a class="navbar-brand ps-3" href="index.html">SEMU - Aluguel MP</a>
         <!-- Sidebar Toggle-->
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
         <!-- Navbar Search-->
@@ -75,6 +76,10 @@
                                 <a class="nav-link" href="{{ url('index-datatables') }}">DataTable</a>
                             </nav>
                         </div>
+                        <a class="nav-link" href="charts.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                            Usuários
+                        </a>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                             <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                             Pages
@@ -153,16 +158,16 @@
     </div>
 
 
-    {{-- SCRIPTS 
+    {{-- SCRIPTS
     <script src="{{ asset('js/jquery371.js') }}"></script>--}}
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('js/scripts_sbadmin.js') }}"></script>
     <script src="{{ asset('js/all.min.js') }}"></script>
 
-    
+
     <!--Plugin jQuery para máscaras de campos -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
-    
+
     <!-- Scripts Customizados, criados por mim mesmo ou para configuração de outras bibliotecas e plugins -->
     <script src="{{ asset('js/scriptsmrc.js') }}"></script>
 

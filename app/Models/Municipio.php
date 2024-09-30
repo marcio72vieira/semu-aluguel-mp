@@ -18,7 +18,8 @@ class Municipio extends Model
         'regional_id',
     ];
 
-    public function regional(){
+    public function regional()
+    {
         return $this->belongsTo(Regional::class);
     }
 
@@ -27,6 +28,12 @@ class Municipio extends Model
         return $this->hasMany(Unidadeatendimento::class);
     }
 
+    public function users ()
+    {
+        return $this->hasMany(User::class);
+    }
+
+
     //Obtendo a quantidade de municípios de uma regional, de um outro jeito
     public function qtdunidadeatendimentovinc($id)
     {
@@ -34,4 +41,5 @@ class Municipio extends Model
 
         return $qtd;
     }
+
 }

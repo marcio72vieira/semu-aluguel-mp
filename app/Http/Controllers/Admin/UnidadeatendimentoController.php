@@ -41,7 +41,7 @@ class UnidadeatendimentoController extends Controller
 
             // Obtém o id da Regional através do relacionamento existente entre município e regional
             $idRegionalMunicipio = Municipio::find($request->municipio_id)->regional->id;
-            
+
             Unidadeatendimento::create([
                 'tipounidade_id' => $request->tipounidade_id,
                 'nome' => Str::upper($request->nome),

@@ -15,7 +15,7 @@
             .
         </div>
     </div>
-    <div class="card mb-4">
+    <div class="card mt-2 mb-2">
         <div class="card-header">
             <i class="fas fa-table me-1"></i>
             DataTable Example
