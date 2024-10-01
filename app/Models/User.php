@@ -24,6 +24,7 @@ class User extends Authenticatable
         'municipio_id',
         'unidadeatendimento_id',
         'cargo',
+        'fone',
         'perfil',
         'email',
         'password',

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('nome');
             $table->string('cpf');
             $table->string('cargo');
+            $table->string('fone')->nullable();
             $table->string('perfil');
             $table->string('email')->unique();
             $table->string('password');

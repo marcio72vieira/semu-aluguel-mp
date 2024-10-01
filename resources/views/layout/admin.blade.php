@@ -76,7 +76,7 @@
                                 <a class="nav-link" href="{{ url('index-datatables') }}">DataTable</a>
                             </nav>
                         </div>
-                        <a class="nav-link" href="charts.html">
+                        <a class="nav-link" href="{{ route('user.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                             Usuários
                         </a>
