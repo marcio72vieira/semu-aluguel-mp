@@ -23,6 +23,11 @@ class Tipounidade extends Model
         return $this->hasMany(Unidadeatendimento::class);
     }
 
+    public function users ()
+    {
+        return $this->hasMany(User::class);
+    }
+
     //Obtendo a quantidade de municípios de uma regional, de um outro jeito
     public function qtdunidadesatendimento($id)
     {

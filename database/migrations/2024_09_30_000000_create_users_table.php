@@ -23,7 +23,9 @@ return new class extends Migration
             $table->string('password');
             $table->foreignId('regional_id')->constrained('regionais')->onDelete('cascade');
             $table->foreignId('municipio_id')->constrained('municipios')->onDelete('cascade');
+            $table->foreignId('tipounidade_id')->constrained('tipounidades')->onDelete('cascade');
             $table->foreignId('unidadeatendimento_id')->constrained('unidadesatendimentos')->onDelete('cascade');
+            $table->boolean('ativo');
             $table->timestamp('email_verified_at')->nullable();
             $table->boolean('primeiroacesso')->default(false);
             $table->rememberToken();

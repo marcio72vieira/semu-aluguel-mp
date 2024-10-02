@@ -39,9 +39,9 @@
 
                     {{-- nome --}}
                     <div class="mb-4 row">
-                        <label for="nome" class="col-sm-2 col-form-label">Nome <span class="small text-danger">*</span></label>
+                        <label for="nome" class="col-sm-2 col-form-label">Usuário <span class="small text-danger">*</span></label>
                         <div class="col-sm-10">
-                          <input type="text" name="nome" value="{{ old('nome') }}" class="form-control" id="nome" placeholder="Nome da Unidade" >
+                          <input type="text" name="nome" value="{{ old('nome') }}" class="form-control" id="nome" placeholder="Nome de usuário" >
                           @error('nome')
                               <small style="color: red">{{$message}}</small>
                           @enderror

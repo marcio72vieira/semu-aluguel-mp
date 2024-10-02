@@ -22,12 +22,14 @@ class User extends Authenticatable
         'cpf',
         'regional_id',
         'municipio_id',
+        'tipounidade_id',
         'unidadeatendimento_id',
         'cargo',
         'fone',
         'perfil',
         'email',
         'password',
+        'ativo',
         'primeiroacesso'
     ];
 
@@ -63,6 +65,11 @@ class User extends Authenticatable
     public function municipio()
     {
         return $this->belongsTo(Municipio::class);
+    }
+
+    public function tipounidade()
+    {
+        return $this->belongsTo(Tipounidade::class);
     }
 
     public function unidadeatendimento()

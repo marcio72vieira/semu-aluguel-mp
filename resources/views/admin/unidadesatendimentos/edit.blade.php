@@ -6,7 +6,7 @@
             <h2 class="mt-3">UNIDADE DE ATENDIMENTO -  edição</h2>
             <ol class="breadcrumb mb-3 mt-3 ms-auto">
                 <li class="breadcrumb-item"><a href="">Dashboard</a></li>
-                <li class="breadcrumb-item"><a class="text-decoration-none" href="">Unidade de Atendimento</a></li>
+                <li class="breadcrumb-item"><a class="text-decoration-none" href="">Unidades de Atendimentos</a></li>
                 <li class="breadcrumb-item active">Unidade de Atendimento</li>
             </ol>
         </div>
@@ -142,7 +142,7 @@
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="ativo" id="ativosim" value="1" {{old('ativo', $unidadeatendimento->ativo) == '1' ? 'checked' : ''}} reuired>
                                     <label class="form-check-label" for="ativosim">Sim</label>
-                                    
+
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="ativo" id="ativonao" value="0" {{old('ativo', $unidadeatendimento->ativo) == '0' ? 'checked' : ''}} >

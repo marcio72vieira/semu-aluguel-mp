@@ -6,7 +6,7 @@
             <h2 class="mt-3">UNIDADE DE ATENDIMENTO -  visualizar</h2>
             <ol class="breadcrumb mb-3 mt-3 ms-auto">
                 <li class="breadcrumb-item"><a href="">Dashboard</a></li>
-                <li class="breadcrumb-item"><a class="text-decoration-none" href="">Unidade de Atendimento</a></li>
+                <li class="breadcrumb-item"><a class="text-decoration-none" href="">Unidades de Atendimentos</a></li>
                 <li class="breadcrumb-item active">Unidade de Atendimento</li>
             </ol>
         </div>
@@ -53,7 +53,7 @@
                     <dt class="col-sm-2">Município</dt>
                     <dd class="col-sm-10">{{ $unidadeatendimento->municipio->nome }}</dd>
 
-                    <dt class="col-sm-2">Tipo</dt>
+                    <dt class="col-sm-2">Ativo</dt>
                     <dd class="col-sm-10">{{ $unidadeatendimento->tipo == 1 ? 'Sim' : 'Não' }}</dd>
 
                 </dl>

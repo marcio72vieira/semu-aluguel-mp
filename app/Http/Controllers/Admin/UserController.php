@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Unidadeatendimento;
 use Exception;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -59,8 +60,8 @@ class UserController extends Controller
         // Validar o formulário
         $request->validated();
 
-        
-        
+
+
         try {
             // Obtém o id da Regional através do relacionamento existente entre município e regional
             $idRegionalMunicipio = Municipio::find($request->municipio_id)->regional->id;
@@ -78,10 +79,11 @@ class UserController extends Controller
                 'perfil' => $request->perfil,
                 'email' => $request->email,
                 'password' => $request->password,
+                'ativo' => $request->ativo,
                 'primeiroacesso' => 1
             ]);
 
-    
+
             /********************/
             // ENVIAR E-EMAIL   //
             /********************/
@@ -96,6 +98,79 @@ class UserController extends Controller
             return back()->withInput()->with('error-exception', 'Usuário não cadastrado. Tente mais tarde!');
         }
     }
+
+
+
+    public function show(User $user)
+    {
+        // Exibe os detalhes do usuário
+        return view('admin.users.show', ['user' => $user]);
+
+    }
+
+
+    public function edit(User $user)
+    {
+        // Recuperando todas os municípios e unidades de atendimentos
+        $municipios = Municipio::where('ativo', '=', '1')->orderBy('nome', 'ASC')->get();
+        $unidadesatendimentos = Unidadeatendimento::where('ativo', '=', '1')->orderBy('nome', 'ASC')->get();
+
+        return view('admin.users.edit', [
+            'user' => $user,
+            'municipios' => $municipios,
+            'unidadesatendimentos' => $unidadesatendimentos,
+        ]);
+    }
+
+
+    // Atualizar no banco de dados a unidade de atendimento
+    public function update(UserRequest $request, User $user)
+    {
+        // Validar o formulário
+        $request->validated();
+
+        try{
+            // Obtém o id da Regional através do relacionamento existente entre município e regional
+            $idRegionalMunicipio = Municipio::find($request->municipio_id)->regional->id;
+
+
+            //'password' => Hash::make('123456a', ['rounds' => 12]);
+            if($request->password == ''){
+                $passwordUser = $request->old_password_hidden;
+                $defAcesso = 0;
+            }else{
+                $passwordUser = bcrypt($request->password);
+                $defAcesso = 1;
+            }
+
+
+            $user->update([
+                'nomecompleto' => $request->nomecompleto,
+                'nome' => $request->nome,
+                'cpf' => $request->cpf,
+                'regional_id' => $idRegionalMunicipio,
+                'municipio_id' => $request->municipio_id,
+                'unidadeatendimento_id' => $request->unidadeatendimento_id,
+                'cargo' => $request->cargo,
+                'fone' => $request->fone,
+                'perfil' => $request->perfil,
+                'email' => $request->email,
+                'password' => $$passwordUser,
+                'ativo' => $request->ativo,
+                'primeiroacesso' => $defAcesso
+            ]);
+
+            return  redirect()->route('user.index')->with('success', 'Usuário editado com sucesso!');
+
+        } catch(Exception $e) {
+
+            // Mantém o usuário na mesma página(back), juntamente com os dados digitados(withInput) e enviando a mensagem correspondente.
+            return back()->withInput()->with('error-exception', 'Usuário não editado. Tente mais tarde!');
+
+        }
+
+    }
+
 
 
 
