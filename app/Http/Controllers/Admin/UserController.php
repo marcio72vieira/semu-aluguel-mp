@@ -59,11 +59,11 @@ class UserController extends Controller
         // Validar o formulário
         $request->validated();
 
-        // Obtém o id da Regional através do relacionamento existente entre município e regional
-        $idRegionalMunicipio = Municipio::find($request->municipio_id)->regional->id;
-
-
+        
+        
         try {
+            // Obtém o id da Regional através do relacionamento existente entre município e regional
+            $idRegionalMunicipio = Municipio::find($request->municipio_id)->regional->id;
 
             // Cadastrar no banco de dados na tabela usuários
             User::create([
@@ -80,6 +80,12 @@ class UserController extends Controller
                 'password' => $request->password,
                 'primeiroacesso' => 1
             ]);
+
+    
+            /********************/
+            // ENVIAR E-EMAIL   //
+            /********************/
+
 
             // Redirecionar o usuário, enviar a mensagem de sucesso
             return redirect()->route('user.index')->with('success', 'Usuário cadastrado com sucesso!');
