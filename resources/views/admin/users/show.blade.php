@@ -32,11 +32,14 @@
                     <dt class="col-sm-2">CPF</dt>
                     <dd class="col-sm-10">{{ $user->cpf }}</dd>
 
+                    <dt class="col-sm-2">Regional</dt>
+                    <dd class="col-sm-10">{{ $user->municipio->regional->nome }}</dd>
+
                     <dt class="col-sm-2">Município</dt>
                     <dd class="col-sm-10">{{ $user->municipio->nome }}</dd>
 
                     <dt class="col-sm-2">Unidade de Atendimento</dt>
-                    <dd class="col-sm-10">{{ $user->unidadeatendimento->nome }}</dd>
+                    <dd class="col-sm-10">({{ $user->tipounidade->nome}}) {{ $user->unidadeatendimento->nome }}</dd>
 
                     <dt class="col-sm-2">Cargo</dt>
                     <dd class="col-sm-10">{{ $user->cargo }}</dd>

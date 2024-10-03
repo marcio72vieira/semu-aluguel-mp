@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\Models\Municipio;
+use App\Models\Tipounidade;
 use App\Models\User;
 use App\Models\Unidadeatendimento;
 use Exception;
@@ -66,6 +67,9 @@ class UserController extends Controller
             // Obtém o id da Regional através do relacionamento existente entre município e regional
             $idRegionalMunicipio = Municipio::find($request->municipio_id)->regional->id;
 
+            // Obtém o id do tipo de Unidade através do relacionamento existente entre a unidade e o tipounidade
+            $idTipounidadeUnidadeatendimento = Unidadeatendimento::find($request->unidadeatendimento_id)->tipounidade->id;
+
             // Cadastrar no banco de dados na tabela usuários
             User::create([
                 'nomecompleto' => $request->nomecompleto,
@@ -73,6 +77,7 @@ class UserController extends Controller
                 'cpf' => $request->cpf,
                 'regional_id' => $idRegionalMunicipio,
                 'municipio_id' => $request->municipio_id,
+                'tipounidade_id' => $idTipounidadeUnidadeatendimento,
                 'unidadeatendimento_id' => $request->unidadeatendimento_id,
                 'cargo' => $request->cargo,
                 'fone' => $request->fone,
@@ -133,6 +138,9 @@ class UserController extends Controller
             // Obtém o id da Regional através do relacionamento existente entre município e regional
             $idRegionalMunicipio = Municipio::find($request->municipio_id)->regional->id;
 
+            // Obtém o id do tipo de Unidade através do relacionamento existente entre a unidade e o tipounidade
+            $idTipounidadeUnidadeatendimento = Unidadeatendimento::find($request->unidadeatendimento_id)->tipounidade->id;
+
 
             //'password' => Hash::make('123456a', ['rounds' => 12]);
             if($request->password == ''){
@@ -150,12 +158,13 @@ class UserController extends Controller
                 'cpf' => $request->cpf,
                 'regional_id' => $idRegionalMunicipio,
                 'municipio_id' => $request->municipio_id,
+                'tipounidade_id' => $idTipounidadeUnidadeatendimento,
                 'unidadeatendimento_id' => $request->unidadeatendimento_id,
                 'cargo' => $request->cargo,
                 'fone' => $request->fone,
                 'perfil' => $request->perfil,
                 'email' => $request->email,
-                'password' => $$passwordUser,
+                'password' => $passwordUser,
                 'ativo' => $request->ativo,
                 'primeiroacesso' => $defAcesso
             ]);
@@ -165,13 +174,29 @@ class UserController extends Controller
         } catch(Exception $e) {
 
             // Mantém o usuário na mesma página(back), juntamente com os dados digitados(withInput) e enviando a mensagem correspondente.
-            return back()->withInput()->with('error-exception', 'Usuário não editado. Tente mais tarde!');
+            return back()->withInput()->with('error-exception', 'Usuário não editado. Tente mais tarde!'.$e);
 
         }
 
     }
 
 
+    // Excluir o usuário do banco de dados
+    public function destroy(User $user)
+    {
+        try {
+            // Excluir o registro do banco de dados
+            $user->delete();
+
+            // Redirecionar o usuário, enviar a mensagem de sucesso
+            return redirect()->route('user.index')->with('success', 'Usuário excluído com sucesso!');
+
+        } catch (Exception $e) {
+
+            // Redirecionar o usuário, enviar a mensagem de erro
+            return redirect()->route('user.index')->with('error-exception', 'Usuário não excluído. Tente mais tarde!');
+        }
+    }
 
 
 }

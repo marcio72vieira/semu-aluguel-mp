@@ -23,7 +23,7 @@ class UserRequest extends FormRequest
     {
         $userId = $this->route('user');
 
-        return [
+        $rules = [
             'nomecompleto'          => 'required',
             'nome'                  => 'required',
             'cpf'                   => ['required', 'unique:users,cpf,'. ($userId ? $userId->id : null), new CpfValidateRule()],
@@ -33,15 +33,31 @@ class UserRequest extends FormRequest
             'fone'                  => 'required',
             'perfil'                => 'required',
             'email'                 => 'required|email|unique:users,email,' . ($userId ? $userId->id : null),
-            'password'              => 'required_if:password,!=,null|min:6|confirmed',
-            'password_confirmation' => 'required',
-            'ativo'                 => 'required'
+            'ativo'                 => 'required',
+            //'password'              => 'required_if:password,!=,null|min:6|confirmed',
+            //'password_confirmation' => 'required',
         ];
+
+        // Verifica se o método atual de submissão é POST, significando que se está CADASTRANDO um Usuário. Nesse caso é exigido que o Administrador informe a senha com  a
+        // adição dos elemntos a serem validados, no array $rules[]. Caso contrŕio, se o método atual de submissão for "PUT", significa que se está editando. Neste caso, O
+        // administrador não em a obrigação de informar a senha. Este recurso foi adpatado do site de referência abaixo:
+        // https://laracasts.com/discuss/channels/general-discussion/l5-validate-request-rules-for-both-create-and-update?utm_source=pocket_saves
+        // dd($this) Mostra todos as propriedades do objeto atual.
+
+        if($this->method() == 'POST')
+        {
+            $rules += ['password' => 'required|min:6|confirmed'];
+            $rules += ['password_confirmation' => 'required'];
+        }
+
+        return $rules;
     }
+
+
 
     public function messages(): array
     {
-        return[
+        $messages = [
             'nomecompleto.required'             => 'O campo Nome Completo é obrigatório!',
             'nome.required'                     => 'O campo Nome é obrigatório!',
             'cpf.required'                      => 'O campo CPF é obrigatório!',
@@ -54,11 +70,20 @@ class UserRequest extends FormRequest
             'email.required'                    => 'O campo Email é obrigatório!',
             'email.email'                       => 'O campo Email precisa ser válido!',
             'email.unique'                      => 'Este Email já está cadastrado!',
-            'password.required_if'              => 'O campo Senha é obrigatório!',
-            'password.min'                      => 'O campo Senha, deve ter pelo menos 6 carcteres',
-            'password.confirmed'                => 'O campo Senha difere da Confirmação de Senha!',
             'ativo.required'                    => 'O campo Ativo é obrigatório!',
+            //'password.required_if'              => 'O campo Senha é obrigatório!',
+            //'password.min'                      => 'O campo Senha, deve ter pelo menos 6 carcteres',
+            //'password.confirmed'                => 'O campo Senha difere da Confirmação de Senha!',
         ];
+
+        if($this->method() == 'POST')
+        {
+            $messages += ['password.required'       => 'O campo Senha é obrigatório!'];
+            $messages += ['password.min'            => 'O campo Senha, deve ter pelo menos 6 carcteres!'];
+            $messages += ['password.confirmed'      => 'O campo Senha difere da Confirmação de Senha!'];
+        }
+
+        return $messages;
     }
 
 
