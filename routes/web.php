@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Geral\LoginController;
+use App\Http\Controllers\Geral\ForgotPasswordController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RegionalController;
 use App\Http\Controllers\Admin\MunicipioController;
@@ -17,6 +19,21 @@ Route::get('/', function () {
 Route::get('/index-datatables', function(){
     return view('datatables.datatables');
 });
+
+
+// Login - Lougout
+Route::get('/', [LoginController::class, 'index'])->name('login.index');
+Route::post('/login', [LoginController::class, 'processalogin'])->name('login.processalogin');
+Route::get('/logout', [LoginController::class, 'logout'])->name('login.logout');
+Route::get('/create-user-login/{user}', [LoginController::class, 'create'])->name('login.create-user');
+Route::post('/store-user-login', [LoginController::class, 'store'])->name('login.store-user');
+
+
+// Recupear senha
+Route::get('/forgot-password', [ForgotPasswordController::class, 'showForgotPassword'])->name('forgot-password.show');
+Route::post('/forgot-password', [ForgotPasswordController::class, 'submitForgotPassword'])->name('forgot-password.submit');
+Route::get('/reset-password/{token}', [ForgotPasswordController::class, 'showResetPassword'])->name('password.reset');
+Route::post('/reset-password', [ForgotPasswordController::class, 'submitResetPassword'])->name('reset-password.submit');
 
 
 // USUÁRIO
