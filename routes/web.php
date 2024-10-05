@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Geral\LoginController;
-use App\Http\Controllers\Geral\ForgotPasswordController;
+use App\Http\Controllers\Publico\LoginController;
+use App\Http\Controllers\Publico\ForgotPasswordController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RegionalController;
 use App\Http\Controllers\Admin\MunicipioController;
@@ -21,12 +21,16 @@ Route::get('/index-datatables', function(){
 });
 
 
-// Login - Lougout
+// Login - Login Primeiro Acesso - Lougout
 Route::get('/', [LoginController::class, 'index'])->name('login.index');
 Route::post('/login', [LoginController::class, 'processalogin'])->name('login.processalogin');
 Route::get('/logout', [LoginController::class, 'logout'])->name('login.logout');
-Route::get('/create-user-login/{user}', [LoginController::class, 'create'])->name('login.create-user');
+
+Route::get('/create-login-primeiroacesso/{user}', [LoginController::class, 'createprimeiroacesso'])->name('login.create-primeiroacesso');
 Route::post('/store-user-login', [LoginController::class, 'store'])->name('login.store-user');
+
+//Route::get('/create-user-login/{user}', [LoginController::class, 'create'])->name('login.create-user');
+//Route::post('/store-user-login', [LoginController::class, 'store'])->name('login.store-user');
 
 
 // Recupear senha

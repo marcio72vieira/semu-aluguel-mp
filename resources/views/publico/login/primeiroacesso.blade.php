@@ -14,6 +14,13 @@
                     @csrf
                     @method('POST')
 
+                    <input type="hidden" name="hidden_password_atual" value="{{ $user->password }}">
+
+                    <div class="form-floating mb-3">
+                        <input type="email" name="email" class="form-control" id="email" placeholder="E-mail" value="{{ old('email') }}">
+                        <label for="email">E-mail</label>
+                    </div>
+
                     <div class="form-floating mb-3">
                         <input type="password" name="passwordatual" class="form-control" id="passwordatual" placeholder="Senha atual" value="{{ old('passwordatual') }}">
                         <label for="passwordatual">Senha atual</label>

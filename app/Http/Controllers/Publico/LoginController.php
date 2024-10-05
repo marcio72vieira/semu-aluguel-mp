@@ -1,13 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Geral;
+namespace App\Http\Controllers\Publico;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
-use App\Http\Requests\LoginUserRequest;
+use App\Http\Requests\LoginPrimeiroAcessoRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Exception;
 
 class LoginController extends Controller
 {
@@ -15,7 +17,7 @@ class LoginController extends Controller
     public function index()
     {
         // Carregar a view
-        return view('geral.login.index');
+        return view('publico.login.index');
     }
 
 
@@ -49,7 +51,7 @@ class LoginController extends Controller
             // OU de outra forma. O usuário recebe o e-mail com a senha definida pelo Administrador, e no corpo do email, vai
             // a senha definida pelo administrador (uma número aleatório de fácil entendimento) e um link direcionando o usuário
             // diretamente para a página de redefinir a senha recebida para uma nova senha.
-            return redirect()->route('login.create-user', ['user' => Auth::user()->id])->with('warning', 'Olá '. Auth::user()->nome .', é necessário que você redefina sua senha!');
+            return redirect()->route('login.create-primeiroacesso', ['user' => Auth::user()->id])->with('warning', 'Olá '. Auth::user()->nome .', é necessário que você redefina sua senha!');
         
         } else {
         
@@ -71,59 +73,53 @@ class LoginController extends Controller
             // Redirecionar o usuário para o Dashboard, caso o mesmo seja autenticado 
             // return redirect()->route('dashboard.index')->with('success', 'Seja bem vindo!');
             // Redireciona o usuário para a página dashboard e lá são exibidas os menus o que mesmo tem acesso
-            return redirect()->route('regional.index')->with('success', 'Seja bem vindo!');
+            return redirect()->route('regional.index')->with('success', Auth::user()->nome .', Bem vindo!');
         }
 
     }
 
 
     // Carregar o formulário cadastrar novo usuário
-    public function create()
+    public function createprimeiroacesso(User $user)
     {
         // Carregr a view
-        return view('geral.login.create');
+        return view('publico.login.primeiroacesso', ['user' => $user]);
     }
 
-    public function store(LoginUserRequest $request)
+    public function store(LoginPrimeiroAcessoRequest $request)
     {
-         // Validar o formulário
-         $request->validated();
+        // Validar o formulário
+        $request->validated();
 
-         // Marca o ponto inicial de uma transação
-         DB::beginTransaction();
+        // Verificar se existe usuário no banco de dados com o e-mail e a senha atual digitados
+        $user = User::where('email', $request->email)
+                    ->where('password', Hash::check($request->passwordatual, $request->hidden_password_atual))->first();
+        
+        if($user){
 
-         try {
+            try {
+                // Cadastrar no banco de dados na tabela usuários
+                $user->update([
+                    'password' => $request->password,
+                    'primeiroacesso' => 0
+                ]);
 
-            // Cadastrar no banco de dados na tabela usuários
-            $user = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => $request->password,
-            ]);
+                // Redirecionar o usuário, enviar a mensagem de sucesso
+                return redirect()->route('login.index')->with('success', 'Senha atualizada com sucesso!');
 
-            // Depois de o usuário se cadastrar via página de Login, atribui-se o PAPEL Aluno para o mesmo como padrão.
-            $user->assignRole('Aluno');
 
-            // Salvar log
-            Log::info('Usuário cadastrado.', ['id' => $user->id, $user->name]);
+            } catch (Exception $e) {
 
-            // Operação é concluída com êxito
-            DB::commit();
+                // Redirecionar o usuário, enviar a mensagem de erro
+                return back()->withInput()->with('error', 'Usuário não cadastrado!');
+            }
 
-            // Redirecionar o usuário, enviar a mensagem de sucesso
-            return redirect()->route('login.index')->with('success', 'Usuário cadastrado com sucesso!');
-
-        } catch (Exception $e) {
-
-            // Salvar log
-            Log::warning('Usuário não cadastrado.', ['error' => $e->getMessage()]);
-
-            // Operação não é concluída com êxito
-            DB::rollBack();
+        } else {
 
             // Redirecionar o usuário, enviar a mensagem de erro
-            return back()->withInput()->with('error', 'Usuário não cadastrado!');
+            return back()->withInput()->with('error', 'E-mail e Senha atual não existente!');
         }
+
     }
 
 

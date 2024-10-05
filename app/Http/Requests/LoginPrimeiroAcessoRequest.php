@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Arr;
 
-class LoginUserRequest extends FormRequest
+class LoginPrimeiroAcessoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,6 +23,7 @@ class LoginUserRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'email'                 => 'required|email',
             'passwordatual'         => 'required',
             'password'              => 'required|min:6|confirmed',
             'password_confirmation' => 'required',
@@ -32,6 +33,8 @@ class LoginUserRequest extends FormRequest
     public function messages(): array
     {
         return[
+            'email.required'            => 'Informe o E-mail cadastrado',
+            'email.email'               => 'Informe um E-mail válido',
             'passwordatual.required'    => 'Informe a Senha atual',
             'password.required'         => 'Informe a Nova senha',
             'password.min'              => 'Informe pelo menos 6 caracteres na Nova Senha!',

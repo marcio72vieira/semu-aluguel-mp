@@ -142,7 +142,6 @@ class UserController extends Controller
             $idTipounidadeUnidadeatendimento = Unidadeatendimento::find($request->unidadeatendimento_id)->tipounidade->id;
 
 
-            //'password' => Hash::make('123456a', ['rounds' => 12]);
             if($request->password == ''){
                 $passwordUser = $request->old_password_hidden;
                 $defAcesso = 0;
