@@ -12,7 +12,10 @@
 
     <div class="mb-4 shadow card border-light">
         <div class="card-header hstack gap-2">
-            <span class="ms-auto d-sm-flex flex-row mt-1 mb-1"> <a href="{{ route('user.create') }}" class="btn btn-success btn-sm me-1"><i class="fa-regular fa-square-plus"></i> Cadastrar </a></span>
+            <span class="ms-auto d-sm-flex flex-row mt-1 mb-1"> 
+                <a href="{{ route('user.create') }}" class="btn btn-success btn-sm me-1"><i class="fa-regular fa-square-plus"></i> Cadastrar </a>
+                <a href="{{ route('user.userpdf') }}" class="btn btn-danger btn-sm me-1" target="_blank"><i class="fa-solid fa-file-pdf"></i> pdf</a>
+            </span>
         </div>
 
         <div class="card-body">

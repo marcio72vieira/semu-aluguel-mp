@@ -49,6 +49,8 @@ Route::get('/edit-user/{user}', [UserController::class, 'edit'])->name('user.edi
 Route::put('/update-user/{user}', [UserController::class, 'update'])->name('user.update');
 Route::delete('/destroy-user/{user}', [UserController::class, 'destroy'])->name('user.destroy');
 Route::get('/getunidadesatendimentomunicipio',[UserController::class, 'getunidadesatendimentomunicipio'])->name('getunidadesatendimentomunicipio');
+Route::get('pdf-user/relpdfuser', [UserController::class, 'relpdfuser'])->name('user.userpdf');
+
 
 
 // REGIONAL

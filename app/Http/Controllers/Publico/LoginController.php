@@ -45,7 +45,7 @@ class LoginController extends Controller
         if($user->primeiroacesso == 1){
         
             // Redireciona o usuário para a página para alterar senha fornecida pelo administrador
-            // Obs: Neste ponto, o usuário irá está autenticado no sistema mesmo que o mesmo seja direcionado para a página de
+            // Obs: Neste ponto, o usuário já estará autenticado no sistema mesmo que o mesmo seja direcionado para a página de
             // redefinir nova senha. Neste caso, deve-se, validar os dados do usuário buscando o email e nome do usuário e o id
             // e depois de o mesmo ter alterado sua senha, deve-se deslogá-lo e redirecioná-lo para a página de login novamente.
             // OU de outra forma. O usuário recebe o e-mail com a senha definida pelo Administrador, e no corpo do email, vai
@@ -91,12 +91,22 @@ class LoginController extends Controller
         // Validar o formulário
         $request->validated();
 
-        // Verificar se existe usuário no banco de dados com o e-mail e a senha atual digitados
-        $user = User::where('email', $request->email)
-                    ->where('password', Hash::check($request->passwordatual, $request->hidden_password_atual))->first();
-        
-        if($user){
+        // Recupera o usuário com o e-mail fornecido
+        $user = User::where('email', $request->email)->first();
 
+        // Verifica a existência do usuário
+        if($user){
+            // Recupera a senha cadastrada no banco
+            $passwordDb = $user->password;
+            // Checa se a senha atual digitada e a senha cadastrada no banco coincidem
+            $passwordChecked = Hash::check($request->passwordatual, $passwordDb);
+            
+        } else {
+            // Redirecionar o usuário, enviar a mensagem de erro
+            return back()->withInput()->with('error', 'E-mail ou Senha atual não existente!');
+        }
+
+        if($passwordChecked){
             try {
                 // Cadastrar no banco de dados na tabela usuários
                 $user->update([
@@ -104,20 +114,22 @@ class LoginController extends Controller
                     'primeiroacesso' => 0
                 ]);
 
-                // Redirecionar o usuário, enviar a mensagem de sucesso
-                return redirect()->route('login.index')->with('success', 'Senha atualizada com sucesso!');
-
+                // Verifica se o usuário já está autenticado no sistema.
+                if (Auth::check()) {
+                    // Redirecionar o usuário, enviar a mensagem de sucesso
+                    return redirect()->route('login.logout')->with('success', 'Senha atualizada com sucesso!');
+                }
 
             } catch (Exception $e) {
 
                 // Redirecionar o usuário, enviar a mensagem de erro
-                return back()->withInput()->with('error', 'Usuário não cadastrado!');
+                return back()->withInput()->with('error', 'Senha não atualizada. Tente mais tarde!');
             }
 
         } else {
 
             // Redirecionar o usuário, enviar a mensagem de erro
-            return back()->withInput()->with('error', 'E-mail e Senha atual não existente!');
+            return back()->withInput()->with('error', 'E-mail ou Senha atual não existente!');
         }
 
     }
