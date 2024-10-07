@@ -198,7 +198,7 @@ class UserController extends Controller
     }
 
 
-    public function relpdfuser()
+    public function relpdflistusers()
     {
         // Obtendo os dados
         $users = User::with(['regional', 'municipio', 'tipounidade', 'unidadeatendimento'])->orderBy('nomecompleto')->get();
@@ -239,7 +239,7 @@ class UserController extends Controller
                 <tr>
                     <td width="40px" class="col-header-table">ID</td>
                     <td width="160px" class="col-header-table">NOME</td>
-                    <td width="100px" class="col-header-table">PERFIL</td>
+                    <td width="100px" class="col-header-table">PERFIL / CARGO</td>
                     <td width="200px" class="col-header-table">REGIONAL / MUNICÍPIO</td>
                     <td width="200px" class="col-header-table">E-mal / Telefone</td>
                     <td width="100px" class="col-header-table">CPF</td>
@@ -261,7 +261,7 @@ class UserController extends Controller
         ');
 
         // Definindo a view que deverá ser renderizada como arquivo .pdf e passando os dados da pesquisa
-        $html = \View::make('admin.users.pdfs.pdf_users', compact('users'));
+        $html = \View::make('admin.users.pdfs.pdf_list_users', compact('users'));
         $html = $html->render();
 
         // Definindo o arquivo .css que estilizará o arquivo blade na view ('admin.users.pdfs.pdf_users')
@@ -270,7 +270,7 @@ class UserController extends Controller
 
         // Transformando a view blade em arquivo .pdf e enviando a saida para o browse (I); 'D' exibe e baixa para o pc
         $mpdf->WriteHTML($html);
-        $mpdf->Output($fileName, 'I');        
+        $mpdf->Output($fileName, 'I');
     }
 
 

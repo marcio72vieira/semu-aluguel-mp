@@ -3,11 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Publico\LoginController;
 use App\Http\Controllers\Publico\ForgotPasswordController;
-use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RegionalController;
 use App\Http\Controllers\Admin\MunicipioController;
 use App\Http\Controllers\Admin\TipounidadeController;
 use App\Http\Controllers\Admin\UnidadeatendimentoController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\RequerenteController;
 
 
 
@@ -49,8 +50,12 @@ Route::get('/edit-user/{user}', [UserController::class, 'edit'])->name('user.edi
 Route::put('/update-user/{user}', [UserController::class, 'update'])->name('user.update');
 Route::delete('/destroy-user/{user}', [UserController::class, 'destroy'])->name('user.destroy');
 Route::get('/getunidadesatendimentomunicipio',[UserController::class, 'getunidadesatendimentomunicipio'])->name('getunidadesatendimentomunicipio');
-Route::get('pdf-user/relpdfuser', [UserController::class, 'relpdfuser'])->name('user.userpdf');
+Route::get('pdf-user/relpdflistusers', [UserController::class, 'relpdflistusers'])->name('user.pdflistusers');
 
+
+// REQUERENTE
+Route::get('/index-requerente', [RequerenteController::class, 'index'])->name('requerente.index');
+Route::get('/create-requerente', [RequerenteController::class, 'create'])->name('requerente.create');
 
 
 // REGIONAL

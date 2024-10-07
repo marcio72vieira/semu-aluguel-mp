@@ -1,0 +1,79 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Requerente extends Model
+{
+    use HasFactory;
+
+    protected $table = "requerentes";
+
+    protected $fillable = [
+        'nomecompleto',
+        'rg',
+        'cpf',
+        'banco',
+        'agencia',
+        'conta',
+        'contaespecifica',
+        'comunidade',
+        'outracomunidade',
+        'racacor',
+        'outraracacor',
+        'identidadegenero',
+        'outraidentidadegenero',
+        'sexobiologico',
+        'orientacaosexual',
+        'outraorientacaosexual',
+        'deficiente',
+        'deficiencia',
+        'endereco',
+        'numero',
+        'complemento',
+        'bairro',
+        'cep',
+        'foneresidencial',
+        'fonecelular',
+        'email',
+        'regional_id',
+        'municipio_id',
+        'tipounidade_id',
+        'unidadeatendimento_id',
+        'user-id',
+        'status'
+    ];
+
+
+    public function regional()
+    {
+        return $this->belongsTo(Regional::class);
+    }
+
+
+    public function municipio()
+    {
+        return $this->belongsTo(Municipio::class);
+    }
+
+
+    public function tipounidade()
+    {
+        return $this->belongsTo(Tipounidade::class);
+    }
+
+
+    public function unidadeatendimento()
+    {
+        return $this->belongsTo(Unidadeatendimento::class);
+    }
+
+
+    public function users ()
+    {
+        return $this->hasMany(User::class);
+    }
+
+}
