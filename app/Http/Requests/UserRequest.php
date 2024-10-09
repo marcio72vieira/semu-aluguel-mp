@@ -40,9 +40,10 @@ class UserRequest extends FormRequest
 
         // Verifica se o método atual de submissão é POST, significando que se está CADASTRANDO um Usuário. Nesse caso é exigido que o Administrador informe a senha com  a
         // adição dos elemntos a serem validados, no array $rules[]. Caso contrŕio, se o método atual de submissão for "PUT", significa que se está editando. Neste caso, O
-        // administrador não em a obrigação de informar a senha. Este recurso foi adpatado do site de referência abaixo:
+        // administrador não tem a obrigação de informar a senha. Este recurso foi adpatado do site de referência abaixo:
         // https://laracasts.com/discuss/channels/general-discussion/l5-validate-request-rules-for-both-create-and-update?utm_source=pocket_saves
-        // dd($this) Mostra todos as propriedades do objeto atual.
+        // dd($this) Mostra todos as propriedades do objeto atual. Obs: Acrescenta-se (+=) como forma de adicinar elementos a um array associativos no php, de outra forma seria
+        // apenas array_tal[] = "valor"
 
         if($this->method() == 'POST')
         {

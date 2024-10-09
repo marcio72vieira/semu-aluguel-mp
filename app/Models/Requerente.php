@@ -14,6 +14,7 @@ class Requerente extends Model
     protected $fillable = [
         'nomecompleto',
         'rg',
+        'orgaoexpedidor',
         'cpf',
         'sexobiologico',
         'banco',
@@ -42,7 +43,7 @@ class Requerente extends Model
         'municipio_id',
         'tipounidade_id',
         'unidadeatendimento_id',
-        'user-id',
+        'user_id',
         'status'
     ];
 
@@ -71,9 +72,9 @@ class Requerente extends Model
     }
 
 
-    public function users ()
+    public function user()
     {
-        return $this->hasMany(User::class);
+        return $this->belongsTo(User::class);
     }
 
 }

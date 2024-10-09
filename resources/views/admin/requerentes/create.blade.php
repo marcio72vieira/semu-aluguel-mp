@@ -21,20 +21,41 @@
                 {{-- Este componente será acionado sempre que houver uma erro de exceção em: store, update ou delete --}}
                 <x-errorexception />
 
-                <form action="{{ route('user.store') }}" method="POST" autocomplete="off">
+                <form action="{{ route('requerente.store') }}" method="POST" autocomplete="off">
                     @csrf
                     @method('POST')
 
                     <div class="row mb-3">
 
                         {{-- Nomecompleto --}}
-                        <div class="col-6">
+                        <div class="col-4">
                             <div class="form-group focused">
                                 <label class="form-control-label" for="nomecompleto">Nome <span class="small text-danger">*</span></label>
-                                <input type="text" class="form-control" id="nomecompleto" name="nomecompleto" value="{{old('nomecompleto')}}" required >
+                                <input type="text" class="form-control" id="nomecompleto" name="nomecompleto" value="{{old('nomecompleto')}}">
                                 @error('nomecompleto')
                                     <small style="color: red">{{$message}}</small>
                                 @enderror
+                            </div>
+                        </div>
+
+                        {{-- sexobiologico --}}
+                        <div class="col-2">
+                            <div class="form-group focused">
+                                <label class="form-control-label" for="sexobiologicofem">Sexo Biológico <span class="small text-danger">*</span></label>
+                                <div style="margin-top: 10px">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="sexobiologico" id="sexobiologicomas" value="masculino" {{old('sexobiologico') == 'masculino' ? 'checked' : ''}}>
+                                        <label class="form-check-label" for="sexobiologicomas">Mas</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="sexobiologico" id="sexobiologicofem" value="feminino" {{old('sexobiologico') == 'feminino' ? 'checked' : ''}}>
+                                        <label class="form-check-label" for="sexobiologicofem">Fem</label>
+                                    </div>
+                                    <br>
+                                    @error('sexobiologico')
+                                        <small style="color: red">{{$message}}</small>
+                                    @enderror
+                                </div>
                             </div>
                         </div>
 
@@ -42,8 +63,19 @@
                         <div class="col-2">
                             <div class="form-group focused">
                                 <label class="form-control-label" for="rg">RG<span class="small text-danger">*</span></label>
-                                <input type="text" class="form-control" id="rg" name="rg" value="{{old('rg')}}" required >
+                                <input type="text" class="form-control" id="rg" name="rg" value="{{old('rg')}}">
                                 @error('rg')
+                                    <small style="color: red">{{$message}}</small>
+                                @enderror
+                            </div>
+                        </div>
+
+                        {{-- orgaoexpedidor --}}
+                        <div class="col-2">
+                            <div class="form-group focused">
+                                <label class="form-control-label" for="orgaoexpedidor">Órgão Expedidor<span class="small text-danger">*</span></label>
+                                <input type="text" class="form-control" id="orgaoexpedidor" name="orgaoexpedidor" value="{{old('orgaoexpedidor')}}">
+                                @error('orgaoexpedidor')
                                     <small style="color: red">{{$message}}</small>
                                 @enderror
                             </div>
@@ -53,31 +85,10 @@
                         <div class="col-2">
                             <div class="form-group focused">
                                 <label class="form-control-label" for="cpf">CPF<span class="small text-danger">*</span></label>
-                                <input type="text" class="form-control" id="cpf" name="cpf" value="{{old('cpf')}}" required >
+                                <input type="text" class="form-control" id="cpf" name="cpf" value="{{old('cpf')}}">
                                 @error('cpf')
                                     <small style="color: red">{{$message}}</small>
                                 @enderror
-                            </div>
-                        </div>
-
-
-                        {{-- sexobiologico --}}
-                        <div class="col-2">
-                            <div class="form-group focused">
-                                <label class="form-control-label" for="sexobiologicofem">Sexo Biológico <span class="small text-danger">*</span></label>
-                                <div style="margin-top: 5px">
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="sexobiologico" id="sexobiologicomas" value="masculino" {{old('sexobiologico') == 'masculino' ? 'checked' : ''}} required>
-                                        <label class="form-check-label" for="sexobiologicomas">Mas</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="sexobiologico" id="sexobiologicofem" value="feminino" {{old('sexobiologico') == 'feminino' ? 'checked' : ''}} required>
-                                        <label class="form-check-label" for="sexobiologicofem">Fem</label>
-                                    </div>
-                                    @error('sexobiologico')
-                                        <small style="color: red">{{$message}}</small>
-                                    @enderror
-                                </div>
                             </div>
                         </div>
 
@@ -90,7 +101,7 @@
                         <div class="col-6">
                             <div class="form-group focused">
                                 <label class="form-control-label" for="banco">Banco <span class="small text-danger">*</span></label>
-                                <input type="text" class="form-control" id="banco" name="banco" value="{{old('banco')}}" required >
+                                <input type="text" class="form-control" id="banco" name="banco" value="{{old('banco')}}">
                                 @error('banco')
                                     <small style="color: red">{{$message}}</small>
                                 @enderror
@@ -101,7 +112,7 @@
                         <div class="col-2">
                             <div class="form-group focused">
                                 <label class="form-control-label" for="agencia">Agência<span class="small text-danger">*</span></label>
-                                <input type="text" class="form-control" id="agencia" name="agencia" value="{{old('agencia')}}" required >
+                                <input type="text" class="form-control" id="agencia" name="agencia" value="{{old('agencia')}}" >
                                 @error('agencia')
                                     <small style="color: red">{{$message}}</small>
                                 @enderror
@@ -112,7 +123,7 @@
                         <div class="col-2">
                             <div class="form-group focused">
                                 <label class="form-control-label" for="conta">Conta<span class="small text-danger">*</span></label>
-                                <input type="text" class="form-control" id="conta" name="conta" value="{{old('conta')}}" required >
+                                <input type="text" class="form-control" id="conta" name="conta" value="{{old('conta')}}" >
                                 @error('conta')
                                     <small style="color: red">{{$message}}</small>
                                 @enderror
@@ -123,16 +134,17 @@
                         {{-- contaespecifica --}}
                         <div class="col-2">
                             <div class="form-group focused">
-                                <label class="form-control-label" for="contaespecificasim">Conta específica <span class="small text-danger">*</span></label>
-                                <div style="margin-top: 5px">
+                                <label class="form-control-label" for="contaespecificasim">Conta específica (com movimento)<span class="small text-danger">*</span></label>
+                                <div style="margin-top: 10px">
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="contaespecifica" id="contaespecificasim" value="1" {{old('contaespecifica') == '1' ? 'checked' : ''}} required>
+                                        <input class="form-check-input" type="radio" name="contaespecifica" id="contaespecificasim" value="1" {{old('contaespecifica') == '1' ? 'checked' : ''}}>
                                         <label class="form-check-label" for="contaespecificasim">Sim</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="contaespecifica" id="contaespecificanao" value="0" {{old('contaespecifica') == '0' ? 'checked' : ''}} required>
+                                        <input class="form-check-input" type="radio" name="contaespecifica" id="contaespecificanao" value="0" {{old('contaespecifica') == '0' ? 'checked' : ''}}>
                                         <label class="form-check-label" for="contaespecificanao">Não</label>
                                     </div>
+                                    <br>
                                     @error('contaespecifica')
                                         <small style="color: red">{{$message}}</small>
                                     @enderror
@@ -148,7 +160,7 @@
                         <div class="col-3">
                             <div class="form-group focused">
                                 <label class="form-control-label" for="comunidade">Comunidade especifica/tradicional<span class="small text-danger">*</span></label>
-                                <select name="comunidade" id="comunidade" class="form-control" required>
+                                <select name="comunidade" id="comunidade" class="form-control">
                                     <option value="" selected disabled>Escolha ...</option>
                                     <option value="1" {{old('comunidade') == '1' ? 'selected' : ''}}>Cigano</option>
                                     <option value="2" {{old('comunidade') == '2' ? 'selected' : ''}}>Quilombola</option>
@@ -170,7 +182,7 @@
                         <div class="col-3">
                             <div class="form-group focused">
                                 <label class="form-control-label" for="racacor">Cor / Raça<span class="small text-danger">*</span></label>
-                                <select name="racacor" id="racacor" class="form-control" required>
+                                <select name="racacor" id="racacor" class="form-control" >
                                     <option value="" selected disabled>Escolha ...</option>
                                     <option value="1" {{old('racacor') == '1' ? 'selected' : ''}}>Branca</option>
                                     <option value="2" {{old('racacor') == '2' ? 'selected' : ''}}>Preta</option>
@@ -178,7 +190,7 @@
                                     <option value="4" {{old('racacor') == '4' ? 'selected' : ''}}>Parda</option>
                                     <option value="5" {{old('racacor') == '5' ? 'selected' : ''}}>Indígena</option>
                                     <option value="6" {{old('racacor') == '6' ? 'selected' : ''}}>Não se aplica</option>
-                                    <option value="7" {{old('racacor') == '8' ? 'selected' : ''}}>Outra</option>
+                                    <option value="7" {{old('racacor') == '7' ? 'selected' : ''}}>Outra</option>
                                 </select>
                                 @error('racacor')
                                     <small style="color: red">{{$message}}</small>
@@ -191,13 +203,13 @@
                         <div class="col-3">
                             <div class="form-group focused">
                                 <label class="form-control-label" for="identidadegenero">Identidade de Gênero<span class="small text-danger">*</span></label>
-                                <select name="identidadegenero" id="identidadegenero" class="form-control" required>
+                                <select name="identidadegenero" id="identidadegenero" class="form-control" >
                                     <option value="" selected disabled>Escolha ...</option>
                                     <option value="1" {{old('identidadegenero') == '1' ? 'selected' : ''}}>Feminino</option>
                                     <option value="2" {{old('identidadegenero') == '2' ? 'selected' : ''}}>Transexual</option>
                                     <option value="3" {{old('identidadegenero') == '3' ? 'selected' : ''}}>Travesti</option>
                                     <option value="4" {{old('identidadegenero') == '4' ? 'selected' : ''}}>Transgenero</option>
-                                    <option value="5" {{old('identidadegenero') == '8' ? 'selected' : ''}}>Outra</option>
+                                    <option value="5" {{old('identidadegenero') == '5' ? 'selected' : ''}}>Outra</option>
                                 </select>
                                 @error('identidadegenero')
                                     <small style="color: red">{{$message}}</small>
@@ -210,7 +222,7 @@
                         <div class="col-3">
                             <div class="form-group focused">
                                 <label class="form-control-label" for="orientacaosexual">Orientação Sexual<span class="small text-danger">*</span></label>
-                                <select name="orientacaosexual" id="orientacaosexual" class="form-control" required>
+                                <select name="orientacaosexual" id="orientacaosexual" class="form-control" >
                                     <option value="" selected disabled>Escolha ...</option>
                                     <option value="1" {{old('orientacaosexual') == '1' ? 'selected' : ''}}>Homossexual</option>
                                     <option value="2" {{old('orientacaosexual') == '2' ? 'selected' : ''}}>Heterossexual</option>
@@ -273,12 +285,12 @@
                         <div class="col-3">
                             <div style="margin-top:5px">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="deficiente" id="deficientesim" value="1" {{old('deficiente') == '1' ? 'checked' : ''}} required>
+                                    <input class="form-check-input" type="radio" name="deficiente" id="deficientesim" value="1" {{old('deficiente') == '1' ? 'checked' : ''}} >
                                     <label class="form-check-label" for="deficientesim">Sim</label>
 
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="deficiente" id="deficientenao" value="0" {{old('deficiente') == '0' ? 'checked' : ''}} required >
+                                    <input class="form-check-input" type="radio" name="deficiente" id="deficientenao" value="0" {{old('deficiente') == '0' ? 'checked' : ''}} >
                                     <label class="form-check-label" for="deficientenao">Não</label>
                                 </div>
                                 <br>
@@ -289,8 +301,8 @@
                         </div>
                         <div class="col-6">
                             <div class="form-group focused">
-                                <input type="text" class="form-control" id="outraorientacaosexual" name="outraorientacaosexual" value="{{old('outraorientacaosexual')}}">
-                                @error('outraorientacaosexual')
+                                <input type="text" class="form-control" id="deficiencia" name="deficiencia" value="{{old('deficiencia')}}">
+                                @error('deficiencia')
                                     <small style="color: red">{{$message}}</small>
                                 @enderror
                             </div>
@@ -382,16 +394,17 @@
                             @enderror
                         </div>
 
+                        {{-- fonecelular --}}
                         <div class="col-sm-3">
-                            <input type="text" name="fone" value="{{ old('fone') }}" class="form-control mask-cell" id="fone" placeholder="celular" >
-                            @error('fone')
+                            <input type="text" name="fonecelular" value="{{ old('fonecelular') }}" class="form-control mask-cell" id="fonecelular" placeholder="celular" >
+                            @error('fonecelular')
                               <small style="color: red">{{$message}}</small>
                             @enderror
                         </div>
 
                         <label for="email" class="col-sm-1 col-form-label">E-mail <span class="small text-danger">*</span></label>
                         <div class="col-sm-3">
-                            <input type="text" name="email" value="{{ old('email') }}" class="form-control mask-cell" id="email">
+                            <input type="email" name="email" value="{{ old('email') }}" class="form-control" id="email">
                             @error('email')
                               <small style="color: red">{{$message}}</small>
                             @enderror

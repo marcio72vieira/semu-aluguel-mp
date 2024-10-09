@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nomecompleto');
             $table->string('rg');
+            $table->string('orgaoexpedidor');
             $table->string('cpf');
             $table->string('banco');
             $table->string('agencia');
