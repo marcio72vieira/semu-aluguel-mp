@@ -21,7 +21,7 @@
                 {{-- Este componente será acionado sempre que houver uma erro de exceção em: store, update ou delete --}}
                 <x-errorexception />
 
-                <form action="{{ route('requerente.store') }}" method="POST" autocomplete="off">
+                <form action="{{ route('requerente.store') }}" method="POST" autocomplete="off" id="formcadastrorequerente">
                     @csrf
                     @method('POST')
 
@@ -169,7 +169,7 @@
                                     <option value="5" {{old('comunidade') == '5' ? 'selected' : ''}}>Assentado / acampado</option>
                                     <option value="6" {{old('comunidade') == '6' ? 'selected' : ''}}>Pessoa do campo / floresta</option>
                                     <option value="7" {{old('comunidade') == '7' ? 'selected' : ''}}>Pessoa em situação de rua</option>
-                                    <option value="8" {{old('comunidade') == '8' ? 'selected' : ''}}>Outra</option>
+                                    <option value="20" {{old('comunidade') == '20' ? 'selected' : ''}}>Outra</option>
                                 </select>
                                 @error('comunidade')
                                     <small style="color: red">{{$message}}</small>
@@ -190,7 +190,7 @@
                                     <option value="4" {{old('racacor') == '4' ? 'selected' : ''}}>Parda</option>
                                     <option value="5" {{old('racacor') == '5' ? 'selected' : ''}}>Indígena</option>
                                     <option value="6" {{old('racacor') == '6' ? 'selected' : ''}}>Não se aplica</option>
-                                    <option value="7" {{old('racacor') == '7' ? 'selected' : ''}}>Outra</option>
+                                    <option value="20" {{old('racacor') == '20' ? 'selected' : ''}}>Outra</option>
                                 </select>
                                 @error('racacor')
                                     <small style="color: red">{{$message}}</small>
@@ -209,7 +209,7 @@
                                     <option value="2" {{old('identidadegenero') == '2' ? 'selected' : ''}}>Transexual</option>
                                     <option value="3" {{old('identidadegenero') == '3' ? 'selected' : ''}}>Travesti</option>
                                     <option value="4" {{old('identidadegenero') == '4' ? 'selected' : ''}}>Transgenero</option>
-                                    <option value="5" {{old('identidadegenero') == '5' ? 'selected' : ''}}>Outra</option>
+                                    <option value="20" {{old('identidadegenero') == '20' ? 'selected' : ''}}>Outra</option>
                                 </select>
                                 @error('identidadegenero')
                                     <small style="color: red">{{$message}}</small>
@@ -227,7 +227,7 @@
                                     <option value="1" {{old('orientacaosexual') == '1' ? 'selected' : ''}}>Homossexual</option>
                                     <option value="2" {{old('orientacaosexual') == '2' ? 'selected' : ''}}>Heterossexual</option>
                                     <option value="3" {{old('orientacaosexual') == '3' ? 'selected' : ''}}>Bissexual</option>
-                                    <option value="4" {{old('orientacaosexual') == '4' ? 'selected' : ''}}>Outra</option>
+                                    <option value="20" {{old('orientacaosexual') == '20' ? 'selected' : ''}}>Outra</option>
                                 </select>
                                 @error('orientacaosexual')
                                     <small style="color: red">{{$message}}</small>
@@ -241,7 +241,7 @@
                         {{-- outracomunidade --}}
                         <div class="col-3">
                             <div class="form-group focused">
-                                <input type="text" class="form-control" id="outracomunidade" name="outracomunidade" value="{{old('outracomunidade')}}">
+                                <input type="text"  style="visibility:hidden" class="form-control" id="outracomunidade" name="outracomunidade" value="{{old('outracomunidade')}}" placeholder="especifique...">
                                 @error('outracomunidade')
                                     <small style="color: red">{{$message}}</small>
                                 @enderror
@@ -431,26 +431,32 @@
 
 @section('scripts')
     <script>
-        //Recuperação dinâmica das Unidades de Atendimento de um Município
-        $('#municipio_id').on('change', function() {
-                var municipio_id = this.value;
-                $("#unidadeatendimento_id").html('');
 
-                $.ajax({
-                    url:"{{ route('getunidadesatendimentomunicipio') }}",
-                    type: "GET",
-                    data: {
-                        municipio_id: municipio_id,
-                    },
-                    dataType : 'json',
-                    success: function(result){
-                        $('#unidadeatendimento_id').html('<option value="">Escolha...</option>');
-                        $.each(result.unidadesatendimento,function(key,value){
-                            $("#unidadeatendimento_id").append('<option value="'+ value.id +'">'+ value.nome +'</option>');
-                        });
-                    }
-                });
-            });
+        //Recuperação dinâmica das Unidades de Atendimento de um Município
+        $("#comunidade").on("change", function() {
+            var comunidade = $(this).find(":selected").val();
+
+            if(comunidade == "20"){
+                $("#outracomunidade").css("visibility","visible");
+                $("#outracomunidade").focus();
+            }else{
+                $("#outracomunidade").css("visibility","hidden");
+                $("#outracomunidade").val("");
+            }
+        });
+
+        /* if($("#formcadastrorequerente").submit(function() {
+            alert("Submitted");
+            if(comunidade == "20"){
+                $("#outracomunidade").css("visibility","visible");
+            }
+        })); */
+
+        if($("#formcadastrorequerente").submited()){
+
+        }else{
+            alert("Não submetido");
+        }
 
     </script>
 
