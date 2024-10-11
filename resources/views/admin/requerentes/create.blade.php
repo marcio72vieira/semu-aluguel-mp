@@ -240,7 +240,7 @@
                     <div class="row mb-3">
                         {{-- outracomunidade --}}
                         <div class="col-3">
-                            <div class="form-group focused" id="espacooutracomunidade">
+                            <div class="form-group focused">
                                 <input type="text"  style="visibility:hidden" class="form-control" id="outracomunidade" name="outracomunidade" value="{{old('outracomunidade')}}" placeholder="especifique...">
                                 @error('outracomunidade')
                                     <small style="color: red" id="msg_error_outracomunidade">{{$message}}</small>
@@ -251,9 +251,9 @@
                         {{-- outraracacor --}}
                         <div class="col-3">
                             <div class="form-group focused">
-                                <input type="text" class="form-control" id="outraracacor" name="outraracacor" value="{{old('outraracacor')}}">
+                                <input type="text"  style="visibility:hidden" class="form-control" id="outraracacor" name="outraracacor" value="{{old('outraracacor')}}" placeholder="especifique...">
                                 @error('outraracacor')
-                                    <small style="color: red">{{$message}}</small>
+                                    <small style="color: red" id="msg_error_outraracacor">{{$message}}</small>
                                 @enderror
                             </div>
                         </div>
@@ -261,9 +261,9 @@
                         {{-- outraidentidadegenero --}}
                         <div class="col-3">
                             <div class="form-group focused">
-                                <input type="text" class="form-control" id="outraidentidadegenero" name="outraidentidadegenero" value="{{old('outraidentidadegenero')}}">
+                                <input type="text" style="visibility:hidden" class="form-control" id="outraidentidadegenero" name="outraidentidadegenero" value="{{old('outraidentidadegenero')}}" placeholder="especifique...">
                                 @error('outraidentidadegenero')
-                                    <small style="color: red">{{$message}}</small>
+                                    <small style="color: red" id="msg_error_outraidentidadegenero">{{$message}}</small>
                                 @enderror
                             </div>
                         </div>
@@ -271,9 +271,9 @@
                         {{-- outraorientacaosexual --}}
                         <div class="col-3">
                             <div class="form-group focused">
-                                <input type="text" class="form-control" id="outraorientacaosexual" name="outraorientacaosexual" value="{{old('outraorientacaosexual')}}">
+                                <input type="text" style="visibility:hidden" class="form-control" id="outraorientacaosexual" name="outraorientacaosexual" value="{{old('outraorientacaosexual')}}" placeholder="especifique...">
                                 @error('outraorientacaosexual')
-                                    <small style="color: red">{{$message}}</small>
+                                    <small style="color: red"  id="msg_error_outraorientacaosexual">{{$message}}</small>
                                 @enderror
                             </div>
                         </div>
@@ -301,9 +301,9 @@
                         </div>
                         <div class="col-6">
                             <div class="form-group focused">
-                                <input type="text" class="form-control" id="deficiencia" name="deficiencia" value="{{old('deficiencia')}}">
+                                <input type="text" style="visibility:hidden" class="form-control" id="deficiencia" name="deficiencia" value="{{old('deficiencia')}}" placeholder="especifique...">
                                 @error('deficiencia')
-                                    <small style="color: red">{{$message}}</small>
+                                    <small style="color: red" id="msg_error_deficiencia">{{$message}}</small>
                                 @enderror
                             </div>
                         </div>
@@ -431,21 +431,107 @@
 
 @section('scripts')
     <script>
-        
+
         // Torna visível o campo "outracomunidade", caso o valor escolhido do select(comunidade) seja 20.
         if($("#comunidade").find(":selected").val() == 20){
             $("#outracomunidade").css("visibility","visible");
         }
-        
+
         $("#comunidade").on("change", function() {
             var comunidade = $(this).find(":selected").val();
             if(comunidade == "20"){
                 $("#outracomunidade").css("visibility","visible");
                 $("#outracomunidade").focus();
+                $("#outracomunidade").attr("required");
             }else{
                 $("#outracomunidade").css("visibility","hidden");
                 $("#outracomunidade").val("");
+                $("#outracomunidade").removeAttr("required");
                 $("#msg_error_outracomunidade").css("visibility","hidden");
+            }
+        });
+
+
+        // Torna visível o campo "outraracacor", caso o valor escolhido do select(racacor) seja 20.
+        if($("#racacor").find(":selected").val() == 20){
+            $("#outraracacor").css("visibility","visible");
+        }
+
+        $("#racacor").on("change", function() {
+            var racacor = $(this).find(":selected").val();
+            if(racacor == "20"){
+                $("#outraracacor").css("visibility","visible");
+                $("#outraracacor").focus();
+                $("#outraracacor").attr("required");
+            }else{
+                $("#outraracacor").css("visibility","hidden");
+                $("#outraracacor").val("");
+                $("#outraracacor").removeAttr("required");
+                $("#msg_error_outraracacor").css("visibility","hidden");
+            }
+        });
+
+
+        // Torna visível o campo "outraidentidadegenero", caso o valor escolhido do select(racacor) seja 20.
+        if($("#identidadegenero").find(":selected").val() == 20){
+            $("#outraidentidadegenero").css("visibility","visible");
+        }
+
+        $("#identidadegenero").on("change", function() {
+            var identidadegenero = $(this).find(":selected").val();
+            if(identidadegenero == "20"){
+                $("#outraidentidadegenero").css("visibility","visible");
+                $("#outraidentidadegenero").focus();
+                $("#outraidentidadegenero").attr("required");
+            }else{
+                $("#outraidentidadegenero").css("visibility","hidden");
+                $("#outraidentidadegenero").val("");
+                $("#outraidentidadegenero").removeAttr("required");
+                $("#msg_error_outraidentidadegenero").css("visibility","hidden");
+            }
+        });
+
+
+        // Torna visível o campo "outraidentidadegenero", caso o valor escolhido do select(racacor) seja 20.
+        if($("#orientacaosexual").find(":selected").val() == 20){
+            $("#outraorientacaosexual").css("visibility","visible");
+        }
+
+        $("#orientacaosexual").on("change", function() {
+            var orientacaosexual = $(this).find(":selected").val();
+            if(orientacaosexual == "20"){
+                $("#outraorientacaosexual").css("visibility","visible");
+                $("#outraorientacaosexual").focus();
+                $("#outraorientacaosexual").attr("required");
+            }else{
+                $("#outraorientacaosexual").css("visibility","hidden");
+                $("#outraorientacaosexual").val("");
+                $("#outraorientacaosexual").removeAttr("required");
+                $("#msg_error_outraorientacaosexual").css("visibility","hidden");
+            }
+        });
+
+
+
+        // Torna visível o campo "deficiência", caso o valor escolhido do select(deficiente) seja 1.
+        // var selectedValue = $('input[name="survey"]:checked').val();
+
+        if($("input[name='deficiente']:checked").val() == "1"){
+            $("#deficiencia").css("visibility","visible");
+        }
+
+
+        $("input[name='deficiente']").on("click", function() {
+            var deficiente = $("input[name='deficiente']:checked").val();
+            if(deficiente == "1"){
+                $("#deficiencia").css("visibility","visible");
+                $("#deficiencia").focus();
+                $("#deficiencia").attr("required");
+            }else{
+                $("#deficiencia").css("visibility","hidden");
+                $("#deficiencia").val("");
+                $("#deficiencia").removeAttr("required");
+                $("#msg_error_deficiencia").css("visibility","hidden");
             }
         });
 
