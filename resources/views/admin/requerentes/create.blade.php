@@ -240,10 +240,10 @@
                     <div class="row mb-3">
                         {{-- outracomunidade --}}
                         <div class="col-3">
-                            <div class="form-group focused">
+                            <div class="form-group focused" id="espacooutracomunidade">
                                 <input type="text"  style="visibility:hidden" class="form-control" id="outracomunidade" name="outracomunidade" value="{{old('outracomunidade')}}" placeholder="especifique...">
                                 @error('outracomunidade')
-                                    <small style="color: red">{{$message}}</small>
+                                    <small style="color: red" id="msg_error_outracomunidade">{{$message}}</small>
                                 @enderror
                             </div>
                         </div>
@@ -418,7 +418,7 @@
                         <div class="col-sm-10">
                             <div style="margin-top: 15px">
                                 <a class="btn btn-outline-secondary" href="{{ route('user.index')}}" role="button">Cancelar</a>
-                                <button type="submit" class="btn btn-primary" style="width: 95px;"> Salvar </button>
+                                <button type="submit" id="btnsalvar" class="btn btn-primary" style="width: 95px;"> Salvar </button>
                             </div>
                         </div>
                     </div>
@@ -431,32 +431,23 @@
 
 @section('scripts')
     <script>
-
-        //Recuperação dinâmica das Unidades de Atendimento de um Município
+        
+        // Torna visível o campo "outracomunidade", caso o valor escolhido do select(comunidade) seja 20.
+        if($("#comunidade").find(":selected").val() == 20){
+            $("#outracomunidade").css("visibility","visible");
+        }
+        
         $("#comunidade").on("change", function() {
             var comunidade = $(this).find(":selected").val();
-
             if(comunidade == "20"){
                 $("#outracomunidade").css("visibility","visible");
                 $("#outracomunidade").focus();
             }else{
                 $("#outracomunidade").css("visibility","hidden");
                 $("#outracomunidade").val("");
+                $("#msg_error_outracomunidade").css("visibility","hidden");
             }
         });
-
-        /* if($("#formcadastrorequerente").submit(function() {
-            alert("Submitted");
-            if(comunidade == "20"){
-                $("#outracomunidade").css("visibility","visible");
-            }
-        })); */
-
-        if($("#formcadastrorequerente").submited()){
-
-        }else{
-            alert("Não submetido");
-        }
 
     </script>
 
