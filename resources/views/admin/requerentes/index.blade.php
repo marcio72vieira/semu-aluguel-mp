@@ -30,13 +30,10 @@
                     <tr>
                         <th>ID</th>
                         <th>Nome</th>
-                        <th>Perfil</th>
-                        <th class="d-none d-md-table-cell">Município</th>
                         <th class="d-none d-md-table-cell">Unidade Atendimento</th>
-                        <th>Telefone</th>
-                        <th class="d-none d-md-table-cell">Ativo</th>
-                        <th class="d-none d-md-table-cell">Requisições Aluguel</th>
-                        <th class="d-none d-md-table-cell">Cadastrado</th>
+                        <th class="d-none d-md-table-cell">Município</th>
+                        <th>Telefones</th>
+                        <th class="d-none d-md-table-cell">CPF / RG</th>
                         <th width="18%">Ações</th>
                     </tr>
                 </thead>
@@ -46,35 +43,31 @@
                         <tr>
                             <td>{{ $requerente->id }}</th>
                             <td>{{ $requerente->nomecompleto }}</th>
-                                <td>{{ ($requerente->perfil == "adm" ? "ADMINISTRADOR" : ($requerente->perfil == "srv" ? "SERVIDOR SEMU" : "ASS. SOCIAL")) }}</th>
-                            <td>{{ $requerente->municipio->nome }}</td>
                             <td>{{ $requerente->unidadeatendimento->nome }}</td>
-                            <td>{{ $requerente->fone }}</td>
-                            <td>{{ $requerente->ativo == 1 ? "Sim" : "Não" }}</td>
-                            <td>0</td>
-                            <td>{{ \Carbon\Carbon::parse($requerente->created_at)->format('d/m/Y') }}</td>
-                            <td>Visualizar | Editar | Apagar </td>
-                            {{-- <td class="flex-row d-md-flex justify-content-start">
-                                <a href="{{ route('user.show', ['user' => $user->id]) }}" class="mb-1 btn btn-primary btn-sm me-1">
+                            <td>{{ $requerente->municipio->nome }}</td>
+                            <td>{{ $requerente->foneresidencial }} <br> {{ $requerente->fonecelular }} </td>
+                            <td>{{ $requerente->cpf }} <br> {{ $requerente->rg }} {{ $requerente->orgaoexpedidor }}</td>
+                            <td class="flex-row d-md-flex justify-content-start">
+                                <a href="{{ route('requerente.show', ['requerente' => $requerente->id]) }}" class="mb-1 btn btn-primary btn-sm me-1">
                                     <i class="fa-regular fa-eye"></i> Visualizar
                                 </a>
 
-                                <a href="{{ route('user.edit', ['user' => $user->id]) }}" class="mb-1 btn btn-warning btn-sm me-1">
+                                <a href="{{ route('requerente.edit', ['requerente' => $requerente->id]) }}" class="mb-1 btn btn-warning btn-sm me-1">
                                     <i class="fa-solid fa-pen-to-square"></i> Editar
                                 </a>
 
                                 @if(2 > 1)
-                                    <form id="formDelete{{ $user->id }}" method="POST" action="{{ route('user.destroy', ['user' => $user->id]) }}">
+                                    <form id="formDelete{{ $requerente->id }}" method="POST" action="{{ route('user.destroy', ['user' => $requerente->id]) }}">
                                         @csrf
                                         @method('delete')
-                                        <button type="submit" class="mb-1 btn btn-danger btn-sm me-1 btnDelete" data-delete-entidade="Usuário" data-delete-id="{{ $user->id }}"  data-value-record="{{ $user->nome }}">
+                                        <button type="submit" class="mb-1 btn btn-danger btn-sm me-1 btnDelete" data-delete-entidade="Usuário" data-delete-id="{{ $requerente->id }}"  data-value-record="{{ $requerente->nome }}">
                                             <i class="fa-regular fa-trash-can"></i> Apagar
                                         </button>
                                     </form>
                                 @else
                                     <button type="button" class="btn btn-outline-secondary btn-sm me-1 mb-1"  title="há processos vinculados!"> <i class="fa-regular fa-trash-can"></i> Apagar </button>
                                 @endif
-                            </td> --}}
+                            </td>
 
                         </tr>
                     @empty

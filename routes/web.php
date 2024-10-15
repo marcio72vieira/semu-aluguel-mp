@@ -57,6 +57,9 @@ Route::get('pdf-user/relpdflistusers', [UserController::class, 'relpdflistusers'
 Route::get('/index-requerente', [RequerenteController::class, 'index'])->name('requerente.index');
 Route::get('/create-requerente', [RequerenteController::class, 'create'])->name('requerente.create');
 Route::post('/store-requerente', [RequerenteController::class, 'store'])->name('requerente.store');
+Route::get('/show-requerente/{requerente}', [RequerenteController::class, 'show'])->name('requerente.show');
+Route::get('/edit-requerente/{requerente}', [RequerenteController::class, 'edit'])->name('requerente.edit');
+Route::put('/update-requerente/{requerente}', [RequerenteController::class, 'update'])->name('requerente.update');
 
 
 // REGIONAL
