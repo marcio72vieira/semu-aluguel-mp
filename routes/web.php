@@ -60,6 +60,10 @@ Route::post('/store-requerente', [RequerenteController::class, 'store'])->name('
 Route::get('/show-requerente/{requerente}', [RequerenteController::class, 'show'])->name('requerente.show');
 Route::get('/edit-requerente/{requerente}', [RequerenteController::class, 'edit'])->name('requerente.edit');
 Route::put('/update-requerente/{requerente}', [RequerenteController::class, 'update'])->name('requerente.update');
+Route::delete('/destroy-requerente/{requerente}', [RequerenteController::class, 'destroy'])->name('requerente.destroy');
+
+Route::get('/create-requerentedetalhe/{requerente}', [RequerenteController::class, 'createdetalhe'])->name('requerentedetalhe.create');
+
 
 
 // REGIONAL

@@ -34,11 +34,12 @@
                         <th class="d-none d-md-table-cell">Município</th>
                         <th>Telefones</th>
                         <th class="d-none d-md-table-cell">CPF / RG</th>
+                        <th class="d-none d-md-table-cell">Status</th>
                         <th width="18%">Ações</th>
                     </tr>
                 </thead>
-                <tbody>
 
+                <tbody>
                     @forelse ($requerentes as $requerente)
                         <tr>
                             <td>{{ $requerente->id }}</th>
@@ -47,7 +48,8 @@
                             <td>{{ $requerente->municipio->nome }}</td>
                             <td>{{ $requerente->foneresidencial }} <br> {{ $requerente->fonecelular }} </td>
                             <td>{{ $requerente->cpf }} <br> {{ $requerente->rg }} {{ $requerente->orgaoexpedidor }}</td>
-                            <td class="flex-row d-md-flex justify-content-start">
+                            <td>{{ $requerente->status == 1 ? "Pendente" : "Pendente" }}</td>
+                            <td class="flex-row d-md-flex justify-content-start mt-3 align-content-stretch flex-wrap">
                                 <a href="{{ route('requerente.show', ['requerente' => $requerente->id]) }}" class="mb-1 btn btn-primary btn-sm me-1">
                                     <i class="fa-regular fa-eye"></i> Visualizar
                                 </a>
@@ -56,24 +58,20 @@
                                     <i class="fa-solid fa-pen-to-square"></i> Editar
                                 </a>
 
-                                @if(2 > 1)
-                                    <form id="formDelete{{ $requerente->id }}" method="POST" action="{{ route('user.destroy', ['user' => $requerente->id]) }}">
-                                        @csrf
-                                        @method('delete')
-                                        <button type="submit" class="mb-1 btn btn-danger btn-sm me-1 btnDelete" data-delete-entidade="Usuário" data-delete-id="{{ $requerente->id }}"  data-value-record="{{ $requerente->nome }}">
-                                            <i class="fa-regular fa-trash-can"></i> Apagar
-                                        </button>
-                                    </form>
-                                @else
-                                    <button type="button" class="btn btn-outline-secondary btn-sm me-1 mb-1"  title="há processos vinculados!"> <i class="fa-regular fa-trash-can"></i> Apagar </button>
-                                @endif
+
+                                <form id="formDelete{{ $requerente->id }}" method="POST" action="{{ route('requerente.destroy', ['requerente' => $requerente->id]) }}">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit" class="mb-1 btn btn-danger btn-sm me-1 btnDelete" data-delete-entidade="Requerente" data-delete-id="{{ $requerente->id }}"  data-value-record="{{ $requerente->nomecompleto }}">
+                                        <i class="fa-regular fa-trash-can"></i> Apagar
+                                    </button>
+                                </form>
                             </td>
 
                         </tr>
                     @empty
                         <div class="alert alert-danger" role="alert">Nenhum Requerente encontrado!</div>
                     @endforelse
-
                 </tbody>
             </table>
 

@@ -95,6 +95,9 @@
                     <dt class="col-sm-2"></dt>
                     <dd class="col-sm-10">
                         <a class="btn btn-outline-secondary" href="{{ route('requerente.index')}}" role="button">Listar</a>
+                        <a href="{{ route('requerente.show', ['requerente' => $requerente->id]) }}" class="btn btn-primary btn-sm p-2">
+                            <i class="fa-regular fa-eye"></i> Visualizar detalhamento
+                        </a>
                     </dd>
                 </dl>
 

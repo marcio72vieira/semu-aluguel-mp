@@ -65,7 +65,7 @@ class RequerenteController extends Controller
 
 
 
-            Requerente::create([
+            $requerente = Requerente::create([
 
                 'nomecompleto'              => Str::upper($request->nomecompleto),
                 'rg'                        => $request->rg,
@@ -102,8 +102,9 @@ class RequerenteController extends Controller
                 'status'                    => 1
             ]);
 
-             // Redirecionar o usuário, enviar a mensagem de sucesso
-            return redirect()->route('requerente.index')->with('success', 'Requerente cadastrada com sucesso!');
+            // Redirecionar o usuário, enviar a mensagem de sucesso
+            // return redirect()->route('requerente.index')->with('success', 'Requerente cadastrada com sucesso!');
+            return redirect()->route('requerentedetalhe.create', ['requerente' => $requerente] )->with('success', 'Informações da Requerente cadastrada com sucesso!');
 
         } catch (Exception $e) {
 
@@ -221,6 +222,30 @@ class RequerenteController extends Controller
 
     }
 
+
+    public function createdetalhe(Requerente $requerente)
+    {
+        return view('admin.requerentes.createdetalhe', ['requerente' => $requerente]);
+    }
+
+
+
+    // Excluir o requerente do banco de dados
+    public function destroy(Requerente $requerente)
+    {
+        try {
+            // Excluir o registro do banco de dados
+            $requerente->delete();
+
+            // Redirecionar o usuário, enviar a mensagem de sucesso
+            return redirect()->route('requerente.index')->with('success', 'Requerente excluída com sucesso!');
+
+        } catch (Exception $e) {
+
+            // Redirecionar o usuário, enviar a mensagem de erro
+            return redirect()->route('user.index')->with('error-exception', 'Requerente não excluída. Tente mais tarde!');
+        }
+    }
 
 
 }
