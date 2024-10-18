@@ -26,6 +26,7 @@ class RequerenteRequest extends FormRequest
         $requerenteId = $this->route('requerente');
 
         return [
+            // INFORMAÇÕES DA REQUERENTE
             'nomecompleto'          => 'required',
             'rg'                    => 'required',
             'orgaoexpedidor'        => 'required',
@@ -52,13 +53,37 @@ class RequerenteRequest extends FormRequest
             'foneresidencial'       => 'required_if:fonecelular,==,null',
             'fonecelular'           => 'required_if:foneresidencial,==,null',
             'email'                 => 'required|email',
-            'municipio_id'          => 'required'
+            'municipio_id'          => 'required',
             //'complemento'
             //'regional_id'
             //'tipounidade_id'
             //'unidadeatendimento_id'
             //'user-id'
             //'status'
+
+            // DETALHAMENTO DO REQUERIMENTO
+            'requerente_id'                             => '',
+            'processojudicial'                          => 'required',
+            'orgaojudicial'                             => 'required',
+            'comarca'                                   => 'required',
+            'prazomedidaprotetiva'                      => 'required',
+            'dataconcessaomedidaprotetiva'              => 'required',
+            'medproturgcaminhaprogoficial'              => 'required',
+            'medproturgafastamentolar'                  => 'required',
+            'riscmortvioldomesmoradprotegsigilosa'      => 'required',
+            'riscvidaaguardmedproturg'                  => 'required',
+            'relatodescomprmedproturgagressor'          => 'required',
+            'sitvulnerabnaoconsegarcardespmoradia'      => 'required',
+            'temrendfamiliardoissalconvivagressor'      => 'required',
+            'paiavofilhonetomaiormesmomunicipresid'     => 'require',
+            'parentesmesmomunicipioresidencia'          => 'required_if: paiavofilhonetomaiormesmomunicipresid, ==, 1',
+            'filhosmenoresidade'                        => 'required',
+            'trabalhaougerarenda'                       => 'required',
+            'valortrabalhorenda'                        => 'required_if:trabalhaougerarenda, ==, 1',
+            'temcadunico'                               => 'required',
+            'teminteresformprofisdesenvolvhabilid'      => 'required',
+            'apresentoudocumentoidentificacao'          => 'required',
+            'cumprerequisitositensnecessarios'          => 'required',
         ];
     }
 
@@ -66,6 +91,7 @@ class RequerenteRequest extends FormRequest
     public function messages(): array
     {
         return[
+            // INFORMAÇÕES DA REQUERENTE
             'nomecompleto.required'             => 'Campo nome é obrigatório!',
             'rg.required'                       => 'Campo rg é obrigatório',
             'orgaoexpedidor.required'           => 'Campo órgão expedidor é obrigatório',
@@ -95,6 +121,30 @@ class RequerenteRequest extends FormRequest
             'email.required'                    => 'O campo Email é obrigatório!',
             'email.email'                       => 'O campo Email precisa ser válido!',
             'municipio_id.required'             => 'Campo município é obrigatório!',
+
+            // DETALHAMENTO DO REQUERIMENTO
+            'requerente_id'                                         => '',
+            'processojudicial.required'                             => 'Campo obrigatório!',
+            'orgaojudicial.required'                                => 'Campo obrigatório!',
+            'comarca.required'                                      => 'Campo obrigatório!',
+            'prazomedidaprotetiva.required'                         => 'Informe uma data!',
+            'dataconcessaomedidaprotetiva.required'                 => 'Informe uma data!',
+            'medproturgcaminhaprogoficial.required'                 => 'Escolha uma opção!',
+            'medproturgafastamentolar.required'                     => 'Escolha uma opção!',
+            'riscmortvioldomesmoradprotegsigilosa.required'         => 'Escolha uma opção!',
+            'riscvidaaguardmedproturg.required'                     => 'Escolha uma opção!',
+            'relatodescomprmedproturgagressor.required'             => 'Escolha uma opção!',
+            'sitvulnerabnaoconsegarcardespmoradia.required'         => 'Escolha uma opção!',
+            'temrendfamiliardoissalconvivagressor.required'         => 'Escolha uma opção!',
+            'paiavofilhonetomaiormesmomunicipresid.require'         => 'Escolha uma opção!',
+            'parentesmesmomunicipioresidencia.required_if'          => 'Escolha uma opção!',
+            'filhosmenoresidade.required'                           => 'Escolha uma opção!',
+            'trabalhaougerarenda.required'                          => 'Escolha uma opção!',
+            'valortrabalhorenda.required_if'                        => 'Escolha uma opção!',
+            'temcadunico.required'                                  => 'Escolha uma opção!',
+            'teminteresformprofisdesenvolvhabilid.required'         => 'Escolha uma opção!',
+            'apresentoudocumentoidentificacao.required'             => 'Escolha uma opção!',
+            'cumprerequisitositensnecessarios.required'             => 'Escolha uma opção!',
         ];
     }
 }
