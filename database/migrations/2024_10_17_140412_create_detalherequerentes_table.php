@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('requerentedetalhes', function (Blueprint $table) {
+        Schema::create('detalherequerentes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('requerente_id')->constrained('requerentes')->onDelete('cascade');
             $table->string('processojudicial');
@@ -26,7 +26,7 @@ return new class extends Migration
             $table->boolean('relatodescomprmedproturgagressor');
             $table->boolean('sitvulnerabnaoconsegarcardespmoradia');
             $table->boolean('temrendfamiliardoissalconvivagressor');
-            $table->boolean('paiavofilhonetomaiormesmomunicipresid');
+            $table->boolean('pafnmunicipio');
             $table->string('parentesmesmomunicipioresidencia');
             $table->boolean('filhosmenoresidade');
             $table->boolean('trabalhaougerarenda');
@@ -44,6 +44,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('requerentedetalhes');
+        Schema::dropIfExists('detalherequerentes');
     }
 };

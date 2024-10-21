@@ -54,12 +54,12 @@ class RequerenteRequest extends FormRequest
             'fonecelular'           => 'required_if:foneresidencial,==,null',
             'email'                 => 'required|email',
             'municipio_id'          => 'required',
-            //'complemento'
-            //'regional_id'
-            //'tipounidade_id'
-            //'unidadeatendimento_id'
-            //'user-id'
-            //'status'
+            //'complemento'           => '',
+            //'regional_id'           => '',
+            //'tipounidade_id'        => '',
+            //'unidadeatendimento_id' => '',
+            //'user_id'               => '',
+            //'status'                => '',
 
             // DETALHAMENTO DO REQUERIMENTO
             'requerente_id'                             => '',
@@ -75,11 +75,11 @@ class RequerenteRequest extends FormRequest
             'relatodescomprmedproturgagressor'          => 'required',
             'sitvulnerabnaoconsegarcardespmoradia'      => 'required',
             'temrendfamiliardoissalconvivagressor'      => 'required',
-            'paiavofilhonetomaiormesmomunicipresid'     => 'require',
-            'parentesmesmomunicipioresidencia'          => 'required_if: paiavofilhonetomaiormesmomunicipresid, ==, 1',
+            'pafnmunicipio'                             => 'required',
+            'parentesmesmomunicipioresidencia'          => 'required_if:pafnmunicipio,==,"1"',
             'filhosmenoresidade'                        => 'required',
             'trabalhaougerarenda'                       => 'required',
-            'valortrabalhorenda'                        => 'required_if:trabalhaougerarenda, ==, 1',
+            'valortrabalhorenda'                        => 'required_if:trabalhaougerarenda,==,"1"',
             'temcadunico'                               => 'required',
             'teminteresformprofisdesenvolvhabilid'      => 'required',
             'apresentoudocumentoidentificacao'          => 'required',
@@ -123,7 +123,7 @@ class RequerenteRequest extends FormRequest
             'municipio_id.required'             => 'Campo município é obrigatório!',
 
             // DETALHAMENTO DO REQUERIMENTO
-            'requerente_id'                                         => '',
+            //'requerente_id'                                         => '',
             'processojudicial.required'                             => 'Campo obrigatório!',
             'orgaojudicial.required'                                => 'Campo obrigatório!',
             'comarca.required'                                      => 'Campo obrigatório!',
@@ -136,11 +136,11 @@ class RequerenteRequest extends FormRequest
             'relatodescomprmedproturgagressor.required'             => 'Escolha uma opção!',
             'sitvulnerabnaoconsegarcardespmoradia.required'         => 'Escolha uma opção!',
             'temrendfamiliardoissalconvivagressor.required'         => 'Escolha uma opção!',
-            'paiavofilhonetomaiormesmomunicipresid.require'         => 'Escolha uma opção!',
-            'parentesmesmomunicipioresidencia.required_if'          => 'Escolha uma opção!',
+            'pafnmunicipio.required'                                => 'Escolha uma opção!',
+            'parentesmesmomunicipioresidencia.required_if'          => 'Especifique o parente!',
             'filhosmenoresidade.required'                           => 'Escolha uma opção!',
             'trabalhaougerarenda.required'                          => 'Escolha uma opção!',
-            'valortrabalhorenda.required_if'                        => 'Escolha uma opção!',
+            'valortrabalhorenda.required_if'                        => 'Informe o valor!',
             'temcadunico.required'                                  => 'Escolha uma opção!',
             'teminteresformprofisdesenvolvhabilid.required'         => 'Escolha uma opção!',
             'apresentoudocumentoidentificacao.required'             => 'Escolha uma opção!',

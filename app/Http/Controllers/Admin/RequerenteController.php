@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RequerenteRequest;
+use App\Models\Detalherequerente;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Municipio;
 use App\Models\Requerente;
 use Illuminate\Support\Facades\Auth;
@@ -41,8 +43,15 @@ class RequerenteController extends Controller
 
     public function store(RequerenteRequest $request)
     {
+
+        //dd($request);
+
         // Validar o formulário
         $request->validated();
+
+        // Marcar o ponto inicial de uma transação
+        DB::beginTransaction();
+
 
         try {
 
@@ -64,7 +73,7 @@ class RequerenteController extends Controller
             $idUsuarioRequerente = $user->id;
 
 
-
+            // Salva informações do Requetente e recupera o Id do Requerente salvo no banco na variável $requerente
             $requerente = Requerente::create([
 
                 'nomecompleto'              => Str::upper($request->nomecompleto),
@@ -102,11 +111,45 @@ class RequerenteController extends Controller
                 'status'                    => 1
             ]);
 
+
+            // Salva informações dos Detalhes do Requetente. O Id do requerente é fornecido na variavel $requerente
+            Detalherequerente::create([
+                'requerente_id'                             => $requerente->id,
+                'processojudicial'                          => $request->processojudicial,
+                'orgaojudicial'                             => $request->orgaojudicial,
+                'comarca'                                   => $request->comarca,
+                'prazomedidaprotetiva'                      => $request->prazomedidaprotetiva,
+                'dataconcessaomedidaprotetiva'              => $request->dataconcessaomedidaprotetiva,
+                'medproturgcaminhaprogoficial'              => $request->medproturgcaminhaprogoficial,
+                'medproturgafastamentolar'                  => $request->medproturgafastamentolar,
+                'riscmortvioldomesmoradprotegsigilosa'      => $request->riscmortvioldomesmoradprotegsigilosa,
+                'riscvidaaguardmedproturg'                  => $request->riscvidaaguardmedproturg,
+                'relatodescomprmedproturgagressor'          => $request->relatodescomprmedproturgagressor,
+                'sitvulnerabnaoconsegarcardespmoradia'      => $request->sitvulnerabnaoconsegarcardespmoradia,
+                'temrendfamiliardoissalconvivagressor'      => $request->temrendfamiliardoissalconvivagressor,
+                'pafnmunicipio'                             => $request->pafnmunicipio,
+                'parentesmesmomunicipioresidencia'          => $request->parentesmesmomunicipioresidencia,
+                'filhosmenoresidade'                        => $request->filhosmenoresidade,
+                'trabalhaougerarenda'                       => $request->trabalhaougerarenda,
+                'valortrabalhorenda'                        => $request->valortrabalhorenda,
+                'temcadunico'                               => $request->temcadunico,
+                'teminteresformprofisdesenvolvhabilid'      => $request->teminteresformprofisdesenvolvhabilid,
+                'apresentoudocumentoidentificacao'          => $request->apresentoudocumentoidentificacao,
+                'cumprerequisitositensnecessarios'          => $request->cumprerequisitositensnecessarios
+            ]);
+
+
+            // Operação concluída com êxito
+            DB::commit();
+
             // Redirecionar o usuário, enviar a mensagem de sucesso
-            // return redirect()->route('requerente.index')->with('success', 'Requerente cadastrada com sucesso!');
-            return redirect()->route('requerentedetalhe.create', ['requerente' => $requerente] )->with('success', 'Informações da Requerente cadastrada com sucesso!');
+            return redirect()->route('requerente.index')->with('success', 'Requerente cadastrada com sucesso!');
+            // return redirect()->route('requerentedetalhe.create', ['requerente' => $requerente] )->with('success', 'Informações da Requerente cadastrada com sucesso!');
 
         } catch (Exception $e) {
+
+             // Operação não é concluiída com êxito
+             DB::rollBack();
 
             // Redirecionar o usuário, enviar a mensagem de erro
             return back()->withInput()->with('error', 'Requerente não cadastrada!');

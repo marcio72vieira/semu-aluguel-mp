@@ -62,7 +62,6 @@ Route::get('/edit-requerente/{requerente}', [RequerenteController::class, 'edit'
 Route::put('/update-requerente/{requerente}', [RequerenteController::class, 'update'])->name('requerente.update');
 Route::delete('/destroy-requerente/{requerente}', [RequerenteController::class, 'destroy'])->name('requerente.destroy');
 
-Route::get('/create-requerentedetalhe/{requerente}', [RequerenteController::class, 'createdetalhe'])->name('requerentedetalhe.create');
 
 
 

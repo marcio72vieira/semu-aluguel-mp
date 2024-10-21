@@ -77,4 +77,9 @@ class Requerente extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function detalhe()
+    {
+        return $this->hasOne(Detalherequerente::class);
+    }
+
 }

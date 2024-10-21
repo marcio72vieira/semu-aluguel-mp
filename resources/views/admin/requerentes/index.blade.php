@@ -49,12 +49,12 @@
                             <td>{{ $requerente->foneresidencial }} <br> {{ $requerente->fonecelular }} </td>
                             <td>{{ $requerente->cpf }} <br> {{ $requerente->rg }} {{ $requerente->orgaoexpedidor }}</td>
                             <td>{{ $requerente->status == 1 ? "Pendente" : "Pendente" }}</td>
-                            <td class="flex-row d-md-flex justify-content-start mt-3 align-content-stretch flex-wrap">
-                                <a href="{{ route('requerente.show', ['requerente' => $requerente->id]) }}" class="mb-1 btn btn-primary btn-sm me-1">
+                            <td class="flex-row d-md-flex justify-content-start align-content-stretch flex-wrap">
+                                <a href="{{ route('requerente.show', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-primary btn-sm me-1">
                                     <i class="fa-regular fa-eye"></i> Visualizar
                                 </a>
 
-                                <a href="{{ route('requerente.edit', ['requerente' => $requerente->id]) }}" class="mb-1 btn btn-warning btn-sm me-1">
+                                <a href="{{ route('requerente.edit', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-warning btn-sm me-1">
                                     <i class="fa-solid fa-pen-to-square"></i> Editar
                                 </a>
 
@@ -62,7 +62,7 @@
                                 <form id="formDelete{{ $requerente->id }}" method="POST" action="{{ route('requerente.destroy', ['requerente' => $requerente->id]) }}">
                                     @csrf
                                     @method('delete')
-                                    <button type="submit" class="mb-1 btn btn-danger btn-sm me-1 btnDelete" data-delete-entidade="Requerente" data-delete-id="{{ $requerente->id }}"  data-value-record="{{ $requerente->nomecompleto }}">
+                                    <button type="submit" class="mb-3 btn btn-danger btn-sm me-1 btnDelete" data-delete-entidade="Requerente" data-delete-id="{{ $requerente->id }}"  data-value-record="{{ $requerente->nomecompleto }}">
                                         <i class="fa-regular fa-trash-can"></i> Apagar
                                     </button>
                                 </form>

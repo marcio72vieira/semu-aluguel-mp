@@ -440,7 +440,7 @@
                         {{-- orgaojudiciario --}}
                         <div class="col-4">
                             <div class="form-group focused">
-                                <label class="form-control-label" for="orgaojudicial">Óorgaojudicialão Judicial <span class="small text-danger">*</span></label>
+                                <label class="form-control-label" for="orgaojudicial">Órgao Judicial <span class="small text-danger">*</span></label>
                                 <input type="text" class="form-control" id="orgaojudicial" name="orgaojudicial" value="{{old('orgaojudicial')}}" >
                                 @error('orgaojudicial')
                                     <small style="color: red">{{$message}}</small>
@@ -673,22 +673,21 @@
 
                     {{-- item 2.6.8--}}
                     <div class="mb-2 row">
-                        <label for="paiavofilhonetomaiormesmomunicipresid" class="col-sm-8 col-form-label">
+                        <label for="pafnmunicipio" class="col-sm-8 col-form-label">
                             A requerente não possui pais, avós, filhos ou netos maiores de idade, no mesmo município de sua residência? *
                         </label>
                         <div class="col-sm-2">
                             <div style="margin-top: 10px;">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="paiavofilhonetomaiormesmomunicipresid" id="paiavofilhonetomaiormesmomunicipresidsim" value="1" {{old('paiavofilhonetomaiormesmomunicipresid') == '1' ? 'checked' : ''}}>
-                                    <label class="form-check-label" for="paiavofilhonetomaiormesmomunicipresidsim">Sim</label>
-
+                                    <input class="form-check-input" type="radio" name="pafnmunicipio" id="pafnmunicipiosim" value="1" {{old('pafnmunicipio') == '1' ? 'checked' : ''}}>
+                                    <label class="form-check-label" for="pafnmunicipiosim">Sim</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="paiavofilhonetomaiormesmomunicipresid" id="paiavofilhonetomaiormesmomunicipresidnao" value="0" {{old('paiavofilhonetomaiormesmomunicipresid') == '0' ? 'checked' : ''}} >
-                                    <label class="form-check-label" for="paiavofilhonetomaiormesmomunicipresidnao">Não</label>
+                                    <input class="form-check-input" type="radio" name="pafnmunicipio" id="pafnmunicipionao" value="0" {{old('pafnmunicipio') == '0' ? 'checked' : ''}} >
+                                    <label class="form-check-label" for="pafnmunicipionao">Não</label>
                                 </div>
                                 <br>
-                                @error('paiavofilhonetomaiormesmomunicipresid')
+                                @error('pafnmunicipio')
                                     <small style="color: red">{{$message}}</small>
                                 @enderror
                             </div>
@@ -696,9 +695,9 @@
                         {{-- parentesmesmomunicipioresidencia --}}
                         <div class="col-2">
                             <div class="form-group focused">
-                                <input type="text" class="form-control" id="parentesmesmomunicipioresidencia" name="parentesmesmomunicipioresidencia" value="{{old('parentesmesmomunicipioresidencia')}}" placeholder="Quais">
+                                <input type="text" class="form-control" style="visibility:hidden" id="parentesmesmomunicipioresidencia" name="parentesmesmomunicipioresidencia" value="{{old('parentesmesmomunicipioresidencia')}}" placeholder="Quais">
                                 @error('parentesmesmomunicipioresidencia')
-                                    <small style="color: red">{{$message}}</small>
+                                    <small style="color: red"  id="msg_error_parentesmesmomunicipioresidencia">{{$message}}</small>
                                 @enderror
                             </div>
                         </div>
@@ -758,9 +757,9 @@
                         {{-- valortrabalhorenda --}}
                         <div class="col-2">
                             <div class="form-group focused">
-                                <input type="text" class="form-control" id="valortrabalhorenda" name="valortrabalhorenda" value="{{old('valortrabalhorenda')}}" placeholder="Valor R$">
+                                <input type="text" class="form-control"  style="visibility:hidden" id="valortrabalhorenda" name="valortrabalhorenda" value="{{old('valortrabalhorenda')}}" placeholder="Valor">
                                 @error('valortrabalhorenda')
-                                    <small style="color: red">{{$message}}</small>
+                                    <small style="color: red" id="msg_error_valortrabalhorenda">{{$message}}</small>
                                 @enderror
                             </div>
                         </div>
@@ -874,7 +873,7 @@
                         <div class="col-sm-2"></div>
                         <div class="col-sm-10">
                             <div style="margin-top: 15px">
-                                <a class="btn btn-outline-secondary" href="{{ route('user.index')}}" role="button">Cancelar</a>
+                                <a class="btn btn-outline-secondary" href="{{ route('requerente.index')}}" role="button">Cancelar</a>
                                 <button type="submit" id="btnsalvar" class="btn btn-primary" style="width: 95px;"> Salvar </button>
                             </div>
                         </div>
@@ -970,7 +969,7 @@
 
 
 
-        // Torna visível o campo "deficiência", caso o valor escolhido do select(deficiente) seja 1.
+        // Torna visível o campo "deficiência", caso o valor escolhido do radio(deficiente) seja 1.
         // var selectedValue = $('input[name="survey"]:checked').val();
 
         if($("input[name='deficiente']:checked").val() == "1"){
@@ -991,6 +990,78 @@
                 $("#msg_error_deficiencia").css("visibility","hidden");
             }
         });
+
+
+        // Torna visível o campo "parentesmesmomunicipioresidencia", caso o valor escolhido do radio(pafnmunicipio) seja 1.
+        if($("input[name='pafnmunicipio']:checked").val() == "1"){
+            $("#parentesmesmomunicipioresidencia").css("visibility","visible");
+        }
+
+
+        $("input[name='pafnmunicipio']").on("click", function() {
+            var pafnmunicipio = $("input[name='pafnmunicipio']:checked").val();
+            if(pafnmunicipio == "1"){
+                $("#parentesmesmomunicipioresidencia").css("visibility","visible");
+                $("#parentesmesmomunicipioresidencia").focus();
+                $("#parentesmesmomunicipioresidencia").attr("required");
+            }else{
+                $("#parentesmesmomunicipioresidencia").css("visibility","hidden");
+                $("#parentesmesmomunicipioresidencia").val("");
+                $("#parentesmesmomunicipioresidencia").removeAttr("required");
+                $("#msg_error_parentesmesmomunicipioresidencia").css("visibility","hidden");
+            }
+        });
+
+
+
+        // Torna visível o campo "valortrabalhorenda", caso o valor escolhido do radio(trabalhaougerarenda) seja 1.
+        if($("input[name='trabalhaougerarenda']:checked").val() == "1"){
+            $("#valortrabalhorenda").css("visibility","visible");
+        }
+
+
+        $("input[name='trabalhaougerarenda']").on("click", function() {
+            var trabalhaougerarenda = $("input[name='trabalhaougerarenda']:checked").val();
+            if(trabalhaougerarenda == "1"){
+                $("#valortrabalhorenda").css("visibility","visible");
+                $("#valortrabalhorenda").focus();
+                $("#valortrabalhorenda").attr("required");
+            }else{
+                $("#valortrabalhorenda").css("visibility","hidden");
+                $("#valortrabalhorenda").val("");
+                $("#valortrabalhorenda").removeAttr("required");
+                $("#msg_error_valortrabalhorenda").css("visibility","hidden");
+            }
+        });
+
+
+        /* // Recebe o seletor do campo preço
+        let inputPrice = document.getElementById('valortrabalhorenda');
+
+        // Verifique se existe o seletor no HTML. Obs: Dependendo da página que você esteja, é possível que este seletor não exista, por isso a necessidade de testar sua existência
+        if(inputPrice){
+
+            // Aguardar o usuário digitar o valo no campo
+            inputPrice.addEventListener('input', function(){
+
+                // Obter o valor atual removendo qualquer caracter que não seja número
+                let valuePrice = this.value.replace(/[^\d]/g, '');
+
+                // Adicionar os separadores de milhares
+                var formattedPrice = (valuePrice.slice(0, -2).replace(/\B(?=(\d{3})+(?!\d))/g, '.')) + '' + valuePrice.slice(-2);
+
+                // Adicionar a vírgula e até dois dígitos se houver centavos
+                if(formattedPrice.length > 2){
+                    formattedPrice = formattedPrice.slice(0, -2) + "," + formattedPrice.slice(-2);
+                }
+
+
+                // Atualizar o valor do campo
+                this.value = formattedPrice;
+
+            });
+        } */
+
 
     </script>
 
