@@ -25,7 +25,7 @@ class Detalherequerente extends Model
         'relatodescomprmedproturgagressor',
         'sitvulnerabnaoconsegarcardespmoradia',
         'temrendfamiliardoissalconvivagressor',
-        'pafnmunicipio',
+        'paiavofilhonetomaiormesmomunicipresid',
         'parentesmesmomunicipioresidencia',
         'filhosmenoresidade',
         'trabalhaougerarenda',

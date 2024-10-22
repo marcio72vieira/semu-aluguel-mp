@@ -768,7 +768,6 @@
                     </div>
 
 
-
                     {{-- item 2.6.11--}}
                     <div class="mb-2 row">
                         <label for="temcadunico" class="col-sm-8 col-form-label">
@@ -846,7 +845,7 @@
                     </div>
 
 
-                    {{-- item 2.6.13--}}
+                    {{-- item 2.6.14--}}
                     <div class="mb-2 row">
                         <label for="cumprerequisitositensnecessarios" class="col-sm-8 col-form-label">
                             A requerente cumpre os requisitos previstos nos itens marcados com (*), necessários para concessão do benefício?
@@ -1037,32 +1036,32 @@
         });
 
 
-        /* // Recebe o seletor do campo preço
-        let inputPrice = document.getElementById('valortrabalhorenda');
+        // Recebe o seletor do campo valortrabalhorenda
+        let inputValorTrabalhoRenda = document.getElementById('valortrabalhorenda');
 
         // Verifique se existe o seletor no HTML. Obs: Dependendo da página que você esteja, é possível que este seletor não exista, por isso a necessidade de testar sua existência
-        if(inputPrice){
+        if(inputValorTrabalhoRenda){
 
             // Aguardar o usuário digitar o valo no campo
-            inputPrice.addEventListener('input', function(){
+            inputValorTrabalhoRenda.addEventListener('input', function(){
 
                 // Obter o valor atual removendo qualquer caracter que não seja número
-                let valuePrice = this.value.replace(/[^\d]/g, '');
+                let valueTrabalhoRenda = this.value.replace(/[^\d]/g, '');
 
                 // Adicionar os separadores de milhares
-                var formattedPrice = (valuePrice.slice(0, -2).replace(/\B(?=(\d{3})+(?!\d))/g, '.')) + '' + valuePrice.slice(-2);
+                var formattedTrabalhoRenda = (valueTrabalhoRenda.slice(0, -2).replace(/\B(?=(\d{3})+(?!\d))/g, '.')) + '' + valueTrabalhoRenda.slice(-2);
 
                 // Adicionar a vírgula e até dois dígitos se houver centavos
-                if(formattedPrice.length > 2){
-                    formattedPrice = formattedPrice.slice(0, -2) + "," + formattedPrice.slice(-2);
+                if(formattedTrabalhoRenda.length > 2){
+                    formattedTrabalhoRenda = formattedTrabalhoRenda.slice(0, -2) + "," + formattedTrabalhoRenda.slice(-2);
                 }
 
 
                 // Atualizar o valor do campo
-                this.value = formattedPrice;
+                this.value = formattedTrabalhoRenda;
 
             });
-        } */
+        }
 
 
     </script>

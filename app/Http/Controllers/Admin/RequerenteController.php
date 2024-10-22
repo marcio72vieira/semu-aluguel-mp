@@ -44,8 +44,6 @@ class RequerenteController extends Controller
     public function store(RequerenteRequest $request)
     {
 
-        //dd($request);
-
         // Validar o formulário
         $request->validated();
 
@@ -71,6 +69,10 @@ class RequerenteController extends Controller
 
             // Obtém o id do usuario que atendeu o requerente pelo usuário autenticado
             $idUsuarioRequerente = $user->id;
+
+            // Tansforma o valor do TrabalhoRenda para o formato adequado aceito pelo banco de dados
+            // 'price' => str_replace(',', '.', str_replace('.', '', $request->price)),
+            $valorTtrabalhoRendaTransformando = str_replace(',', '.', str_replace('.', '', $request->valortrabalhorenda));
 
 
             // Salva informações do Requetente e recupera o Id do Requerente salvo no banco na variável $requerente
@@ -131,7 +133,7 @@ class RequerenteController extends Controller
                 'parentesmesmomunicipioresidencia'          => $request->parentesmesmomunicipioresidencia,
                 'filhosmenoresidade'                        => $request->filhosmenoresidade,
                 'trabalhaougerarenda'                       => $request->trabalhaougerarenda,
-                'valortrabalhorenda'                        => $request->valortrabalhorenda,
+                'valortrabalhorenda'                        => $valorTtrabalhoRendaTransformando,    // $request->valortrabalhorenda,
                 'temcadunico'                               => $request->temcadunico,
                 'teminteresformprofisdesenvolvhabilid'      => $request->teminteresformprofisdesenvolvhabilid,
                 'apresentoudocumentoidentificacao'          => $request->apresentoudocumentoidentificacao,
@@ -160,6 +162,7 @@ class RequerenteController extends Controller
 
     public function show(Requerente $requerente)
     {
+        $requerente =  Requerente::with('detalhe')->find($requerente->id);
 
         $arr_comunidade = ['1' => 'Cigano', '2' => 'Quilombola', '3' => 'Matriz Africana', '4' => 'Indígena', '5' => 'Assentado / acampado', '6' => 'Pessoa do campo / floresta', '7'  => 'Pessoa em situação de rua', '20' => 'Outra'];
         $arr_racacor = ['1' => 'Preta', '2' => 'Amarela', '3' => 'Parda', '4' => 'Indígena', '5' => 'Não se aplica', '20' => 'Outra'];
