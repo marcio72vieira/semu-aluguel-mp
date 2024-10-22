@@ -127,7 +127,7 @@ class RequerenteController extends Controller
                 'relatodescomprmedproturgagressor'          => $request->relatodescomprmedproturgagressor,
                 'sitvulnerabnaoconsegarcardespmoradia'      => $request->sitvulnerabnaoconsegarcardespmoradia,
                 'temrendfamiliardoissalconvivagressor'      => $request->temrendfamiliardoissalconvivagressor,
-                'pafnmunicipio'                             => $request->pafnmunicipio,
+                'paiavofilhonetomaiormesmomunicipresid'     => $request->paiavofilhonetomaiormesmomunicipresid,
                 'parentesmesmomunicipioresidencia'          => $request->parentesmesmomunicipioresidencia,
                 'filhosmenoresidade'                        => $request->filhosmenoresidade,
                 'trabalhaougerarenda'                       => $request->trabalhaougerarenda,
@@ -152,7 +152,7 @@ class RequerenteController extends Controller
              DB::rollBack();
 
             // Redirecionar o usuário, enviar a mensagem de erro
-            return back()->withInput()->with('error', 'Requerente não cadastrada!');
+            return back()->withInput()->with('error', 'Requerente não cadastrada!'. $e->getMessage());
         }
     }
 

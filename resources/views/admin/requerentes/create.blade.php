@@ -18,6 +18,8 @@
 
             <div class="card-body">
 
+                <x-alert />
+
                 {{-- Este componente será acionado sempre que houver uma erro de exceção em: store, update ou delete --}}
                 <x-errorexception />
 
@@ -673,21 +675,21 @@
 
                     {{-- item 2.6.8--}}
                     <div class="mb-2 row">
-                        <label for="pafnmunicipio" class="col-sm-8 col-form-label">
+                        <label for="paiavofilhonetomaiormesmomunicipresid" class="col-sm-8 col-form-label">
                             A requerente não possui pais, avós, filhos ou netos maiores de idade, no mesmo município de sua residência? *
                         </label>
                         <div class="col-sm-2">
                             <div style="margin-top: 10px;">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="pafnmunicipio" id="pafnmunicipiosim" value="1" {{old('pafnmunicipio') == '1' ? 'checked' : ''}}>
-                                    <label class="form-check-label" for="pafnmunicipiosim">Sim</label>
+                                    <input class="form-check-input" type="radio" name="paiavofilhonetomaiormesmomunicipresid" id="paiavofilhonetomaiormesmomunicipresidsim" value="1" {{old('paiavofilhonetomaiormesmomunicipresid') == '1' ? 'checked' : ''}}>
+                                    <label class="form-check-label" for="paiavofilhonetomaiormesmomunicipresidsim">Sim</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="pafnmunicipio" id="pafnmunicipionao" value="0" {{old('pafnmunicipio') == '0' ? 'checked' : ''}} >
-                                    <label class="form-check-label" for="pafnmunicipionao">Não</label>
+                                    <input class="form-check-input" type="radio" name="paiavofilhonetomaiormesmomunicipresid" id="paiavofilhonetomaiormesmomunicipresidnao" value="0" {{old('paiavofilhonetomaiormesmomunicipresid') == '0' ? 'checked' : ''}} >
+                                    <label class="form-check-label" for="paiavofilhonetomaiormesmomunicipresidnao">Não</label>
                                 </div>
                                 <br>
-                                @error('pafnmunicipio')
+                                @error('paiavofilhonetomaiormesmomunicipresid')
                                     <small style="color: red">{{$message}}</small>
                                 @enderror
                             </div>
@@ -992,15 +994,15 @@
         });
 
 
-        // Torna visível o campo "parentesmesmomunicipioresidencia", caso o valor escolhido do radio(pafnmunicipio) seja 1.
-        if($("input[name='pafnmunicipio']:checked").val() == "1"){
+        // Torna visível o campo "parentesmesmomunicipioresidencia", caso o valor escolhido do radio(paiavofilhonetomaiormesmomunicipresid) seja 1.
+        if($("input[name='paiavofilhonetomaiormesmomunicipresid']:checked").val() == "1"){
             $("#parentesmesmomunicipioresidencia").css("visibility","visible");
         }
 
 
-        $("input[name='pafnmunicipio']").on("click", function() {
-            var pafnmunicipio = $("input[name='pafnmunicipio']:checked").val();
-            if(pafnmunicipio == "1"){
+        $("input[name='paiavofilhonetomaiormesmomunicipresid']").on("click", function() {
+            var paiavofilhonetomaiormesmomunicipresid = $("input[name='paiavofilhonetomaiormesmomunicipresid']:checked").val();
+            if(paiavofilhonetomaiormesmomunicipresid == "1"){
                 $("#parentesmesmomunicipioresidencia").css("visibility","visible");
                 $("#parentesmesmomunicipioresidencia").focus();
                 $("#parentesmesmomunicipioresidencia").attr("required");
