@@ -185,8 +185,9 @@ class RequerenteController extends Controller
 
     public function edit(Requerente $requerente)
     {
+        $requerente =  Requerente::with('detalhe')->find($requerente->id);
 
-        // Recuperando todas os municípios e unidades de atendimentos
+        // Recuperando todas os municípios
         $municipios = Municipio::where('ativo', '=', '1')->orderBy('nome', 'ASC')->get();
 
         return view('admin.requerentes.edit', [
@@ -201,6 +202,10 @@ class RequerenteController extends Controller
     {
         // Validar o formulário
         $request->validated();
+
+        // Marcar o ponto inicial de uma transação
+        DB::beginTransaction();
+
 
         try{
              // Depois de autenticado, deve-se obter o usuário autenticado
@@ -219,6 +224,10 @@ class RequerenteController extends Controller
 
              // Obtém o id do usuario que atendeu o requerente pelo usuário autenticado
              $idUsuarioRequerente = $user->id;
+
+             // Tansforma o valor do TrabalhoRenda para o formato adequado aceito pelo banco de dados
+            // 'price' => str_replace(',', '.', str_replace('.', '', $request->price)),
+            $valorTtrabalhoRendaTransformando = str_replace(',', '.', str_replace('.', '', $request->valortrabalhorenda));
 
 
             $requerente->update([
@@ -257,23 +266,49 @@ class RequerenteController extends Controller
                 'status'                    => 1
             ]);
 
+            $requerente->detalhe()->update([
+                'requerente_id'                             => $requerente->id,
+                'processojudicial'                          => $request->processojudicial,
+                'orgaojudicial'                             => $request->orgaojudicial,
+                'comarca'                                   => $request->comarca,
+                'prazomedidaprotetiva'                      => $request->prazomedidaprotetiva,
+                'dataconcessaomedidaprotetiva'              => $request->dataconcessaomedidaprotetiva,
+                'medproturgcaminhaprogoficial'              => $request->medproturgcaminhaprogoficial,
+                'medproturgafastamentolar'                  => $request->medproturgafastamentolar,
+                'riscmortvioldomesmoradprotegsigilosa'      => $request->riscmortvioldomesmoradprotegsigilosa,
+                'riscvidaaguardmedproturg'                  => $request->riscvidaaguardmedproturg,
+                'relatodescomprmedproturgagressor'          => $request->relatodescomprmedproturgagressor,
+                'sitvulnerabnaoconsegarcardespmoradia'      => $request->sitvulnerabnaoconsegarcardespmoradia,
+                'temrendfamiliardoissalconvivagressor'      => $request->temrendfamiliardoissalconvivagressor,
+                'paiavofilhonetomaiormesmomunicipresid'     => $request->paiavofilhonetomaiormesmomunicipresid,
+                'parentesmesmomunicipioresidencia'          => $request->parentesmesmomunicipioresidencia,
+                'filhosmenoresidade'                        => $request->filhosmenoresidade,
+                'trabalhaougerarenda'                       => $request->trabalhaougerarenda,
+                'valortrabalhorenda'                        => $valorTtrabalhoRendaTransformando,    // $request->valortrabalhorenda,
+                'temcadunico'                               => $request->temcadunico,
+                'teminteresformprofisdesenvolvhabilid'      => $request->teminteresformprofisdesenvolvhabilid,
+                'apresentoudocumentoidentificacao'          => $request->apresentoudocumentoidentificacao,
+                'cumprerequisitositensnecessarios'          => $request->cumprerequisitositensnecessarios
+
+            ]);
+
+             // Operação concluída com êxito
+             DB::commit();
+
+
+             // Redirecionar o usuário, enviar a mensagem de sucesso
             return  redirect()->route('requerente.index')->with('success', 'Requerente editado com sucesso!');
 
         } catch(Exception $e) {
 
-            // Mantém o usuário na mesma página(back), juntamente com os dados digitados(withInput) e enviando a mensagem correspondente.
-            return back()->withInput()->with('error-exception', 'Requerente não editado. Tente mais tarde!'.$e);
+             // Operação não é concluiída com êxito
+             DB::rollBack();
 
+            // Mantém o usuário na mesma página(back), juntamente com os dados digitados(withInput) e enviando a mensagem correspondente.
+            return back()->withInput()->with('error-exception', 'Requerente não editado. Tente mais tarde!'. $e->getMessage());
         }
 
     }
-
-
-    public function createdetalhe(Requerente $requerente)
-    {
-        return view('admin.requerentes.createdetalhe', ['requerente' => $requerente]);
-    }
-
 
 
     // Excluir o requerente do banco de dados

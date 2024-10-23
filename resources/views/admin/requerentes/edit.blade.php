@@ -3,7 +3,7 @@
 @section('content')
     <div class="container-fluid px-4">
         <div class="mb-1 hstack gap-2">
-            <h2 class="mt-3">INFORMAÇÕES DA REQUERENTE -  edição</h2>
+            <h2 class="mt-3">REQUERENTE -  edição</h2>
             <ol class="breadcrumb mb-3 mt-3 ms-auto">
                 <li class="breadcrumb-item"><a href="">Dashboard</a></li>
                 <li class="breadcrumb-item"><a class="text-decoration-none" href="">Requerentes</a></li>
@@ -18,12 +18,18 @@
 
             <div class="card-body">
 
+                <x-alert />
+
                 {{-- Este componente será acionado sempre que houver uma erro de exceção em: store, update ou delete --}}
                 <x-errorexception />
 
                 <form action="{{ route('requerente.update', ['requerente' => $requerente->id]) }}" method="POST" autocomplete="off" id="formcadastrorequerente">
                     @csrf
                     @method('PUT')
+
+                    <div class="col-12" style="padding-bottom:20px; text-align: center;">
+                        <label><strong>INFORMAÇÕES DA REQUERENTE</strong></label>
+                    </div>
 
                     <div class="row mb-3">
 
@@ -101,7 +107,7 @@
                         <div class="col-6">
                             <div class="form-group focused">
                                 <label class="form-control-label" for="banco">Banco <span class="small text-danger">*</span></label>
-                                <input type="text" class="form-control" id="banco" name="banco" value="{{ old('banco', $requerente->banco)}}" required>
+                                <input type="text" class="form-control" id="banco" name="banco" value="{{ old('banco', $requerente->banco) }}" required>
                                 @error('banco')
                                     <small style="color: red">{{$message}}</small>
                                 @enderror
@@ -230,7 +236,7 @@
                                     <option value="20" {{ old('orientacaosexual', $requerente->orientacaosexual) == '20' ? 'selected' : '' }}>Outra</option>
                                 </select>
                                 @error('orientacaosexual')
-                                    <small style="color: red">{{$message}}</small>
+                                    <small style="color: red">{{ $message }}</small>
                                 @enderror
                             </div>
                         </div>
@@ -243,7 +249,7 @@
                             <div class="form-group focused">
                                 <input type="text"  style="visibility:hidden" class="form-control" id="outracomunidade" name="outracomunidade" value="{{ old('outracomunidade', $requerente->outracomunidade) }}" placeholder="especifique...">
                                 @error('outracomunidade')
-                                    <small style="color: red" id="msg_error_outracomunidade">{{$message}}</small>
+                                    <small style="color: red" id="msg_error_outracomunidade">{{ $message }}</small>
                                 @enderror
                             </div>
                         </div>
@@ -253,7 +259,7 @@
                             <div class="form-group focused">
                                 <input type="text"  style="visibility:hidden" class="form-control" id="outraracacor" name="outraracacor" value="{{ old('outraracacor', $requerente->outraracacor) }}" placeholder="especifique...">
                                 @error('outraracacor')
-                                    <small style="color: red" id="msg_error_outraracacor">{{$message}}</small>
+                                    <small style="color: red" id="msg_error_outraracacor">{{ $message }}</small>
                                 @enderror
                             </div>
                         </div>
@@ -263,7 +269,7 @@
                             <div class="form-group focused">
                                 <input type="text" style="visibility:hidden" class="form-control" id="outraidentidadegenero" name="outraidentidadegenero" value="{{ old('outraidentidadegenero', $requerente->outraidentidadegenero) }}" placeholder="especifique...">
                                 @error('outraidentidadegenero')
-                                    <small style="color: red" id="msg_error_outraidentidadegenero">{{$message}}</small>
+                                    <small style="color: red" id="msg_error_outraidentidadegenero">{{ $message }}</small>
                                 @enderror
                             </div>
                         </div>
@@ -273,7 +279,7 @@
                             <div class="form-group focused">
                                 <input type="text" style="visibility:hidden" class="form-control" id="outraorientacaosexual" name="outraorientacaosexual" value="{{ old('outraorientacaosexual', $requerente->outraorientacaosexual) }}" placeholder="especifique...">
                                 @error('outraorientacaosexual')
-                                    <small style="color: red"  id="msg_error_outraorientacaosexual">{{$message}}</small>
+                                    <small style="color: red"  id="msg_error_outraorientacaosexual">{{ $message }}</small>
                                 @enderror
                             </div>
                         </div>
@@ -303,7 +309,7 @@
                             <div class="form-group focused">
                                 <input type="text" style="visibility:hidden" class="form-control" id="deficiencia" name="deficiencia" value="{{ old('deficiencia', $requerente->deficiencia) }}" placeholder="especifique...">
                                 @error('deficiencia')
-                                    <small style="color: red" id="msg_error_deficiencia">{{$message}}</small>
+                                    <small style="color: red" id="msg_error_deficiencia">{{ $message }}</small>
                                 @enderror
                             </div>
                         </div>
@@ -329,7 +335,7 @@
                         <div class="col-sm-3">
                             <input type="text" name="numero" value="{{ old('numero', $requerente->numero) }}" class="form-control" id="numero" required>
                             @error('numero')
-                              <small style="color: red">{{$message}}</small>
+                              <small style="color: red">{{ $message }}</small>
                             @enderror
                         </div>
                     </div>
@@ -348,7 +354,7 @@
                         <div class="col-sm-3">
                             <input type="text" name="bairro" value="{{ old('bairro', $requerente->bairro) }}" class="form-control" id="bairro" required>
                             @error('bairro')
-                              <small style="color: red">{{$message}}</small>
+                              <small style="color: red">{{ $message }}</small>
                             @enderror
                         </div>
                     </div>
@@ -365,11 +371,8 @@
                                     <option value="{{ $municipio->id }}" {{ old('municipio_id', $requerente->municipio_id) == $municipio->id ? 'selected' : '' }}>{{ $municipio->nome }}</option>
                                 @endforeach
                             </select>
-                            @error('municipio_id')
-                                <small style="color: red">{{$message}}</small>
-                                @error('municpio_id')
-                              <small style="color: red">{{$message}}</small>
-                            @enderror
+                            @error('municpio_id')
+                              <small style="color: red">{{ $message }}</small>
                             @enderror
                         </div>
 
@@ -378,7 +381,7 @@
                         <div class="col-sm-3">
                             <input type="text" name="cep" value="{{ old('cep', $requerente->cep) }}" class="form-control" id="cep" placeholder="cep" required>
                             @error('cep')
-                              <small style="color: red">{{$message}}</small>
+                              <small style="color: red">{{ $message }}</small>
                             @enderror
                         </div>
                     </div>
@@ -390,7 +393,7 @@
                         <div class="col-sm-3">
                             <input type="text" name="foneresidencial" value="{{ old('foneresidencial', $requerente->foneresidencial) }}" class="form-control mask-cell" id="foneresidencial" placeholder="residencial" >
                             @error('foneresidencial')
-                              <small style="color: red">{{$message}}</small>
+                              <small style="color: red">{{ $message }}</small>
                             @enderror
                         </div>
 
@@ -398,7 +401,7 @@
                         <div class="col-sm-3">
                             <input type="text" name="fonecelular" value="{{ old('fonecelular', $requerente->fonecelular) }}" class="form-control mask-cell" id="fonecelular" placeholder="celular" >
                             @error('fonecelular')
-                              <small style="color: red">{{$message}}</small>
+                              <small style="color: red">{{ $message }}</small>
                             @enderror
                         </div>
 
@@ -406,11 +409,462 @@
                         <div class="col-sm-3">
                             <input type="email" name="email" value="{{ old('email', $requerente->email) }}" class="form-control" id="email">
                             @error('email')
-                              <small style="color: red">{{$message}}</small>
+                              <small style="color: red">{{ $message }}</small>
                             @enderror
                         </div>
                     </div>
 
+                    <br>
+                    <br>
+                    <br>
+
+                    <div class="col-12" style="padding-bottom:20px; text-align: center;">
+                        <label><strong>DETALHAMENTO DO REQUERIMENTO</strong></label>
+                    </div>
+
+
+                    <div class="mb-4 row">
+                        {{-- processojudicial --}}
+                        <div class="col-4">
+                            <div class="form-group focused">
+                                <label class="form-control-label" for="processojudicial">Processo Judicial em que foi concedida a medida protetiva <span class="small text-danger">*</span></label>
+                                <input type="text" class="form-control" id="processojudicial" name="processojudicial" value="{{ old('processojudicial', $requerente->detalhe->processojudicial) }}" >
+                                @error('processojudicial')
+                                    <small style="color: red">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
+
+
+                        {{-- orgaojudiciario --}}
+                        <div class="col-4">
+                            <div class="form-group focused">
+                                <label class="form-control-label" for="orgaojudicial">Órgao Judicial <span class="small text-danger">*</span></label>
+                                <input type="text" class="form-control" id="orgaojudicial" name="orgaojudicial" value="{{ old('orgaojudicial', $requerente->detalhe->orgaojudicial) }}" >
+                                @error('orgaojudicial')
+                                    <small style="color: red">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
+
+                        {{-- comarca --}}
+                        <div class="col-4">
+                            <div class="form-group focused">
+                                <label class="form-control-label" for="comarca">Comarca<span class="small text-danger">*</span></label>
+                                <input type="text" class="form-control" id="comarca" name="comarca" value="{{ old('comarca', $requerente->detalhe->comarca) }}" >
+                                @error('comarca')
+                                    <small style="color: red">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="mb-4 row">
+                        {{-- prazomedidaprotetiva --}}
+                        <div class="col-4">
+                            <div class="form-group focused">
+                                <label class="form-control-label" for="prazomedidaprotetiva">Prazo da medida protetiva <span class="small text-danger">*</span></label>
+                                <input type="date" class="form-control" id="prazomedidaprotetiva" name="prazomedidaprotetiva" value="{{ old('prazomedidaprotetiva', $requerente->detalhe->prazomedidaprotetiva) }}" >
+                                @error('prazomedidaprotetiva')
+                                    <small style="color: red">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
+
+                        {{-- dataconcessaomedidaprotetiva --}}
+                        <div class="col-4 offset-4">
+                            <div class="form-group focused">
+                                <label class="form-control-label" for="dataconcessaomedidaprotetiva">Data em que foi concedida <span class="small text-danger">*</span></label>
+                                <input type="date" class="form-control" id="dataconcessaomedidaprotetiva" name="dataconcessaomedidaprotetiva" value="{{ old('dataconcessaomedidaprotetiva', $requerente->detalhe->dataconcessaomedidaprotetiva) }}" >
+                                @error('dataconcessaomedidaprotetiva')
+                                    <small style="color: red">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <br>
+                    <br>
+
+
+                    {{-- item 2.6.1 --}}
+                    <div class="mb-2 row">
+                        <label for="medproturgcaminhaprogoficial" class="col-sm-8 col-form-label">
+                            A requerente foi atendida com a medida protetiva de urgência de encaminhamento a programa oficial ou comunitário de proteção ou atendimento? (art. 23, I, Lei 11.340/2006) *
+                        </label>
+                        <div class="col-sm-2">
+                            <div style="margin-top: 10px;">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="medproturgcaminhaprogoficial" id="medproturgcaminhaprogoficialsim" value="1" {{ old('medproturgcaminhaprogoficial', $requerente->detalhe->medproturgcaminhaprogoficial) == '1' ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="medproturgcaminhaprogoficialsim">Sim</label>
+
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="medproturgcaminhaprogoficial" id="medproturgcaminhaprogoficialnao" value="0" {{ old('medproturgcaminhaprogoficial', $requerente->detalhe->medproturgcaminhaprogoficial) == '0' ? 'checked' : '' }} >
+                                    <label class="form-check-label" for="medproturgcaminhaprogoficialnao">Não</label>
+                                </div>
+                                <br>
+                                @error('medproturgcaminhaprogoficial')
+                                    <small style="color: red">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    {{-- item 2.6.2 --}}
+                    <div class="mb-2 row">
+                        <label for="medproturgafastamentolar" class="col-sm-8 col-form-label">
+                            A requerente foi atendida com a medida protetiva de urgência de afastamento do lar?  (art. 23, III, Lei 11.340/2006) *
+                        </label>
+                        <div class="col-sm-2">
+                            <div style="margin-top: 10px;">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="medproturgafastamentolar" id="medproturgafastamentolarsim" value="1" {{ old('medproturgafastamentolar', $requerente->detalhe->medproturgafastamentolar) == '1' ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="medproturgafastamentolarsim">Sim</label>
+
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="medproturgafastamentolar" id="medproturgafastamentolarnao" value="0" {{ old('medproturgafastamentolar', $requerente->detalhe->medproturgafastamentolar) == '0' ? 'checked' : '' }} >
+                                    <label class="form-check-label" for="medproturgafastamentolarnao">Não</label>
+                                </div>
+                                <br>
+                                @error('medproturgafastamentolar')
+                                    <small style="color: red">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    {{-- item 2.6.3 --}}
+                    <div class="mb-2 row">
+                        <label for="riscmortvioldomesmoradprotegsigilosa" class="col-sm-8 col-form-label">
+                            A requerente encontra-se em situação de risco de vida iminente em razão de violência doméstica, carecendo de moradia protegida em caráter sigiloso?
+                        </label>
+                        <div class="col-sm-2">
+                            <div style="margin-top: 10px;">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="riscmortvioldomesmoradprotegsigilosa" id="riscmortvioldomesmoradprotegsigilosasim" value="1" {{ old('riscmortvioldomesmoradprotegsigilosa', $requerente->detalhe->riscmortvioldomesmoradprotegsigilosa) == '1' ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="riscmortvioldomesmoradprotegsigilosasim">Sim</label>
+
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="riscmortvioldomesmoradprotegsigilosa" id="riscmortvioldomesmoradprotegsigilosanao" value="0" {{ old('riscmortvioldomesmoradprotegsigilosa', $requerente->detalhe->riscmortvioldomesmoradprotegsigilosa) == '0' ? 'checked' : '' }} >
+                                    <label class="form-check-label" for="riscmortvioldomesmoradprotegsigilosanao">Não</label>
+                                </div>
+                                <br>
+                                @error('riscmortvioldomesmoradprotegsigilosa')
+                                    <small style="color: red">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    {{-- item 2.6.4 --}}
+                    <div class="mb-2 row">
+                        <label for="riscvidaaguardmedproturg" class="col-sm-8 col-form-label">
+                            A requerente encontra-se em situação de risco de morte, aguardando medida protetiva de urgência?
+                        </label>
+                        <div class="col-sm-2">
+                            <div style="margin-top: 10px;">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="riscvidaaguardmedproturg" id="riscvidaaguardmedproturgsim" value="1" {{ old('riscvidaaguardmedproturg', $requerente->detalhe->riscvidaaguardmedproturg) == '1' ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="riscvidaaguardmedproturgsim">Sim</label>
+
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="riscvidaaguardmedproturg" id="riscvidaaguardmedproturgnao" value="0" {{ old('riscvidaaguardmedproturg', $requerente->detalhe->riscvidaaguardmedproturg) == '0' ? 'checked' : '' }} >
+                                    <label class="form-check-label" for="riscvidaaguardmedproturgnao">Não</label>
+                                </div>
+                                <br>
+                                @error('riscvidaaguardmedproturg')
+                                    <small style="color: red">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    {{-- item 2.6.5--}}
+                    <div class="mb-2 row">
+                        <label for="relatodescomprmedproturgagressor" class="col-sm-8 col-form-label">
+                            A requerente encontra-se em situação de risco de morte e relata descumprimento de medida protetiva de urgência pelo agressor, necessitando de proteção até que se efetive a prisão deste?
+                        </label>
+                        <div class="col-sm-2">
+                            <div style="margin-top: 10px;">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="relatodescomprmedproturgagressor" id="relatodescomprmedproturgagressorsim" value="1" {{ old('relatodescomprmedproturgagressor', $requerente->detalhe->relatodescomprmedproturgagressor) == '1' ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="relatodescomprmedproturgagressorsim">Sim</label>
+
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="relatodescomprmedproturgagressor" id="relatodescomprmedproturgagressornao" value="0" {{ old('relatodescomprmedproturgagressor', $requerente->detalhe->relatodescomprmedproturgagressor) == '0' ? 'checked' : '' }} >
+                                    <label class="form-check-label" for="relatodescomprmedproturgagressornao">Não</label>
+                                </div>
+                                <br>
+                                @error('relatodescomprmedproturgagressor')
+                                    <small style="color: red">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    {{-- item 2.6.6--}}
+                    <div class="mb-2 row">
+                        <label for="sitvulnerabnaoconsegarcardespmoradia" class="col-sm-8 col-form-label">
+                            A requerente está em situação de vulnerabilidade, de forma a não conseguir arcar com as despesas de moradia? *
+                        </label>
+                        <div class="col-sm-2">
+                            <div style="margin-top: 10px;">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="sitvulnerabnaoconsegarcardespmoradia" id="sitvulnerabnaoconsegarcardespmoradiasim" value="1" {{ old('sitvulnerabnaoconsegarcardespmoradia', $requerente->detalhe->sitvulnerabnaoconsegarcardespmoradia) == '1' ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="sitvulnerabnaoconsegarcardespmoradiasim">Sim</label>
+
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="sitvulnerabnaoconsegarcardespmoradia" id="sitvulnerabnaoconsegarcardespmoradianao" value="0" {{ old('sitvulnerabnaoconsegarcardespmoradia', $requerente->detalhe->sitvulnerabnaoconsegarcardespmoradia) == '0' ? 'checked' : '' }} >
+                                    <label class="form-check-label" for="sitvulnerabnaoconsegarcardespmoradianao">Não</label>
+                                </div>
+                                <br>
+                                @error('sitvulnerabnaoconsegarcardespmoradia')
+                                    <small style="color: red">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    {{-- item 2.6.7--}}
+                    <div class="mb-2 row">
+                        <label for="temrendfamiliardoissalconvivagressor" class="col-sm-8 col-form-label">
+                            requerente tem renda familiar de no máximo 02 salários, mesmo durante o convívio com o agressor? *
+                        </label>
+                        <div class="col-sm-2">
+                            <div style="margin-top: 10px;">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="temrendfamiliardoissalconvivagressor" id="temrendfamiliardoissalconvivagressorsim" value="1" {{ old('temrendfamiliardoissalconvivagressor', $requerente->detalhe->temrendfamiliardoissalconvivagressor) == '1' ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="temrendfamiliardoissalconvivagressorsim">Sim</label>
+
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="temrendfamiliardoissalconvivagressor" id="temrendfamiliardoissalconvivagressornao" value="0" {{ old('temrendfamiliardoissalconvivagressor', $requerente->detalhe->temrendfamiliardoissalconvivagressor) == '0' ? 'checked' : '' }} >
+                                    <label class="form-check-label" for="temrendfamiliardoissalconvivagressornao">Não</label>
+                                </div>
+                                <br>
+                                @error('temrendfamiliardoissalconvivagressor')
+                                    <small style="color: red">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    {{-- item 2.6.8--}}
+                    <div class="mb-2 row">
+                        <label for="paiavofilhonetomaiormesmomunicipresid" class="col-sm-8 col-form-label">
+                            A requerente não possui pais, avós, filhos ou netos maiores de idade, no mesmo município de sua residência? *
+                        </label>
+                        <div class="col-sm-2">
+                            <div style="margin-top: 10px;">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="paiavofilhonetomaiormesmomunicipresid" id="paiavofilhonetomaiormesmomunicipresidsim" value="1" {{old('paiavofilhonetomaiormesmomunicipresid', $requerente->detalhe->paiavofilhonetomaiormesmomunicipresid) == '1' ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="paiavofilhonetomaiormesmomunicipresidsim">Sim</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="paiavofilhonetomaiormesmomunicipresid" id="paiavofilhonetomaiormesmomunicipresidnao" value="0" {{old('paiavofilhonetomaiormesmomunicipresid', $requerente->detalhe->paiavofilhonetomaiormesmomunicipresid) == '0' ? 'checked' : '' }} >
+                                    <label class="form-check-label" for="paiavofilhonetomaiormesmomunicipresidnao">Não</label>
+                                </div>
+                                <br>
+                                @error('paiavofilhonetomaiormesmomunicipresid')
+                                    <small style="color: red">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
+                        {{-- parentesmesmomunicipioresidencia --}}
+                        <div class="col-2">
+                            <div class="form-group focused">
+                                <input type="text" class="form-control" style="visibility:hidden" id="parentesmesmomunicipioresidencia" name="parentesmesmomunicipioresidencia" value="{{ old('parentesmesmomunicipioresidencia', $requerente->detalhe->parentesmesmomunicipioresidencia) }}" placeholder="Quais">
+                                @error('parentesmesmomunicipioresidencia')
+                                    <small style="color: red"  id="msg_error_parentesmesmomunicipioresidencia">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    {{-- item 2.6.9--}}
+                    <div class="mb-2 row">
+                        <label for="filhosmenoresidade" class="col-sm-8 col-form-label">
+                            A requerente possui filhos menores de idade?
+                        </label>
+                        <div class="col-sm-2">
+                            <div style="margin-top: 10px;">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="filhosmenoresidade" id="filhosmenoresidadesim" value="1" {{ old('filhosmenoresidade', $requerente->detalhe->filhosmenoresidade) == '1' ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="filhosmenoresidadesim">Sim</label>
+
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="filhosmenoresidade" id="filhosmenoresidadenao" value="0" {{ old('filhosmenoresidade', $requerente->detalhe->filhosmenoresidade) == '0' ? 'checked' : '' }} >
+                                    <label class="form-check-label" for="filhosmenoresidadenao">Não</label>
+                                </div>
+                                <br>
+                                @error('filhosmenoresidade')
+                                    <small style="color: red">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    {{-- item 2.6.10--}}
+                    <div class="mb-2 row">
+                        <label for="trabalhaougerarenda" class="col-sm-8 col-form-label">
+                            A requerente está trabalhando ou possui alguma forma de gerar renda no momento?
+                        </label>
+                        <div class="col-sm-2">
+                            <div style="margin-top: 10px;">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="trabalhaougerarenda" id="trabalhaougerarendasim" value="1" {{ old('trabalhaougerarenda', $requerente->detalhe->trabalhaougerarenda) == '1' ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="trabalhaougerarendasim">Sim</label>
+
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="trabalhaougerarenda" id="trabalhaougerarendanao" value="0" {{ old('trabalhaougerarenda', $requerente->detalhe->trabalhaougerarenda) == '0' ? 'checked' : '' }} >
+                                    <label class="form-check-label" for="trabalhaougerarendanao">Não</label>
+                                </div>
+                                <br>
+                                @error('trabalhaougerarenda')
+                                    <small style="color: red">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
+                        {{-- valortrabalhorenda --}}
+                        <div class="col-2">
+                            <div class="form-group focused">
+                                <input type="text" class="form-control"  style="visibility:hidden" id="valortrabalhorenda" name="valortrabalhorenda" value="{{ old('valortrabalhorenda', isset($requerente->detalhe->valortrabalhorenda) ? number_format($requerente->detalhe->valortrabalhorenda, '2',',','.') : '') }}" placeholder="Valor">
+                                @error('valortrabalhorenda')
+                                    <small style="color: red" id="msg_error_valortrabalhorenda">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+
+                    {{-- item 2.6.11--}}
+                    <div class="mb-2 row">
+                        <label for="temcadunico" class="col-sm-8 col-form-label">
+                            A requerente está cadastrada no Cadastro Único (CADÚNICO)? *
+                        </label>
+                        <div class="col-sm-2">
+                            <div style="margin-top: 10px;">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="temcadunico" id="temcadunicosim" value="1" {{ old('temcadunico', $requerente->detalhe->temcadunico) == '1' ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="temcadunicosim">Sim</label>
+
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="temcadunico" id="temcaduniconao" value="0" {{ old('temcadunico', $requerente->detalhe->temcadunico) == '0' ? 'checked' : '' }} >
+                                    <label class="form-check-label" for="temcaduniconao">Não</label>
+                                </div>
+                                <br>
+                                @error('temcadunico')
+                                    <small style="color: red">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    {{-- item 2.6.12--}}
+                    <div class="mb-2 row">
+                        <label for="teminteresformprofisdesenvolvhabilid" class="col-sm-8 col-form-label">
+                            A requerente tem interesse de participar de formações para qualificação profissional e de desenvolvimento de habilidades (cursos, oficinas, entre outros)?
+                        </label>
+                        <div class="col-sm-2">
+                            <div style="margin-top: 10px;">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="teminteresformprofisdesenvolvhabilid" id="teminteresformprofisdesenvolvhabilidsim" value="1" {{ old('teminteresformprofisdesenvolvhabilid', $requerente->detalhe->teminteresformprofisdesenvolvhabilid) == '1' ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="teminteresformprofisdesenvolvhabilidsim">Sim</label>
+
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="teminteresformprofisdesenvolvhabilid" id="teminteresformprofisdesenvolvhabilidnao" value="0" {{ old('teminteresformprofisdesenvolvhabilid', $requerente->detalhe->teminteresformprofisdesenvolvhabilid) == '0' ? 'checked' : '' }} >
+                                    <label class="form-check-label" for="teminteresformprofisdesenvolvhabilidnao">Não</label>
+                                </div>
+                                <br>
+                                @error('teminteresformprofisdesenvolvhabilid')
+                                    <small style="color: red">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    {{-- item 2.6.13--}}
+                    <div class="mb-2 row">
+                        <label for="apresentoudocumentoidentificacao" class="col-sm-8 col-form-label">
+                            A requerente apresentou documento de identificação?
+                        </label>
+                        <div class="col-sm-2">
+                            <div style="margin-top: 10px;">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="apresentoudocumentoidentificacao" id="apresentoudocumentoidentificacaosim" value="1" {{ old('apresentoudocumentoidentificacao', $requerente->detalhe->apresentoudocumentoidentificacao) == '1' ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="apresentoudocumentoidentificacaosim">Sim</label>
+
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="apresentoudocumentoidentificacao" id="apresentoudocumentoidentificacaonao" value="0" {{ old('apresentoudocumentoidentificacao', $requerente->detalhe->apresentoudocumentoidentificacao) == '0' ? 'checked' : '' }} >
+                                    <label class="form-check-label" for="apresentoudocumentoidentificacaonao">Não</label>
+                                </div>
+                                <br>
+                                @error('apresentoudocumentoidentificacao')
+                                    <small style="color: red">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+
+                    {{-- item 2.6.14--}}
+                    <div class="mb-2 row">
+                        <label for="cumprerequisitositensnecessarios" class="col-sm-8 col-form-label">
+                            A requerente cumpre os requisitos previstos nos itens marcados com (*), necessários para concessão do benefício?
+                        </label>
+                        <div class="col-sm-2">
+                            <div style="margin-top: 10px;">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="cumprerequisitositensnecessarios" id="cumprerequisitositensnecessariossim" value="1" {{ old('cumprerequisitositensnecessarios', $requerente->detalhe->cumprerequisitositensnecessarios) == '1' ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="cumprerequisitositensnecessariossim">Sim</label>
+
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="cumprerequisitositensnecessarios" id="cumprerequisitositensnecessariosnao" value="0" {{ old('cumprerequisitositensnecessarios', $requerente->detalhe->cumprerequisitositensnecessarios) == '0' ? 'checked' : '' }} >
+                                    <label class="form-check-label" for="cumprerequisitositensnecessariosnao">Não</label>
+                                </div>
+                                <br>
+                                @error('cumprerequisitositensnecessarios')
+                                    <small style="color: red">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
 
 
                     <div class="mb-4 row">
@@ -513,7 +967,7 @@
 
 
 
-        // Torna visível o campo "deficiência", caso o valor escolhido do select(deficiente) seja 1.
+        // Torna visível o campo "deficiência", caso o valor escolhido do radio(deficiente) seja 1.
         // var selectedValue = $('input[name="survey"]:checked').val();
 
         if($("input[name='deficiente']:checked").val() == "1"){
@@ -534,6 +988,78 @@
                 $("#msg_error_deficiencia").css("visibility","hidden");
             }
         });
+
+
+        // Torna visível o campo "parentesmesmomunicipioresidencia", caso o valor escolhido do radio(paiavofilhonetomaiormesmomunicipresid) seja 1.
+        if($("input[name='paiavofilhonetomaiormesmomunicipresid']:checked").val() == "1"){
+            $("#parentesmesmomunicipioresidencia").css("visibility","visible");
+        }
+
+
+        $("input[name='paiavofilhonetomaiormesmomunicipresid']").on("click", function() {
+            var paiavofilhonetomaiormesmomunicipresid = $("input[name='paiavofilhonetomaiormesmomunicipresid']:checked").val();
+            if(paiavofilhonetomaiormesmomunicipresid == "1"){
+                $("#parentesmesmomunicipioresidencia").css("visibility","visible");
+                $("#parentesmesmomunicipioresidencia").focus();
+                $("#parentesmesmomunicipioresidencia").attr("required");
+            }else{
+                $("#parentesmesmomunicipioresidencia").css("visibility","hidden");
+                $("#parentesmesmomunicipioresidencia").val("");
+                $("#parentesmesmomunicipioresidencia").removeAttr("required");
+                $("#msg_error_parentesmesmomunicipioresidencia").css("visibility","hidden");
+            }
+        });
+
+
+
+        // Torna visível o campo "valortrabalhorenda", caso o valor escolhido do radio(trabalhaougerarenda) seja 1.
+        if($("input[name='trabalhaougerarenda']:checked").val() == "1"){
+            $("#valortrabalhorenda").css("visibility","visible");
+        }
+
+
+        $("input[name='trabalhaougerarenda']").on("click", function() {
+            var trabalhaougerarenda = $("input[name='trabalhaougerarenda']:checked").val();
+            if(trabalhaougerarenda == "1"){
+                $("#valortrabalhorenda").css("visibility","visible");
+                $("#valortrabalhorenda").focus();
+                $("#valortrabalhorenda").attr("required");
+            }else{
+                $("#valortrabalhorenda").css("visibility","hidden");
+                $("#valortrabalhorenda").val("");
+                $("#valortrabalhorenda").removeAttr("required");
+                $("#msg_error_valortrabalhorenda").css("visibility","hidden");
+            }
+        });
+
+
+        // Recebe o seletor do campo valortrabalhorenda
+        let inputValorTrabalhoRenda = document.getElementById('valortrabalhorenda');
+
+        // Verifique se existe o seletor no HTML. Obs: Dependendo da página que você esteja, é possível que este seletor não exista, por isso a necessidade de testar sua existência
+        if(inputValorTrabalhoRenda){
+
+            // Aguardar o usuário digitar o valo no campo
+            inputValorTrabalhoRenda.addEventListener('input', function(){
+
+                // Obter o valor atual removendo qualquer caracter que não seja número
+                let valueTrabalhoRenda = this.value.replace(/[^\d]/g, '');
+
+                // Adicionar os separadores de milhares
+                var formattedTrabalhoRenda = (valueTrabalhoRenda.slice(0, -2).replace(/\B(?=(\d{3})+(?!\d))/g, '.')) + '' + valueTrabalhoRenda.slice(-2);
+
+                // Adicionar a vírgula e até dois dígitos se houver centavos
+                if(formattedTrabalhoRenda.length > 2){
+                    formattedTrabalhoRenda = formattedTrabalhoRenda.slice(0, -2) + "," + formattedTrabalhoRenda.slice(-2);
+                }
+
+
+                // Atualizar o valor do campo
+                this.value = formattedTrabalhoRenda;
+
+            });
+        }
+
 
     </script>
 
