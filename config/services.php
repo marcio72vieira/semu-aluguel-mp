@@ -34,5 +34,14 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
+    'seatimail' => [
+        'url' => env('SEATI_MAIL_URL'),
+        'key' => env('SEATI_MAIL_API_KEY'),
+        'guzzle' => [
+            // 'verify' => base_path() . '/certificado/cacert.pem',
+            'verify' => false,
+            'connect_timeout' => 300,
+        ],
+    ],
 
 ];

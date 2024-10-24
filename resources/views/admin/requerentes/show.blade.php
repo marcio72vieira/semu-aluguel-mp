@@ -107,8 +107,8 @@
                             <dt class="col-sm-4"></dt>
                             <dd class="col-sm-8">
                                 <a class="btn btn-outline-secondary" href="{{ route('requerente.index')}}" role="button">Listar</a>
-                                <a href="{{ route('requerente.show', ['requerente' => $requerente->id]) }}" class="btn btn-primary btn-sm p-2">
-                                    <i class="fa-regular fa-eye"></i> Visualizar detalhamento
+                                <a href="{{ route('requerente.relpdfrequerente', ['requerente' => $requerente->id]) }}" class="btn btn-danger btn-sm p-2" target="_blank">
+                                    <i class="fa-solid fa-file-pdf"></i> Requerimento
                                 </a>
                             </dd>
                         </dl>

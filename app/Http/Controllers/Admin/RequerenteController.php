@@ -335,4 +335,76 @@ class RequerenteController extends Controller
     }
 
 
+
+    public function relpdfrequerente(Requerente $requerente)
+    {
+        // Obtendo os dados
+        $requerente =  Requerente::with('detalhe')->find($requerente->id);
+
+        $arr_comunidade = ['1' => 'Cigano', '2' => 'Quilombola', '3' => 'Matriz Africana', '4' => 'Indígena', '5' => 'Assentado / acampado', '6' => 'Pessoa do campo / floresta', '7'  => 'Pessoa em situação de rua', '20' => 'Outra'];
+        $arr_racacor = ['1' => 'Preta', '2' => 'Amarela', '3' => 'Parda', '4' => 'Indígena', '5' => 'Não se aplica', '20' => 'Outra'];
+        $arr_identidadegenero = ['1' => 'Feminino', '2' => 'Transexual', '3' => 'Travesti', '4' => 'Transgênero', '20' => 'Outra'];
+        $arr_orientacaosexual = ['1' => 'Homossexual', '2' => 'Heterossexual', '3' => 'Bissexual', '20' => 'Outra'];
+
+        // Saneando o cpf para compor o nom do arquivo
+        $cpf = str_replace('.','',str_replace('-','',$requerente->cpf));
+
+        // Definindo o nome do arquivo a ser baixado
+        $fileName = ('Requerimento_'.$cpf.'.pdf');
+
+        // Invocando a biblioteca mpdf e definindo as margens do arquivo
+        $mpdf = new \Mpdf\Mpdf([
+            'orientation' => 'P',
+            'margin_left' => 10,
+            'margin_right' => 10,
+            'margin_top' => 40,
+            'margin_bottom' => 10,
+            'margin-header' => 10,
+            'margin_footer' => 5
+        ]);
+
+        // Configurando o cabeçalho da página
+        $mpdf->SetHTMLHeader('
+            <table style="width:717px; border-bottom: 1px solid #000000; margin-bottom: 3px;">
+                <tr>
+                    <td style="width: 717px; text-align:center">
+                        <img src="images/logo-maranhao.png" width="80"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 717px; text-align:center; font-size: 10px; font-family: Arial, Helvetica, sans-serif; font:bold">
+                        ESTADO DO MARANHÃO<br>
+                        SECRETARIA DE ESTADO DA MULHER<br>
+                    </td>
+                </tr>
+            </table>
+        ');
+
+        // Configurando o rodapé da página
+        $mpdf->SetHTMLFooter('
+            <table style="width:717px; border-top: 1px solid #000000; font-size: 10px; font-family: Arial, Helvetica, sans-serif;">
+                <tr>
+                    <td width="239px">São Luis(MA) {DATE d/m/Y - H:i:s}</td>
+                    <td width="239px" align="center"></td>
+                    <td width="239px" align="right">{PAGENO}/{nbpg}</td>
+                </tr>
+            </table>
+        ');
+
+
+        // Definindo a view que deverá ser renderizada como arquivo .pdf e passando os dados da pesquisa
+        $html = \View::make('admin.requerentes.pdfs.pdf_requerimento', compact('requerente','arr_comunidade', 'arr_racacor', 'arr_identidadegenero', 'arr_orientacaosexual'));
+        $html = $html->render();
+
+        // Definindo o arquivo .css que estilizará o arquivo blade na view ('admin.empresa.pdf.pdfempresa')
+        $stylesheet = file_get_contents('pdf/mpdf.css');
+        $mpdf->WriteHTML($stylesheet, 1);
+
+        // Transformando a view blade em arquivo .pdf e enviando a saida para o browse (I); 'D' exibe e baixa para o pc
+        $mpdf->WriteHTML($html);
+        $mpdf->Output($fileName, 'I');
+
+    }
+
+
 }

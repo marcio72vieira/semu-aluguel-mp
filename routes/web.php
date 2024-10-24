@@ -21,6 +21,17 @@ Route::get('/index-datatables', function(){
     return view('datatables.datatables');
 });
 
+Route::get('enviaremail', function() {
+    $destinatario = 'diego.cicero@seati.ma.gov.br';
+    $mensagem = "Olá, este é um e-mail de teste apenas em texto!";
+
+    Mail::raw($mensagem, function ($message) use ($destinatario) {
+        $message->to($destinatario)
+                ->subject('Assunto do E-mail');
+    });
+
+});
+
 
 // Login - Login Primeiro Acesso - Lougout
 Route::get('/', [LoginController::class, 'index'])->name('login.index');
@@ -61,7 +72,7 @@ Route::get('/show-requerente/{requerente}', [RequerenteController::class, 'show'
 Route::get('/edit-requerente/{requerente}', [RequerenteController::class, 'edit'])->name('requerente.edit');
 Route::put('/update-requerente/{requerente}', [RequerenteController::class, 'update'])->name('requerente.update');
 Route::delete('/destroy-requerente/{requerente}', [RequerenteController::class, 'destroy'])->name('requerente.destroy');
-
+Route::get('pdf-requerente/relpdfrequerente/{requerente}', [RequerenteController::class, 'relpdfrequerente'])->name('requerente.relpdfrequerente');
 
 
 
