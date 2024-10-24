@@ -71,8 +71,11 @@ class RequerenteController extends Controller
             $idUsuarioRequerente = $user->id;
 
             // Tansforma o valor do TrabalhoRenda para o formato adequado aceito pelo banco de dados
-            // 'price' => str_replace(',', '.', str_replace('.', '', $request->price)),
-            $valorTtrabalhoRendaTransformando = str_replace(',', '.', str_replace('.', '', $request->valortrabalhorenda));
+            if($request->valortrabalhorenda != null){
+                $valorTtrabalhoRendaTransformando = str_replace(',', '.', str_replace('.', '', $request->valortrabalhorenda));
+            } else {
+                $valorTtrabalhoRendaTransformando = 0.00;
+            }
 
 
             // Salva informações do Requetente e recupera o Id do Requerente salvo no banco na variável $requerente
@@ -225,9 +228,12 @@ class RequerenteController extends Controller
              // Obtém o id do usuario que atendeu o requerente pelo usuário autenticado
              $idUsuarioRequerente = $user->id;
 
-             // Tansforma o valor do TrabalhoRenda para o formato adequado aceito pelo banco de dados
-            // 'price' => str_replace(',', '.', str_replace('.', '', $request->price)),
-            $valorTtrabalhoRendaTransformando = str_replace(',', '.', str_replace('.', '', $request->valortrabalhorenda));
+            // Tansforma o valor do TrabalhoRenda para o formato adequado aceito pelo banco de dados
+            if($request->valortrabalhorenda != null){
+                $valorTtrabalhoRendaTransformando = str_replace(',', '.', str_replace('.', '', $request->valortrabalhorenda));
+            } else {
+                $valorTtrabalhoRendaTransformando = 0.00;
+            }
 
 
             $requerente->update([
