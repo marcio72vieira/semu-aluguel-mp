@@ -137,9 +137,9 @@
             <td style="width: 200px;" class="label-ficha">Comarca</td>
         </tr>
         <tr>
-            <td style="width: 317px;" class="dados-ficha">{{ $requerente->nomecompleto }}</td>
-            <td style="width: 200px;" class="dados-ficha">{{ $requerente->sexobiologico }}</td>
-            <td style="width: 200px;" class="dados-ficha">{{ $requerente->rg }} {{ $requerente->orgaoexpedidor }}</td>
+            <td style="width: 317px;" class="dados-ficha">{{ $requerente->detalhe->processojudicial }}</td>
+            <td style="width: 200px;" class="dados-ficha">{{ $requerente->detalhe->orgaojudicial }}</td>
+            <td style="width: 200px;" class="dados-ficha">{{ $requerente->detalhe->comarca }}</td>
         </tr>
     </table>
 
@@ -154,6 +154,90 @@
         </tr>
         <tr>
             <td colspan="2" style="width:717px;" class="close-ficha"></td>
+        </tr>
+    </table>
+
+    <table  style="width: 717px; border-collapse: collapse; margin-bottom: 30px">
+        <tr>
+            <td style="width: 687px;" class="dados-normal"> A requerente foi atendida com a medida protetiva de urgência de encaminhamento a programa oficial ou
+                comunitário de proteção ou atendimento? (art. 23, I, Lei 11.340/2006)*
+            </td>
+            <td style="width: 30px; text-allign: center" class="dados-normal">{{ $requerente->detalhe->medproturgcaminhaprogoficial == "1" ? "sim" : "não" }}</td>
+        </tr>
+        <tr>
+            <td style="width: 687px;" class="dados-normal"> A requerente foi atendida com a medida protetiva de urgência de afastamento do lar?  (art. 23, III, Lei
+                11.340/2006)*
+            </td>
+            <td style="width: 30px;" class="dados-normal">{{ $requerente->detalhe->medproturgafastamentolar == "1" ? "sim" : "não" }}</td>
+        </tr>
+        <tr>
+            <td style="width: 687px;" class="dados-normal"> A requerente encontra-se em situação de risco de vida iminente em razão de violência doméstica, carecendo de
+                moradia protegida em caráter sigiloso?
+            </td>
+            <td style="width: 30px;" class="dados-normal">{{ $requerente->detalhe->riscmortvioldomesmoradprotegsigilosa == "1" ? "sim" : "não" }}</td>
+        </tr>
+        <tr>
+            <td style="width: 687px;" class="dados-normal"> A requerente encontra-se em situação de risco de morte, aguardando medida protetiva de urgência? </td>
+            <td style="width: 30px;" class="dados-normal">{{ $requerente->detalhe->riscvidaaguardmedproturg == "1" ? "sim" : "não" }}</td>
+        </tr>
+        <tr>
+            <td style="width: 687px;" class="dados-normal">A requerente encontra-se em situação de risco de morte e relata descumprimento de medida protetiva de
+                urgência pelo agressor, necessitando de proteção até que se efetive a prisão deste?
+            </td>
+            <td style="width: 30px;" class="dados-normal">{{ $requerente->detalhe->relatodescomprmedproturgagressor == "1" ? "sim" : "não" }}</td>
+        </tr>
+        <tr>
+            <td style="width: 687px;" class="dados-normal">A requerente está em situação de vulnerabilidade, de forma a não conseguir arcar com as despesas de moradia?*</td>
+            <td style="width: 30px;" class="dados-normal">{{ $requerente->detalhe->sitvulnerabnaoconsegarcardespmoradia == "1" ? "sim" : "não" }}</td>
+        </tr>
+        <tr>
+            <td style="width: 687px;" class="dados-normal">A requerente tem renda familiar de no máximo 02 salários, mesmo durante o convívio com o agressor?* </td>
+            <td style="width: 30px;" class="dados-normal">{{ $requerente->detalhe->temrendfamiliardoissalconvivagressor == "1" ? "sim" : "não" }}</td>
+        </tr>
+        <tr>
+            <td style="width: 687px;" class="dados-normal">A requerente não possui pais, avós, filhos ou netos maiores de idade, no mesmo município de sua residência?*
+                @if ($requerente->detalhe->paiavofilhonetomaiormesmomunicipresid == "1")
+                    <br>
+                    <strong>{{ $requerente->detalhe->parentesmesmomunicipioresidencia }}</strong>
+                @endif
+            </td>
+            <td style="width: 30px;" class="dados-normal">{{ $requerente->detalhe->paiavofilhonetomaiormesmomunicipresid == "1" ? "sim" : "não" }}</td>
+        </tr>
+        <tr>
+            <td style="width: 687px;" class="dados-normal">A requerente possui filhos menores de idade?</td>
+            <td style="width: 30px;" class="dados-normal">{{ $requerente->detalhe->filhosmenoresidade == "1" ? "sim" : "não" }}</td>
+        </tr>
+        <tr>
+            <td style="width: 687px;" class="dados-normal">A requerente está trabalhando ou possui alguma forma de gerar renda no momento? Se sim, valor	
+                
+                @if ($requerente->detalhe->trabalhaougerarenda == "1")
+                    <br>
+                    <strong>R$ {{ mrc_turn_value($requerente->detalhe->valortrabalhorenda) }}</strong>
+                @endif
+            </td>
+            <td style="width: 30px;" class="dados-normal">{{ $requerente->detalhe->trabalhaougerarenda == "1" ? "sim" : "não" }}</td>
+        </tr>
+        <tr>
+            <td style="width: 687px;" class="dados-normal">A requerente está cadastrada no Cadastro Único (CADÚNICO)?*</td>
+            <td style="width: 30px;" class="dados-normal">{{ $requerente->detalhe->temcadunico == "1" ? "sim" : "não" }}</td>
+        </tr>
+        <tr>
+            <td style="width: 687px;" class="dados-normal">A requerente tem interesse de participar de formações para qualificação profissional e de desenvolvimento de
+                habilidades (cursos, oficinas, entre outros)?
+            </td>
+            <td style="width: 30px;" class="dados-normal">{{ $requerente->detalhe->teminteresformprofisdesenvolvhabilid == "1" ? "sim" : "não" }}</td>
+        </tr>
+        <tr>
+            <td style="width: 687px;" class="dados-normal">requerente apresentou documento de identificação?</td>
+            <td style="width: 30px;" class="dados-normal">{{ $requerente->detalhe->apresentoudocumentoidentificacao == "1" ? "sim" : "não" }}</td>
+        </tr>
+    </table>
+
+    <table  style="width: 717px; border-collapse: collapse; margin-bottom: 30px">
+        <tr>
+            <td style="width: 687px;" class="dados-normal">A requerente cumpre os requisitos previstos nos itens marcados com (*), necessários para concessão do benefício?
+            </td>
+            <td style="width: 30px; text-allign: center" class="dados-normal">{{ $requerente->detalhe->cumprerequisitositensnecessarios == "1" ? "sim" : "não" }}</td>
         </tr>
     </table>
 
