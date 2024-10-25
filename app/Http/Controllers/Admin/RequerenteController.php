@@ -384,16 +384,15 @@ class RequerenteController extends Controller
         $mpdf->SetHTMLFooter('
             <table style="width:717px; border-top: 1px solid #000000; font-size: 10px; font-family: Arial, Helvetica, sans-serif;">
                 <tr>
-                    <td width="239px">São Luis(MA) {DATE d/m/Y - H:i:s}</td>
-                    <td width="239px" align="center"></td>
-                    <td width="239px" align="right">{PAGENO}/{nbpg}</td>
+                    <td width="500px" align="left">Av. Jerônimo de Albuquerque, s/n, Palácio Henrique de La Roque – 2º andar, Jardim Renascença</td>
+                    <td width="217px" align="right">São Luis(MA) {DATE d/m/Y - H:i:s}</td>
                 </tr>
             </table>
         ');
 
 
         // Definindo a view que deverá ser renderizada como arquivo .pdf e passando os dados da pesquisa
-        $html = \View::make('admin.requerentes.pdfs.pdf_requerimento', compact('requerente','arr_comunidade', 'arr_racacor', 'arr_identidadegenero', 'arr_orientacaosexual'));
+        $html = \View::make('admin.requerentes.pdfs.pdf_requerimento', compact('requerente','arr_comunidade', 'arr_racacor', 'arr_identidadegenero', 'arr_orientacaosexual', 'mpdf'));
         $html = $html->render();
 
         // Definindo o arquivo .css que estilizará o arquivo blade na view ('admin.empresa.pdf.pdfempresa')

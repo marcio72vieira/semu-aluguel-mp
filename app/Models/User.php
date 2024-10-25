@@ -77,5 +77,10 @@ class User extends Authenticatable
         return $this->belongsTo(Unidadeatendimento::class);
     }
 
+    public function requerentes()
+    {
+        return $this->hasMany(Requerente::class);
+    }
+
 
 }

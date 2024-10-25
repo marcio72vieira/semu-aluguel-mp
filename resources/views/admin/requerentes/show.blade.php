@@ -28,6 +28,9 @@
                             <dt class="col-sm-4">Nome Completo</dt>
                             <dd class="col-sm-8">{{ $requerente->nomecompleto }}</dd>
 
+                            <dt class="col-sm-4">Sexo Biológico</dt>
+                            <dd class="col-sm-8">{{ $requerente->sexobiologico }}</dd>
+
                             <dt class="col-sm-4">RG</dt>
                             <dd class="col-sm-8">{{ $requerente->rg }}</dd>
 
@@ -60,6 +63,9 @@
 
                             <dt class="col-sm-4">Conta Corrente</dt>
                             <dd class="col-sm-8">{{ $requerente->conta }}</dd>
+
+                            <dt class="col-sm-4">Conta espcífica</dt>
+                            <dd class="col-sm-8">{{ $requerente->contaespecifica == "1" ? "Com movimento" : "Sem movimento" }}</dd>
 
                             <dt class="col-sm-4">Comunidade</dt>
                             {{--  <dd class="col-sm-8">{{ $comunidades[$requerente->comunidade] }} {{ $requerente->comunidade == '8' ? $requerente->outracomunidade : '' }}</dd> --}}
@@ -144,70 +150,72 @@
 
                             {{-- item 2.6.1 --}}
                             <dt class="col-sm-11" style="margin-bottom:15px;">A requerente foi atendida com a medida protetiva de urgência de encaminhamento a programa oficial ou comunitário de proteção ou atendimento? (art. 23, I, Lei 11.340/2006) *</dt>
-                            <dd class="col-sm-1">{{ $requerente->detalhe->medproturgcaminhaprogoficial == "1" ? "Sim" : "Não" }}</dd>
+                            <dd class="col-sm-1">{{ $requerente->detalhe->medproturgcaminhaprogoficial == "1" ? "sim" : "não" }}</dd>
 
                             {{-- item 2.6.2 --}}
                             <dt class="col-sm-11" style="margin-bottom:15px;">A requerente foi atendida com a medida protetiva de urgência de afastamento do lar?  (art. 23, III, Lei 11.340/2006) *</dt>
-                            <dd class="col-sm-1">{{ $requerente->detalhe->medproturgafastamentolar == "1" ? "Sim" : "Não" }}</dd>
+                            <dd class="col-sm-1">{{ $requerente->detalhe->medproturgafastamentolar == "1" ? "sim" : "não" }}</dd>
 
                             {{-- item 2.6.3 --}}
                             <dt class="col-sm-11" style="margin-bottom:15px;">A requerente encontra-se em situação de risco de vida iminente em razão de violência doméstica, carecendo de moradia protegida em caráter sigiloso?</dt>
-                            <dd class="col-sm-1">{{ $requerente->detalhe->riscmortvioldomesmoradprotegsigilosa == "1" ? "Sim" : "Não" }}</dd>
+                            <dd class="col-sm-1">{{ $requerente->detalhe->riscmortvioldomesmoradprotegsigilosa == "1" ? "sim" : "não" }}</dd>
 
                             {{-- item 2.6.4 --}}
                             <dt class="col-sm-11" style="margin-bottom:15px;">A requerente encontra-se em situação de risco de morte, aguardando medida protetiva de urgência?</dt>
-                            <dd class="col-sm-1">{{ $requerente->detalhe->riscvidaaguardmedproturg == "1" ? "Sim" : "Não"  }}</dd>
+                            <dd class="col-sm-1">{{ $requerente->detalhe->riscvidaaguardmedproturg == "1" ? "sim" : "não"  }}</dd>
 
                             {{-- item 2.6.5--}}
                             <dt class="col-sm-11" style="margin-bottom:15px;">A requerente encontra-se em situação de risco de morte e relata descumprimento de medida protetiva de urgência pelo agressor, necessitando de proteção até que se efetive a prisão deste?</dt>
-                            <dd class="col-sm-1">{{ $requerente->detalhe->relatodescomprmedproturgagressor == "1" ? "Sim" : "Não"  }}</dd>
+                            <dd class="col-sm-1">{{ $requerente->detalhe->relatodescomprmedproturgagressor == "1" ? "sim" : "não"  }}</dd>
 
                             {{-- item 2.6.6--}}
                             <dt class="col-sm-11" style="margin-bottom:15px;">A requerente está em situação de vulnerabilidade, de forma a não conseguir arcar com as despesas de moradia? *</dt>
-                            <dd class="col-sm-1">{{ $requerente->detalhe->sitvulnerabnaoconsegarcardespmoradia == "1" ? "Sim" : "Não"  }}</dd>
+                            <dd class="col-sm-1">{{ $requerente->detalhe->sitvulnerabnaoconsegarcardespmoradia == "1" ? "sim" : "não"  }}</dd>
 
                             {{-- item 2.6.7--}}
                             <dt class="col-sm-11" style="margin-bottom:15px;">requerente tem renda familiar de no máximo 02 salários, mesmo durante o convívio com o agressor? *</dt>
-                            <dd class="col-sm-1">{{ $requerente->detalhe->temrendfamiliardoissalconvivagressor == "1" ? "Sim" : "Não"  }}</dd>
+                            <dd class="col-sm-1">{{ $requerente->detalhe->temrendfamiliardoissalconvivagressor == "1" ? "sim" : "não"  }}</dd>
 
                              {{-- item 2.6.8--}}
-                             <dt class="col-sm-11" style="margin-bottom:15px;">A requerente não possui pais, avós, filhos ou netos maiores de idade, no mesmo município de sua residência? *</dt>
-                             @if ($requerente->detalhe->paiavofilhonetomaiormesmomunicipresid == "1")
-                                <dd class="col-sm-1" style="text-align: left">{{ $requerente->detalhe->parentesmesmomunicipioresidencia }}</dd>
-                             @else
-                                <dd class="col-sm-1">Não</dd>
-                             @endif
+                             <dt class="col-sm-11" style="margin-bottom:15px;">A requerente não possui pais, avós, filhos ou netos maiores de idade, no mesmo município de sua residência? *
+                                @if ($requerente->detalhe->paiavofilhonetomaiormesmomunicipresid == "1")
+                                    <br>
+                                    - {{ $requerente->detalhe->parentesmesmomunicipioresidencia }}
+                                @endif
+                             </dt>
+                            <dd class="col-sm-1" style="text-align: left">{{ $requerente->detalhe->paiavofilhonetomaiormesmomunicipresid == "1" ? "sim" : "não" }}</dd>
 
 
                             {{-- item 2.6.9--}}
                             <dt class="col-sm-11" style="margin-bottom:15px;">A requerente possui filhos menores de idade?</dt>
-                            <dd class="col-sm-1">{{ $requerente->detalhe->filhosmenoresidade == "1" ? "Sim" : "Não"  }}</dd>
+                            <dd class="col-sm-1">{{ $requerente->detalhe->filhosmenoresidade == "1" ? "sim" : "não"  }}</dd>
 
 
                             {{-- item 2.6.10--}}
-                            <dt class="col-sm-11" style="margin-bottom:15px;">A requerente está trabalhando ou possui alguma forma de gerar renda no momento?</dt>
-                            @if ($requerente->detalhe->trabalhaougerarenda == "1")
-                                <dd class="col-sm-1">{{ mrc_turn_value($requerente->detalhe->valortrabalhorenda) }}</dd>
-                            @else
-                                <dd class="col-sm-1">Não</dd>
-                            @endif
+                            <dt class="col-sm-11" style="margin-bottom:15px;">A requerente está trabalhando ou possui alguma forma de gerar renda no momento?
+                                @if ($requerente->detalhe->trabalhaougerarenda == "1")
+                                    <br>
+                                    - R$ {{ mrc_turn_value($requerente->detalhe->valortrabalhorenda) }}
+                                @endif
+                            </dt>
+                            <dd class="col-sm-1">{{ $requerente->detalhe->trabalhaougerarenda == "1" ? "sim" : "não"  }}</dd>
 
 
                             {{-- item 2.6.11--}}
                             <dt class="col-sm-11" style="margin-bottom:15px;">A requerente está cadastrada no Cadastro Único (CADÚNICO)? *</dt>
-                            <dd class="col-sm-1">{{ $requerente->detalhe->temcadunico == "1" ? "Sim" : "Não"  }}</dd>
+                            <dd class="col-sm-1">{{ $requerente->detalhe->temcadunico == "1" ? "sim" : "não"  }}</dd>
 
                             {{-- item 2.6.12--}}
                             <dt class="col-sm-11" style="margin-bottom:15px;">A requerente tem interesse de participar de formações para qualificação profissional e de desenvolvimento de habilidades (cursos, oficinas, entre outros)?</dt>
-                            <dd class="col-sm-1">{{ $requerente->detalhe->teminteresformprofisdesenvolvhabilid == "1" ? "Sim" : "Não"  }}</dd>
+                            <dd class="col-sm-1">{{ $requerente->detalhe->teminteresformprofisdesenvolvhabilid == "1" ? "sim" : "não"  }}</dd>
 
                             {{-- item 2.6.13--}}
                             <dt class="col-sm-11" style="margin-bottom:15px;">A requerente apresentou documento de identificação?</dt>
-                            <dd class="col-sm-1">{{ $requerente->detalhe->apresentoudocumentoidentificacao == "1" ? "Sim" : "Não"  }}</dd>
+                            <dd class="col-sm-1">{{ $requerente->detalhe->apresentoudocumentoidentificacao == "1" ? "sim" : "não"  }}</dd>
 
                             {{-- item 2.6.14--}}
                             <dt class="col-sm-11" style="margin-bottom:15px;">A requerente cumpre os requisitos previstos nos itens marcados com (*), necessários para concessão do benefício?</dt>
-                            <dd class="col-sm-1">{{ $requerente->detalhe->cumprerequisitositensnecessarios == "1" ? "Sim" : "Não"  }}</dd>
+                            <dd class="col-sm-1">{{ $requerente->detalhe->cumprerequisitositensnecessarios == "1" ? "sim" : "não"  }}</dd>
 
                         </dl>
 
