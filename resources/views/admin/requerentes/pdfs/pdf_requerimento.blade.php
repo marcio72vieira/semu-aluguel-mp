@@ -249,7 +249,7 @@
     <pagebreak />
 
     {{-- DECLARAÇÕES --}}
-    <table style="width: 717px; border-collapse: collapse; margin-bottom: 120px;">
+    <table style="width: 717px; border-collapse: collapse; margin-bottom: 90px;">
         <tr>
             <td colspan="4" style="width: 717px; font-size: 10px; font-family: Arial, Helvetica, sans-serif; font-style: italic; font-weight: bold;">
                 DECLARAÇÕES
@@ -292,12 +292,12 @@
             </td>
         </tr>
         <tr>
-            <td style="width: 717px; text-align:center" class="dados-lista">
-                <br><br><br><br><br><br>
+            <td style="width: 717px; text-align:center" class="dados-declaracao">
+                <br><br><br><br>
                 Data e assinatura da requerente
                 <br><br><br>
                 ________________________________________________________
-                <br><br><br><br><br><br>
+                <br><br><br>
                 ____________________________________,_________ de _________________________ de ____________
                 <br><br>
                 Município                   dia/mês/ano
@@ -331,10 +331,8 @@
             <td colspan="2" style="width:717px;" class="close-ficha"></td>
         </tr>
         <tr>
-            <td colspan="2" style="width: 717px; text-align:center" class="dados-lista">
-                <br>
-                <br>
-                <br>
+            <td colspan="2" style="width: 717px; text-align:center" class="dados-declaracao">
+                <br><br>
                 _____________________________________________
                 <br>
                 CPF nº {{ $requerente->user->cpf }}
@@ -373,7 +371,7 @@
             </td>
         </tr>
         <tr>
-            <td style="width: 717px; text-align:center" class="dados-lista">
+            <td style="width: 717px; text-align:center" class="dados-declaracao">
                 <br><br><br><br><br><br>
                 ____________________________________,_________ de _________________________ de ____________
                 <br><br>
@@ -412,7 +410,7 @@
                 portadora do  RG nº <strong>{{ $requerente->rg }} {{ $requerente->orgaoexpedidor }}</strong> e do
                 CPF nº <strong>{{ $requerente->cpf }}</strong>, declaro para todos os fins de direito e sob as penas da lei, que não possuo parentes 
                 até o segundo grau, em linha reta, ascendente ou descendente (pais, avós, filhos ou netos), no mesmo Município de minha residência, 
-                nos termos do art. 2º, IV, da Lei Estadual nº 11.350, de 02 de outubro de 2020
+                nos termos do art. 2º, IV, da Lei Estadual nº 11.350, de 02 de outubro de 2020.
                 <br>
                 <br>
                 <span style="color: white">.................</span>
@@ -437,7 +435,7 @@
             </td>
         </tr>
         <tr>
-            <td style="width: 717px; text-align:center" class="dados-lista">
+            <td style="width: 717px; text-align:center" class="dados-declaracao">
                 <br><br><br><br><br><br>
                 ____________________________________,_________ de _________________________ de ____________
                 <br><br>
@@ -607,21 +605,21 @@
             </td>
         </tr>
         <tr>
-            <td style="width: 717px; text-align:center" class="dados-lista">
-                <br><br>
+            <td style="width: 717px; text-align:center" class="dados-declaracao">
+                <br>
                 ____________________________________,_________ de _________________________ de ____________
                 <br><br>
                 Cidade                   dia/mês/ano
-                <br><br><br><br><br>
+                <br><br><br><br>
     
                 ________________________________________________________
                 <br>
                 Assinatura do Locador
-                <br><br><br><br>
+                <br><br><br>
                 ________________________________________________________
                 <br>
                 Assinatura da Locatária
-                <br><br><br><br>
+                <br><br><br>
             </td>
         </tr>
     </table>
@@ -646,6 +644,69 @@
             <td style="width: 359px; text-align:center" class="dados-declaracao"></td>
         </tr>
     </table>
+
+    <pagebreak />
+
+
+    {{-- DECLARAÇÃO DE HOSPEDAGEM--}}
+    <table style="width: 717px; border-collapse: collapse; margin-bottom: 15px;">
+        <tr>
+            <td style="width: 717px; text-align: center; font-size: 10px; font-family: Arial, Helvetica, sans-serif;">
+                <br>
+                DECLARAÇÃO DE HOSPEDAGEM
+            </td>
+        </tr>
+    </table>
+
+    <table style="width: 717px; border-collapse: collapse;">
+        <tr>
+            <td style="width: 717px; text-align:justify" class="dados-declaracao">
+                <br>
+                <br>
+                <span style="color: white">.................</span>
+                Eu, {{ str_repeat("_", 80) }} portador(a) do RG nº {{ str_repeat("_", 30) }} e do CPF nº {{ str_repeat("_", 30) }}, responsável legal pela
+                empresa (se possuir) {{ str_repeat("_", 70) }}, CNPJ nº {{ str_repeat("_", 30) }}, declaro para todos os fins de direito e sob as penas da
+                lei, que HOSPEDO a Srª <strong>{{ $requerente->nomecompleto}}</strong>, portadora do  RG nº <strong>{{ $requerente->rg }} 
+                {{ $requerente->orgaoexpedidor }}</strong> e do CPF nº <strong>{{ $requerente->cpf }}</strong>, no endereço situado na Rua
+                {{ str_repeat("_", 70) }} nº {{ str_repeat("_", 10) }}, Bairro {{ str_repeat("_", 35) }} na Cidade de {{ str_repeat("_", 30) }}, 
+                CEP: {{ str_repeat("_", 12) }}, no Estado  do  Maranhão, desde _____/_____/________, até _____/_____/________, com pagamento da hospedagem 
+                no valor mensal de R$ {{ str_repeat("_", 25) }} ({{ str_repeat("_", 27) }}<br>{{ str_repeat("_", 80) }}).
+                <br><br>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 717px; text-align:justify" class="dados-declaracao">
+                <span style="color: white">.................</span>
+                Assim, por ser esta a fiel expressão da verdade, assino a presente declaração, ciente de que que a falsidade das informações acima sujeitará 
+                às penalidades legais previstas no art. 299, do Código Penal, como também implicará na suspensão do benefício concedido à Locatária, 
+                intitulado “Aluguel Maria da Penha”, instituído pela Lei nº 11.350, de 02 de outubro de 2020.
+                <br>
+                <br>
+            </td>
+        </tr>
+    </table>
+    <table style="width: 717px; border-collapse: collapse;">
+        <tr>
+            <td style="width: 717px; text-align:center" class="dados-declaracao">
+                <br><br><br><br><br><br>
+                ____________________________________,_________ de _________________________ de ____________
+                <br><br>
+                Cidade                   dia/mês/ano
+                <br><br><br><br><br><br>
+
+                ________________________________________________________
+                <br>
+                Assinatura do declarante
+                <br><br><br>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 717px;" class="dados-declaracao">
+                <br><strong>Obs: Anexar identidade do declarante</strong>
+            <td>
+        </tr>
+    </table>
+    
 </body>
 </html>
 
