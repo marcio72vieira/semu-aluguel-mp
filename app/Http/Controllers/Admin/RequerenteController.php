@@ -100,6 +100,9 @@ class RequerenteController extends Controller
                 'outraorientacaosexual'     => $request->outraorientacaosexual,
                 'deficiente'                => $request->deficiente,
                 'deficiencia'               => $request->deficiencia,
+                'nacionalidade'             => $request->nacionalidade,
+                'profissao'                 => $request->profissao,
+                'estadocivil'               => $request->estadocivil,
                 'endereco'                  => $request->endereco,
                 'numero'                    => $request->numero,
                 'complemento'               => $request->complemento,
@@ -171,7 +174,7 @@ class RequerenteController extends Controller
         $arr_racacor = ['1' => 'Preta', '2' => 'Amarela', '3' => 'Parda', '4' => 'Indígena', '5' => 'Não se aplica', '20' => 'Outra'];
         $arr_identidadegenero = ['1' => 'Feminino', '2' => 'Transexual', '3' => 'Travesti', '4' => 'Transgênero', '20' => 'Outra'];
         $arr_orientacaosexual = ['1' => 'Homossexual', '2' => 'Heterossexual', '3' => 'Bissexual', '20' => 'Outra'];
-
+        $arr_estadocivil = ['1' => 'Solteira', '2' => 'Casada', '3' => 'Viúva', '20' => 'Outro'];
 
         // Exibe os detalhes do requerente
         return view('admin.requerentes.show', [
@@ -179,7 +182,8 @@ class RequerenteController extends Controller
             'arr_racacor' => $arr_racacor,
             'requerente' => $requerente,
             'arr_identidadegenero' => $arr_identidadegenero,
-            'arr_orientacaosexual' => $arr_orientacaosexual
+            'arr_orientacaosexual' => $arr_orientacaosexual,
+            'arr_estadocivil' => $arr_estadocivil
 
         ]);
 
@@ -256,6 +260,9 @@ class RequerenteController extends Controller
                 'outraorientacaosexual'     => $request->outraorientacaosexual,
                 'deficiente'                => $request->deficiente,
                 'deficiencia'               => $request->deficiencia,
+                'nacionalidade'             => $request->nacionalidade,
+                'profissao'                 => $request->profissao,
+                'estadocivil'               => $request->estadocivil,
                 'endereco'                  => $request->endereco,
                 'numero'                    => $request->numero,
                 'complemento'               => $request->complemento,
@@ -345,6 +352,7 @@ class RequerenteController extends Controller
         $arr_racacor = ['1' => 'Preta', '2' => 'Amarela', '3' => 'Parda', '4' => 'Indígena', '5' => 'Não se aplica', '20' => 'Outra'];
         $arr_identidadegenero = ['1' => 'Feminino', '2' => 'Transexual', '3' => 'Travesti', '4' => 'Transgênero', '20' => 'Outra'];
         $arr_orientacaosexual = ['1' => 'Homossexual', '2' => 'Heterossexual', '3' => 'Bissexual', '20' => 'Outra'];
+        $arr_estadocivil = ['1' => 'Solteira', '2' => 'Casada', '3' => 'Viúva', '20' => 'Outro'];
 
         // Saneando o cpf para compor o nom do arquivo
         $cpf = str_replace('.','',str_replace('-','',$requerente->cpf));
@@ -392,7 +400,7 @@ class RequerenteController extends Controller
 
 
         // Definindo a view que deverá ser renderizada como arquivo .pdf e passando os dados da pesquisa
-        $html = \View::make('admin.requerentes.pdfs.pdf_requerimento', compact('requerente','arr_comunidade', 'arr_racacor', 'arr_identidadegenero', 'arr_orientacaosexual', 'mpdf'));
+        $html = \View::make('admin.requerentes.pdfs.pdf_requerimento', compact('requerente','arr_comunidade', 'arr_racacor', 'arr_identidadegenero', 'arr_orientacaosexual', 'arr_estadocivil', 'mpdf'));
         $html = $html->render();
 
         // Definindo o arquivo .css que estilizará o arquivo blade na view ('admin.empresa.pdf.pdfempresa')

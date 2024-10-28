@@ -81,8 +81,8 @@
         </tr>
         <tr>
             <td style="width: 317px;" class="dados-ficha">{{ $requerente->deficiente == "1" ? $requerente->deficiencia : "Não" }}</td>
-            <td style="width: 200x;" class="dados-ficha">Brasileira</td>
-            <td style="width: 200px;" class="dados-ficha">Autônoma</td>
+            <td style="width: 200x;" class="dados-ficha">{{ $requerente->nacionalidade }}</td>
+            <td style="width: 200px;" class="dados-ficha">{{ $requerente->profissao }}</td>
         </tr>
     </table>
 

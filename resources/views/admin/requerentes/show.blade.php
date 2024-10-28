@@ -1,10 +1,10 @@
 @extends('layout.admin')
 
 @section('content')
-    <div class="container-fluid px-4">
-        <div class="mb-1 hstack gap-2">
+    <div class="px-4 container-fluid">
+        <div class="gap-2 mb-1 hstack">
             <h2 class="mt-3">REQUERENTE - visualizar</h2>
-            <ol class="breadcrumb mb-3 mt-3 ms-auto">
+            <ol class="mt-3 mb-3 breadcrumb ms-auto">
                 <li class="breadcrumb-item"><a href="">Dashboard</a></li>
                 <li class="breadcrumb-item"><a class="text-decoration-none" href="">Requerentes</a></li>
                 <li class="breadcrumb-item active">Requerente</li>
@@ -13,9 +13,9 @@
 
         <div class="row">
             <div class="col-5">
-                <div class="card mb-4 border-light shadow">
-                    <div class="card-header hstack gap-2">
-                        <span class="small p-2"><strong> Informações da Requerente </strong></span>
+                <div class="mb-4 shadow card border-light">
+                    <div class="gap-2 card-header hstack">
+                        <span class="p-2 small"><strong> Informações da Requerente </strong></span>
                     </div>
 
                     <div class="card-body">
@@ -83,6 +83,12 @@
                             <dt class="col-sm-4">Pessoa com deficiência</dt>
                             <dd class="col-sm-8">{{ $requerente->deficiente == '0' ? "Não" : $requerente->deficiencia }}</dd>
 
+                            <dt class="col-sm-4">Nacionalidade</dt>
+                            <dd class="col-sm-8">{{ $requerente->nacionalidade }}</dd>
+
+                            <dt class="col-sm-4">Profissão</dt>
+                            <dd class="col-sm-8">{{ $requerente->profissao }}</dd>
+
                             <dt class="col-sm-4">Endereço</dt>
                             <dd class="col-sm-8">{{ $requerente->endereco }}</dd>
 
@@ -113,7 +119,7 @@
                             <dt class="col-sm-4"></dt>
                             <dd class="col-sm-8">
                                 <a class="btn btn-outline-secondary" href="{{ route('requerente.index')}}" role="button">Listar</a>
-                                <a href="{{ route('requerente.relpdfrequerente', ['requerente' => $requerente->id]) }}" class="btn btn-danger btn-sm p-2" target="_blank">
+                                <a href="{{ route('requerente.relpdfrequerente', ['requerente' => $requerente->id]) }}" class="p-2 btn btn-danger btn-sm" target="_blank">
                                     <i class="fa-solid fa-file-pdf"></i> Requerimento
                                 </a>
                             </dd>
@@ -123,9 +129,9 @@
                 </div>
             </div>
             <div class="col-7">
-                <div class="card mb-4 border-light shadow">
-                    <div class="card-header hstack gap-2">
-                        <span class="small p-2"><strong> Detalhes do Requerimento </strong></span>
+                <div class="mb-4 shadow card border-light">
+                    <div class="gap-2 card-header hstack">
+                        <span class="p-2 small"><strong> Detalhes do Requerimento </strong></span>
                     </div>
 
                     <div class="card-body">

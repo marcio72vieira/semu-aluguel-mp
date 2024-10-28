@@ -32,6 +32,9 @@ return new class extends Migration
             $table->string('outraorientacaosexual')->nullable();
             $table->string('deficiente');
             $table->string('deficiencia')->nullable();
+            $table->string('nacionalidade');
+            $table->string('profissao')->nullable();
+            $table->string('estadocivil');
             $table->string('endereco');
             $table->string('numero')->nullable();
             $table->string('complemento')->nullable();

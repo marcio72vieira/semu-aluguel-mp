@@ -1,19 +1,19 @@
 @extends('layout.admin')
 
 @section('content')
-    <div class="container-fluid px-4">
-        <div class="mb-1 hstack gap-2">
+    <div class="px-4 container-fluid">
+        <div class="gap-2 mb-1 hstack">
             <h2 class="mt-3">REQUERENTE -  cadastro</h2>
-            <ol class="breadcrumb mb-3 mt-3 ms-auto">
+            <ol class="mt-3 mb-3 breadcrumb ms-auto">
                 <li class="breadcrumb-item"><a href="">Dashboard</a></li>
                 <li class="breadcrumb-item"><a class="text-decoration-none" href="">Requerentes</a></li>
                 <li class="breadcrumb-item active">Requerente</li>
             </ol>
         </div>
 
-        <div class="card mb-4 border-light shadow">
-            <div class="card-header hstack gap-2">
-                <span class="small text-danger p-2"><strong>Campo marcado com * é de preenchimento obrigatório!</strong></span>
+        <div class="mb-4 shadow card border-light">
+            <div class="gap-2 card-header hstack">
+                <span class="p-2 small text-danger"><strong>Campo marcado com * é de preenchimento obrigatório!</strong></span>
             </div>
 
             <div class="card-body">
@@ -31,7 +31,7 @@
                         <label><strong>INFORMAÇÕES DA REQUERENTE</strong></label>
                     </div>
 
-                    <div class="row mb-3">
+                    <div class="mb-3 row">
 
                         {{-- Nomecompleto --}}
                         <div class="col-4">
@@ -102,7 +102,7 @@
 
 
 
-                    <div class="row mb-3">
+                    <div class="mb-3 row">
                         {{-- banco --}}
                         <div class="col-6">
                             <div class="form-group focused">
@@ -161,7 +161,7 @@
 
 
 
-                    <div class="row mb-3">
+                    <div class="mb-3 row">
                         {{-- comunidade --}}
                         <div class="col-3">
                             <div class="form-group focused">
@@ -243,7 +243,7 @@
 
                     </div>
 
-                    <div class="row mb-3">
+                    <div class="mb-3 row">
                         {{-- outracomunidade --}}
                         <div class="col-3">
                             <div class="form-group focused">
@@ -285,8 +285,9 @@
                         </div>
                     </div>
 
-                    <div class="row mb-3" style="margin-top:30px">
-                        {{-- deficiente --}}
+                    {{-- FORMA ANTIGA
+                    <div class="mb-3 row" style="margin-top:30px">
+                        
                         <label for="deficientenao" class="col-3 col-form-label">Pessoa com deficiência ? <span class="small text-danger">*</span></label>
                         <div class="col-3">
                             <div style="margin-top:5px">
@@ -313,6 +314,92 @@
                                 @enderror
                             </div>
                         </div>
+                    </div>
+                    --}}
+
+                    {{-- FORMA ANTIGA
+                    <div class="mb-4 row" style="margin-top:30px">
+                        <div style="margin-top:5px">
+                            <label for="deficientenao" class="col-2 col-form-label">Pessoa com deficiência ? <span class="small text-danger">*</span></label>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="deficiente" id="deficientesim" value="1" {{old('deficiente') == '1' ? 'checked' : ''}}  required>
+                                <label class="form-check-label" for="deficientesim">Sim</label>
+
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="deficiente" id="deficientenao" value="0" {{old('deficiente') == '0' ? 'checked' : ''}} >
+                                <label class="form-check-label" for="deficientenao">Não</label>
+                            </div>
+                            <br>
+                            @error('deficiente')
+                                <small style="color: red">{{$message}}</small>
+                            @enderror
+
+                            <div class="col-3">
+                                <div class="form-group focused">
+                                    <input type="text" style="visibility:hidden" class="form-control" id="deficiencia" name="deficiencia" value="{{old('deficiencia')}}" placeholder="especifique...">
+                                    @error('deficiencia')
+                                        <small style="color: red" id="msg_error_deficiencia">{{$message}}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    --}}
+
+                    <div class="mb-4 row" style="margin-top:30px">
+                        {{-- deficiente --}}
+                        <div class="col-3">
+                            <div style="margin-top:5px">
+                                <label for="deficientenao" class="col-form-label">Pessoa com deficiência ? <span class="small text-danger" style="margin-right: 20px">*</span></label>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="deficiente" id="deficientesim" value="1" {{old('deficiente') == '1' ? 'checked' : ''}}  required>
+                                    <label class="form-check-label" for="deficientesim">Sim</label>
+
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="deficiente" id="deficientenao" value="0" {{old('deficiente') == '0' ? 'checked' : ''}} >
+                                    <label class="form-check-label" for="deficientenao">Não</label>
+                                </div>
+                                <br>
+                                @error('deficiente')
+                                    <small style="color: red">{{$message}}</small>
+                                @enderror
+                            </div>
+                        </div>
+                        {{-- deficiência ---}}
+                        <div class="col-3">
+                            <div class="form-group focused">
+                                <br>
+                                <input type="text" style="visibility:hidden" class="form-control" id="deficiencia" name="deficiencia" value="{{old('deficiencia')}}" placeholder="especifique...">
+                                @error('deficiencia')
+                                    <small style="color: red" id="msg_error_deficiencia">{{$message}}</small>
+                                @enderror
+                            </div>
+                        </div>
+
+                        {{-- nacionalidade --}}
+                        <div class="col-3">
+                            <div class="form-group focused">
+                                <label class="form-control-label" for="nacionalidade">Nacionalidade <span class="small text-danger">*</span></label>
+                                <input type="text" class="form-control" id="nacionalidade" name="nacionalidade" value="{{old('nacionalidade')}}" required>
+                                @error('nacionalidade')
+                                    <small style="color: red">{{$message}}</small>
+                                @enderror
+                            </div>
+                        </div>
+
+                        {{-- profissao --}}
+                        <div class="col-3">
+                            <div class="form-group focused">
+                                <label class="form-control-label" for="profissao">Profissão <span class="small text-danger">*</span></label>
+                                <input type="text" class="form-control" id="profissao" name="profissao" value="{{old('profissao')}}" required>
+                                @error('profissao')
+                                    <small style="color: red">{{$message}}</small>
+                                @enderror
+                            </div>
+                        </div>
+
                     </div>
 
 
