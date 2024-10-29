@@ -486,9 +486,8 @@
                 portador do RG nº {{ str_repeat("_", 30) }} e CPF/MF nº {{ str_repeat("_", 30) }}, residente e domiciliado(a) na (Rua), (número), (bairro), (Cidade), (Estado);
                 <br>
                 <strong>LOCATÁRIA:</strong>
-                {{ $requerente->nomecompleto }}, {{ $requerente->nacionalidade }}, {{ $arr_estadocivil[$requerente->estadocivil] }}, {{ $requerente->profissao }} 
-                portador do RG nº {{ $requerente->rg }} {{ $requerente->orgaoexpedidor }} e CPF/MF nº {{ $requerente->cpf }}, residente e domiciliado(a) na 
-                {{ $requerente->endereco }}, {{ $requerente->numero }}, {{ $requerente->complemento == null ? "" : $requerente->complemento.","  }} {{ $requerente->bairro }}, {{ $requerente->municipio->nome }}, MA;
+                {{ str_repeat("_", 105) }} 
+                portador do RG nº {{ str_repeat("_", 30) }} e CPF/MF nº {{ str_repeat("_", 30) }}, residente e domiciliado(a) na (Rua), (número), (bairro), (Cidade), (Estado);
             </td>
         </tr>
         <tr>

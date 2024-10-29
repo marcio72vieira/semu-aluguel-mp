@@ -174,7 +174,7 @@ class RequerenteController extends Controller
         $arr_racacor = ['1' => 'Preta', '2' => 'Amarela', '3' => 'Parda', '4' => 'Indígena', '5' => 'Não se aplica', '20' => 'Outra'];
         $arr_identidadegenero = ['1' => 'Feminino', '2' => 'Transexual', '3' => 'Travesti', '4' => 'Transgênero', '20' => 'Outra'];
         $arr_orientacaosexual = ['1' => 'Homossexual', '2' => 'Heterossexual', '3' => 'Bissexual', '20' => 'Outra'];
-        $arr_estadocivil = ['1' => 'Solteira', '2' => 'Casada', '3' => 'Viúva', '20' => 'Outro'];
+        $arr_estadocivil = ['1' => 'Solteira', '2' => 'Casada', '3' => 'Divorciada', '4' => 'Viúva', '20' => 'Outro'];
 
         // Exibe os detalhes do requerente
         return view('admin.requerentes.show', [
@@ -352,7 +352,7 @@ class RequerenteController extends Controller
         $arr_racacor = ['1' => 'Preta', '2' => 'Amarela', '3' => 'Parda', '4' => 'Indígena', '5' => 'Não se aplica', '20' => 'Outra'];
         $arr_identidadegenero = ['1' => 'Feminino', '2' => 'Transexual', '3' => 'Travesti', '4' => 'Transgênero', '20' => 'Outra'];
         $arr_orientacaosexual = ['1' => 'Homossexual', '2' => 'Heterossexual', '3' => 'Bissexual', '20' => 'Outra'];
-        $arr_estadocivil = ['1' => 'Solteira', '2' => 'Casada', '3' => 'Viúva', '20' => 'Outro'];
+        $arr_estadocivil = ['1' => 'Solteira', '2' => 'Casada', '3' => 'Divorciada', '4' => 'Viúva', '20' => 'Outro'];
 
         // Saneando o cpf para compor o nom do arquivo
         $cpf = str_replace('.','',str_replace('-','',$requerente->cpf));

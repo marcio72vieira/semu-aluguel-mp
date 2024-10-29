@@ -379,7 +379,7 @@
                         </div>
 
                         {{-- nacionalidade --}}
-                        <div class="col-3">
+                        <div class="col-2">
                             <div class="form-group focused">
                                 <label class="form-control-label" for="nacionalidade">Nacionalidade <span class="small text-danger">*</span></label>
                                 <input type="text" class="form-control" id="nacionalidade" name="nacionalidade" value="{{old('nacionalidade')}}" required>
@@ -390,11 +390,29 @@
                         </div>
 
                         {{-- profissao --}}
-                        <div class="col-3">
+                        <div class="col-2">
                             <div class="form-group focused">
                                 <label class="form-control-label" for="profissao">Profissão <span class="small text-danger">*</span></label>
                                 <input type="text" class="form-control" id="profissao" name="profissao" value="{{old('profissao')}}" required>
                                 @error('profissao')
+                                    <small style="color: red">{{$message}}</small>
+                                @enderror
+                            </div>
+                        </div>
+
+                        {{-- estadocivil --}}
+                        <div class="col-2">
+                            <div class="form-group focused">
+                                <label class="form-control-label" for="estadocivil">Estado Civil<span class="small text-danger">*</span></label>
+                                <select name="estadocivil" id="estadocivil" class="form-control"  required>
+                                    <option value="" selected disabled>Escolha ...</option>
+                                    <option value="1" {{old('estadocivil') == '1' ? 'selected' : ''}}>Solteira</option>
+                                    <option value="2" {{old('estadocivil') == '2' ? 'selected' : ''}}>Casada</option>
+                                    <option value="3" {{old('estadocivil') == '3' ? 'selected' : ''}}>Divorciada</option>
+                                    <option value="4" {{old('estadocivil') == '4' ? 'selected' : ''}}>Viúva</option>
+                                    <option value="20" {{old('estadocivil') == '20' ? 'selected' : ''}}>Outra</option>
+                                </select>
+                                @error('estadocivil')
                                     <small style="color: red">{{$message}}</small>
                                 @enderror
                             </div>
