@@ -89,9 +89,6 @@
                             <dt class="col-sm-4">Profissão</dt>
                             <dd class="col-sm-8">{{ $requerente->profissao }}</dd>
 
-                            <dt class="col-sm-4">Estado Civil</dt>
-                            <dd class="col-sm-8">{{ $arr_estadocivil[$requerente->estadocivil] }}</dd>
-
                             <dt class="col-sm-4">Endereço</dt>
                             <dd class="col-sm-8">{{ $requerente->endereco }}</dd>
 
@@ -118,7 +115,7 @@
 
                         </dl>
 
-                        {{-- <dl class="row">
+                        <dl class="row">
                             <dt class="col-sm-4"></dt>
                             <dd class="col-sm-8">
                                 <a class="btn btn-outline-secondary" href="{{ route('requerente.index')}}" role="button">Listar</a>
@@ -126,7 +123,7 @@
                                     <i class="fa-solid fa-file-pdf"></i> Requerimento
                                 </a>
                             </dd>
-                        </dl> --}}
+                        </dl>
 
                     </div>
                 </div>
@@ -153,7 +150,7 @@
                             <dt class="col-sm-4">Prazo da medida protetiva</dt>
                             <dd class="col-sm-8">{{ mrc_turn_data($requerente->detalhe->prazomedidaprotetiva) }}</dd>
 
-                            <dt class="col-sm-4" style="margin-bottom:95px;">Data em que foi concedida</dt>
+                            <dt class="col-sm-4" style="margin-bottom:50px;">Data em que foi concedida</dt>
                             <dd class="col-sm-8">{{ mrc_turn_data($requerente->detalhe->dataconcessaomedidaprotetiva) }}</dd>
 
 
@@ -186,7 +183,7 @@
                             <dd class="col-sm-1">{{ $requerente->detalhe->temrendfamiliardoissalconvivagressor == "1" ? "sim" : "não"  }}</dd>
 
                              {{-- item 2.6.8--}}
-                             <dt class="col-sm-11" style="margin-bottom:15px;">A requerente não possui pais, avós, filhos ou netos maiores de idade, no mesmo município de sua residência? Se sim, quais*
+                             <dt class="col-sm-11" style="margin-bottom:15px;">A requerente não possui pais, avós, filhos ou netos maiores de idade, no mesmo município de sua residência? *
                                 @if ($requerente->detalhe->paiavofilhonetomaiormesmomunicipresid == "1")
                                     <br>
                                     - {{ $requerente->detalhe->parentesmesmomunicipioresidencia }}
@@ -201,7 +198,7 @@
 
 
                             {{-- item 2.6.10--}}
-                            <dt class="col-sm-11" style="margin-bottom:15px;">A requerente está trabalhando ou possui alguma forma de gerar renda no momento? Se sim, valor
+                            <dt class="col-sm-11" style="margin-bottom:15px;">A requerente está trabalhando ou possui alguma forma de gerar renda no momento?
                                 @if ($requerente->detalhe->trabalhaougerarenda == "1")
                                     <br>
                                     - R$ {{ mrc_turn_value($requerente->detalhe->valortrabalhorenda) }}
@@ -232,119 +229,6 @@
                 </div>
 
             </div>
-        </div>
-
-        <div class="row">
-            <div class="col-12">
-                <div class="mb-4 shadow card border-light">
-                    <div class="gap-2 card-header hstack">
-                        <span class="p-2 small"><strong> Informações da Locação </strong></span>
-                    </div>
-
-                    <div class="card-body">
-
-                        <dl class="row">
-                                {{-- Dados do Locatário --}}
-                                <span class="p-2 small" style="margin-top: 15px; margin-left: 5px"><strong> DADOS DO LOCATÁRIO </strong></span>
-                                <hr>
-
-                                <dt class="col-sm-2">Nome do Locatário</dt>
-                                <dd class="col-sm-3">{{ $requerente->nomecompleto }}</dd>
-
-                                <dt class="col-sm-1">RG</dt>
-                                <dd class="col-sm-2">94879487-8 SSP/MA</dd>
-
-                                <dt class="col-sm-1">CPF</dt>
-                                <dd class="col-sm-2">{{ $requerente->rg }}</dd>
-
-                                <dt class="col-sm-2">Nacionalidade</dt>
-                                <dd class="col-sm-3">{{ $requerente->cpf }}</dd>
-
-                                <dt class="col-sm-1">Profissão</dt>
-                                <dd class="col-sm-2">{{ $requerente->municipio->regional->nome }}</dd>
-
-                                <dt class="col-sm-1">Estado Civil</dt>
-                                <dd class="col-sm-2">{{ $requerente->municipio->nome }}</dd>
-
-                                <dt class="col-sm-2">Endereço</dt>
-                                <dd class="col-sm-3">{{ $requerente->endereco }}</dd>
-
-                                <dt class="col-sm-1">Nº</dt>
-                                <dd class="col-sm-2">{{ $requerente->numero }}</dd>
-
-                                <dt class="col-sm-1">Complemento</dt>
-                                <dd class="col-sm-3">{{ $requerente->complemento }}</dd>
-
-                                <dt class="col-sm-2">Bairro</dt>
-                                <dd class="col-sm-3">{{ $requerente->bairro }}</dd>
-
-                                <dt class="col-sm-1">CEP</dt>
-                                <dd class="col-sm-2">{{ $requerente->numero }}</dd>
-
-                                <dt class="col-sm-1">Cidade</dt>
-                                <dd class="col-sm-3">{{ $requerente->complemento }} / MA</dd>
-
-
-                                {{-- Dados do Imóvel --}}
-
-                                <span class="p-2 small" style="margin-top: 15px; margin-left: 5px"><strong> DADOS DO IMÓVEL </strong></span>
-                                <hr>
-
-                                <dt class="col-sm-2">Endereço</dt>
-                                <dd class="col-sm-3">{{ $requerente->endereco }}</dd>
-
-                                <dt class="col-sm-1">Nº</dt>
-                                <dd class="col-sm-2">{{ $requerente->numero }}</dd>
-
-                                <dt class="col-sm-1">Complemento</dt>
-                                <dd class="col-sm-3">{{ $requerente->complemento }}</dd>
-
-                                <dt class="col-sm-2">Bairro</dt>
-                                <dd class="col-sm-3">{{ $requerente->bairro }}</dd>
-
-                                <dt class="col-sm-1">CEP</dt>
-                                <dd class="col-sm-2">{{ $requerente->numero }}</dd>
-
-                                <dt class="col-sm-1">Cidade</dt>
-                                <dd class="col-sm-3">{{ $requerente->complemento }} / MA</dd>
-
-                                <dt class="col-sm-2">Meses de Alocação</dt>
-                                <dd class="col-sm-3">{{ $requerente->endereco }}</dd>
-
-                                <dt class="col-sm-1">Meses por extenso</dt>
-                                <dd class="col-sm-2">{{ $requerente->numero }}</dd>
-
-                                <dt class="col-sm-1">Data Início</dt>
-                                <dd class="col-sm-3">{{ $requerente->complemento }}</dd>
-
-                                <dt class="col-sm-2">Data Final</dt>
-                                <dd class="col-sm-3">{{ $requerente->bairro }}</dd>
-
-                                <dt class="col-sm-1">Valor (R$)</dt>
-                                <dd class="col-sm-2">{{ $requerente->numero }}</dd>
-
-                                <dt class="col-sm-1">Valo por extenso</dt>
-                                <dd class="col-sm-3">{{ $requerente->complemento }} / MA</dd>
-
-                                <dt class="col-sm-2">Cidade / Foro</dt>
-                                <dd class="col-sm-3">{{ $requerente->endereco }}</dd>
-
-                        </dl>
-
-                        <dl class="row">
-                            <dt class="col-sm-4"></dt>
-                            <dd class="col-sm-8">
-                                <a class="btn btn-outline-secondary" href="{{ route('requerente.index')}}" role="button">Listar</a>
-                                <a href="{{ route('requerente.relpdfrequerente', ['requerente' => $requerente->id]) }}" class="p-2 btn btn-danger btn-sm" target="_blank">
-                                    <i class="fa-solid fa-file-pdf"></i> Requerimento
-                                </a>
-                            </dd>
-                        </dl>
-
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
 @endsection

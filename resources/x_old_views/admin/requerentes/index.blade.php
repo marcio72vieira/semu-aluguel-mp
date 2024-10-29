@@ -35,7 +35,7 @@
                         <th>Telefones</th>
                         <th class="d-none d-md-table-cell">CPF / RG</th>
                         <th class="d-none d-md-table-cell">Status</th>
-                        <th width="25%">Ações</th>
+                        <th width="18%">Ações</th>
                     </tr>
                 </thead>
 
@@ -58,9 +58,6 @@
                                     <i class="fa-solid fa-pen-to-square"></i> Editar
                                 </a>
 
-                                <a href="{{ route('requerimento.index', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-info btn-sm me-1">
-                                    <i class="fa-regular fa-paste"></i> Requerimento
-                                </a>
 
                                 <form id="formDelete{{ $requerente->id }}" method="POST" action="{{ route('requerente.destroy', ['requerente' => $requerente->id]) }}">
                                     @csrf

@@ -3,7 +3,7 @@
 @section('content')
 <div class="px-4 container-fluid">
     <div class="mb-1 hstack gap-2">
-        <h2 class="mt-3">REQUERENTES - lista</h2>
+        <h2 class="mt-3">REQUERIMENTOS - lista</h2>
         <ol class="breadcrumb mb-3 mt-3 ms-auto">
             <li class="breadcrumb-item"><a href="">Dashboard</a></li>
             <li class="breadcrumb-item"><a class="text-decoration-none" href="">Requerentes</a></li>
@@ -12,8 +12,11 @@
 
     <div class="mb-4 shadow card border-light">
         <div class="card-header hstack gap-2">
+
+            <h5>{{ $requerente->nomecompleto }} - CPF: {{ $requerente->cpf }}</h5>
+
             <span class="ms-auto d-sm-flex flex-row mt-1 mb-1">
-                <a href="{{ route('requerente.create') }}" class="btn btn-success btn-sm me-1"><i class="fa-regular fa-square-plus"></i> Cadastrar </a>
+                <a href="{{ route('requerente.create') }}" class="btn btn-success btn-sm me-1"><i class="fa-regular fa-square-plus"></i> Novo </a>
                 <a href="{{ route('user.pdflistusers') }}" class="btn btn-danger btn-sm me-1" target="_blank"><i class="fa-solid fa-file-pdf"></i> pdf</a>
             </span>
         </div>
@@ -29,17 +32,18 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Nome</th>
-                        <th class="d-none d-md-table-cell">Unidade Atendimento</th>
-                        <th class="d-none d-md-table-cell">Município</th>
-                        <th>Telefones</th>
-                        <th class="d-none d-md-table-cell">CPF / RG</th>
+                        <th>Processo Judicial</th>
+                        <th class="d-none d-md-table-cell">Órgao Judicial</th>
+                        <th class="d-none d-md-table-cell">Comarca</th>
+                        <th class="d-none d-md-table-cell">Prazo da medida protetiva</th>
+                        <th class="d-none d-md-table-cell">Data da concessão</th>
                         <th class="d-none d-md-table-cell">Status</th>
                         <th width="25%">Ações</th>
                     </tr>
                 </thead>
 
                 <tbody>
+                    {{--
                     @forelse ($requerentes as $requerente)
                         <tr>
                             <td>{{ $requerente->id }}</th>
@@ -75,10 +79,11 @@
                     @empty
                         <div class="alert alert-danger" role="alert">Nenhum Requerente encontrado!</div>
                     @endforelse
+                    --}}
                 </tbody>
             </table>
 
-            {{ $requerentes->links() }}
+            {{-- {{ $requerentes->links() }} --}}
 
 
         </div>

@@ -9,7 +9,6 @@ use App\Http\Controllers\Admin\TipounidadeController;
 use App\Http\Controllers\Admin\UnidadeatendimentoController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RequerenteController;
-use App\Http\Controllers\Admin\RequerimentoController;
 
 
 
@@ -74,9 +73,6 @@ Route::get('/edit-requerente/{requerente}', [RequerenteController::class, 'edit'
 Route::put('/update-requerente/{requerente}', [RequerenteController::class, 'update'])->name('requerente.update');
 Route::delete('/destroy-requerente/{requerente}', [RequerenteController::class, 'destroy'])->name('requerente.destroy');
 Route::get('pdf-requerente/relpdfrequerente/{requerente}', [RequerenteController::class, 'relpdfrequerente'])->name('requerente.relpdfrequerente');
-
-// REQUERIMENTO
-Route::get('/index-requerimento/{requerente}', [RequerimentoController::class, 'index'])->name('requerimento.index');
 
 
 

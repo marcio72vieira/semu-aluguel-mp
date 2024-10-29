@@ -85,4 +85,9 @@ class Requerente extends Model
         return $this->hasOne(Detalherequerente::class);
     }
 
+    public function requerimentos()
+    {
+        return $this->hasMany(Requerimento::class);
+    }
+
 }
