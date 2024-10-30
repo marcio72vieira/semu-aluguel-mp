@@ -77,6 +77,7 @@ Route::get('pdf-requerente/relpdfrequerente/{requerente}', [RequerenteController
 
 // REQUERIMENTO
 Route::get('/index-requerimento/{requerente}', [RequerimentoController::class, 'index'])->name('requerimento.index');
+Route::get('/create-requerimento', [RequerimentoController::class, 'create'])->name('requerimento.create');
 
 
 

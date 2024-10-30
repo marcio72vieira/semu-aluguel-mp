@@ -309,31 +309,25 @@
                                 <dd class="col-sm-3">{{ $requerente->complemento }} / MA</dd>
 
                                 <dt class="col-sm-2">Meses de Alocação</dt>
-                                <dd class="col-sm-3">{{ $requerente->endereco }}</dd>
-
-                                <dt class="col-sm-1">Meses por extenso</dt>
-                                <dd class="col-sm-2">{{ $requerente->numero }}</dd>
+                                <dd class="col-sm-3">8 (oito) meses</dd>
 
                                 <dt class="col-sm-1">Data Início</dt>
-                                <dd class="col-sm-3">{{ $requerente->complemento }}</dd>
+                                <dd class="col-sm-2">01/01/2024</dd>
 
-                                <dt class="col-sm-2">Data Final</dt>
-                                <dd class="col-sm-3">{{ $requerente->bairro }}</dd>
+                                <dt class="col-sm-1">Data Final</dt>
+                                <dd class="col-sm-3">31/08/2024</dd>
 
-                                <dt class="col-sm-1">Valor (R$)</dt>
-                                <dd class="col-sm-2">{{ $requerente->numero }}</dd>
+                                <dt class="col-sm-2">Valor (R$)</dt>
+                                <dd class="col-sm-3">800,00 (oitocentos reais)</dd>
 
-                                <dt class="col-sm-1">Valo por extenso</dt>
-                                <dd class="col-sm-3">{{ $requerente->complemento }} / MA</dd>
-
-                                <dt class="col-sm-2">Cidade / Foro</dt>
-                                <dd class="col-sm-3">{{ $requerente->endereco }}</dd>
+                                <dt class="col-sm-1">Cidade / Foro</dt>
+                                <dd class="col-sm-2">SÃO LUIS/MA</dd>
 
                         </dl>
 
                         <dl class="row">
-                            <dt class="col-sm-4"></dt>
-                            <dd class="col-sm-8">
+                            <dt class="col-sm-2"></dt>
+                            <dd class="col-sm-3">
                                 <a class="btn btn-outline-secondary" href="{{ route('requerente.index')}}" role="button">Listar</a>
                                 <a href="{{ route('requerente.relpdfrequerente', ['requerente' => $requerente->id]) }}" class="p-2 btn btn-danger btn-sm" target="_blank">
                                     <i class="fa-solid fa-file-pdf"></i> Requerimento

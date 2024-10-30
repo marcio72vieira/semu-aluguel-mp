@@ -27,9 +27,11 @@
                     @csrf
                     @method('POST')
 
-                    <div class="col-12" style="padding-bottom:20px; text-align: center;">
+                    <div class="col-12" style="padding:10px; margin-bottom: 15px; text-align: center; background-color: #e9e9e9">
                         <label><strong>INFORMAÇÕES DA REQUERENTE</strong></label>
                     </div>
+
+
 
                     <div class="mb-3 row">
 
@@ -287,7 +289,7 @@
 
                     {{-- FORMA ANTIGA
                     <div class="mb-3 row" style="margin-top:30px">
-                        
+
                         <label for="deficientenao" class="col-3 col-form-label">Pessoa com deficiência ? <span class="small text-danger">*</span></label>
                         <div class="col-3">
                             <div style="margin-top:5px">
@@ -410,7 +412,7 @@
                                     <option value="2" {{old('estadocivil') == '2' ? 'selected' : ''}}>Casada</option>
                                     <option value="3" {{old('estadocivil') == '3' ? 'selected' : ''}}>Divorciada</option>
                                     <option value="4" {{old('estadocivil') == '4' ? 'selected' : ''}}>Viúva</option>
-                                    <option value="20" {{old('estadocivil') == '20' ? 'selected' : ''}}>Outra</option>
+                                    <option value="20" {{old('estadocivil') == '20' ? 'selected' : ''}}>Outro</option>
                                 </select>
                                 @error('estadocivil')
                                     <small style="color: red">{{$message}}</small>
@@ -522,14 +524,11 @@
                         </div>
                     </div>
 
-                    <br>
-                    <br>
-                    <br>
 
-                    <div class="col-12" style="padding-bottom:20px; text-align: center;">
+
+                    <div class="col-12" style="padding:10px; margin-top: 50px; margin-bottom: 15px; text-align: center; background-color: #e9e9e9">
                         <label><strong>DETALHAMENTO DO REQUERIMENTO</strong></label>
                     </div>
-
 
                     <div class="mb-4 row">
                         {{-- processojudicial --}}
@@ -975,6 +974,348 @@
                     </div>
 
 
+                    <div class="col-12" style="padding:10px; margin-top: 50px; margin-bottom: 15px; text-align: center; background-color: #e9e9e9">
+                        <label><strong>INFORMAÇÕES DA LOCAÇÃO</strong></label>
+                    </div>
+
+                    <div class="mb-4 row">
+                        {{-- nomeloc --}}
+                        <div class="col-4">
+                            <div class="form-group focused">
+                                <label class="form-control-label" for="nomeloc">Nome do Locador(a) <span class="small text-danger">*</span></label>
+                                <input type="text" class="form-control" id="nomeloc" name="nomeloc" value="{{old('nomeloc')}}" >
+                                @error('nomeloc')
+                                    <small style="color: red">{{$message}}</small>
+                                @enderror
+                            </div>
+                        </div>
+
+                        {{-- sexoloc --}}
+                        <div class="col-2">
+                            <div class="form-group focused">
+                                <label class="form-control-label" for="sexolocfem">Sexo <span class="small text-danger">*</span></label>
+                                <div style="margin-top: 10px">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="sexoloc" id="sexolocmas" value="masculino" {{old('sexoloc') == 'masculino' ? 'checked' : ''}}>
+                                        <label class="form-check-label" for="sexolocmas">Mas</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="sexoloc" id="sexolocfem" value="feminino" {{old('sexoloc') == 'feminino' ? 'checked' : ''}} required>
+                                        <label class="form-check-label" for="sexolocfem">Fem</label>
+                                    </div>
+                                    <br>
+                                    @error('sexoloc')
+                                        <small style="color: red">{{$message}}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+
+                        {{-- rgloc --}}
+                        <div class="col-2">
+                            <div class="form-group focused">
+                                <label class="form-control-label" for="rgloc">RG<span class="small text-danger">*</span></label>
+                                <input type="text" class="form-control" id="rgloc" name="rgloc" value="{{old('rgloc')}}" required>
+                                @error('rgloc')
+                                    <small style="color: red">{{$message}}</small>
+                                @enderror
+                            </div>
+                        </div>
+
+                        {{-- orgaoexpedidorloc --}}
+                        <div class="col-2">
+                            <div class="form-group focused">
+                                <label class="form-control-label" for="orgaoexpedidorloc">Órgão Expedidor<span class="small text-danger">*</span></label>
+                                <input type="text" class="form-control" id="orgaoexpedidorloc" name="orgaoexpedidorloc" value="{{old('orgaoexpedidorloc')}}" required>
+                                @error('orgaoexpedidorloc')
+                                    <small style="color: red">{{$message}}</small>
+                                @enderror
+                            </div>
+                        </div>
+
+                        {{-- cpfloc --}}
+                        <div class="col-2">
+                            <div class="form-group focused">
+                                <label class="form-control-label" for="cpfloc">CPF<span class="small text-danger">*</span></label>
+                                <input type="text" class="form-control" id="cpfloc" name="cpfloc" value="{{old('cpfloc')}}" required>
+                                @error('cpfloc')
+                                    <small style="color: red">{{$message}}</small>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4 row">
+                        {{-- nacionalidadeloc --}}
+                        <div class="col-2 offset-6">
+                            <div class="form-group focused">
+                                <label class="form-control-label" for="nacionalidadeloc">Nacionalidade <span class="small text-danger">*</span></label>
+                                <input type="text" class="form-control" id="nacionalidadeloc" name="nacionalidadeloc" value="{{old('nacionalidadeloc')}}" required>
+                                @error('nacionalidadeloc')
+                                    <small style="color: red">{{$message}}</small>
+                                @enderror
+                            </div>
+                        </div>
+
+                        {{-- profissaoloc --}}
+                        <div class="col-2">
+                            <div class="form-group focused">
+                                <label class="form-control-label" for="profissaoloc">Profissão <span class="small text-danger">*</span></label>
+                                <input type="text" class="form-control" id="profissaoloc" name="profissaoloc" value="{{old('profissaoloc')}}" required>
+                                @error('profissaoloc')
+                                    <small style="color: red">{{$message}}</small>
+                                @enderror
+                            </div>
+                        </div>
+
+                        {{-- estadocivilloc --}}
+                        <div class="col-2">
+                            <div class="form-group focused">
+                                <label class="form-control-label" for="estadocivilloc">Estado Civil<span class="small text-danger">*</span></label>
+                                <select name="estadocivilloc" id="estadocivilloc" class="form-control"  required>
+                                    <option value="" selected disabled>Escolha ...</option>
+                                    <option value="1" {{old('estadocivilloc') == '1' ? 'selected' : ''}}>Solteira</option>
+                                    <option value="2" {{old('estadocivilloc') == '2' ? 'selected' : ''}}>Casada</option>
+                                    <option value="3" {{old('estadocivilloc') == '3' ? 'selected' : ''}}>Divorciada</option>
+                                    <option value="4" {{old('estadocivilloc') == '4' ? 'selected' : ''}}>Viúva</option>
+                                    <option value="20" {{old('estadocivilloc') == '20' ? 'selected' : ''}}>Outro</option>
+                                </select>
+                                @error('estadocivilloc')
+                                    <small style="color: red">{{$message}}</small>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4 row">
+                        {{-- enderecoloc --}}
+                        <div class="col-6">
+                            <div class="form-group focused">
+                                <label for="enderecoloc" class="form-control-label">Endereço do Locador(a) <span class="small text-danger">*</span></label>
+                                    <input type="text" name="enderecoloc" value="{{ old('enderecoloc') }}" class="form-control" id="enderecoloc" required>
+                                    @error('enderecoloc')
+                                        <small style="color: red">{{$message}}</small>
+                                    @enderror
+                            </div>
+                        </div>
+
+                        {{-- numeroloc --}}
+                        <div class="col-2">
+                            <div class="form-group focused">
+                                <label for="numeroloc" class="form-control-label">Nº <span class="small text-danger">*</span></label>
+                                    <input type="text" name="numeroloc" value="{{ old('numeroloc') }}" class="form-control" id="numeroloc" required>
+                                    @error('numeroloc')
+                                        <small style="color: red">{{$message}}</small>
+                                    @enderror
+                            </div>
+                        </div>
+
+                        {{-- complementoloc --}}
+                        <div class="col-4">
+                            <div class="form-group focused">
+                                <label for="complementoloc" class="form-control-label">Complemento</label>
+                                    <input type="text" name="complementoloc" value="{{ old('complementoloc') }}" class="form-control" id="complementoloc" required>
+                                    @error('complementoloc')
+                                        <small style="color: red">{{$message}}</small>
+                                    @enderror
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="mb-4 row">
+                        {{-- bairroloc --}}
+                        <div class="col-6">
+                            <div class="form-group focused">
+                                <label for="bairroloc" class="form-control-label">Bairro <span class="small text-danger">*</span></label>
+                                    <input type="text" name="bairroloc" value="{{ old('bairroloc') }}" class="form-control" id="bairroloc" required>
+                                    @error('bairroloc')
+                                        <small style="color: red">{{$message}}</small>
+                                    @enderror
+                            </div>
+                        </div>
+
+                        {{-- ceploc --}}
+                        <div class="col-2">
+                            <div class="form-group focused">
+                                <label for="ceploc" class="form-control-label">CEP <span class="small text-danger">*</span></label>
+                                    <input type="text" name="ceploc" value="{{ old('ceploc') }}" class="form-control" id="ceploc" required>
+                                    @error('ceploc')
+                                        <small style="color: red">{{$message}}</small>
+                                    @enderror
+                            </div>
+                        </div>
+
+                        {{-- cidadeufloc --}}
+                        <div class="col-4">
+                            <div class="form-group focused">
+                                <label for="cidadeufloc" class="form-control-label">Cidade / UF</label>
+                                    <input type="text" name="cidadeufloc" value="{{ old('cidadeufloc') }}" class="form-control" id="cidadeufloc" required>
+                                    @error('cidadeufloc')
+                                        <small style="color: red">{{$message}}</small>
+                                    @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr style="border: none; height: 3px; background-color: #545454;">
+
+                    <div class="mb-4 row">
+                        {{-- enderecoimov --}}
+                        <div class="col-6">
+                            <div class="form-group focused">
+                                <label for="enderecoimov" class="form-control-label">Endereço do Imóvel<span class="small text-danger">*</span></label>
+                                    <input type="text" name="enderecoimov" value="{{ old('enderecoimov') }}" class="form-control" id="enderecoimov" required>
+                                    @error('enderecoimov')
+                                        <small style="color: red">{{$message}}</small>
+                                    @enderror
+                            </div>
+                        </div>
+
+                        {{-- numeroimov --}}
+                        <div class="col-2">
+                            <div class="form-group focused">
+                                <label for="numeroimov" class="form-control-label">Nº <span class="small text-danger">*</span></label>
+                                    <input type="text" name="numeroimov" value="{{ old('numeroimov') }}" class="form-control" id="numeroimov" required>
+                                    @error('numeroimov')
+                                        <small style="color: red">{{$message}}</small>
+                                    @enderror
+                            </div>
+                        </div>
+
+                        {{-- complementoimov --}}
+                        <div class="col-4">
+                            <div class="form-group focused">
+                                <label for="complementoimov" class="form-control-label">Complemento</label>
+                                    <input type="text" name="complementoimov" value="{{ old('complementoimov') }}" class="form-control" id="complementoimov" required>
+                                    @error('complementoimov')
+                                        <small style="color: red">{{$message}}</small>
+                                    @enderror
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="mb-4 row">
+                        {{-- bairroimvo --}}
+                        <div class="col-6">
+                            <div class="form-group focused">
+                                <label for="bairroimvo" class="form-control-label">Bairro<span class="small text-danger">*</span></label>
+                                    <input type="text" name="bairroimvo" value="{{ old('bairroimvo') }}" class="form-control" id="bairroimvo" required>
+                                    @error('bairroimvo')
+                                        <small style="color: red">{{$message}}</small>
+                                    @enderror
+                            </div>
+                        </div>
+
+                        {{-- cepimov --}}
+                        <div class="col-2">
+                            <div class="form-group focused">
+                                <label for="cepimov" class="form-control-label">CEP <span class="small text-danger">*</span></label>
+                                    <input type="text" name="cepimov" value="{{ old('cepimov') }}" class="form-control" id="cepimov" required>
+                                    @error('cepimov')
+                                        <small style="color: red">{{$message}}</small>
+                                    @enderror
+                            </div>
+                        </div>
+
+                        {{-- cidadufimov --}}
+                        <div class="col-4">
+                            <div class="form-group focused">
+                                <label for="cidadufimov" class="form-control-label">Cidade / UF</label>
+                                    <input type="text" name="cidadufimov" value="{{ old('cidadufimov') }}" class="form-control" id="cidadufimov" required>
+                                    @error('cidadufimov')
+                                        <small style="color: red">{{$message}}</small>
+                                    @enderror
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="mb-4 row">
+                        {{-- meseslocacao --}}
+                        <div class="col-2">
+                            <div class="form-group focused">
+                                <label for="meseslocacao" class="form-control-label">Número de Mêses do aluguel<span class="small text-danger">*</span></label>
+                                    <input type="number" min="1" max="12" name="meseslocacao" value="{{ old('meseslocacao') }}" class="form-control" id="meseslocacao" required>
+                                    @error('meseslocacao')
+                                        <small style="color: red">{{$message}}</small>
+                                    @enderror
+                            </div>
+                        </div>
+
+                        {{-- mesesextenso --}}
+                        <div class="col-4">
+                            <div class="form-group focused">
+                                <label for="mesesextenso" class="form-control-label">Número de Mêses do aluguel por extenso<span class="small text-danger">*</span></label>
+                                    <input type="text" name="mesesextenso" value="{{ old('mesesextenso') }}" class="form-control" id="mesesextenso" required>
+                                    @error('mesesextenso')
+                                        <small style="color: red">{{$message}}</small>
+                                    @enderror
+                            </div>
+                        </div>
+
+                        {{-- iniciolocaco --}}
+                        <div class="col-2">
+                            <div class="form-group focused">
+                                <label for="iniciolocaco" class="form-control-label">Data Inico <span class="small text-danger">*</span></label>
+                                    <input type="date" name="iniciolocaco" value="{{ old('iniciolocaco') }}" class="form-control" id="iniciolocaco" required>
+                                    @error('iniciolocaco')
+                                        <small style="color: red">{{$message}}</small>
+                                    @enderror
+                            </div>
+                        </div>
+
+                        {{-- fimlocacao --}}
+                        <div class="col-4">
+                            <div class="form-group focused">
+                                <label for="fimlocacao" class="form-control-label">Data Final</label>
+                                    <input type="date" name="fimlocacao" value="{{ old('fimlocacao') }}" class="form-control" id="fimlocacao" required>
+                                    @error('fimlocacao')
+                                        <small style="color: red">{{$message}}</small>
+                                    @enderror
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="mb-4 row">
+                        {{-- valorlocacao --}}
+                        <div class="col-2">
+                            <div class="form-group focused">
+                                <label for="valorlocacao" class="form-control-label">Valor do Aluguel<span class="small text-danger">*</span></label>
+                                    <input type="text" name="valorlocacao" value="{{ old('valorlocacao') }}" class="form-control" id="valorlocacao" required>
+                                    @error('valorlocacao')
+                                        <small style="color: red">{{$message}}</small>
+                                    @enderror
+                            </div>
+                        </div>
+
+                        {{-- mesesextenso --}}
+                        <div class="col-4">
+                            <div class="form-group focused">
+                                <label for="mesesextenso" class="form-control-label">Valor do Aluguel por extenso<span class="small text-danger">*</span></label>
+                                    <input type="text" name="mesesextenso" value="{{ old('mesesextenso') }}" class="form-control" id="mesesextenso" required>
+                                    @error('mesesextenso')
+                                        <small style="color: red">{{$message}}</small>
+                                    @enderror
+                            </div>
+                        </div>
+
+                        {{-- cidadeforo --}}
+                        <div class="col-6">
+                            <div class="form-group focused">
+                                <label for="cidadeforo" class="form-control-label">Cidade Foro / UF <span class="small text-danger">*</span></label>
+                                    <input type="text" name="cidadeforo" value="{{ old('cidadeforo') }}" class="form-control" id="cidadeforo" required>
+                                    @error('cidadeforo')
+                                        <small style="color: red">{{$message}}</small>
+                                    @enderror
+                            </div>
+                        </div>
+                    </div>
+
+
                     <div class="mb-4 row">
                         <div class="col-sm-2"></div>
                         <div class="col-sm-10">
@@ -984,6 +1325,27 @@
                             </div>
                         </div>
                     </div>
+                    {{--
+
+                    $sexo = "masculino";
+
+                    $estadocivil =  "viúva";
+
+                    $ultimaposicaodaletraA =  strrpos($estadocivil, "a");
+
+                    if($sexo == "masculino"){
+                        echo "O sexo é: ". $sexo;
+                        echo "<br>";
+                        $estadocivil = substr_replace($estadocivil, "o", $ultimaposicaodaletraA);
+                    }
+
+                    echo $ultimaposicaodaletraA;
+                    echo "<br>";
+                    echo $sexo;
+                    echo "<br>";
+                    echo $estadocivil;
+
+                    --}}
 
                 </form>
             </div>
@@ -1164,6 +1526,34 @@
 
                 // Atualizar o valor do campo
                 this.value = formattedTrabalhoRenda;
+
+            });
+        }
+
+
+        // Recebe o seletor do campo ValorLocacao
+        let inputValorLocacao = document.getElementById('valorlocacao');
+
+        // Verifique se existe o seletor no HTML. Obs: Dependendo da página que você esteja, é possível que este seletor não exista, por isso a necessidade de testar sua existência
+        if(inputValorLocacao){
+
+            // Aguardar o usuário digitar o valo no campo
+            inputValorLocacao.addEventListener('input', function(){
+
+                // Obter o valor atual removendo qualquer caracter que não seja número
+                let valueValorLocacao = this.value.replace(/[^\d]/g, '');
+
+                // Adicionar os separadores de milhares
+                var formattedValorLocacao = (valueValorLocacao.slice(0, -2).replace(/\B(?=(\d{3})+(?!\d))/g, '.')) + '' + valueValorLocacao.slice(-2);
+
+                // Adicionar a vírgula e até dois dígitos se houver centavos
+                if(formattedValorLocacao.length > 2){
+                    formattedValorLocacao = formattedValorLocacao.slice(0, -2) + "," + formattedValorLocacao.slice(-2);
+                }
+
+
+                // Atualizar o valor do campo
+                this.value = formattedValorLocacao;
 
             });
         }
