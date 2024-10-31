@@ -15,7 +15,7 @@
             <div class="col-5">
                 <div class="mb-4 shadow card border-light">
                     <div class="gap-2 card-header hstack">
-                        <span class="p-2 small"><strong> Informações da Requerente </strong></span>
+                        <span class="p-2 small"><strong> INFORMAÇÕES DA REQUERENTE </strong></span>
                     </div>
 
                     <div class="card-body">
@@ -134,7 +134,7 @@
             <div class="col-7">
                 <div class="mb-4 shadow card border-light">
                     <div class="gap-2 card-header hstack">
-                        <span class="p-2 small"><strong> Detalhes do Requerimento </strong></span>
+                        <span class="p-2 small"><strong>DETALHES DO REQUERIMENTO </strong></span>
                     </div>
 
                     <div class="card-body">
@@ -153,7 +153,7 @@
                             <dt class="col-sm-4">Prazo da medida protetiva</dt>
                             <dd class="col-sm-8">{{ mrc_turn_data($requerente->detalhe->prazomedidaprotetiva) }}</dd>
 
-                            <dt class="col-sm-4" style="margin-bottom:95px;">Data em que foi concedida</dt>
+                            <dt class="col-sm-4" style="margin-bottom:100px;">Data em que foi concedida</dt>
                             <dd class="col-sm-8">{{ mrc_turn_data($requerente->detalhe->dataconcessaomedidaprotetiva) }}</dd>
 
 
@@ -223,7 +223,7 @@
                             <dd class="col-sm-1">{{ $requerente->detalhe->apresentoudocumentoidentificacao == "1" ? "sim" : "não"  }}</dd>
 
                             {{-- item 2.6.14--}}
-                            <dt class="col-sm-11" style="margin-bottom:15px;">A requerente cumpre os requisitos previstos nos itens marcados com (*), necessários para concessão do benefício?</dt>
+                            <dt class="col-sm-11" style="margin-bottom:35px;">A requerente cumpre os requisitos previstos nos itens marcados com (*), necessários para concessão do benefício?</dt>
                             <dd class="col-sm-1">{{ $requerente->detalhe->cumprerequisitositensnecessarios == "1" ? "sim" : "não"  }}</dd>
 
                         </dl>
@@ -238,90 +238,90 @@
             <div class="col-12">
                 <div class="mb-4 shadow card border-light">
                     <div class="gap-2 card-header hstack">
-                        <span class="p-2 small"><strong> Informações da Locação </strong></span>
+                        <span class="p-2 small"><strong> INFORMAÇÕES DA LOCAÇÃO </strong></span>
                     </div>
 
                     <div class="card-body">
 
                         <dl class="row">
                                 {{-- Dados do Locatário --}}
-                                <span class="p-2 small" style="margin-top: 15px; margin-left: 5px"><strong> DADOS DO LOCATÁRIO </strong></span>
+                                <span class="p-2 small" style="margin-top: 15px; margin-left: 5px"><strong> Dados do Locatário(a) </strong></span>
                                 <hr>
 
                                 <dt class="col-sm-2">Nome do Locatário</dt>
-                                <dd class="col-sm-3">{{ $requerente->nomecompleto }}</dd>
+                                <dd class="col-sm-3">{{ $requerente->locacao->nomeloc }}</dd>
 
                                 <dt class="col-sm-1">RG</dt>
-                                <dd class="col-sm-2">94879487-8 SSP/MA</dd>
+                                <dd class="col-sm-2">{{ $requerente->locacao->rgloc }} {{ $requerente->locacao->orgaoexpedidorloc }}</dd>
 
                                 <dt class="col-sm-1">CPF</dt>
-                                <dd class="col-sm-2">{{ $requerente->rg }}</dd>
+                                <dd class="col-sm-2">{{ $requerente->locacao->cpfloc }}</dd>
 
                                 <dt class="col-sm-2">Nacionalidade</dt>
-                                <dd class="col-sm-3">{{ $requerente->cpf }}</dd>
+                                <dd class="col-sm-3">{{ $requerente->locacao->nacionalidadeloc }}</dd>
 
                                 <dt class="col-sm-1">Profissão</dt>
-                                <dd class="col-sm-2">{{ $requerente->municipio->regional->nome }}</dd>
+                                <dd class="col-sm-2">{{ $requerente->locacao->profissaoloc }}</dd>
 
                                 <dt class="col-sm-1">Estado Civil</dt>
-                                <dd class="col-sm-2">{{ $requerente->municipio->nome }}</dd>
+                                <dd class="col-sm-2">{{ $arr_estadocivilloc[$requerente->locacao->estadocivilloc] }}</dd>
 
                                 <dt class="col-sm-2">Endereço</dt>
-                                <dd class="col-sm-3">{{ $requerente->endereco }}</dd>
+                                <dd class="col-sm-3">{{ $requerente->locacao->enderecoloc }}</dd>
 
                                 <dt class="col-sm-1">Nº</dt>
-                                <dd class="col-sm-2">{{ $requerente->numero }}</dd>
+                                <dd class="col-sm-2">{{ $requerente->locacao->numeroloc }}</dd>
 
                                 <dt class="col-sm-1">Complemento</dt>
-                                <dd class="col-sm-3">{{ $requerente->complemento }}</dd>
+                                <dd class="col-sm-3">{{ $requerente->locacao->complementoloc }}</dd>
 
                                 <dt class="col-sm-2">Bairro</dt>
-                                <dd class="col-sm-3">{{ $requerente->bairro }}</dd>
+                                <dd class="col-sm-3">{{ $requerente->locacao->bairroloc }}</dd>
 
                                 <dt class="col-sm-1">CEP</dt>
-                                <dd class="col-sm-2">{{ $requerente->numero }}</dd>
+                                <dd class="col-sm-2">{{ $requerente->locacao->ceploc }}</dd>
 
                                 <dt class="col-sm-1">Cidade</dt>
-                                <dd class="col-sm-3">{{ $requerente->complemento }} / MA</dd>
+                                <dd class="col-sm-3">{{ $requerente->locacao->cidadeufloc }}</dd>
 
 
                                 {{-- Dados do Imóvel --}}
 
-                                <span class="p-2 small" style="margin-top: 15px; margin-left: 5px"><strong> DADOS DO IMÓVEL </strong></span>
+                                <span class="p-2 small" style="margin-top: 15px; margin-left: 5px"><strong> Dados do Imóvel </strong></span>
                                 <hr>
 
                                 <dt class="col-sm-2">Endereço</dt>
-                                <dd class="col-sm-3">{{ $requerente->endereco }}</dd>
+                                <dd class="col-sm-3">{{ $requerente->locacao->enderecoimov }}</dd>
 
                                 <dt class="col-sm-1">Nº</dt>
-                                <dd class="col-sm-2">{{ $requerente->numero }}</dd>
+                                <dd class="col-sm-2">{{ $requerente->locacao->numeroimov }}</dd>
 
                                 <dt class="col-sm-1">Complemento</dt>
-                                <dd class="col-sm-3">{{ $requerente->complemento }}</dd>
+                                <dd class="col-sm-3">{{ $requerente->locacao->complementoimov }}</dd>
 
                                 <dt class="col-sm-2">Bairro</dt>
-                                <dd class="col-sm-3">{{ $requerente->bairro }}</dd>
+                                <dd class="col-sm-3">{{ $requerente->locacao->bairroimov }}</dd>
 
                                 <dt class="col-sm-1">CEP</dt>
-                                <dd class="col-sm-2">{{ $requerente->numero }}</dd>
+                                <dd class="col-sm-2">{{ $requerente->locacao->cepimov }}</dd>
 
                                 <dt class="col-sm-1">Cidade</dt>
-                                <dd class="col-sm-3">{{ $requerente->complemento }} / MA</dd>
+                                <dd class="col-sm-3">{{ $requerente->locacao->cidadeufimov }}</dd>
 
                                 <dt class="col-sm-2">Meses de Alocação</dt>
-                                <dd class="col-sm-3">8 (oito) meses</dd>
+                                <dd class="col-sm-3">{{ $requerente->locacao->meseslocacao }} ({{ $requerente->locacao->mesesextenso }})</dd>
 
                                 <dt class="col-sm-1">Data Início</dt>
-                                <dd class="col-sm-2">01/01/2024</dd>
+                                <dd class="col-sm-2">{{ mrc_turn_data($requerente->locacao->iniciolocacao) }}</dd>
 
                                 <dt class="col-sm-1">Data Final</dt>
-                                <dd class="col-sm-3">31/08/2024</dd>
+                                <dd class="col-sm-3">{{ mrc_turn_data($requerente->locacao->fimlocacao) }}</dd>
 
                                 <dt class="col-sm-2">Valor (R$)</dt>
-                                <dd class="col-sm-3">800,00 (oitocentos reais)</dd>
+                                <dd class="col-sm-3">{{ mrc_turn_value($requerente->locacao->valorlocacao) }} ({{ $requerente->locacao->valorextenso }})</dd>
 
                                 <dt class="col-sm-1">Cidade / Foro</dt>
-                                <dd class="col-sm-2">SÃO LUIS/MA</dd>
+                                <dd class="col-sm-2">{{ $requerente->locacao->cidadeforo }}</dd>
 
                         </dl>
 

@@ -93,7 +93,7 @@
                         <div class="col-2">
                             <div class="form-group focused">
                                 <label class="form-control-label" for="cpf">CPF<span class="small text-danger">*</span></label>
-                                <input type="text" class="form-control" id="cpf" name="cpf" value="{{old('cpf')}}" required>
+                                <input type="text" class="form-control cpf" id="cpf" name="cpf" value="{{old('cpf')}}" required>
                                 @error('cpf')
                                     <small style="color: red">{{$message}}</small>
                                 @enderror
@@ -489,7 +489,7 @@
                          {{-- cep --}}
                         <label for="cep" class="col-sm-1 col-form-label">CEP <span class="small text-danger">*</span></label>
                         <div class="col-sm-3">
-                            <input type="text" name="cep" value="{{ old('cep') }}" class="form-control" id="cep" placeholder="cep" required>
+                            <input type="text" name="cep" value="{{ old('cep') }}" class="form-control cep" id="cep" placeholder="cep" required>
                             @error('cep')
                               <small style="color: red">{{$message}}</small>
                             @enderror
@@ -535,7 +535,7 @@
                         <div class="col-4">
                             <div class="form-group focused">
                                 <label class="form-control-label" for="processojudicial">Processo Judicial em que foi concedida a medida protetiva <span class="small text-danger">*</span></label>
-                                <input type="text" class="form-control" id="processojudicial" name="processojudicial" value="{{old('processojudicial')}}" >
+                                <input type="text" class="form-control" id="processojudicial" name="processojudicial" value="{{old('processojudicial')}}" required>
                                 @error('processojudicial')
                                     <small style="color: red">{{$message}}</small>
                                 @enderror
@@ -547,7 +547,7 @@
                         <div class="col-4">
                             <div class="form-group focused">
                                 <label class="form-control-label" for="orgaojudicial">Órgao Judicial <span class="small text-danger">*</span></label>
-                                <input type="text" class="form-control" id="orgaojudicial" name="orgaojudicial" value="{{old('orgaojudicial')}}" >
+                                <input type="text" class="form-control" id="orgaojudicial" name="orgaojudicial" value="{{old('orgaojudicial')}}" required>
                                 @error('orgaojudicial')
                                     <small style="color: red">{{$message}}</small>
                                 @enderror
@@ -558,7 +558,7 @@
                         <div class="col-4">
                             <div class="form-group focused">
                                 <label class="form-control-label" for="comarca">Comarca<span class="small text-danger">*</span></label>
-                                <input type="text" class="form-control" id="comarca" name="comarca" value="{{old('comarca')}}" >
+                                <input type="text" class="form-control" id="comarca" name="comarca" value="{{old('comarca')}}" required>
                                 @error('comarca')
                                     <small style="color: red">{{$message}}</small>
                                 @enderror
@@ -572,7 +572,7 @@
                         <div class="col-4">
                             <div class="form-group focused">
                                 <label class="form-control-label" for="prazomedidaprotetiva">Prazo da medida protetiva <span class="small text-danger">*</span></label>
-                                <input type="date" class="form-control" id="prazomedidaprotetiva" name="prazomedidaprotetiva" value="{{old('prazomedidaprotetiva')}}" >
+                                <input type="date" class="form-control" id="prazomedidaprotetiva" name="prazomedidaprotetiva" value="{{old('prazomedidaprotetiva')}}" required>
                                 @error('prazomedidaprotetiva')
                                     <small style="color: red">{{$message}}</small>
                                 @enderror
@@ -583,7 +583,7 @@
                         <div class="col-4 offset-4">
                             <div class="form-group focused">
                                 <label class="form-control-label" for="dataconcessaomedidaprotetiva">Data em que foi concedida <span class="small text-danger">*</span></label>
-                                <input type="date" class="form-control" id="dataconcessaomedidaprotetiva" name="dataconcessaomedidaprotetiva" value="{{old('dataconcessaomedidaprotetiva')}}" >
+                                <input type="date" class="form-control" id="dataconcessaomedidaprotetiva" name="dataconcessaomedidaprotetiva" value="{{old('dataconcessaomedidaprotetiva')}}" required>
                                 @error('dataconcessaomedidaprotetiva')
                                     <small style="color: red">{{$message}}</small>
                                 @enderror
@@ -603,7 +603,7 @@
                         <div class="col-sm-2">
                             <div style="margin-top: 10px;">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="medproturgcaminhaprogoficial" id="medproturgcaminhaprogoficialsim" value="1" {{old('medproturgcaminhaprogoficial') == '1' ? 'checked' : ''}}>
+                                    <input class="form-check-input" type="radio" name="medproturgcaminhaprogoficial" id="medproturgcaminhaprogoficialsim" value="1" {{old('medproturgcaminhaprogoficial') == '1' ? 'checked' : ''}} required>
                                     <label class="form-check-label" for="medproturgcaminhaprogoficialsim">Sim</label>
 
                                 </div>
@@ -629,7 +629,7 @@
                         <div class="col-sm-2">
                             <div style="margin-top: 10px;">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="medproturgafastamentolar" id="medproturgafastamentolarsim" value="1" {{old('medproturgafastamentolar') == '1' ? 'checked' : ''}}>
+                                    <input class="form-check-input" type="radio" name="medproturgafastamentolar" id="medproturgafastamentolarsim" value="1" {{old('medproturgafastamentolar') == '1' ? 'checked' : ''}} required>
                                     <label class="form-check-label" for="medproturgafastamentolarsim">Sim</label>
 
                                 </div>
@@ -655,7 +655,7 @@
                         <div class="col-sm-2">
                             <div style="margin-top: 10px;">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="riscmortvioldomesmoradprotegsigilosa" id="riscmortvioldomesmoradprotegsigilosasim" value="1" {{old('riscmortvioldomesmoradprotegsigilosa') == '1' ? 'checked' : ''}}>
+                                    <input class="form-check-input" type="radio" name="riscmortvioldomesmoradprotegsigilosa" id="riscmortvioldomesmoradprotegsigilosasim" value="1" {{old('riscmortvioldomesmoradprotegsigilosa') == '1' ? 'checked' : ''}} required>
                                     <label class="form-check-label" for="riscmortvioldomesmoradprotegsigilosasim">Sim</label>
 
                                 </div>
@@ -681,7 +681,7 @@
                         <div class="col-sm-2">
                             <div style="margin-top: 10px;">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="riscvidaaguardmedproturg" id="riscvidaaguardmedproturgsim" value="1" {{old('riscvidaaguardmedproturg') == '1' ? 'checked' : ''}}>
+                                    <input class="form-check-input" type="radio" name="riscvidaaguardmedproturg" id="riscvidaaguardmedproturgsim" value="1" {{old('riscvidaaguardmedproturg') == '1' ? 'checked' : ''}} required>
                                     <label class="form-check-label" for="riscvidaaguardmedproturgsim">Sim</label>
 
                                 </div>
@@ -707,7 +707,7 @@
                         <div class="col-sm-2">
                             <div style="margin-top: 10px;">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="relatodescomprmedproturgagressor" id="relatodescomprmedproturgagressorsim" value="1" {{old('relatodescomprmedproturgagressor') == '1' ? 'checked' : ''}}>
+                                    <input class="form-check-input" type="radio" name="relatodescomprmedproturgagressor" id="relatodescomprmedproturgagressorsim" value="1" {{old('relatodescomprmedproturgagressor') == '1' ? 'checked' : ''}} required>
                                     <label class="form-check-label" for="relatodescomprmedproturgagressorsim">Sim</label>
 
                                 </div>
@@ -733,7 +733,7 @@
                         <div class="col-sm-2">
                             <div style="margin-top: 10px;">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="sitvulnerabnaoconsegarcardespmoradia" id="sitvulnerabnaoconsegarcardespmoradiasim" value="1" {{old('sitvulnerabnaoconsegarcardespmoradia') == '1' ? 'checked' : ''}}>
+                                    <input class="form-check-input" type="radio" name="sitvulnerabnaoconsegarcardespmoradia" id="sitvulnerabnaoconsegarcardespmoradiasim" value="1" {{old('sitvulnerabnaoconsegarcardespmoradia') == '1' ? 'checked' : ''}} required>
                                     <label class="form-check-label" for="sitvulnerabnaoconsegarcardespmoradiasim">Sim</label>
 
                                 </div>
@@ -759,7 +759,7 @@
                         <div class="col-sm-2">
                             <div style="margin-top: 10px;">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="temrendfamiliardoissalconvivagressor" id="temrendfamiliardoissalconvivagressorsim" value="1" {{old('temrendfamiliardoissalconvivagressor') == '1' ? 'checked' : ''}}>
+                                    <input class="form-check-input" type="radio" name="temrendfamiliardoissalconvivagressor" id="temrendfamiliardoissalconvivagressorsim" value="1" {{old('temrendfamiliardoissalconvivagressor') == '1' ? 'checked' : ''}} required>
                                     <label class="form-check-label" for="temrendfamiliardoissalconvivagressorsim">Sim</label>
 
                                 </div>
@@ -785,7 +785,7 @@
                         <div class="col-sm-2">
                             <div style="margin-top: 10px;">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="paiavofilhonetomaiormesmomunicipresid" id="paiavofilhonetomaiormesmomunicipresidsim" value="1" {{old('paiavofilhonetomaiormesmomunicipresid') == '1' ? 'checked' : ''}}>
+                                    <input class="form-check-input" type="radio" name="paiavofilhonetomaiormesmomunicipresid" id="paiavofilhonetomaiormesmomunicipresidsim" value="1" {{old('paiavofilhonetomaiormesmomunicipresid') == '1' ? 'checked' : ''}} required>
                                     <label class="form-check-label" for="paiavofilhonetomaiormesmomunicipresidsim">Sim</label>
                                 </div>
                                 <div class="form-check form-check-inline">
@@ -819,7 +819,7 @@
                         <div class="col-sm-2">
                             <div style="margin-top: 10px;">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="filhosmenoresidade" id="filhosmenoresidadesim" value="1" {{old('filhosmenoresidade') == '1' ? 'checked' : ''}}>
+                                    <input class="form-check-input" type="radio" name="filhosmenoresidade" id="filhosmenoresidadesim" value="1" {{old('filhosmenoresidade') == '1' ? 'checked' : ''}} required>
                                     <label class="form-check-label" for="filhosmenoresidadesim">Sim</label>
 
                                 </div>
@@ -846,7 +846,7 @@
                         <div class="col-sm-2">
                             <div style="margin-top: 10px;">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="trabalhaougerarenda" id="trabalhaougerarendasim" value="1" {{old('trabalhaougerarenda') == '1' ? 'checked' : ''}}>
+                                    <input class="form-check-input" type="radio" name="trabalhaougerarenda" id="trabalhaougerarendasim" value="1" {{old('trabalhaougerarenda') == '1' ? 'checked' : ''}} required>
                                     <label class="form-check-label" for="trabalhaougerarendasim">Sim</label>
 
                                 </div>
@@ -880,7 +880,7 @@
                         <div class="col-sm-2">
                             <div style="margin-top: 10px;">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="temcadunico" id="temcadunicosim" value="1" {{old('temcadunico') == '1' ? 'checked' : ''}}>
+                                    <input class="form-check-input" type="radio" name="temcadunico" id="temcadunicosim" value="1" {{old('temcadunico') == '1' ? 'checked' : ''}} required>
                                     <label class="form-check-label" for="temcadunicosim">Sim</label>
 
                                 </div>
@@ -906,7 +906,7 @@
                         <div class="col-sm-2">
                             <div style="margin-top: 10px;">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="teminteresformprofisdesenvolvhabilid" id="teminteresformprofisdesenvolvhabilidsim" value="1" {{old('teminteresformprofisdesenvolvhabilid') == '1' ? 'checked' : ''}}>
+                                    <input class="form-check-input" type="radio" name="teminteresformprofisdesenvolvhabilid" id="teminteresformprofisdesenvolvhabilidsim" value="1" {{old('teminteresformprofisdesenvolvhabilid') == '1' ? 'checked' : ''}} required>
                                     <label class="form-check-label" for="teminteresformprofisdesenvolvhabilidsim">Sim</label>
 
                                 </div>
@@ -932,7 +932,7 @@
                         <div class="col-sm-2">
                             <div style="margin-top: 10px;">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="apresentoudocumentoidentificacao" id="apresentoudocumentoidentificacaosim" value="1" {{old('apresentoudocumentoidentificacao') == '1' ? 'checked' : ''}}>
+                                    <input class="form-check-input" type="radio" name="apresentoudocumentoidentificacao" id="apresentoudocumentoidentificacaosim" value="1" {{old('apresentoudocumentoidentificacao') == '1' ? 'checked' : ''}} required>
                                     <label class="form-check-label" for="apresentoudocumentoidentificacaosim">Sim</label>
 
                                 </div>
@@ -957,7 +957,7 @@
                         <div class="col-sm-2">
                             <div style="margin-top: 10px;">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="cumprerequisitositensnecessarios" id="cumprerequisitositensnecessariossim" value="1" {{old('cumprerequisitositensnecessarios') == '1' ? 'checked' : ''}}>
+                                    <input class="form-check-input" type="radio" name="cumprerequisitositensnecessarios" id="cumprerequisitositensnecessariossim" value="1" {{old('cumprerequisitositensnecessarios') == '1' ? 'checked' : ''}} required>
                                     <label class="form-check-label" for="cumprerequisitositensnecessariossim">Sim</label>
 
                                 </div>
@@ -983,7 +983,7 @@
                         <div class="col-4">
                             <div class="form-group focused">
                                 <label class="form-control-label" for="nomeloc">Nome do Locador(a) <span class="small text-danger">*</span></label>
-                                <input type="text" class="form-control" id="nomeloc" name="nomeloc" value="{{old('nomeloc')}}" >
+                                <input type="text" class="form-control" id="nomeloc" name="nomeloc" value="{{old('nomeloc')}}" required>
                                 @error('nomeloc')
                                     <small style="color: red">{{$message}}</small>
                                 @enderror
@@ -1038,7 +1038,7 @@
                         <div class="col-2">
                             <div class="form-group focused">
                                 <label class="form-control-label" for="cpfloc">CPF<span class="small text-danger">*</span></label>
-                                <input type="text" class="form-control" id="cpfloc" name="cpfloc" value="{{old('cpfloc')}}" required>
+                                <input type="text" class="form-control cpf" id="cpfloc" name="cpfloc" value="{{old('cpfloc')}}" required>
                                 @error('cpfloc')
                                     <small style="color: red">{{$message}}</small>
                                 @enderror
@@ -1062,7 +1062,7 @@
                         <div class="col-2">
                             <div class="form-group focused">
                                 <label class="form-control-label" for="profissaoloc">Profissão <span class="small text-danger">*</span></label>
-                                <input type="text" class="form-control" id="profissaoloc" name="profissaoloc" value="{{old('profissaoloc')}}" required>
+                                <input type="text" class="form-control" id="profissaoloc" name="profissaoloc" value="{{old('profissaoloc')}}">
                                 @error('profissaoloc')
                                     <small style="color: red">{{$message}}</small>
                                 @enderror
@@ -1115,7 +1115,7 @@
                         <div class="col-4">
                             <div class="form-group focused">
                                 <label for="complementoloc" class="form-control-label">Complemento</label>
-                                    <input type="text" name="complementoloc" value="{{ old('complementoloc') }}" class="form-control" id="complementoloc" required>
+                                    <input type="text" name="complementoloc" value="{{ old('complementoloc') }}" class="form-control" id="complementoloc">
                                     @error('complementoloc')
                                         <small style="color: red">{{$message}}</small>
                                     @enderror
@@ -1140,7 +1140,7 @@
                         <div class="col-2">
                             <div class="form-group focused">
                                 <label for="ceploc" class="form-control-label">CEP <span class="small text-danger">*</span></label>
-                                    <input type="text" name="ceploc" value="{{ old('ceploc') }}" class="form-control" id="ceploc" required>
+                                    <input type="text" name="ceploc" value="{{ old('ceploc') }}" class="form-control cep" id="ceploc" required>
                                     @error('ceploc')
                                         <small style="color: red">{{$message}}</small>
                                     @enderror
@@ -1188,7 +1188,7 @@
                         <div class="col-4">
                             <div class="form-group focused">
                                 <label for="complementoimov" class="form-control-label">Complemento</label>
-                                    <input type="text" name="complementoimov" value="{{ old('complementoimov') }}" class="form-control" id="complementoimov" required>
+                                    <input type="text" name="complementoimov" value="{{ old('complementoimov') }}" class="form-control" id="complementoimov">
                                     @error('complementoimov')
                                         <small style="color: red">{{$message}}</small>
                                     @enderror
@@ -1198,12 +1198,12 @@
 
 
                     <div class="mb-4 row">
-                        {{-- bairroimvo --}}
+                        {{-- bairroimov --}}
                         <div class="col-6">
                             <div class="form-group focused">
-                                <label for="bairroimvo" class="form-control-label">Bairro<span class="small text-danger">*</span></label>
-                                    <input type="text" name="bairroimvo" value="{{ old('bairroimvo') }}" class="form-control" id="bairroimvo" required>
-                                    @error('bairroimvo')
+                                <label for="bairroimov" class="form-control-label">Bairro<span class="small text-danger">*</span></label>
+                                    <input type="text" name="bairroimov" value="{{ old('bairroimov') }}" class="form-control" id="bairroimov" required>
+                                    @error('bairroimov')
                                         <small style="color: red">{{$message}}</small>
                                     @enderror
                             </div>
@@ -1213,19 +1213,19 @@
                         <div class="col-2">
                             <div class="form-group focused">
                                 <label for="cepimov" class="form-control-label">CEP <span class="small text-danger">*</span></label>
-                                    <input type="text" name="cepimov" value="{{ old('cepimov') }}" class="form-control" id="cepimov" required>
+                                    <input type="text" name="cepimov" value="{{ old('cepimov') }}" class="form-control cep" id="cepimov" required>
                                     @error('cepimov')
                                         <small style="color: red">{{$message}}</small>
                                     @enderror
                             </div>
                         </div>
 
-                        {{-- cidadufimov --}}
+                        {{-- cidadeufimov --}}
                         <div class="col-4">
                             <div class="form-group focused">
-                                <label for="cidadufimov" class="form-control-label">Cidade / UF</label>
-                                    <input type="text" name="cidadufimov" value="{{ old('cidadufimov') }}" class="form-control" id="cidadufimov" required>
-                                    @error('cidadufimov')
+                                <label for="cidadeufimov" class="form-control-label">Cidade / UF</label>
+                                    <input type="text" name="cidadeufimov" value="{{ old('cidadeufimov') }}" class="form-control" id="cidadeufimov" required>
+                                    @error('cidadeufimov')
                                         <small style="color: red">{{$message}}</small>
                                     @enderror
                             </div>

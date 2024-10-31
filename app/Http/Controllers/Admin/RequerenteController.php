@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RequerenteRequest;
 use App\Models\Detalherequerente;
+use App\Models\Locacao;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Municipio;
@@ -77,6 +78,13 @@ class RequerenteController extends Controller
                 $valorTtrabalhoRendaTransformando = 0.00;
             }
 
+            // Tansforma o valor da Locacao para o formato adequado aceito pelo banco de dados
+            if($request->valorlocacao != null){
+                $valorLocacaoTransformando = str_replace(',', '.', str_replace('.', '', $request->valorlocacao));
+            } else {
+                $valorLocacaoTransformando = 0.00;
+            }
+
 
             // Salva informações do Requetente e recupera o Id do Requerente salvo no banco na variável $requerente
             $requerente = Requerente::create([
@@ -121,7 +129,7 @@ class RequerenteController extends Controller
 
 
             // Salva informações dos Detalhes do Requetente. O Id do requerente é fornecido na variavel $requerente
-            Detalherequerente::create([
+            $detalhe = Detalherequerente::create([
                 'requerente_id'                             => $requerente->id,
                 'processojudicial'                          => $request->processojudicial,
                 'orgaojudicial'                             => $request->orgaojudicial,
@@ -147,6 +155,40 @@ class RequerenteController extends Controller
             ]);
 
 
+            // Salva informações da Locação do Requerente. O Id do requerente e o Id do detalhe é fornecido nas variáveis $requerente e $detalhe
+            $locacao = Locacao::create([
+                'requerente_id'             => $requerente->id,
+                'detalherequerente_id'      => $detalhe->id,
+                'nomeloc'                   => $request->nomeloc,
+                'sexoloc'                   => $request->sexoloc,
+                'rgloc'                     => $request->rgloc,
+                'orgaoexpedidorloc'         => $request->orgaoexpedidorloc,
+                'cpfloc'                    => $request->cpfloc,
+                'nacionalidadeloc'          => $request->nacionalidadeloc,
+                'profissaoloc'              => $request->profissaoloc,
+                'estadocivilloc'            => $request->estadocivilloc,
+                'enderecoloc'               => $request->enderecoloc,
+                'numeroloc'                 => $request->numeroloc,
+                'complementoloc'            => $request->complementoloc,
+                'bairroloc'                 => $request->bairroloc,
+                'ceploc'                    => $request->ceploc,
+                'cidadeufloc'               => $request->cidadeufloc,
+                'enderecoimov'              => $request->enderecoimov,
+                'numeroimov'                => $request->numeroimov,
+                'complementoimov'           => $request->complementoimov,
+                'bairroimov'                => $request->bairroimov,
+                'cepimov'                   => $request->cepimov,
+                'cidadeufimov'              => $request->cidadeufimov,
+                'meseslocacao'              => $request->meseslocacao,
+                'mesesextenso'              => $request->mesesextenso,
+                'iniciolocacao'             => $request->iniciolocacao,
+                'fimlocacao'                => $request->fimlocacao,
+                'valorlocacao'              => $valorLocacaoTransformando,      // $request->valorlocacao,
+                'valorextenso'              => $request->valorextenso,
+                'cidadeforo'                => $request->cidadeforo,
+            ]);
+
+
             // Operação concluída com êxito
             DB::commit();
 
@@ -168,13 +210,14 @@ class RequerenteController extends Controller
 
     public function show(Requerente $requerente)
     {
-        $requerente =  Requerente::with('detalhe')->find($requerente->id);
+        $requerente =  Requerente::with(['detalhe','locacao'])->find($requerente->id);
 
         $arr_comunidade = ['1' => 'Cigano', '2' => 'Quilombola', '3' => 'Matriz Africana', '4' => 'Indígena', '5' => 'Assentado / acampado', '6' => 'Pessoa do campo / floresta', '7'  => 'Pessoa em situação de rua', '20' => 'Outra'];
         $arr_racacor = ['1' => 'Preta', '2' => 'Amarela', '3' => 'Parda', '4' => 'Indígena', '5' => 'Não se aplica', '20' => 'Outra'];
         $arr_identidadegenero = ['1' => 'Feminino', '2' => 'Transexual', '3' => 'Travesti', '4' => 'Transgênero', '20' => 'Outra'];
         $arr_orientacaosexual = ['1' => 'Homossexual', '2' => 'Heterossexual', '3' => 'Bissexual', '20' => 'Outra'];
         $arr_estadocivil = ['1' => 'Solteira', '2' => 'Casada', '3' => 'Divorciada', '4' => 'Viúva', '20' => 'Outro'];
+        $arr_estadocivilloc = ['1' => 'Solteiro(a)', '2' => 'Casado(a)', '3' => 'Divorciado(a)', '4' => 'Viúvo(a)', '20' => 'Outro'];
 
         // Exibe os detalhes do requerente
         return view('admin.requerentes.show', [
@@ -183,8 +226,8 @@ class RequerenteController extends Controller
             'requerente' => $requerente,
             'arr_identidadegenero' => $arr_identidadegenero,
             'arr_orientacaosexual' => $arr_orientacaosexual,
-            'arr_estadocivil' => $arr_estadocivil
-
+            'arr_estadocivil' => $arr_estadocivil,
+            'arr_estadocivilloc' => $arr_estadocivilloc
         ]);
 
     }

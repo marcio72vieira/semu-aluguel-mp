@@ -95,7 +95,7 @@ class RequerenteRequest extends FormRequest
             'sexoloc'               => 'required',
             'rgloc'                 => 'required',
             'orgaoexpedidorloc'     => 'required',
-            'cpfloc'                => 'required',
+            'cpfloc'                => ['required', new CpfValidateRule()],
             'nacionalidadeloc'      => 'required',
             'profissaoloc'          => '',
             'estadocivilloc'        => 'required',
@@ -185,7 +185,7 @@ class RequerenteRequest extends FormRequest
             // INFORMAÇÕES DA LOCAÇÃO
             //'requerente_id',
             //'detalherequerente_id',
-            'nomeloc.required'              => 'Campo nome do locador(a) é obrigatório',              
+            'nomeloc.required'              => 'Campo nome do locador(a) é obrigatório',
             'sexoloc.required'              => 'Campo sexo é obrigatório',
             'rgloc.required'                => 'Campo rg é obrigatório',
             'orgaoexpedidorloc.required'    => 'Campo órgão expedidor é obrigatório',

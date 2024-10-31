@@ -85,9 +85,21 @@ class Requerente extends Model
         return $this->hasOne(Detalherequerente::class);
     }
 
+    public function locacao()
+    {
+        return $this->hasOne(Locacao::class);
+    }
+
+    /*
+    // Preparado caso as regras mudem e um requerente possa ter mais de um requerimento
     public function requerimentos()
     {
         return $this->hasMany(Requerimento::class);
     }
+    public function locacoes()
+    {
+        return $this->hasMany(Locacao::class);
+    }
+    */
 
 }

@@ -41,4 +41,10 @@ class Detalherequerente extends Model
         return $this->belongsTo(Requerente::class);
     }
 
+    public function locacao()
+    {
+        return $this->hasOne(Locacao::class);
+    }
+
+
 }
