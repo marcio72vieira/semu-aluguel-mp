@@ -1075,10 +1075,10 @@
                                 <label class="form-control-label" for="estadocivilloc">Estado Civil<span class="small text-danger">*</span></label>
                                 <select name="estadocivilloc" id="estadocivilloc" class="form-control"  required>
                                     <option value="" selected disabled>Escolha ...</option>
-                                    <option value="1" {{old('estadocivilloc') == '1' ? 'selected' : ''}}>Solteira</option>
-                                    <option value="2" {{old('estadocivilloc') == '2' ? 'selected' : ''}}>Casada</option>
-                                    <option value="3" {{old('estadocivilloc') == '3' ? 'selected' : ''}}>Divorciada</option>
-                                    <option value="4" {{old('estadocivilloc') == '4' ? 'selected' : ''}}>Viúva</option>
+                                    <option value="1" {{old('estadocivilloc') == '1' ? 'selected' : ''}}>Solteiro(a)</option>
+                                    <option value="2" {{old('estadocivilloc') == '2' ? 'selected' : ''}}>Casado(a)</option>
+                                    <option value="3" {{old('estadocivilloc') == '3' ? 'selected' : ''}}>Divorciado(a)</option>
+                                    <option value="4" {{old('estadocivilloc') == '4' ? 'selected' : ''}}>Viúvo(a)</option>
                                     <option value="20" {{old('estadocivilloc') == '20' ? 'selected' : ''}}>Outro</option>
                                 </select>
                                 @error('estadocivilloc')
@@ -1147,7 +1147,7 @@
                             </div>
                         </div>
 
-                        {{-- cidadeufloc --}}
+                        {{-- cidadeufloc Talvez o locatário possa morar em outro Estado. Daí a necessidade de não ser um campo do tipo selec com pesquisa em banco --}}
                         <div class="col-4">
                             <div class="form-group focused">
                                 <label for="cidadeufloc" class="form-control-label">Cidade / UF</label>
@@ -1256,12 +1256,12 @@
                             </div>
                         </div>
 
-                        {{-- iniciolocaco --}}
+                        {{-- iniciolocacao --}}
                         <div class="col-2">
                             <div class="form-group focused">
-                                <label for="iniciolocaco" class="form-control-label">Data Inico <span class="small text-danger">*</span></label>
-                                    <input type="date" name="iniciolocaco" value="{{ old('iniciolocaco') }}" class="form-control" id="iniciolocaco" required>
-                                    @error('iniciolocaco')
+                                <label for="iniciolocacao" class="form-control-label">Data Inico <span class="small text-danger">*</span></label>
+                                    <input type="date" name="iniciolocacao" value="{{ old('iniciolocacao') }}" class="form-control" id="iniciolocacao" required>
+                                    @error('iniciolocacao')
                                         <small style="color: red">{{$message}}</small>
                                     @enderror
                             </div>
@@ -1292,12 +1292,12 @@
                             </div>
                         </div>
 
-                        {{-- mesesextenso --}}
+                        {{-- valorextenso --}}
                         <div class="col-4">
                             <div class="form-group focused">
-                                <label for="mesesextenso" class="form-control-label">Valor do Aluguel por extenso<span class="small text-danger">*</span></label>
-                                    <input type="text" name="mesesextenso" value="{{ old('mesesextenso') }}" class="form-control" id="mesesextenso" required>
-                                    @error('mesesextenso')
+                                <label for="valorextenso" class="form-control-label">Valor do Aluguel por extenso<span class="small text-danger">*</span></label>
+                                    <input type="text" name="valorextenso" value="{{ old('valorextenso') }}" class="form-control" id="valorextenso" required>
+                                    @error('valorextenso')
                                         <small style="color: red">{{$message}}</small>
                                     @enderror
                             </div>
