@@ -132,8 +132,8 @@ class RequerenteController extends Controller
             $detalhe = Detalherequerente::create([
                 'requerente_id'                             => $requerente->id,
                 'processojudicial'                          => $request->processojudicial,
-                'orgaojudicial'                             => $request->orgaojudicial,
-                'comarca'                                   => $request->comarca,
+                'orgaojudicial'                             => Str::upper($request->orgaojudicial),
+                'comarca'                                   => Str::upper($request->comarca),
                 'prazomedidaprotetiva'                      => $request->prazomedidaprotetiva,
                 'dataconcessaomedidaprotetiva'              => $request->dataconcessaomedidaprotetiva,
                 'medproturgcaminhaprogoficial'              => $request->medproturgcaminhaprogoficial,
@@ -159,14 +159,14 @@ class RequerenteController extends Controller
             $locacao = Locacao::create([
                 'requerente_id'             => $requerente->id,
                 'detalherequerente_id'      => $detalhe->id,
-                'nomeloc'                   => $request->nomeloc,
+                'nomeloc'                   => Str::upper($request->nomeloc),
                 'sexoloc'                   => $request->sexoloc,
                 'rgloc'                     => $request->rgloc,
                 'orgaoexpedidorloc'         => $request->orgaoexpedidorloc,
                 'cpfloc'                    => $request->cpfloc,
                 'nacionalidadeloc'          => $request->nacionalidadeloc,
                 'profissaoloc'              => $request->profissaoloc,
-                'estadocivilloc'            => $request->estadocivilloc,
+                'estadocivilloc'            => Str::lower($request->estadocivilloc),
                 'enderecoloc'               => $request->enderecoloc,
                 'numeroloc'                 => $request->numeroloc,
                 'complementoloc'            => $request->complementoloc,
@@ -180,11 +180,11 @@ class RequerenteController extends Controller
                 'cepimov'                   => $request->cepimov,
                 'cidadeufimov'              => $request->cidadeufimov,
                 'meseslocacao'              => $request->meseslocacao,
-                'mesesextenso'              => $request->mesesextenso,
+                'mesesextenso'              => Str::lower($request->mesesextenso),
                 'iniciolocacao'             => $request->iniciolocacao,
                 'fimlocacao'                => $request->fimlocacao,
-                'valorlocacao'              => $valorLocacaoTransformando,      // $request->valorlocacao,
-                'valorextenso'              => $request->valorextenso,
+                'valorlocacao'              => $valorLocacaoTransformando,              // $request->valorlocacao,
+                'valorextenso'              => Str::lower($request->valorextenso),
                 'cidadeforo'                => $request->cidadeforo,
             ]);
 
@@ -436,6 +436,7 @@ class RequerenteController extends Controller
         $arr_identidadegenero = ['1' => 'Feminino', '2' => 'Transexual', '3' => 'Travesti', '4' => 'Transgênero', '20' => 'Outra'];
         $arr_orientacaosexual = ['1' => 'Homossexual', '2' => 'Heterossexual', '3' => 'Bissexual', '20' => 'Outra'];
         $arr_estadocivil = ['1' => 'Solteira', '2' => 'Casada', '3' => 'Divorciada', '4' => 'Viúva', '20' => 'Outro'];
+        $arr_estadocivilloc = ['1' => 'Solteiro(a)', '2' => 'Casado(a)', '3' => 'Divorciado(a)', '4' => 'Viúvo(a)', '20' => 'Outro'];
 
         // Saneando o cpf para compor o nom do arquivo
         $cpf = str_replace('.','',str_replace('-','',$requerente->cpf));
@@ -483,7 +484,7 @@ class RequerenteController extends Controller
 
 
         // Definindo a view que deverá ser renderizada como arquivo .pdf e passando os dados da pesquisa
-        $html = \View::make('admin.requerentes.pdfs.pdf_requerimento', compact('requerente','arr_comunidade', 'arr_racacor', 'arr_identidadegenero', 'arr_orientacaosexual', 'arr_estadocivil', 'mpdf'));
+        $html = \View::make('admin.requerentes.pdfs.pdf_requerimento', compact('requerente','arr_comunidade', 'arr_racacor', 'arr_identidadegenero', 'arr_orientacaosexual', 'arr_estadocivil', 'arr_estadocivilloc', 'mpdf'));
         $html = $html->render();
 
         // Definindo o arquivo .css que estilizará o arquivo blade na view ('admin.empresa.pdf.pdfempresa')

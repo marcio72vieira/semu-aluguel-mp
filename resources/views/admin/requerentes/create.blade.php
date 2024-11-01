@@ -423,7 +423,7 @@
                     </div>
 
 
-                    <hr>
+                    <hr style="border: none; height: 3px; background-color: #545454;">
 
 
 
@@ -1150,7 +1150,7 @@
                         {{-- cidadeufloc Talvez o locatário possa morar em outro Estado. Daí a necessidade de não ser um campo do tipo selec com pesquisa em banco --}}
                         <div class="col-4">
                             <div class="form-group focused">
-                                <label for="cidadeufloc" class="form-control-label">Cidade / UF</label>
+                                <label for="cidadeufloc" class="form-control-label">Cidade, Estado</label>
                                     <input type="text" name="cidadeufloc" value="{{ old('cidadeufloc') }}" class="form-control" id="cidadeufloc" required>
                                     @error('cidadeufloc')
                                         <small style="color: red">{{$message}}</small>
@@ -1223,7 +1223,7 @@
                         {{-- cidadeufimov --}}
                         <div class="col-4">
                             <div class="form-group focused">
-                                <label for="cidadeufimov" class="form-control-label">Cidade / UF</label>
+                                <label for="cidadeufimov" class="form-control-label">Cidade, Estado</label>
                                     <input type="text" name="cidadeufimov" value="{{ old('cidadeufimov') }}" class="form-control" id="cidadeufimov" required>
                                     @error('cidadeufimov')
                                         <small style="color: red">{{$message}}</small>
@@ -1306,7 +1306,7 @@
                         {{-- cidadeforo --}}
                         <div class="col-6">
                             <div class="form-group focused">
-                                <label for="cidadeforo" class="form-control-label">Cidade Foro / UF <span class="small text-danger">*</span></label>
+                                <label for="cidadeforo" class="form-control-label">Cidade Foro <span class="small text-danger">*</span></label>
                                     <input type="text" name="cidadeforo" value="{{ old('cidadeforo') }}" class="form-control" id="cidadeforo" required>
                                     @error('cidadeforo')
                                         <small style="color: red">{{$message}}</small>

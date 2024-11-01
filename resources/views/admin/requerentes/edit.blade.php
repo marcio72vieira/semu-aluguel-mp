@@ -287,7 +287,7 @@
 
                     {{-- FORMA ANTIGA
                     <div class="mb-3 row" style="margin-top:30px">
-                        
+
                         <label for="deficientenao" class="col-3 col-form-label">Pessoa com deficiência ? <span class="small text-danger">*</span></label>
                         <div class="col-3">
                             <div style="margin-top:5px">
@@ -391,7 +391,7 @@
                     </div>
 
 
-                    <hr>
+                    <hr style="border: none; height: 3px; background-color: #545454;">
 
 
 
@@ -1116,7 +1116,7 @@
                         {{-- cidadeufloc Talvez o locatário possa morar em outro Estado. Daí a necessidade de não ser um campo do tipo selec com pesquisa em banco --}}
                         <div class="col-4">
                             <div class="form-group focused">
-                                <label for="cidadeufloc" class="form-control-label">Cidade / UF</label>
+                                <label for="cidadeufloc" class="form-control-label">Cidade, Estado</label>
                                     <input type="text" name="cidadeufloc" value="{{ old('cidadeufloc', $requerente->locacao->cidadeufloc) }}" class="form-control" id="cidadeufloc" required>
                                     @error('cidadeufloc')
                                         <small style="color: red">{{ $message }}</small>
@@ -1139,7 +1139,7 @@
                             </div>
                         </div>
 
-                        {{-- numeroimov --}} 
+                        {{-- numeroimov --}}
                         <div class="col-2">
                             <div class="form-group focused">
                                 <label for="numeroimov" class="form-control-label">Nº <span class="small text-danger">*</span></label>
@@ -1189,7 +1189,7 @@
                         {{-- cidadeufimov --}}
                         <div class="col-4">
                             <div class="form-group focused">
-                                <label for="cidadeufimov" class="form-control-label">Cidade / UF</label>
+                                <label for="cidadeufimov" class="form-control-label">Cidade, Estado</label>
                                     <input type="text" name="cidadeufimov" value="{{ old('cidadeufimov', $requerente->locacao->cidadeufimov) }}" class="form-control" id="cidadeufimov" required>
                                     @error('cidadeufimov')
                                         <small style="color: red">{{ $message }}</small>
@@ -1272,7 +1272,7 @@
                         {{-- cidadeforo --}}
                         <div class="col-6">
                             <div class="form-group focused">
-                                <label for="cidadeforo" class="form-control-label">Cidade Foro / UF <span class="small text-danger">*</span></label>
+                                <label for="cidadeforo" class="form-control-label">Cidade Foro<span class="small text-danger">*</span></label>
                                     <input type="text" name="cidadeforo" value="{{ old('cidadeforo', $requerente->locacao->cidadeforo) }}" class="form-control" id="cidadeforo" required>
                                     @error('cidadeforo')
                                         <small style="color: red">{{ $message }}</small>

@@ -158,4 +158,19 @@ if (!function_exists('mrc_encrypt_decrypt')) {
         }
         return $output;
     }
+
+    if (!function_exists('mrc_genero_estadocivil')) {
+
+        function mrc_genero_estadocivil($genero, $estadoCivil)
+        {
+
+            if($genero == "masculino"){
+                $generoEstadoCivil = str_replace("o(a)","o" ,$estadoCivil);
+            }else{
+                $generoEstadoCivil = str_replace("o(a)","a" ,$estadoCivil);
+            }
+
+            return $generoEstadoCivil;
+        }
+    }
 }
