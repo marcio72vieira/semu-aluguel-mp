@@ -27,7 +27,7 @@
                     @csrf
                     @method('PUT')
 
-                    <div class="col-12" style="padding-bottom:20px; text-align: center;">
+                    <div class="col-12" style="padding:10px; margin-bottom: 15px; text-align: center; background-color: #e9e9e9">
                         <label><strong>INFORMAÇÕES DA REQUERENTE</strong></label>
                     </div>
 
@@ -489,21 +489,18 @@
                         </div>
                     </div>
 
-                    <br>
-                    <br>
-                    <br>
 
-                    <div class="col-12" style="padding-bottom:20px; text-align: center;">
+
+                    <div class="col-12" style="padding:10px; margin-top: 50px; margin-bottom: 15px; text-align: center; background-color: #e9e9e9">
                         <label><strong>DETALHAMENTO DO REQUERIMENTO</strong></label>
                     </div>
-
 
                     <div class="mb-4 row">
                         {{-- processojudicial --}}
                         <div class="col-4">
                             <div class="form-group focused">
                                 <label class="form-control-label" for="processojudicial">Processo Judicial em que foi concedida a medida protetiva <span class="small text-danger">*</span></label>
-                                <input type="text" class="form-control" id="processojudicial" name="processojudicial" value="{{ old('processojudicial', $requerente->detalhe->processojudicial) }}" >
+                                <input type="text" class="form-control" id="processojudicial" name="processojudicial" value="{{ old('processojudicial', $requerente->detalhe->processojudicial) }}" required>
                                 @error('processojudicial')
                                     <small style="color: red">{{ $message }}</small>
                                 @enderror
@@ -515,7 +512,7 @@
                         <div class="col-4">
                             <div class="form-group focused">
                                 <label class="form-control-label" for="orgaojudicial">Órgao Judicial <span class="small text-danger">*</span></label>
-                                <input type="text" class="form-control" id="orgaojudicial" name="orgaojudicial" value="{{ old('orgaojudicial', $requerente->detalhe->orgaojudicial) }}" >
+                                <input type="text" class="form-control" id="orgaojudicial" name="orgaojudicial" value="{{ old('orgaojudicial', $requerente->detalhe->orgaojudicial) }}" required>
                                 @error('orgaojudicial')
                                     <small style="color: red">{{ $message }}</small>
                                 @enderror
@@ -526,7 +523,7 @@
                         <div class="col-4">
                             <div class="form-group focused">
                                 <label class="form-control-label" for="comarca">Comarca<span class="small text-danger">*</span></label>
-                                <input type="text" class="form-control" id="comarca" name="comarca" value="{{ old('comarca', $requerente->detalhe->comarca) }}" >
+                                <input type="text" class="form-control" id="comarca" name="comarca" value="{{ old('comarca', $requerente->detalhe->comarca) }}" required>
                                 @error('comarca')
                                     <small style="color: red">{{ $message }}</small>
                                 @enderror
@@ -540,7 +537,7 @@
                         <div class="col-4">
                             <div class="form-group focused">
                                 <label class="form-control-label" for="prazomedidaprotetiva">Prazo da medida protetiva <span class="small text-danger">*</span></label>
-                                <input type="date" class="form-control" id="prazomedidaprotetiva" name="prazomedidaprotetiva" value="{{ old('prazomedidaprotetiva', $requerente->detalhe->prazomedidaprotetiva) }}" >
+                                <input type="date" class="form-control" id="prazomedidaprotetiva" name="prazomedidaprotetiva" value="{{ old('prazomedidaprotetiva', $requerente->detalhe->prazomedidaprotetiva) }}" required>
                                 @error('prazomedidaprotetiva')
                                     <small style="color: red">{{ $message }}</small>
                                 @enderror
@@ -551,7 +548,7 @@
                         <div class="col-4 offset-4">
                             <div class="form-group focused">
                                 <label class="form-control-label" for="dataconcessaomedidaprotetiva">Data em que foi concedida <span class="small text-danger">*</span></label>
-                                <input type="date" class="form-control" id="dataconcessaomedidaprotetiva" name="dataconcessaomedidaprotetiva" value="{{ old('dataconcessaomedidaprotetiva', $requerente->detalhe->dataconcessaomedidaprotetiva) }}" >
+                                <input type="date" class="form-control" id="dataconcessaomedidaprotetiva" name="dataconcessaomedidaprotetiva" value="{{ old('dataconcessaomedidaprotetiva', $requerente->detalhe->dataconcessaomedidaprotetiva) }}" required>
                                 @error('dataconcessaomedidaprotetiva')
                                     <small style="color: red">{{ $message }}</small>
                                 @enderror
@@ -571,7 +568,7 @@
                         <div class="col-sm-2">
                             <div style="margin-top: 10px;">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="medproturgcaminhaprogoficial" id="medproturgcaminhaprogoficialsim" value="1" {{ old('medproturgcaminhaprogoficial', $requerente->detalhe->medproturgcaminhaprogoficial) == '1' ? 'checked' : '' }}>
+                                    <input class="form-check-input" type="radio" name="medproturgcaminhaprogoficial" id="medproturgcaminhaprogoficialsim" value="1" {{ old('medproturgcaminhaprogoficial', $requerente->detalhe->medproturgcaminhaprogoficial) == '1' ? 'checked' : '' }} required>
                                     <label class="form-check-label" for="medproturgcaminhaprogoficialsim">Sim</label>
 
                                 </div>
@@ -597,7 +594,7 @@
                         <div class="col-sm-2">
                             <div style="margin-top: 10px;">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="medproturgafastamentolar" id="medproturgafastamentolarsim" value="1" {{ old('medproturgafastamentolar', $requerente->detalhe->medproturgafastamentolar) == '1' ? 'checked' : '' }}>
+                                    <input class="form-check-input" type="radio" name="medproturgafastamentolar" id="medproturgafastamentolarsim" value="1" {{ old('medproturgafastamentolar', $requerente->detalhe->medproturgafastamentolar) == '1' ? 'checked' : '' }} required>
                                     <label class="form-check-label" for="medproturgafastamentolarsim">Sim</label>
 
                                 </div>
@@ -623,7 +620,7 @@
                         <div class="col-sm-2">
                             <div style="margin-top: 10px;">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="riscmortvioldomesmoradprotegsigilosa" id="riscmortvioldomesmoradprotegsigilosasim" value="1" {{ old('riscmortvioldomesmoradprotegsigilosa', $requerente->detalhe->riscmortvioldomesmoradprotegsigilosa) == '1' ? 'checked' : '' }}>
+                                    <input class="form-check-input" type="radio" name="riscmortvioldomesmoradprotegsigilosa" id="riscmortvioldomesmoradprotegsigilosasim" value="1" {{ old('riscmortvioldomesmoradprotegsigilosa', $requerente->detalhe->riscmortvioldomesmoradprotegsigilosa) == '1' ? 'checked' : '' }} required>
                                     <label class="form-check-label" for="riscmortvioldomesmoradprotegsigilosasim">Sim</label>
 
                                 </div>
@@ -649,7 +646,7 @@
                         <div class="col-sm-2">
                             <div style="margin-top: 10px;">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="riscvidaaguardmedproturg" id="riscvidaaguardmedproturgsim" value="1" {{ old('riscvidaaguardmedproturg', $requerente->detalhe->riscvidaaguardmedproturg) == '1' ? 'checked' : '' }}>
+                                    <input class="form-check-input" type="radio" name="riscvidaaguardmedproturg" id="riscvidaaguardmedproturgsim" value="1" {{ old('riscvidaaguardmedproturg', $requerente->detalhe->riscvidaaguardmedproturg) == '1' ? 'checked' : '' }} required>
                                     <label class="form-check-label" for="riscvidaaguardmedproturgsim">Sim</label>
 
                                 </div>
@@ -675,7 +672,7 @@
                         <div class="col-sm-2">
                             <div style="margin-top: 10px;">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="relatodescomprmedproturgagressor" id="relatodescomprmedproturgagressorsim" value="1" {{ old('relatodescomprmedproturgagressor', $requerente->detalhe->relatodescomprmedproturgagressor) == '1' ? 'checked' : '' }}>
+                                    <input class="form-check-input" type="radio" name="relatodescomprmedproturgagressor" id="relatodescomprmedproturgagressorsim" value="1" {{ old('relatodescomprmedproturgagressor', $requerente->detalhe->relatodescomprmedproturgagressor) == '1' ? 'checked' : '' }} required>
                                     <label class="form-check-label" for="relatodescomprmedproturgagressorsim">Sim</label>
 
                                 </div>
@@ -701,7 +698,7 @@
                         <div class="col-sm-2">
                             <div style="margin-top: 10px;">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="sitvulnerabnaoconsegarcardespmoradia" id="sitvulnerabnaoconsegarcardespmoradiasim" value="1" {{ old('sitvulnerabnaoconsegarcardespmoradia', $requerente->detalhe->sitvulnerabnaoconsegarcardespmoradia) == '1' ? 'checked' : '' }}>
+                                    <input class="form-check-input" type="radio" name="sitvulnerabnaoconsegarcardespmoradia" id="sitvulnerabnaoconsegarcardespmoradiasim" value="1" {{ old('sitvulnerabnaoconsegarcardespmoradia', $requerente->detalhe->sitvulnerabnaoconsegarcardespmoradia) == '1' ? 'checked' : '' }} required>
                                     <label class="form-check-label" for="sitvulnerabnaoconsegarcardespmoradiasim">Sim</label>
 
                                 </div>
@@ -727,7 +724,7 @@
                         <div class="col-sm-2">
                             <div style="margin-top: 10px;">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="temrendfamiliardoissalconvivagressor" id="temrendfamiliardoissalconvivagressorsim" value="1" {{ old('temrendfamiliardoissalconvivagressor', $requerente->detalhe->temrendfamiliardoissalconvivagressor) == '1' ? 'checked' : '' }}>
+                                    <input class="form-check-input" type="radio" name="temrendfamiliardoissalconvivagressor" id="temrendfamiliardoissalconvivagressorsim" value="1" {{ old('temrendfamiliardoissalconvivagressor', $requerente->detalhe->temrendfamiliardoissalconvivagressor) == '1' ? 'checked' : '' }} required>
                                     <label class="form-check-label" for="temrendfamiliardoissalconvivagressorsim">Sim</label>
 
                                 </div>
@@ -753,7 +750,7 @@
                         <div class="col-sm-2">
                             <div style="margin-top: 10px;">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="paiavofilhonetomaiormesmomunicipresid" id="paiavofilhonetomaiormesmomunicipresidsim" value="1" {{old('paiavofilhonetomaiormesmomunicipresid', $requerente->detalhe->paiavofilhonetomaiormesmomunicipresid) == '1' ? 'checked' : '' }}>
+                                    <input class="form-check-input" type="radio" name="paiavofilhonetomaiormesmomunicipresid" id="paiavofilhonetomaiormesmomunicipresidsim" value="1" {{old('paiavofilhonetomaiormesmomunicipresid', $requerente->detalhe->paiavofilhonetomaiormesmomunicipresid) == '1' ? 'checked' : '' }} required>
                                     <label class="form-check-label" for="paiavofilhonetomaiormesmomunicipresidsim">Sim</label>
                                 </div>
                                 <div class="form-check form-check-inline">
@@ -787,7 +784,7 @@
                         <div class="col-sm-2">
                             <div style="margin-top: 10px;">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="filhosmenoresidade" id="filhosmenoresidadesim" value="1" {{ old('filhosmenoresidade', $requerente->detalhe->filhosmenoresidade) == '1' ? 'checked' : '' }}>
+                                    <input class="form-check-input" type="radio" name="filhosmenoresidade" id="filhosmenoresidadesim" value="1" {{ old('filhosmenoresidade', $requerente->detalhe->filhosmenoresidade) == '1' ? 'checked' : '' }} required>
                                     <label class="form-check-label" for="filhosmenoresidadesim">Sim</label>
 
                                 </div>
@@ -814,7 +811,7 @@
                         <div class="col-sm-2">
                             <div style="margin-top: 10px;">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="trabalhaougerarenda" id="trabalhaougerarendasim" value="1" {{ old('trabalhaougerarenda', $requerente->detalhe->trabalhaougerarenda) == '1' ? 'checked' : '' }}>
+                                    <input class="form-check-input" type="radio" name="trabalhaougerarenda" id="trabalhaougerarendasim" value="1" {{ old('trabalhaougerarenda', $requerente->detalhe->trabalhaougerarenda) == '1' ? 'checked' : '' }} required>
                                     <label class="form-check-label" for="trabalhaougerarendasim">Sim</label>
 
                                 </div>
@@ -848,7 +845,7 @@
                         <div class="col-sm-2">
                             <div style="margin-top: 10px;">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="temcadunico" id="temcadunicosim" value="1" {{ old('temcadunico', $requerente->detalhe->temcadunico) == '1' ? 'checked' : '' }}>
+                                    <input class="form-check-input" type="radio" name="temcadunico" id="temcadunicosim" value="1" {{ old('temcadunico', $requerente->detalhe->temcadunico) == '1' ? 'checked' : '' }} required>
                                     <label class="form-check-label" for="temcadunicosim">Sim</label>
 
                                 </div>
@@ -874,7 +871,7 @@
                         <div class="col-sm-2">
                             <div style="margin-top: 10px;">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="teminteresformprofisdesenvolvhabilid" id="teminteresformprofisdesenvolvhabilidsim" value="1" {{ old('teminteresformprofisdesenvolvhabilid', $requerente->detalhe->teminteresformprofisdesenvolvhabilid) == '1' ? 'checked' : '' }}>
+                                    <input class="form-check-input" type="radio" name="teminteresformprofisdesenvolvhabilid" id="teminteresformprofisdesenvolvhabilidsim" value="1" {{ old('teminteresformprofisdesenvolvhabilid', $requerente->detalhe->teminteresformprofisdesenvolvhabilid) == '1' ? 'checked' : '' }} required>
                                     <label class="form-check-label" for="teminteresformprofisdesenvolvhabilidsim">Sim</label>
 
                                 </div>
@@ -900,7 +897,7 @@
                         <div class="col-sm-2">
                             <div style="margin-top: 10px;">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="apresentoudocumentoidentificacao" id="apresentoudocumentoidentificacaosim" value="1" {{ old('apresentoudocumentoidentificacao', $requerente->detalhe->apresentoudocumentoidentificacao) == '1' ? 'checked' : '' }}>
+                                    <input class="form-check-input" type="radio" name="apresentoudocumentoidentificacao" id="apresentoudocumentoidentificacaosim" value="1" {{ old('apresentoudocumentoidentificacao', $requerente->detalhe->apresentoudocumentoidentificacao) == '1' ? 'checked' : '' }} required>
                                     <label class="form-check-label" for="apresentoudocumentoidentificacaosim">Sim</label>
 
                                 </div>
@@ -925,7 +922,7 @@
                         <div class="col-sm-2">
                             <div style="margin-top: 10px;">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="cumprerequisitositensnecessarios" id="cumprerequisitositensnecessariossim" value="1" {{ old('cumprerequisitositensnecessarios', $requerente->detalhe->cumprerequisitositensnecessarios) == '1' ? 'checked' : '' }}>
+                                    <input class="form-check-input" type="radio" name="cumprerequisitositensnecessarios" id="cumprerequisitositensnecessariossim" value="1" {{ old('cumprerequisitositensnecessarios', $requerente->detalhe->cumprerequisitositensnecessarios) == '1' ? 'checked' : '' }} required>
                                     <label class="form-check-label" for="cumprerequisitositensnecessariossim">Sim</label>
 
                                 </div>
@@ -941,6 +938,348 @@
                         </div>
                     </div>
 
+
+
+                    <div class="col-12" style="padding:10px; margin-top: 50px; margin-bottom: 15px; text-align: center; background-color: #e9e9e9">
+                        <label><strong>INFORMAÇÕES DA LOCAÇÃO</strong></label>
+                    </div>
+
+                    <div class="mb-4 row">
+                        {{-- nomeloc --}}
+                        <div class="col-4">
+                            <div class="form-group focused">
+                                <label class="form-control-label" for="nomeloc">Nome do Locador(a) <span class="small text-danger">*</span></label>
+                                <input type="text" class="form-control" id="nomeloc" name="nomeloc" value="{{ old('nomeloc', $requerente->locacao->nomeloc) }}" required>
+                                @error('nomeloc')
+                                    <small style="color: red">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
+
+                        {{-- sexoloc --}}
+                        <div class="col-2">
+                            <div class="form-group focused">
+                                <label class="form-control-label" for="sexolocfem">Sexo <span class="small text-danger">*</span></label>
+                                <div style="margin-top: 10px">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="sexoloc" id="sexolocmas" value="masculino" {{ old('sexoloc', $requerente->locacao->sexoloc) == 'masculino' ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="sexolocmas">Mas</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="sexoloc" id="sexolocfem" value="feminino" {{ old('sexoloc', $requerente->locacao->sexoloc) == 'feminino' ? 'checked' : '' }} required>
+                                        <label class="form-check-label" for="sexolocfem">Fem</label>
+                                    </div>
+                                    <br>
+                                    @error('sexoloc')
+                                        <small style="color: red">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+
+                        {{-- rgloc --}}
+                        <div class="col-2">
+                            <div class="form-group focused">
+                                <label class="form-control-label" for="rgloc">RG<span class="small text-danger">*</span></label>
+                                <input type="text" class="form-control" id="rgloc" name="rgloc" value="{{ old('rgloc', $requerente->locacao->rgloc) }}" required>
+                                @error('rgloc')
+                                    <small style="color: red">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
+
+                        {{-- orgaoexpedidorloc --}}
+                        <div class="col-2">
+                            <div class="form-group focused">
+                                <label class="form-control-label" for="orgaoexpedidorloc">Órgão Expedidor<span class="small text-danger">*</span></label>
+                                <input type="text" class="form-control" id="orgaoexpedidorloc" name="orgaoexpedidorloc" value="{{ old('orgaoexpedidorloc', $requerente->locacao->orgaoexpedidorloc) }}" required>
+                                @error('orgaoexpedidorloc')
+                                    <small style="color: red">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
+
+                        {{-- cpfloc --}}
+                        <div class="col-2">
+                            <div class="form-group focused">
+                                <label class="form-control-label" for="cpfloc">CPF<span class="small text-danger">*</span></label>
+                                <input type="text" class="form-control cpf" id="cpfloc" name="cpfloc" value="{{ old('cpfloc', $requerente->locacao->cpfloc) }}" required>
+                                @error('cpfloc')
+                                    <small style="color: red">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4 row">
+                        {{-- nacionalidadeloc --}}
+                        <div class="col-2 offset-6">
+                            <div class="form-group focused">
+                                <label class="form-control-label" for="nacionalidadeloc">Nacionalidade <span class="small text-danger">*</span></label>
+                                <input type="text" class="form-control" id="nacionalidadeloc" name="nacionalidadeloc" value="{{ old('nacionalidadeloc', $requerente->locacao->nacionalidadeloc) }}" required>
+                                @error('nacionalidadeloc')
+                                    <small style="color: red">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
+
+                        {{-- profissaoloc --}}
+                        <div class="col-2">
+                            <div class="form-group focused">
+                                <label class="form-control-label" for="profissaoloc">Profissão <span class="small text-danger">*</span></label>
+                                <input type="text" class="form-control" id="profissaoloc" name="profissaoloc" value="{{ old('profissaoloc', $requerente->locacao->profissaoloc) }}">
+                                @error('profissaoloc')
+                                    <small style="color: red">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
+
+                        {{-- estadocivilloc --}}
+                        <div class="col-2">
+                            <div class="form-group focused">
+                                <label class="form-control-label" for="estadocivilloc">Estado Civil<span class="small text-danger">*</span></label>
+                                <select name="estadocivilloc" id="estadocivilloc" class="form-control"  required>
+                                    <option value="" selected disabled>Escolha ...</option>
+                                    <option value="1" {{ old('estadocivilloc', $requerente->locacao->estadocivilloc) == '1' ? 'selected' : '' }}>Solteiro(a)</option>
+                                    <option value="2" {{ old('estadocivilloc', $requerente->locacao->estadocivilloc) == '2' ? 'selected' : '' }}>Casado(a)</option>
+                                    <option value="3" {{ old('estadocivilloc', $requerente->locacao->estadocivilloc) == '3' ? 'selected' : '' }}>Divorciado(a)</option>
+                                    <option value="4" {{ old('estadocivilloc', $requerente->locacao->estadocivilloc) == '4' ? 'selected' : '' }}>Viúvo(a)</option>
+                                    <option value="20" {{ old('estadocivilloc', $requerente->locacao->estadocivilloc) == '20' ? 'selected' : '' }}>Outro</option>
+                                </select>
+                                @error('estadocivilloc')
+                                    <small style="color: red">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4 row">
+                        {{-- enderecoloc --}}
+                        <div class="col-6">
+                            <div class="form-group focused">
+                                <label for="enderecoloc" class="form-control-label">Endereço do Locador(a) <span class="small text-danger">*</span></label>
+                                    <input type="text" name="enderecoloc" value="{{ old('enderecoloc', $requerente->locacao->enderecoloc) }}" class="form-control" id="enderecoloc" required>
+                                    @error('enderecoloc')
+                                        <small style="color: red">{{ $message }}</small>
+                                    @enderror
+                            </div>
+                        </div>
+
+                        {{-- numeroloc --}}
+                        <div class="col-2">
+                            <div class="form-group focused">
+                                <label for="numeroloc" class="form-control-label">Nº <span class="small text-danger">*</span></label>
+                                    <input type="text" name="numeroloc" value="{{ old('numeroloc', $requerente->locacao->numeroloc) }}" class="form-control" id="numeroloc" required>
+                                    @error('numeroloc')
+                                        <small style="color: red">{{ $message }}</small>
+                                    @enderror
+                            </div>
+                        </div>
+
+                        {{-- complementoloc --}}
+                        <div class="col-4">
+                            <div class="form-group focused">
+                                <label for="complementoloc" class="form-control-label">Complemento</label>
+                                    <input type="text" name="complementoloc" value="{{ old('complementoloc', $requerente->locacao->complementoloc) }}" class="form-control" id="complementoloc">
+                                    @error('complementoloc')
+                                        <small style="color: red">{{ $message }}</small>
+                                    @enderror
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="mb-4 row">
+                        {{-- bairroloc --}}
+                        <div class="col-6">
+                            <div class="form-group focused">
+                                <label for="bairroloc" class="form-control-label">Bairro <span class="small text-danger">*</span></label>
+                                    <input type="text" name="bairroloc" value="{{ old('bairroloc', $requerente->locacao->bairroloc) }}" class="form-control" id="bairroloc" required>
+                                    @error('bairroloc')
+                                        <small style="color: red">{{ $message }}</small>
+                                    @enderror
+                            </div>
+                        </div>
+
+                        {{-- ceploc --}}
+                        <div class="col-2">
+                            <div class="form-group focused">
+                                <label for="ceploc" class="form-control-label">CEP <span class="small text-danger">*</span></label>
+                                    <input type="text" name="ceploc" value="{{ old('ceploc', $requerente->locacao->ceploc) }}" class="form-control cep" id="ceploc" required>
+                                    @error('ceploc')
+                                        <small style="color: red">{{ $message }}</small>
+                                    @enderror
+                            </div>
+                        </div>
+
+                        {{-- cidadeufloc Talvez o locatário possa morar em outro Estado. Daí a necessidade de não ser um campo do tipo selec com pesquisa em banco --}}
+                        <div class="col-4">
+                            <div class="form-group focused">
+                                <label for="cidadeufloc" class="form-control-label">Cidade / UF</label>
+                                    <input type="text" name="cidadeufloc" value="{{ old('cidadeufloc', $requerente->locacao->cidadeufloc) }}" class="form-control" id="cidadeufloc" required>
+                                    @error('cidadeufloc')
+                                        <small style="color: red">{{ $message }}</small>
+                                    @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr style="border: none; height: 3px; background-color: #545454;">
+
+                    <div class="mb-4 row">
+                        {{-- enderecoimov --}}
+                        <div class="col-6">
+                            <div class="form-group focused">
+                                <label for="enderecoimov" class="form-control-label">Endereço do Imóvel<span class="small text-danger">*</span></label>
+                                    <input type="text" name="enderecoimov" value="{{ old('enderecoimov', $requerente->locacao->enderecoimov) }}" class="form-control" id="enderecoimov" required>
+                                    @error('enderecoimov')
+                                        <small style="color: red">{{ $message }}</small>
+                                    @enderror
+                            </div>
+                        </div>
+
+                        {{-- numeroimov --}} 
+                        <div class="col-2">
+                            <div class="form-group focused">
+                                <label for="numeroimov" class="form-control-label">Nº <span class="small text-danger">*</span></label>
+                                    <input type="text" name="numeroimov" value="{{ old('numeroimov', $requerente->locacao->numeroimov) }}" class="form-control" id="numeroimov" required>
+                                    @error('numeroimov')
+                                        <small style="color: red">{{ $message }}</small>
+                                    @enderror
+                            </div>
+                        </div>
+
+                        {{-- complementoimov --}}
+                        <div class="col-4">
+                            <div class="form-group focused">
+                                <label for="complementoimov" class="form-control-label">Complemento</label>
+                                    <input type="text" name="complementoimov" value="{{ old('complementoimov', $requerente->locacao->complementoimov) }}" class="form-control" id="complementoimov">
+                                    @error('complementoimov')
+                                        <small style="color: red">{{ $message }}</small>
+                                    @enderror
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="mb-4 row">
+                        {{-- bairroimov --}}
+                        <div class="col-6">
+                            <div class="form-group focused">
+                                <label for="bairroimov" class="form-control-label">Bairro<span class="small text-danger">*</span></label>
+                                    <input type="text" name="bairroimov" value="{{ old('bairroimov', $requerente->locacao->bairroimov) }}" class="form-control" id="bairroimov" required>
+                                    @error('bairroimov')
+                                        <small style="color: red">{{ $message }}</small>
+                                    @enderror
+                            </div>
+                        </div>
+
+                        {{-- cepimov --}}
+                        <div class="col-2">
+                            <div class="form-group focused">
+                                <label for="cepimov" class="form-control-label">CEP <span class="small text-danger">*</span></label>
+                                    <input type="text" name="cepimov" value="{{ old('cepimov', $requerente->locacao->cepimov) }}" class="form-control cep" id="cepimov" required>
+                                    @error('cepimov')
+                                        <small style="color: red">{{ $message }}</small>
+                                    @enderror
+                            </div>
+                        </div>
+
+                        {{-- cidadeufimov --}}
+                        <div class="col-4">
+                            <div class="form-group focused">
+                                <label for="cidadeufimov" class="form-control-label">Cidade / UF</label>
+                                    <input type="text" name="cidadeufimov" value="{{ old('cidadeufimov', $requerente->locacao->cidadeufimov) }}" class="form-control" id="cidadeufimov" required>
+                                    @error('cidadeufimov')
+                                        <small style="color: red">{{ $message }}</small>
+                                    @enderror
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="mb-4 row">
+                        {{-- meseslocacao --}}
+                        <div class="col-2">
+                            <div class="form-group focused">
+                                <label for="meseslocacao" class="form-control-label">Número de Mêses do aluguel<span class="small text-danger">*</span></label>
+                                    <input type="number" min="1" max="12" name="meseslocacao" value="{{ old('meseslocacao', $requerente->locacao->meseslocacao) }}" class="form-control" id="meseslocacao" required>
+                                    @error('meseslocacao')
+                                        <small style="color: red">{{ $message }}</small>
+                                    @enderror
+                            </div>
+                        </div>
+
+                        {{-- mesesextenso --}}
+                        <div class="col-4">
+                            <div class="form-group focused">
+                                <label for="mesesextenso" class="form-control-label">Número de Mêses do aluguel por extenso<span class="small text-danger">*</span></label>
+                                    <input type="text" name="mesesextenso" value="{{ old('mesesextenso', $requerente->locacao->mesesextenso) }}" class="form-control" id="mesesextenso" required>
+                                    @error('mesesextenso')
+                                        <small style="color: red">{{ $message }}</small>
+                                    @enderror
+                            </div>
+                        </div>
+
+                        {{-- iniciolocacao --}}
+                        <div class="col-2">
+                            <div class="form-group focused">
+                                <label for="iniciolocacao" class="form-control-label">Data Inico <span class="small text-danger">*</span></label>
+                                    <input type="date" name="iniciolocacao" value="{{ old('iniciolocacao', $requerente->locacao->iniciolocacao) }}" class="form-control" id="iniciolocacao" required>
+                                    @error('iniciolocacao')
+                                        <small style="color: red">{{ $message }}</small>
+                                    @enderror
+                            </div>
+                        </div>
+
+                        {{-- fimlocacao --}}
+                        <div class="col-4">
+                            <div class="form-group focused">
+                                <label for="fimlocacao" class="form-control-label">Data Final</label>
+                                    <input type="date" name="fimlocacao" value="{{ old('fimlocacao', $requerente->locacao->fimlocacao) }}" class="form-control" id="fimlocacao" required>
+                                    @error('fimlocacao')
+                                        <small style="color: red">{{ $message }}</small>
+                                    @enderror
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="mb-4 row">
+                        {{-- valorlocacao --}}
+                        <div class="col-2">
+                            <div class="form-group focused">
+                                <label for="valorlocacao" class="form-control-label">Valor do Aluguel<span class="small text-danger">*</span></label>
+                                    <input type="text" name="valorlocacao" value="{{ old('valorlocacao', isset($requerente->locacao->valorlocacao) ? number_format($requerente->locacao->valorlocacao, '2',',','.') : '') }}" class="form-control" id="valorlocacao" required>
+                                    @error('valorlocacao')
+                                        <small style="color: red">{{ $message }}</small>
+                                    @enderror
+                            </div>
+                        </div>
+
+                        {{-- valorextenso --}}
+                        <div class="col-4">
+                            <div class="form-group focused">
+                                <label for="valorextenso" class="form-control-label">Valor do Aluguel por extenso<span class="small text-danger">*</span></label>
+                                    <input type="text" name="valorextenso" value="{{ old('valorextenso', $requerente->locacao->valorextenso) }}" class="form-control" id="valorextenso" required>
+                                    @error('valorextenso')
+                                        <small style="color: red">{{ $message }}</small>
+                                    @enderror
+                            </div>
+                        </div>
+
+                        {{-- cidadeforo --}}
+                        <div class="col-6">
+                            <div class="form-group focused">
+                                <label for="cidadeforo" class="form-control-label">Cidade Foro / UF <span class="small text-danger">*</span></label>
+                                    <input type="text" name="cidadeforo" value="{{ old('cidadeforo', $requerente->locacao->cidadeforo) }}" class="form-control" id="cidadeforo" required>
+                                    @error('cidadeforo')
+                                        <small style="color: red">{{ $message }}</small>
+                                    @enderror
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="mb-4 row">
                         <div class="col-sm-2"></div>
@@ -1134,6 +1473,35 @@
 
             });
         }
+
+
+        // Recebe o seletor do campo ValorLocacao
+        let inputValorLocacao = document.getElementById('valorlocacao');
+
+        // Verifique se existe o seletor no HTML. Obs: Dependendo da página que você esteja, é possível que este seletor não exista, por isso a necessidade de testar sua existência
+        if(inputValorLocacao){
+
+            // Aguardar o usuário digitar o valo no campo
+            inputValorLocacao.addEventListener('input', function(){
+
+                // Obter o valor atual removendo qualquer caracter que não seja número
+                let valueValorLocacao = this.value.replace(/[^\d]/g, '');
+
+                // Adicionar os separadores de milhares
+                var formattedValorLocacao = (valueValorLocacao.slice(0, -2).replace(/\B(?=(\d{3})+(?!\d))/g, '.')) + '' + valueValorLocacao.slice(-2);
+
+                // Adicionar a vírgula e até dois dígitos se houver centavos
+                if(formattedValorLocacao.length > 2){
+                    formattedValorLocacao = formattedValorLocacao.slice(0, -2) + "," + formattedValorLocacao.slice(-2);
+                }
+
+
+                // Atualizar o valor do campo
+                this.value = formattedValorLocacao;
+
+            });
+        }
+
 
 
     </script>

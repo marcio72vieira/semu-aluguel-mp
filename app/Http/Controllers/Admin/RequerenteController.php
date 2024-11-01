@@ -235,7 +235,7 @@ class RequerenteController extends Controller
 
     public function edit(Requerente $requerente)
     {
-        $requerente =  Requerente::with('detalhe')->find($requerente->id);
+        $requerente =  Requerente::with(['detalhe','locacao'])->find($requerente->id);
 
         // Recuperando todas os municípios
         $municipios = Municipio::where('ativo', '=', '1')->orderBy('nome', 'ASC')->get();
@@ -280,6 +280,13 @@ class RequerenteController extends Controller
                 $valorTtrabalhoRendaTransformando = str_replace(',', '.', str_replace('.', '', $request->valortrabalhorenda));
             } else {
                 $valorTtrabalhoRendaTransformando = 0.00;
+            }
+
+            // Tansforma o valor do ValorLocacao a para o formato adequado aceito pelo banco de dados
+            if($request->valorlocacao != null){
+                $valorValorLocacaoTransformado = str_replace(',', '.', str_replace('.', '', $request->valorlocacao));
+            } else {
+                $valorValorLocacaoTransformado = 0.00;
             }
 
 
@@ -347,6 +354,39 @@ class RequerenteController extends Controller
                 'cumprerequisitositensnecessarios'          => $request->cumprerequisitositensnecessarios
 
             ]);
+
+            $requerente->locacao()->update([
+                'requerente_id'             => $requerente->id,
+                'detalherequerente_id'      => $requerente->detalhe->id,
+                'nomeloc'                   => $request->nomeloc,
+                'sexoloc'                   => $request->sexoloc,
+                'rgloc'                     => $request->rgloc,
+                'orgaoexpedidorloc'         => $request->orgaoexpedidorloc,
+                'cpfloc'                    => $request->cpfloc,
+                'nacionalidadeloc'          => $request->nacionalidadeloc,
+                'profissaoloc'              => $request->profissaoloc,
+                'estadocivilloc'            => $request->estadocivilloc,
+                'enderecoloc'               => $request->enderecoloc,
+                'numeroloc'                 => $request->numeroloc,
+                'complementoloc'            => $request->complementoloc,
+                'bairroloc'                 => $request->bairroloc,
+                'ceploc'                    => $request->ceploc,
+                'cidadeufloc'               => $request->cidadeufloc,
+                'enderecoimov'              => $request->enderecoimov,
+                'numeroimov'                => $request->numeroimov,
+                'complementoimov'           => $request->complementoimov,
+                'bairroimov'                => $request->bairroimov,
+                'cepimov'                   => $request->cepimov,
+                'cidadeufimov'              => $request->cidadeufimov,
+                'meseslocacao'              => $request->meseslocacao,
+                'mesesextenso'              => $request->mesesextenso,
+                'iniciolocacao'             => $request->iniciolocacao,
+                'fimlocacao'                => $request->fimlocacao,
+                'valorlocacao'              => $valorValorLocacaoTransformado,      // $request->valorlocacao,
+                'valorextenso'              => $request->valorextenso,
+                'cidadeforo'                => $request->cidadeforo,
+            ]);
+
 
              // Operação concluída com êxito
              DB::commit();
