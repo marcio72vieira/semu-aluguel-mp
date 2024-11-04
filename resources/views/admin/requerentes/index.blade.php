@@ -50,6 +50,8 @@
                             <td>{{ $requerente->cpf }} <br> {{ $requerente->rg }} {{ $requerente->orgaoexpedidor }}</td>
                             <td>{{ $requerente->status == 1 ? "Pendente" : "Pendente" }}</td>
                             <td class="flex-row d-md-flex justify-content-start align-content-stretch flex-wrap">
+                                {{-- <a href="{{ route('requerimento.index', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-info btn-sm me-1"> <i class="fa-regular fa-paste"></i> Requerimento </a> --}}
+
                                 <a href="{{ route('requerente.show', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-primary btn-sm me-1">
                                     <i class="fa-regular fa-eye"></i> Visualizar
                                 </a>
@@ -58,8 +60,8 @@
                                     <i class="fa-solid fa-pen-to-square"></i> Editar
                                 </a>
 
-                                <a href="{{ route('requerimento.index', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-info btn-sm me-1">
-                                    <i class="fa-regular fa-paste"></i> Requerimento
+                                <a href="{{ route('anexo.index', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-info btn-sm me-1">
+                                    <i class="fas fa-file-upload mr-2"></i> Anexos
                                 </a>
 
                                 <form id="formDelete{{ $requerente->id }}" method="POST" action="{{ route('requerente.destroy', ['requerente' => $requerente->id]) }}">

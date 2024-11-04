@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\TipounidadeController;
 use App\Http\Controllers\Admin\UnidadeatendimentoController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RequerenteController;
+use App\Http\Controllers\Admin\AnexoController;
 use App\Http\Controllers\Admin\RequerimentoController;
 
 
@@ -75,9 +76,17 @@ Route::put('/update-requerente/{requerente}', [RequerenteController::class, 'upd
 Route::delete('/destroy-requerente/{requerente}', [RequerenteController::class, 'destroy'])->name('requerente.destroy');
 Route::get('pdf-requerente/relpdfrequerente/{requerente}', [RequerenteController::class, 'relpdfrequerente'])->name('requerente.relpdfrequerente');
 
+// ANEXO
+Route::get('/index-anexo/{requerente}', [AnexoController::class, 'index'])->name('anexo.index');
+Route::get('/create-anexo/{requerente}', [AnexoController::class, 'create'])->name('anexo.create');
+Route::post('/store-anexo', [AnexoController::class, 'store'])->name('anexo.store');
+Route::delete('/destroy-anexo/{anexo}', [AnexoController::class, 'destroy'])->name('anexo.destroy');
+
+
+
 // REQUERIMENTO
-Route::get('/index-requerimento/{requerente}', [RequerimentoController::class, 'index'])->name('requerimento.index');
-Route::get('/create-requerimento', [RequerimentoController::class, 'create'])->name('requerimento.create');
+// Route::get('/index-requerimento/{requerente}', [RequerimentoController::class, 'index'])->name('requerimento.index');
+// Route::get('/create-requerimento', [RequerimentoController::class, 'create'])->name('requerimento.create');
 
 
 
