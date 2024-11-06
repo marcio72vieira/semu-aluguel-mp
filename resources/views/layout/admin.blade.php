@@ -48,7 +48,7 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href="#!">Perfil</a></li>
-                    <li><a class="dropdown-item" href="#!">Atividades</a></li>
+                    {{-- <li><a class="dropdown-item" href="#!">Atividades</a></li> --}}
                     <li><hr class="dropdown-divider" /></li>
                     <li><a class="dropdown-item" href="{{ route('login.logout') }}">Sair</a></li>
                 </ul>
@@ -62,10 +62,11 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Core</div>
-                        <a class="nav-link" href="index.html">
+
+                        {{-- <a class="nav-link" href="index.html">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Dashboard
-                        </a>
+                        </a> --}}
 
                         <a class="nav-link" href="{{ route('requerente.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
@@ -89,9 +90,11 @@
                                 <a class="nav-link" href="{{ route('municipio.index') }}">Municípios</a>
                                 <a class="nav-link" href="{{ route('tipounidade.index') }}">Tipos Unidade</a>
                                 <a class="nav-link" href="{{ route('unidadeatendimento.index')}}">Unidade de Atendimento</a>
-                                <a class="nav-link" href="{{ url('index-datatables') }}">DataTable</a>
+                                {{-- <a class="nav-link" href="{{ url('index-datatables') }}">DataTable</a> --}}
                             </nav>
                         </div>
+
+                        {{--
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                             <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                             Pages
@@ -132,8 +135,9 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                             Tables
                         </a>
+                        --}}
 
-                        <a class="nav-link" href="index.html">
+                        <a class="nav-link" href="{{ route('login.logout') }}">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-arrow-right-from-bracket"></i></div>
                             Sair
                         </a>

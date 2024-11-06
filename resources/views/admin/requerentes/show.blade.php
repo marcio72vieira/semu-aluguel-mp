@@ -4,11 +4,11 @@
     <div class="px-4 container-fluid">
         <div class="gap-2 mb-1 hstack">
             <h2 class="mt-3">REQUERENTE - visualizar</h2>
-            <ol class="mt-3 mb-3 breadcrumb ms-auto">
+            {{-- <ol class="mt-3 mb-3 breadcrumb ms-auto">
                 <li class="breadcrumb-item"><a href="">Dashboard</a></li>
                 <li class="breadcrumb-item"><a class="text-decoration-none" href="">Requerentes</a></li>
                 <li class="breadcrumb-item active">Requerente</li>
-            </ol>
+            </ol> --}}
         </div>
 
         <div class="row">
@@ -334,9 +334,9 @@
                                     <i class="fa-solid fa-pen-to-square"></i> Editar
                                 </a>
 
-                                <a href="{{ route('requerente.relpdfrequerente', ['requerente' => $requerente->id]) }}" class="p-2 btn btn-danger btn-sm" target="_blank">
+                                {{-- <a href="{{ route('requerente.relpdfrequerente', ['requerente' => $requerente->id]) }}" class="p-2 btn btn-danger btn-sm" target="_blank">
                                     <i class="fa-solid fa-file-pdf"></i> Anexos
-                                </a>
+                                </a> --}}
                             </dd>
                         </dl>
 

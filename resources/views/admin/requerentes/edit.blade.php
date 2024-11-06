@@ -4,11 +4,11 @@
     <div class="px-4 container-fluid">
         <div class="gap-2 mb-1 hstack">
             <h2 class="mt-3">REQUERENTE -  edição</h2>
-            <ol class="mt-3 mb-3 breadcrumb ms-auto">
+            {{-- <ol class="mt-3 mb-3 breadcrumb ms-auto">
                 <li class="breadcrumb-item"><a href="">Dashboard</a></li>
                 <li class="breadcrumb-item"><a class="text-decoration-none" href="">Requerentes</a></li>
                 <li class="breadcrumb-item active">Requerente</li>
-            </ol>
+            </ol> --}}
         </div>
 
         <div class="mb-4 shadow card border-light">
