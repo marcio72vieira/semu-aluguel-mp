@@ -57,7 +57,7 @@ class AnexoController extends Controller
         } */
 
          // Redirecionar o usuário, enviar a mensagem de sucesso
-         return redirect()->route('anexo.index', ['requerente' => $request->requerente_id_hidden])->with('success', 'Anexo cadastrado com sucesso!');
+         return redirect()->route('anexo.index', ['requerente' => $request->requerente_id_hidden])->with('success', 'Documento anexado com sucesso!');
     }
 
 
@@ -78,11 +78,11 @@ class AnexoController extends Controller
 
         // APAGANDO O DIRETÓRIO, CASO NÃO EXISTA ARQUIVOS NO MESMO
         // Retorna um array de trodos os arquivos dentro do diretório
-        $files = Storage::files('anexos/requerente_'.$requerenteId);
+        $files = Storage::disk('public')->files('anexos/requerente_'.$requerenteId);
 
         // Se não há arquivos dentro do diretório, deleta o diretório
         if(count($files) == 0){
-            Storage::deleteDirectory('anexos/requerente_'.$requerenteId);
+            Storage::disk('public')->deleteDirectory('anexos/requerente_'.$requerenteId);
         }
 
         // Redirecionar o usuário, enviar a mensagem de sucesso
