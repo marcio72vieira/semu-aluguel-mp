@@ -10,6 +10,8 @@ use App\Http\Controllers\Admin\UnidadeatendimentoController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RequerenteController;
 use App\Http\Controllers\Admin\AnexoController;
+use App\Http\Controllers\Admin\TipodocumentoController;
+use App\Http\Controllers\Admin\DocumentoController;
 use App\Http\Controllers\Admin\RequerimentoController;
 
 
@@ -82,6 +84,12 @@ Route::get('/create-anexo/{requerente}', [AnexoController::class, 'create'])->na
 Route::post('/store-anexo', [AnexoController::class, 'store'])->name('anexo.store');
 Route::delete('/destroy-anexo/{anexo}', [AnexoController::class, 'destroy'])->name('anexo.destroy');
 
+// DOCUMENTO
+Route::get('/index-documento/{requerente}', [DocumentoController::class, 'index'])->name('documento.index');
+Route::get('/create-documento/{requerente}', [DocumentoController::class, 'create'])->name('documento.create');
+Route::post('/store-documento', [DocumentoController::class, 'store'])->name('documento.store');
+Route::delete('/destroy-documento/{documento}', [DocumentoController::class, 'destroy'])->name('documento.destroy');
+
 
 
 // REQUERIMENTO
@@ -123,5 +131,11 @@ Route::get('/edit-unidadeatendimento/{unidadeatendimento}', [UnidadeatendimentoC
 Route::put('/update-unidadeatendimento/{unidadeatendimento}', [UnidadeatendimentoController::class, 'update'])->name('unidadeatendimento.update');
 Route::delete('/destroy-unidadeatendimento/{unidadeatendimento}', [UnidadeatendimentoController::class, 'destroy'])->name('unidadeatendimento.destroy');
 
-
+// TIPO DOCUMENTO
+Route::get('/index-tipodocumento', [TipodocumentoController::class, 'index'])->name('tipodocumento.index');
+Route::get('/create-tipodocumento', [TipodocumentoController::class, 'create'])->name('tipodocumento.create');
+Route::post('/store-tipodocumento', [TipodocumentoController::class, 'store'])->name('tipodocumento.store');
+Route::get('/edit-tipodocumento/{tipodocumento}', [TipodocumentoController::class, 'edit'])->name('tipodocumento.edit');
+Route::put('/update-tipodocumento/{tipodocumento}', [TipodocumentoController::class, 'update'])->name('tipodocumento.update');
+Route::delete('/destroy-tipodocumento/{tipodocumento}', [TipodocumentoController::class, 'destroy'])->name('tipodocumento.destroy');
 

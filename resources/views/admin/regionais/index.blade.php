@@ -40,9 +40,6 @@
                             <td>{{ $regional->qtdmunicipiosvinc($regional->id) > 0 ? $regional->qtdmunicipiosvinc($regional->id) : ''  }}</td>
                             <td>{{ \Carbon\Carbon::parse($regional->created_at)->format('d/m/Y H:i') }}</td>
                             <td class="flex-row d-md-flex justify-content-start">
-                                <a href="" class="mb-1 btn btn-primary btn-sm me-1">
-                                    <i class="fa-regular fa-eye"></i> Visualizar
-                                </a>
 
                                 <a href="{{ route('regional.edit', ['regional' => $regional->id]) }}" class="mb-1 btn btn-warning btn-sm me-1">
                                     <i class="fa-solid fa-pen-to-square"></i> Editar
@@ -57,7 +54,7 @@
                                         </button>
                                     </form>
                                 @else
-                                    <button type="button" class="btn btn-outline-secondary btn-sm me-1 mb-1"  title="há municípios vinculados!"> <i class="fa-regular fa-trash-can"></i> Apagar </button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm me-1 mb-1"  title="há municípios vinculados!"> <i class="fa-solid fa-ban"></i> Apagar </button>
                                 @endif
                             </td>
                         </tr>
@@ -74,7 +71,7 @@
         </div>
 
     </div>
-   
+
 </div>
 
 

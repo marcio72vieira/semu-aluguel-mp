@@ -95,6 +95,11 @@ class Requerente extends Model
         return $this->hasMany(Anexo::class);
     }
 
+    public function documentos()
+    {
+        return $this->hasMany(Documento::class);
+    }
+
 
     /*
     // Preparado caso as regras mudem e um requerente possa ter mais de um requerimento

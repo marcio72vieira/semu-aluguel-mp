@@ -42,24 +42,21 @@
                             <td>{{ $municipio->qtdunidadeatendimentovinc($municipio->id) > 0 ? $municipio->qtdunidadeatendimentovinc($municipio->id) : ''  }}</td>
                             <td>{{ \Carbon\Carbon::parse($municipio->created_at)->format('d/m/Y') }}</td>
                             <td class="flex-row d-md-flex justify-content-start">
-                                <a href="" class="mb-1 btn btn-primary btn-sm me-1">
-                                    <i class="fa-regular fa-eye"></i> Visualizar
-                                </a>
 
                                 <a href="{{ route('municipio.edit', ['municipio' => $municipio->id]) }}" class="mb-1 btn btn-warning btn-sm me-1">
                                     <i class="fa-solid fa-pen-to-square"></i> Editar
                                 </a>
 
                                 @if($municipio->qtdunidadeatendimentovinc($municipio->id) == 0)
-                                    <form method="POST" action="{{ route('municipio.destroy', ['municipio' => $municipio->id]) }}">
+                                    <form id="formDelete{{ $municipio->id }}" method="POST" action="{{ route('municipio.destroy', ['municipio' => $municipio->id]) }}">
                                         @csrf
                                         @method('delete')
-                                        <button type="submit" class="mb-1 btn btn-danger btn-sm me-1" onclick="return confirm('Tem certeza que deseja apagar este registro?')">
+                                        <button type="submit" class="mb-1 btn btn-danger btn-sm me-1  btnDelete" data-delete-entidade="Município" data-delete-id="{{ $municipio->id }}"  data-value-record="{{ $municipio->nome }}">
                                             <i class="fa-regular fa-trash-can"></i> Apagar
                                         </button>
                                     </form>
                                 @else
-                                    <button type="button" class="btn btn-outline-secondary btn-sm me-1 mb-1"  title="há unidades vinculadas!"> <i class="fa-regular fa-trash-can"></i> Apagar </button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm me-1 mb-1"  title="há unidades vinculadas!"> <i class="fa-solid fa-ban"></i> Apagar </button>
                                 @endif
                             </td>
                         </tr>
@@ -76,7 +73,7 @@
         </div>
 
     </div>
-    
+
 </div>
 
 
