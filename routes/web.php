@@ -89,6 +89,7 @@ Route::get('/index-documento/{requerente}', [DocumentoController::class, 'index'
 Route::get('/create-documento/{requerente}', [DocumentoController::class, 'create'])->name('documento.create');
 Route::post('/store-documento', [DocumentoController::class, 'store'])->name('documento.store');
 Route::delete('/destroy-documento/{documento}', [DocumentoController::class, 'destroy'])->name('documento.destroy');
+Route::get('/merge-documento/{requerente}', [DocumentoController::class, 'merge'])->name('documento.merge');
 
 
 

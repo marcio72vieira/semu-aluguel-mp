@@ -17,6 +17,7 @@
             <span class="ms-auto d-sm-flex flex-row mt-1 mb-1">
                 <a class="btn btn-outline-secondary me-2" href="{{ route('requerente.index')}}" role="button">Cancelar</a>
                 <a class="btn btn-success me-1" href="{{ route('documento.create', ['requerente' => $requerente->id]) }}"><i class="fas fa-upload"></i> Adicionar </a>
+                <a class="btn btn-danger me-1" href="{{ route('documento.merge', ['requerente' => $requerente->id]) }}"><i class="fa-solid fa-layer-group"></i> Agrupar Documentos </a>
             </span>
         </div>
 
