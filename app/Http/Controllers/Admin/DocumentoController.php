@@ -25,7 +25,10 @@ class DocumentoController extends Controller
         // Recuperando os tipos de documentos para compor o campo select
         $tiposdocumentos = Tipodocumento::where('ativo', '=', '1')->orderBy('nome', 'ASC')->get();
 
-        return view('admin.documentos.create', compact('requerente', 'tiposdocumentos'));
+        // Recuperando todos os documentos anexados da requerente
+        $documentos =  Documento::where('requerente_id', '=', $requerente->id)->orderBy('nome', 'ASC')->get();
+
+        return view('admin.documentos.create', compact('requerente', 'tiposdocumentos', 'documentos'));
     }
 
 
@@ -61,7 +64,8 @@ class DocumentoController extends Controller
         } */
 
          // Redirecionar o usuário, enviar a mensagem de sucesso
-         return redirect()->route('documento.index', ['requerente' => $request->requerente_id_hidden])->with('success', 'Documento anexado com sucesso!');
+         // return redirect()->route('documento.index', ['requerente' => $request->requerente_id_hidden])->with('success', 'Documento anexado com sucesso!');
+         return redirect()->route('documento.create', ['requerente' => $request->requerente_id_hidden])->with('success', 'Documento anexado com sucesso!');
     }
 
 

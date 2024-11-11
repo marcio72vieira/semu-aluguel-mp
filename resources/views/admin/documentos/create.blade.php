@@ -23,7 +23,7 @@
 
 
                         {{-- url--}}
-                        <div class="col-5">
+                        <div class="col-4">
                             <div class="form-group focused">
                                 <label class="form-control-label" for="url">Arquivo do Documento (o arquivo deve ser do tipo .pdf)<span class="small text-danger">*</span></label>
                                 <input type="file" id="url" style="display:block" name="url" value="{{ old('url') }}">
@@ -50,11 +50,13 @@
                         </div>
 
                         <!-- Buttons -->
-                        <div class="col-2 flex-row d-md-flex justify-content-end">
+                        <div class="col-4 flex-row d-md-flex justify-content-end">
                             <div style="margin-top: 15px">
                                 {{-- <a class="btn btn-outline-secondary me-2" href="{{ url()->previous() }}" role="button">Cancelar</a> --}}
                                 <a class="btn btn-outline-secondary me-2" href="{{ route('documento.index', ['requerente' => $requerente->id]) }}" role="button">Cancelar</a>
-                                <button type="submit" class="btn btn-primary" style="width: 95px;"> Enviar </button>
+                                <button type="submit" class="btn btn-primary me-4" style="width: 95px;"> Enviar </button>
+                                {{-- Quando submeter para análise, o campo pendente(status) na tabela requerente deverá ser atualizado para "em análise e nada mais poderá ser feito em relação ao requerente, ou seja, nem cadastrar, nem editar, nem apagar" --}}
+                                <a class="btn btn-outline-secondary me-2" href="" role="button"><i class="fa-solid fa-paper-plane"></i> Enviar para Análise</a>
                             </div>
                         </div>
 
@@ -62,6 +64,53 @@
                 </form>
 
             </div>
+
+            {{-- Início Lista de documentos  --}}
+            <div class="card-body">
+
+                {{-- @dd($documentos) --}}
+    
+                <x-alert />
+    
+                {{-- Este componente será acionado sempre que houver uma erro de exceção em: store, update ou delete --}}
+                <x-errorexception />
+    
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Documento</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+    
+                    <tbody>
+                        @forelse ($documentos as $documento)
+                            <tr>
+                                <td>{{ $documento->id }}</th>
+                                <td>{{ $documento->tipodocumento->nome }}</th>
+                                <td> <a href="{{ asset('/storage/'.$documento->url) }}" target="_blank"> <img src="{{ asset('images/icopdf.png') }}" width="20"> </a></td>
+                                <td class="flex-row d-md-flex justify-content-start align-content-stretch flex-wrap">
+                                    <form id="formDelete{{ $documento->id }}" method="POST" action="{{ route('documento.destroy', ['documento' => $documento->id]) }}">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="submit" class="btn btn-danger btn-sm btnDelete" data-delete-entidade="Documento" data-delete-id="{{ $documento->id }}"  data-value-record="{{ $documento->tipodocumento->nome }}">
+                                            <i class="fa-regular fa-trash-can"></i> Excluir
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @empty
+                            <div class="alert alert-danger" role="alert">Nenhum documento encontrado! </div>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+            {{-- fim Lista de documentos --}}
+
         </div>
+
+
     </div>
 @endsection
