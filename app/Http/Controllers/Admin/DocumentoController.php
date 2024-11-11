@@ -15,7 +15,7 @@ class DocumentoController extends Controller
     public function index(Requerente $requerente)
     {
         // Recuperando todos os documentos anexados da requerente
-        $documentos =  Documento::where('requerente_id', '=', $requerente->id)->orderBy('nome', 'ASC')->get();
+        $documentos =  Documento::where('requerente_id', '=', $requerente->id)->orderBy('ordem', 'ASC')->get();
 
         return view('admin.documentos.index', compact('requerente', 'documentos'));
     }
@@ -26,7 +26,7 @@ class DocumentoController extends Controller
         $tiposdocumentos = Tipodocumento::where('ativo', '=', '1')->orderBy('nome', 'ASC')->get();
 
         // Recuperando todos os documentos anexados da requerente
-        $documentos =  Documento::where('requerente_id', '=', $requerente->id)->orderBy('nome', 'ASC')->get();
+        $documentos =  Documento::where('requerente_id', '=', $requerente->id)->orderBy('ordem', 'ASC')->get();
 
         return view('admin.documentos.create', compact('requerente', 'tiposdocumentos', 'documentos'));
     }
@@ -34,6 +34,9 @@ class DocumentoController extends Controller
 
     public function store(DocumentoRequest $request)
     {
+
+        dd($request);
+
         // Validar o formulário
         $request->validated();
 
@@ -43,12 +46,22 @@ class DocumentoController extends Controller
             if($request->url->isValid()) {
 
                 // Armazenando o arquivo fisico no disco public e retornando a url (caminho) do arquivo
-                $documentoURL = $request->url->store("documentos/requerente_".$request->requerente_id_hidden, "public");
+                // $documentoURL = $request->url->store("documentos/requerente_".$request->requerente_id_hidden, "public");
+
+                //$file = $request->url;
+                //$documentoURL = Storage::disk('public')->put("documentos/requerente_".$request->requerente_id_hidden, $file);
+
+                $file = $request->url;
+                $tempo = time();
+                $pathAndFileName = "documentos/requerente_".$request->requerente_id_hidden."/doc_ordem_". $tempo .".". $file->getClientOriginalExtension();
+                //$documentoURL = Storage::disk('public')->put($pathAndFileName, file_get_contents($file));
+                Storage::disk('public')->put($pathAndFileName, file_get_contents($file));
 
                 //Armazenando os caminhos do arquivo no Banco de Dados
                 $documento = new Documento();
-                    $documento->url = $documentoURL;
-                    $documento->nome = "desnecessario";
+                    //$documento->url = $documentoURL;
+                    $documento->ordem = $request->ordem_hidden;
+                    $documento->url = $pathAndFileName;
                     $documento->tipodocumento_id =  $request->tipodocumento_id;
                     $documento->requerente_id = $request->requerente_id_hidden;
                 $documento->save();
@@ -101,7 +114,7 @@ class DocumentoController extends Controller
     /*
     public function merge(Requerente $requerente)
     {
-        // configuração da pasta publica na minha máquina VAIO antes do chomod 777 ./public: 
+        // configuração da pasta publica na minha máquina VAIO antes do chomod 777 ./public:
         // drwxr-xr-x  6 marcio marcio   4096 nov  9 12:10 public/
         // configuração da pasta publica na minha máquina VAIO depois do chomod 777 ./public:
         // drwxrwxrwx  6 marcio marcio   4096 nov  9 12:10 public/
@@ -144,7 +157,7 @@ class DocumentoController extends Controller
         //     $arquivosPdf[] = $nomearquivo;
         // }
 
-        
+
         // echo "<pre>";
         //     var_dump($files);
         // echo "</pre>";
@@ -154,12 +167,12 @@ class DocumentoController extends Controller
          // Armazenando o arquivo fisico no disco public e retornando
          //$cmd = "gs -q -dNOPAUSE -dBATCH -dPrinted=false -sDEVICE=pdfwrite -dColorConversionStrategy=/LeaveColorUnchanged -dDownsampleMonoImages=false -dDownsampleGrayImages=false -dDownsampleColorImages=false -dAutoFilterColorImages=false -dAutoFilterGrayImages=false -dColorImageFilter=/FlateEncode -dGrayImageFilter=/FlateEncode -dEncodeColorImages=false -dEncodeGrayImages=false -dEncodeMonoImages=false -sOutputFile=$output_file ";
          //$cmd = "gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=$output_file ";
-         
-        
+
+
         foreach ($arquivosPdf as $file) {
             $cmd .= " $file";
-        } 
-        
+        }
+
 
         // $caminho = __DIR__.'storage/app/public/documentos/requerente_1/';
         // $caminho = base_path().'/storage/app/public/documentos/requerente_1/';
@@ -169,7 +182,7 @@ class DocumentoController extends Controller
         // foreach ($arquivosPdf as $file) {
         //     $cmd .= " $caminho.$file";
         // }
-    
+
         // shell_exec($cmd);
     }
     */
@@ -185,7 +198,7 @@ class DocumentoController extends Controller
         // Array para conter apenas o nome dos arquivos da pasta
         $arraySoComONomeDosArquivos = [];
 
-        // Extraindo só o nome dos arquivos da pasta. 
+        // Extraindo só o nome dos arquivos da pasta.
         // O nome do arquivo está na poscião [2] da estrutura documentos/requerente_id/nome_do_arquivo.pdf
         foreach($arquivosDaPasta as $arquivo) {
             $arrayExplode =  explode("/", $arquivo);
@@ -195,7 +208,7 @@ class DocumentoController extends Controller
 
         // Criar um aquivo vazio o diretório atual.
         file_put_contents(getcwd() . "/storage/documentos/requerente_".$requerenteId."/arquivos_mesclados.pdf", "");
-        
+
         $command = "gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=" . getcwd() . "/storage/documentos/requerente_".$requerenteId."/arquivos_mesclados.pdf ";
 
         foreach ($arraySoComONomeDosArquivos as $file) {
@@ -213,7 +226,7 @@ class DocumentoController extends Controller
             $documento = new Documento();
             $documento->url = 'documentos/requerente_'.$requerenteId.'/arquivos_mesclados.pdf';
             $documento->nome = "desnecessario";
-            $documento->tipodocumento_id =  4;
+            $documento->tipodocumento_id =  16;
             $documento->requerente_id = $requerenteId;
             $documento->save();
 
@@ -221,10 +234,10 @@ class DocumentoController extends Controller
             return redirect()->route('documento.index', ['requerente' => $requerenteId])->with('success', 'Documento mesclado com sucesso!');
 
         }
-        
-        
+
+
 
     }
-    
+
 
 }

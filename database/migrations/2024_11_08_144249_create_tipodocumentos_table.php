@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('tipodocumentos', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
+            $table->smallInteger('ordem');   // Define a ordem com que os documentos deverão ser mesclados
             $table->boolean('ativo');
             $table->timestamps();
         });

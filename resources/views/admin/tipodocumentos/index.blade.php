@@ -24,6 +24,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Nome</th>
+                        <th>Ordem</th>
                         <th class="d-none d-md-table-cell">Ativo</th>
                         <th class="d-none d-md-table-cell">Documentos</th>
                         <th class="d-none d-md-table-cell">Cadastrado</th>
@@ -36,6 +37,7 @@
                         <tr>
                             <td>{{ $tipodocumento->id }}</th>
                             <td>{{ $tipodocumento->nome }}</td>
+                            <td>{{ $tipodocumento->ordem }}</td>
                             <td>{{ $tipodocumento->ativo == 1 ? "Sim" : "Não" }}</td>
                             <td>{{ $tipodocumento->qtddocumentosdotipo($tipodocumento->id) > 0 ? $tipodocumento->qtddocumentosdotipo($tipodocumento->id) : ''  }}</td>
                             <td>{{ \Carbon\Carbon::parse($tipodocumento->created_at)->format('d/m/Y') }}</td>

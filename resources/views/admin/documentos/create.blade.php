@@ -34,13 +34,15 @@
                         </div>
 
                         {{-- tipodocumento_id --}}
+                        {{-- identificacao da ordem do documento --}}
+                        <input type="hidden" name="ordem_hidden" id="ordem_hidden" value="1">
                         <div class="col-4">
                             <div class="form-group focused">
                                 <label class="form-control-label" for="tipodocumento_id">Documento<span class="small text-danger">*</span></label>
                                 <select name="tipodocumento_id" id="tipodocumento_id" class="form-control select2" required>
                                     <option value="" selected disabled>Escolha...</option>
                                     @foreach($tiposdocumentos  as $tipodocumento)
-                                        <option value="{{$tipodocumento->id}}" {{old('tipodocumento_id') == $tipodocumento->id ? 'selected' : ''}}>{{$tipodocumento->nome}}</option>
+                                        <option value="{{$tipodocumento->id}}" {{ old('tipodocumento_id') == $tipodocumento->id ? 'selected' : '' }}>{{ $tipodocumento->nome }}</option>
                                     @endforeach
                                 </select>
                                 @error('tipodocumento_id')
@@ -69,12 +71,12 @@
             <div class="card-body">
 
                 {{-- @dd($documentos) --}}
-    
+
                 <x-alert />
-    
+
                 {{-- Este componente será acionado sempre que houver uma erro de exceção em: store, update ou delete --}}
                 <x-errorexception />
-    
+
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
@@ -84,7 +86,7 @@
                             <th>Ações</th>
                         </tr>
                     </thead>
-    
+
                     <tbody>
                         @forelse ($documentos as $documento)
                             <tr>

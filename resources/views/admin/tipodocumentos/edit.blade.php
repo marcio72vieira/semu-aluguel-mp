@@ -36,6 +36,17 @@
                             </div>
                         </div>
 
+                        {{-- ordem --}}
+                        <div class="col-1">
+                            <div class="form-group focused">
+                                <label class="form-control-label" for="ordem">Ordem<span class="small text-danger">*</span></label>
+                                <input type="number"  min="1" max="20" class="form-control" id="ordem" name="ordem" value="{{ old('ordem', $tipodocumento->ordem) }}" placeholder="Ordem do Documento" required >
+                                @error('ordem')
+                                    <small style="color: red">{{$message}}</small>
+                                @enderror
+                            </div>
+                        </div>
+
 
                         {{-- ativo --}}
                         <div class="col-3">

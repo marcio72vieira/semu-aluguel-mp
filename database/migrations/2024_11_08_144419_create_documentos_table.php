@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('documentos', function (Blueprint $table) {
             $table->id();
-            $table->string('nome');
+            $table->smallInteger('ordem');    // Ordem com que deve ser apresentado para o servidor da SEMU na hora do CheckList
             $table->string('url');
             $table->foreignId('tipodocumento_id')->constrained('tipodocumentos')->onDelete('cascade');
             $table->foreignId('requerente_id')->constrained()->onDelete('cascade');

@@ -33,6 +33,7 @@ class TipodocumentoController extends Controller
 
             Tipodocumento::create([
                 'nome' => Str::upper($request->nome),
+                'ordem' => $request->ordem,
                 'ativo' => $request->ativo,
             ]);
 
@@ -63,6 +64,7 @@ class TipodocumentoController extends Controller
         try{
             $tipodocumento->update([
                 'nome' => Str::upper($request->nome),
+                'ordem' => $request->ordem,
                 'ativo' => $request->ativo,
             ]);
 

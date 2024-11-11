@@ -14,7 +14,8 @@ class Tipodocumento extends Model
 
     protected $fillable = [
         'nome',
-        'ativo'
+        'ordem',
+        'ativo',
     ];
 
     public function documentos()

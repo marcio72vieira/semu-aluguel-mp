@@ -64,7 +64,11 @@
                                     <i class="fa-solid fa-pen-to-square"></i> Editar
                                 </a>
 
-                                <a href="{{ route('documento.index', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-info btn-sm me-1">
+                                {{-- <a href="{{ route('documento.index', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-info btn-sm me-1">
+                                    <i class="fas fa-upload"></i> Documentos
+                                </a> --}}
+
+                                <a href="{{ route('documento.create', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-info btn-sm me-1">
                                     <i class="fas fa-upload"></i> Documentos
                                 </a>
 

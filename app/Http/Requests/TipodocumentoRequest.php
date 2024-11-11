@@ -25,6 +25,7 @@ class TipodocumentoRequest extends FormRequest
 
         return [
             'nome' => 'bail|required|unique:tipodocumentos,nome,'. ($tipodocumentoId ? $tipodocumentoId->id : null),
+            'ordem' => 'required|numeric|min:1|max:20',
             'ativo' => 'bail|required',
         ];
     }
@@ -34,6 +35,10 @@ class TipodocumentoRequest extends FormRequest
         return[
             'nome.required' => 'Campo nome é obrigatório!',
             'nome.unique' => 'Este documento já está cadastrado!',
+            'ordem.required' => "Campo Obrigatório",
+            'ordem.numeric' => "A ordem tem que ser um número entre 1 e 20",
+            'ordem.min' => "O númro de órdem mínimo é 1",
+            'ordem.max' => "O númro de órdem mínimo é 20",
             'ativo.required' => 'Campo ativo é obrigatório!',
         ];
     }
