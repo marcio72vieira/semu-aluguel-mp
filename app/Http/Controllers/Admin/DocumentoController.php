@@ -58,7 +58,7 @@ class DocumentoController extends Controller
                 //Armazenando os caminhos do arquivo no Banco de Dados
                 $documento = new Documento();
                     //$documento->url = $documentoURL;
-                    $documento->ordem = $request->ordem_hidden;
+                    $documento->ordem = $request->tipodocumento_ordem_hidden;
                     $documento->url = $pathAndFileName;
                     $documento->tipodocumento_id =  $request->tipodocumento_id;
                     $documento->requerente_id = $request->requerente_id_hidden;
@@ -222,10 +222,10 @@ class DocumentoController extends Controller
 
             //Armazenando os caminhos do arquivo mesclado no Banco de Dados
             $documento = new Documento();
-            $documento->url = 'documentos/requerente_'.$requerenteId.'/arquivos_mesclados.pdf';
-            $documento->ordem = 20;
-            $documento->tipodocumento_id = 4;
-            $documento->requerente_id = $requerenteId;
+                $documento->url = 'documentos/requerente_'.$requerenteId.'/arquivos_mesclados.pdf';
+                $documento->ordem = 20;
+                $documento->tipodocumento_id = 13;
+                $documento->requerente_id = $requerenteId;
             $documento->save();
 
             // Redirecionar o usuário, enviar a mensagem de sucesso

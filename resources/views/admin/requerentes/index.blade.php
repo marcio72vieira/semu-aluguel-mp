@@ -35,7 +35,7 @@
                         <th>Telefones</th>
                         <th class="d-none d-md-table-cell">CPF / RG</th>
                         <th class="d-none d-md-table-cell">Status</th>
-                        <th width="30%">Ações</th>
+                        <th width="35%">Ações</th>
                     </tr>
                 </thead>
 
@@ -56,20 +56,23 @@
                                     <i class="fa-regular fa-eye"></i> Visualizar
                                 </a>
 
-                                <a href="{{ route('requerente.relpdfrequerente', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-danger btn-sm me-1" target="_blank">
-                                    <i class="fa-solid fa-file-pdf"></i> Anexos
-                                </a>
-
                                 <a href="{{ route('requerente.edit', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-warning btn-sm me-1">
                                     <i class="fa-solid fa-pen-to-square"></i> Editar
                                 </a>
 
+                                <a href="{{ route('requerente.relpdfrequerente', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-danger btn-sm me-1" target="_blank">
+                                    <i class="fa-solid fa-file-pdf"></i> Anexos
+                                </a>
                                 {{-- <a href="{{ route('documento.index', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-info btn-sm me-1">
                                     <i class="fas fa-upload"></i> Documentos
                                 </a> --}}
 
                                 <a href="{{ route('documento.create', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-info btn-sm me-1">
                                     <i class="fas fa-upload"></i> Documentos
+                                </a>
+
+                                <a href="{{ route('documento.index', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-warning btn-sm me-1">
+                                    <i class="fa-solid fa-list-check"></i> Check List
                                 </a>
 
                                 <form id="formDelete{{ $requerente->id }}" method="POST" action="{{ route('requerente.destroy', ['requerente' => $requerente->id]) }}">

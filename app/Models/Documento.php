@@ -12,7 +12,7 @@ class Documento extends Model
     protected $table = "documentos";
 
     protected $fillable = [
-        'nome',
+        'ordem',
         'url',
         'tipodocumento_id',
         'requerente_id',

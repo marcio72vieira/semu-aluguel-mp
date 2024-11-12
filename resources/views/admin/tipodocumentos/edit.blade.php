@@ -26,7 +26,7 @@
 
                     <div class="row">
                         {{-- Nome --}}
-                        <div class="col-6">
+                        <div class="col-5">
                             <div class="form-group focused">
                                 <label class="form-control-label" for="nome">Nome<span class="small text-danger">*</span></label>
                                 <input type="text" class="form-control" id="nome" name="nome" value="{{ old('nome', $tipodocumento->nome) }}" placeholder="Nome do Documento" required >
@@ -37,7 +37,7 @@
                         </div>
 
                         {{-- ordem --}}
-                        <div class="col-1">
+                        <div class="col-2">
                             <div class="form-group focused">
                                 <label class="form-control-label" for="ordem">Ordem<span class="small text-danger">*</span></label>
                                 <input type="number"  min="1" max="20" class="form-control" id="ordem" name="ordem" value="{{ old('ordem', $tipodocumento->ordem) }}" placeholder="Ordem do Documento" required >
@@ -49,7 +49,7 @@
 
 
                         {{-- ativo --}}
-                        <div class="col-3">
+                        <div class="col-2">
                             <div class="form-group focused">
                                 <label class="form-control-label" for="ativo">Ativo ? <span class="small text-danger">*</span></label>
                                 <div style="margin-top: 7px">

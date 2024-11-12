@@ -3,7 +3,7 @@
 @section('content')
     <div class="px-4 container-fluid">
         <div class="gap-2 mb-1 hstack">
-            <h2 class="mt-3">DocumentosXXX - {{ $requerente->nomecompleto }} / CPF: {{ $requerente->cpf }} </h2>
+            <h2 class="mt-3">Documentos - {{ $requerente->nomecompleto }} / CPF: {{ $requerente->cpf }} </h2>
         </div>
 
         <div class="mb-4 shadow card border-light">
@@ -41,11 +41,16 @@
                                 <label class="form-control-label" for="tipodocumento_id">Documento<span class="small text-danger">*</span></label>
                                 <select name="tipodocumento_id" id="tipodocumento_id" class="form-control select2" required>
                                     <option value="" selected disabled>Escolha...</option>
+
                                     @foreach($tiposdocumentos  as $tipodocumento)
-                                        <option value="{{$tipodocumento->id}}" {{ old('tipodocumento_id') == $tipodocumento->id ? 'selected' : '' }} data-tipodocumento_ordem = "{{ $tipodocumento->ordem }}">
-                                            {{ $tipodocumento->nome }}
-                                        </option>
+                                        {{-- Exibe todos os documentos para seleção, exceto documentos processados --}}
+                                        @if ($tipodocumento->id != 13)
+                                            <option value="{{$tipodocumento->id}}" {{ old('tipodocumento_id') == $tipodocumento->id ? 'selected' : '' }} data-tipodocumento_ordem = "{{ $tipodocumento->ordem }}" style="font-color: red">
+                                                {{ $tipodocumento->nome }}
+                                            </option>
+                                        @endif
                                     @endforeach
+
                                 </select>
                                 <input type="hidden" name="tipodocumento_ordem_hidden" id="tipodocumento_ordem_hidden"  value="">
                                 @error('tipodocumento_id')
@@ -56,12 +61,12 @@
 
                         <!-- Buttons -->
                         <div class="flex-row col-4 d-md-flex justify-content-end">
-                            <div style="margin-top: 15px">
+                            <div style="margin-top: 25px">
                                 {{-- <a class="btn btn-outline-secondary me-2" href="{{ url()->previous() }}" role="button">Cancelar</a> --}}
                                 <a class="btn btn-outline-secondary me-2" href="{{ route('documento.index', ['requerente' => $requerente->id]) }}" role="button">Cancelar</a>
-                                <button type="submit" class="btn btn-primary me-4" style="width: 95px;"> Enviar </button>
+                                <button type="submit" class="btn btn-primary me-4" style="width: 95px;"> Anexar </button>
                                 {{-- Quando submeter para análise, o campo pendente(status) na tabela requerente deverá ser atualizado para "em análise e nada mais poderá ser feito em relação ao requerente, ou seja, nem cadastrar, nem editar, nem apagar" --}}
-                                <a class="btn btn-outline-secondary me-2" href="" role="button"><i class="fa-solid fa-paper-plane"></i> Enviar para Análise</a>
+                                <a class="btn btn-outline-secondary me-2" href="" role="button"><i class="fa-solid fa-paper-plane"></i> Submeter aAnálise</a>
                             </div>
                         </div>
 
@@ -72,6 +77,8 @@
 
             {{-- Início Lista de documentos  --}}
             <div class="card-body">
+
+                <hr style="border: none; height: 3px; background-color: #545454;">
 
                 {{-- @dd($documentos) --}}
 
@@ -84,28 +91,31 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Nome</th>
                             <th>Documento</th>
-                            <th>Ações</th>
+                            <th>Visualizar</th>
+                            <th>Excluir</th>
                         </tr>
                     </thead>
 
                     <tbody>
                         @forelse ($documentos as $documento)
-                            <tr>
-                                <td>{{ $documento->id }}</th>
-                                <td>{{ $documento->tipodocumento->nome }}</th>
-                                <td> <a href="{{ asset('/storage/'.$documento->url) }}" target="_blank"> <img src="{{ asset('images/icopdf.png') }}" width="20"> </a></td>
-                                <td class="flex-row flex-wrap d-md-flex justify-content-start align-content-stretch">
-                                    <form id="formDelete{{ $documento->id }}" method="POST" action="{{ route('documento.destroy', ['documento' => $documento->id]) }}">
-                                        @csrf
-                                        @method('delete')
-                                        <button type="submit" class="btn btn-danger btn-sm btnDelete" data-delete-entidade="Documento" data-delete-id="{{ $documento->id }}"  data-value-record="{{ $documento->tipodocumento->nome }}">
-                                            <i class="fa-regular fa-trash-can"></i> Excluir
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
+                            {{-- Exibe todos os documentos anexados do requerente, com exceção do documento processado pelo servidor da semu  --}}
+                            @if ($documento->tipodocumento_id != 13)
+                                <tr>
+                                    <td>{{ $documento->id }}</th>
+                                    <td>{{ $documento->tipodocumento->nome }}</th>
+                                    <td> <a href="{{ asset('/storage/'.$documento->url) }}" target="_blank"> <img src="{{ asset('images/icopdf3.png') }}" width="30" style="margin-left: 25px;"> </a></td>
+                                    <td class="flex-row flex-wrap d-md-flex justify-content-start align-content-stretch">
+                                        <form id="formDelete{{ $documento->id }}" method="POST" action="{{ route('documento.destroy', ['documento' => $documento->id]) }}">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit" class="btn btn-danger btn-sm btnDelete" data-delete-entidade="Documento" data-delete-id="{{ $documento->id }}"  data-value-record="{{ $documento->tipodocumento->nome }}">
+                                                <i class="fa-regular fa-trash-can"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endif
                         @empty
                             <div class="alert alert-danger" role="alert">Nenhum documento encontrado! </div>
                         @endforelse
@@ -127,7 +137,7 @@
 
             tipodocumentoordem = $(this).find(':selected').data('tipodocumento_ordem')
                 $(this).siblings("#tipodocumento_ordem_hidden").val(tipodocumentoordem);
-        
+
         });
     </script>
 
