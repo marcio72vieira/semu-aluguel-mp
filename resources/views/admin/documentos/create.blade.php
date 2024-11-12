@@ -1,14 +1,14 @@
 @extends('layout.admin')
 
 @section('content')
-    <div class="container-fluid px-4">
-        <div class="mb-1 hstack gap-2">
+    <div class="px-4 container-fluid">
+        <div class="gap-2 mb-1 hstack">
             <h2 class="mt-3">DocumentosXXX - {{ $requerente->nomecompleto }} / CPF: {{ $requerente->cpf }} </h2>
         </div>
 
-        <div class="card mb-4 border-light shadow">
-            <div class="card-header hstack gap-2">
-                <span class="small text-danger p-3"><strong>Campo marcado com * é de preenchimento obrigatório!</strong></span>
+        <div class="mb-4 shadow card border-light">
+            <div class="gap-2 card-header hstack">
+                <span class="p-3 small text-danger"><strong>Campo marcado com * é de preenchimento obrigatório!</strong></span>
             </div>
 
             <div class="card-body">
@@ -42,9 +42,12 @@
                                 <select name="tipodocumento_id" id="tipodocumento_id" class="form-control select2" required>
                                     <option value="" selected disabled>Escolha...</option>
                                     @foreach($tiposdocumentos  as $tipodocumento)
-                                        <option value="{{$tipodocumento->id}}" {{ old('tipodocumento_id') == $tipodocumento->id ? 'selected' : '' }}>{{ $tipodocumento->nome }}</option>
+                                        <option value="{{$tipodocumento->id}}" {{ old('tipodocumento_id') == $tipodocumento->id ? 'selected' : '' }} data-tipodocumento_ordem = "{{ $tipodocumento->ordem }}">
+                                            {{ $tipodocumento->nome }}
+                                        </option>
                                     @endforeach
                                 </select>
+                                <input type="hidden" name="tipodocumento_ordem_hidden" id="tipodocumento_ordem_hidden"  value="">
                                 @error('tipodocumento_id')
                                     <small style="color: red">{{$message}}</small>
                                 @enderror
@@ -52,7 +55,7 @@
                         </div>
 
                         <!-- Buttons -->
-                        <div class="col-4 flex-row d-md-flex justify-content-end">
+                        <div class="flex-row col-4 d-md-flex justify-content-end">
                             <div style="margin-top: 15px">
                                 {{-- <a class="btn btn-outline-secondary me-2" href="{{ url()->previous() }}" role="button">Cancelar</a> --}}
                                 <a class="btn btn-outline-secondary me-2" href="{{ route('documento.index', ['requerente' => $requerente->id]) }}" role="button">Cancelar</a>
@@ -93,7 +96,7 @@
                                 <td>{{ $documento->id }}</th>
                                 <td>{{ $documento->tipodocumento->nome }}</th>
                                 <td> <a href="{{ asset('/storage/'.$documento->url) }}" target="_blank"> <img src="{{ asset('images/icopdf.png') }}" width="20"> </a></td>
-                                <td class="flex-row d-md-flex justify-content-start align-content-stretch flex-wrap">
+                                <td class="flex-row flex-wrap d-md-flex justify-content-start align-content-stretch">
                                     <form id="formDelete{{ $documento->id }}" method="POST" action="{{ route('documento.destroy', ['documento' => $documento->id]) }}">
                                         @csrf
                                         @method('delete')
@@ -116,3 +119,17 @@
 
     </div>
 @endsection
+
+@section('scripts')
+    <script>
+        // Atribui ao campo hidden o valor da ordem do tipo de documento atraves da propriedade "data-"
+        $("#tipodocumento_id").on("change", function() {
+
+            tipodocumentoordem = $(this).find(':selected').data('tipodocumento_ordem')
+                $(this).siblings("#tipodocumento_ordem_hidden").val(tipodocumentoordem);
+        
+        });
+    </script>
+
+@endsection
+

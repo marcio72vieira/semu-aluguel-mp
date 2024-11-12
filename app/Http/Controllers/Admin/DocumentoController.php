@@ -35,8 +35,6 @@ class DocumentoController extends Controller
     public function store(DocumentoRequest $request)
     {
 
-        dd($request);
-
         // Validar o formulário
         $request->validated();
 
@@ -53,7 +51,7 @@ class DocumentoController extends Controller
 
                 $file = $request->url;
                 $tempo = time();
-                $pathAndFileName = "documentos/requerente_".$request->requerente_id_hidden."/doc_ordem_". $tempo .".". $file->getClientOriginalExtension();
+                $pathAndFileName = "documentos/requerente_". $request->requerente_id_hidden ."/doc_". $request->tipodocumento_ordem_hidden ."_". $tempo .".". $file->getClientOriginalExtension();
                 //$documentoURL = Storage::disk('public')->put($pathAndFileName, file_get_contents($file));
                 Storage::disk('public')->put($pathAndFileName, file_get_contents($file));
 
@@ -225,8 +223,8 @@ class DocumentoController extends Controller
             //Armazenando os caminhos do arquivo mesclado no Banco de Dados
             $documento = new Documento();
             $documento->url = 'documentos/requerente_'.$requerenteId.'/arquivos_mesclados.pdf';
-            $documento->nome = "desnecessario";
-            $documento->tipodocumento_id =  16;
+            $documento->ordem = 20;
+            $documento->tipodocumento_id = 4;
             $documento->requerente_id = $requerenteId;
             $documento->save();
 
