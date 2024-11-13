@@ -17,7 +17,7 @@ class DocumentoController extends Controller
         // Recuperando todos os documentos anexados da requerente
         $documentos =  Documento::where('requerente_id', '=', $requerente->id)->orderBy('ordem', 'ASC')->get();
 
-        return view('admin.documentos.index', compact('requerente', 'documentos'));
+        return view('admin.documentos.checklist', compact('requerente', 'documentos'));
     }
 
     public function create(Requerente $requerente)
@@ -77,6 +77,17 @@ class DocumentoController extends Controller
          // Redirecionar o usuário, enviar a mensagem de sucesso
          // return redirect()->route('documento.index', ['requerente' => $request->requerente_id_hidden])->with('success', 'Documento anexado com sucesso!');
          return redirect()->route('documento.create', ['requerente' => $request->requerente_id_hidden])->with('success', 'Documento anexado com sucesso!');
+    }
+
+
+    public function update(Request $request)
+    {
+        //dd($request);
+        //dd($request->input());
+        //dd($request->all());
+
+        echo $request->size();
+
     }
 
 

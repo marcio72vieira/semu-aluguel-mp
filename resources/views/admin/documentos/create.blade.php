@@ -25,7 +25,7 @@
                         {{-- url--}}
                         <div class="col-4">
                             <div class="form-group focused">
-                                <label class="form-control-label" for="url">Arquivo do Documento (o arquivo deve ser do tipo .pdf)<span class="small text-danger">*</span></label>
+                                <label class="form-control-label" for="url">Arquivo do Documento (Arquivo do tipo .pdf e máximo de 2Mb)<span class="small text-danger">*</span></label>
                                 <input type="file" id="url" style="display:block" name="url" value="{{ old('url') }}">
                                 @error('url')
                                     <small style="color: red">{{$message}}</small>
@@ -36,7 +36,7 @@
                         {{-- tipodocumento_id --}}
                         {{-- identificacao da ordem do documento --}}
                         <input type="hidden" name="ordem_hidden" id="ordem_hidden" value="1">
-                        <div class="col-4">
+                        <div class="col-6">
                             <div class="form-group focused">
                                 <label class="form-control-label" for="tipodocumento_id">Documento<span class="small text-danger">*</span></label>
                                 <select name="tipodocumento_id" id="tipodocumento_id" class="form-control select2" required>
@@ -60,13 +60,11 @@
                         </div>
 
                         <!-- Buttons -->
-                        <div class="flex-row col-4 d-md-flex justify-content-end">
+                        <div class="flex-row col-2 d-md-flex justify-content-end">
                             <div style="margin-top: 25px">
                                 {{-- <a class="btn btn-outline-secondary me-2" href="{{ url()->previous() }}" role="button">Cancelar</a> --}}
-                                <a class="btn btn-outline-secondary me-2" href="{{ route('documento.index', ['requerente' => $requerente->id]) }}" role="button">Cancelar</a>
-                                <button type="submit" class="btn btn-primary me-4" style="width: 95px;"> Anexar </button>
-                                {{-- Quando submeter para análise, o campo pendente(status) na tabela requerente deverá ser atualizado para "em análise e nada mais poderá ser feito em relação ao requerente, ou seja, nem cadastrar, nem editar, nem apagar" --}}
-                                <a class="btn btn-outline-secondary me-2" href="" role="button"><i class="fa-solid fa-paper-plane"></i> Submeter aAnálise</a>
+                                <a class="btn btn-outline-secondary me-2" href="{{ route('requerente.index') }}" role="button">Cancelar</a>
+                                <button type="submit" class="btn btn-primary " style="width: 95px;"> Anexar </button>
                             </div>
                         </div>
 
@@ -123,6 +121,16 @@
                 </table>
             </div>
             {{-- fim Lista de documentos --}}
+
+            <div class="row">
+                <div class="col-2 offset-10">
+                    {{--
+                    Este botão só deverá ser exibido, caso todos do documentos ativos esteja listados aqui.
+                    Quando submeter para análise, o campo pendente(status) na tabela/view requerente deverá ser atualizado para "em análise e nada mais poderá ser feito em relação ao requerente, ou seja, nem cadastrar, nem editar, nem apagar"
+                    --}}
+                    <a class="btn btn-success me-2" href="" role="button"  style="margin-left: 70px; margin-bottom: 15px;"><i class="fa-solid fa-user-check" style="margin-right: 5px;"></i> Enviar para Análise</a>
+                </div>
+            </div>
 
         </div>
 
