@@ -8,6 +8,8 @@ use App\Http\Requests\DocumentoRequest;
 use App\Models\Requerente;
 use App\Models\Documento;
 use App\Models\Tipodocumento;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 
 class DocumentoController extends Controller
@@ -23,7 +25,8 @@ class DocumentoController extends Controller
     public function create(Requerente $requerente)
     {
         // Recuperando os tipos de documentos para compor o campo select
-        $tiposdocumentos = Tipodocumento::where('ativo', '=', '1')->orderBy('nome', 'ASC')->get();
+        // $tiposdocumentos = Tipodocumento::where('ativo', '=', '1')->orderBy('nome', 'ASC')->get();
+        $tiposdocumentos = Tipodocumento::where('ativo', '=', '1')->where('id', '>', '1')->orderBy('nome', 'ASC')->get();
 
         // Recuperando todos os documentos anexados da requerente
         $documentos =  Documento::where('requerente_id', '=', $requerente->id)->orderBy('ordem', 'ASC')->get();
@@ -55,13 +58,24 @@ class DocumentoController extends Controller
                 //$documentoURL = Storage::disk('public')->put($pathAndFileName, file_get_contents($file));
                 Storage::disk('public')->put($pathAndFileName, file_get_contents($file));
 
-                //Armazenando os caminhos do arquivo no Banco de Dados
+                //Armazenando os caminhos do arquivo no Banco de Dados e as demais informações sobre o Documento anexado
+
+                // Obtém o id do usuario (Assistente Social) que anexou os documentos. Durante a análise, este id do usuário (Assistente Social) será substituido pelo id do usuário (Servidor da SEMU)
+                // responsável pela Análise dos Documentos anexado. O id do usuário (Assistente Social) que anexou os documentos, poderá ser recuperado através da relação Requerente X Usuário
+                $user = Auth::user();
+                $user = User::find($user->id);
+                $idUsuario = $user->id;
+
+
                 $documento = new Documento();
                     //$documento->url = $documentoURL;
                     $documento->ordem = $request->tipodocumento_ordem_hidden;
                     $documento->url = $pathAndFileName;
                     $documento->tipodocumento_id =  $request->tipodocumento_id;
+                    $documento->aprovado =  1;          // Não há a necessidade desta atribuição, já que seu valor default é 1
+                    $documento->observacao =  NULL;     // Não há a necessidade desta atribuição, já que seu valor default é NULL
                     $documento->requerente_id = $request->requerente_id_hidden;
+                    $documento->user_id = $idUsuario;
                 $documento->save();
 
             } /* else {
@@ -82,30 +96,23 @@ class DocumentoController extends Controller
 
     public function update(Request $request)
     {
-        // Transformao retorno de $request_all() em uma collect e aplica o método count da collect 
+        // Transformao retorno de $request_all() em uma collect e aplica o método count da collect
         //$campos =  collect($request->all())->count();
-        
-        echo "<pre>";
-            var_dump($request->all());
-        echo "</pre>";
 
 
         // Transformando o valor do camo array_ids_documentos_hidden(que vem como uma string), em um array novamente
         $ids =  explode(',', $request->array_ids_documentos_hidden);
 
-        echo $request->observacao_.$ids[0];
+        foreach($ids as $id){
 
+            //echo $request["aprovado_$id"]."<br>";
+            //echo $request["observacao_$id"]."<br>";
 
+            if($request["aprovado_$id"] == 0){
+                echo "Documento: ". $id . ", ". $request["observacao_$id"] ."<br>";
+            }
+        }
 
-        // foreach($ids as $id){
-        //     echo $request->aprovado_.$id."<br>";
-
-        //     // if($request->aprovado_.$id == "0"){
-        //     //     echo "Documento: ". $id . ", deve se Atualizado e corrigido.<br>";
-        //     //     echo $request->observacao_.$id;
-        //     // }
-        // }
-        
 
 
     }
@@ -136,7 +143,7 @@ class DocumentoController extends Controller
         }
 
         // Redirecionar o usuário, enviar a mensagem de sucesso
-        return redirect()->route('documento.index', ['requerente' => $requerenteId])->with('success', 'Documento excluído com sucesso!');
+        return redirect()->route('documento.create', ['requerente' => $requerenteId])->with('success', 'Documento excluído com sucesso!');
     }
 
 
@@ -250,13 +257,21 @@ class DocumentoController extends Controller
 
 
         if($result){
+            // Obtém o id do usuario (Assistente Social) que anexou os documentos. Durante a análise, este id do usuário (Assistente Social) será substituido pelo id do usuário (Servidor da SEMU)
+            // responsável pela Análise dos Documentos anexado. O id do usuário (Assistente Social) que anexou os documentos, poderá ser recuperado através da relação Requerente X Usuário
+            $user = Auth::user();
+            $user = User::find($user->id);
+            $idUsuario = $user->id;
 
             //Armazenando os caminhos do arquivo mesclado no Banco de Dados
             $documento = new Documento();
-                $documento->url = 'documentos/requerente_'.$requerenteId.'/arquivos_mesclados.pdf';
                 $documento->ordem = 20;
-                $documento->tipodocumento_id = 13;
+                $documento->url = 'documentos/requerente_'.$requerenteId.'/arquivos_mesclados.pdf';
+                $documento->tipodocumento_id = 1;
+                $documento->aprovado =  1;          // Não há a necessidade desta atribuição, já que seu valor default é 1
+                $documento->observacao =  NULL;     // Não há a necessidade desta atribuição, já que seu valor default é NULL
                 $documento->requerente_id = $requerenteId;
+                $documento->user_id = $idUsuario;
             $documento->save();
 
             // Redirecionar o usuário, enviar a mensagem de sucesso

@@ -82,5 +82,11 @@ class User extends Authenticatable
         return $this->hasMany(Requerente::class);
     }
 
+    // Documentos avaliados pelo Servidor da SEMU
+    public function documentos()
+    {
+        return $this->hasMany(Documento::class);
+    }
+
 
 }

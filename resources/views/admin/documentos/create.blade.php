@@ -44,7 +44,7 @@
 
                                     @foreach($tiposdocumentos  as $tipodocumento)
                                         {{-- Exibe todos os documentos para seleção, exceto documentos processados --}}
-                                        @if ($tipodocumento->id != 13)
+                                        @if ($tipodocumento->id != 1)
                                             <option value="{{$tipodocumento->id}}" {{ old('tipodocumento_id') == $tipodocumento->id ? 'selected' : '' }} data-tipodocumento_ordem = "{{ $tipodocumento->ordem }}" style="font-color: red">
                                                 {{ $tipodocumento->nome }}
                                             </option>
@@ -98,13 +98,13 @@
                     <tbody>
                         @forelse ($documentos as $documento)
                             {{-- Exibe todos os documentos anexados do requerente, com exceção do documento processado pelo servidor da semu  --}}
-                            @if ($documento->tipodocumento_id != 13)
+                            @if ($documento->tipodocumento_id != 1)
                                 <tr>
                                     <td>{{ $documento->id }}</th>
                                     <td>{{ $documento->tipodocumento->nome }}</th>
-                                    <td> <a href="{{ asset('/storage/'.$documento->url) }}" target="_blank"> <img src="{{ asset('images/icopdf3.png') }}" width="30" style="margin-left: 25px;"> </a></td>
+                                    <td> <a href="{{ asset('/storage/'.$documento->url) }}" target="_blank" title="Visualizar este documento"> <img src="{{ asset('images/documentos2.png') }}" width="30" style="margin-left: 25px;"> </a></td>
                                     <td class="flex-row flex-wrap d-md-flex justify-content-start align-content-stretch">
-                                        <form id="formDelete{{ $documento->id }}" method="POST" action="{{ route('documento.destroy', ['documento' => $documento->id]) }}">
+                                        <form id="formDelete{{ $documento->id }}" method="POST" action="{{ route('documento.destroy', ['documento' => $documento->id]) }}" style="margin-left: 10px;">
                                             @csrf
                                             @method('delete')
                                             <button type="submit" class="btn btn-danger btn-sm btnDelete" data-delete-entidade="Documento" data-delete-id="{{ $documento->id }}"  data-value-record="{{ $documento->tipodocumento->nome }}">

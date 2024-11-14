@@ -12,10 +12,14 @@ class Documento extends Model
     protected $table = "documentos";
 
     protected $fillable = [
-        'ordem',
-        'url',
+        'ordem',                // Ordem com que deve ser apresentado para o servidor da SEMU na hora do CheckList
+        'url',                  // Caminho onde se encontra localizado o arquivo físico no servidor
         'tipodocumento_id',
-        'requerente_id',
+        'aprovado',             // Aprovado 1 ou 0
+        'observacao',
+        'requerente_id',        // Através da relação com User (no model Requerente), é possível saber o Assistente Social responsavel pelo cadastro dos documentos
+        'user_id',              // Responsavel pela análise dos documentos
+
     ];
 
     // OBS:
@@ -30,5 +34,12 @@ class Documento extends Model
     public function requerente() {
         return $this->belongsTo(Requerente::class);
     }
+
+    // Usuário, Servidor da SEMU, responsável pela avaliação
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 
 }

@@ -13,10 +13,13 @@ return new class extends Migration
     {
         Schema::create('documentos', function (Blueprint $table) {
             $table->id();
-            $table->smallInteger('ordem');    // Ordem com que deve ser apresentado para o servidor da SEMU na hora do CheckList
+            $table->smallInteger('ordem');                                          // Ordem com que deve ser apresentado para o servidor da SEMU na hora do CheckList
             $table->string('url');
             $table->foreignId('tipodocumento_id')->constrained('tipodocumentos')->onDelete('cascade');
-            $table->foreignId('requerente_id')->constrained()->onDelete('cascade');
+            $table->boolean('aprovado')->default(1);
+            $table->text('observacao')->nullable();;
+            $table->foreignId('requerente_id')->constrained()->onDelete('cascade'); // Através destte campo, devido ao seu relacionamento é possível sabe quem é o Assistente Social que cadstrou os docuemntos
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');       // Através destte campo, devido ao seu relacionamento é possível sabe quem é o Servidor da Semu responsável pelo checklist
             $table->timestamps();
         });
     }
