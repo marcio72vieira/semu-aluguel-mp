@@ -47,7 +47,15 @@
                     </thead>
 
                     <tbody>
+                        @php
+                            // Inicializa umm array vazio;
+                            $array_ids_documentos = [];
+                        @endphp
                         @forelse ($documentos as $documento)
+                            @php
+                                // Adiciona ao array o valor de cada id dos documentos 
+                                $array_ids_documentos[] = $documento->id;
+                            @endphp
                             <tr>
                                 <td>{{ $documento->id }}</th>
                                 <td>{{ $documento->tipodocumento->nome }}</th>
@@ -56,25 +64,25 @@
                                     <div style="margin-top: 7px">
                                         <div>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="aprovado-{{ $documento->id }}" id="aprovado-{{ $documento->id }}sim" value="1"  required>
-                                                <label class="form-check-label" for="aprovado-{{ $documento->id }}sim">sim</label>
+                                                <input class="form-check-input" type="radio" name="aprovado_{{ $documento->id }}" id="aprovado_{{ $documento->id }}sim" value="1"  required>
+                                                <label class="form-check-label" for="aprovado_{{ $documento->id }}sim">sim</label>
                                             </div>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="aprovado-{{ $documento->id }}" id="aprovado-{{ $documento->id }}nao" value="0" required>
-                                                <label class="form-check-label" for="aprovado-{{ $documento->id }}nao">não</label>
+                                                <input class="form-check-input" type="radio" name="aprovado_{{ $documento->id }}" id="aprovado_{{ $documento->id }}nao" value="0" required>
+                                                <label class="form-check-label" for="aprovado_{{ $documento->id }}nao">não</label>
                                             </div>
                                         <br>
-                                        @error('aprovado-{{ $documento->id }}')
+                                        @error('aprovado_{{ $documento->id }}')
                                             <small style="color: red">{{$message}}</small>
                                         @enderror
                                         </div>
                                     </div>
                                 </td>
                                 <td>
-                                {{-- observacao --}}
+                                    {{-- observacao --}}
                                     <div class="form-group focused">
-                                        <textarea class="form-control" name="observacao-{{ $documento->id}}" id="observacao-{{ $documento->id}}" rows="2"></textarea>
-                                        @error('observacao-{{ $documento->id}}')
+                                        <textarea class="form-control" name="observacao_{{ $documento->id }}" id="observacao_{{ $documento->id }}" rows="2"></textarea>
+                                        @error('observacao_{{ $documento->id}}')
                                             <small style="color: red">{{$message}}</small>
                                         @enderror
                                     </div>
@@ -83,6 +91,8 @@
                         @empty
                             <div class="alert alert-danger" role="alert">Nenhum documento encontrado! </div>
                         @endforelse
+                        {{-- array_ids_documentos_hidden, recebe o valor do array tranformado em string separado por vírgula --}}
+                        <input type="hidden" name="array_ids_documentos_hidden" value="{{ implode(',', $array_ids_documentos) }}">
                     </tbody>
                 </table>
 

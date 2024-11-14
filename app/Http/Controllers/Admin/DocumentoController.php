@@ -82,11 +82,31 @@ class DocumentoController extends Controller
 
     public function update(Request $request)
     {
-        //dd($request);
-        //dd($request->input());
-        //dd($request->all());
+        // Transformao retorno de $request_all() em uma collect e aplica o método count da collect 
+        //$campos =  collect($request->all())->count();
+        
+        echo "<pre>";
+            var_dump($request->all());
+        echo "</pre>";
 
-        echo $request->size();
+
+        // Transformando o valor do camo array_ids_documentos_hidden(que vem como uma string), em um array novamente
+        $ids =  explode(',', $request->array_ids_documentos_hidden);
+
+        echo $request->observacao_.$ids[0];
+
+
+
+        // foreach($ids as $id){
+        //     echo $request->aprovado_.$id."<br>";
+
+        //     // if($request->aprovado_.$id == "0"){
+        //     //     echo "Documento: ". $id . ", deve se Atualizado e corrigido.<br>";
+        //     //     echo $request->observacao_.$id;
+        //     // }
+        // }
+        
+
 
     }
 
