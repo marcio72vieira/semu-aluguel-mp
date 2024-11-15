@@ -52,9 +52,17 @@ class DocumentoController extends Controller
                 //$file = $request->url;
                 //$documentoURL = Storage::disk('public')->put("documentos/requerente_".$request->requerente_id_hidden, $file);
 
+                // Obs: Na situação: doc_1_1020304050 e doc_10_1020304051, o documento doc_10_1020304051 será impresso primeiro
+                // por isso é necessário o trecho de script abaixo. Se orodem = 1 fica 01, ordem = 2 fica 02 etc...
+                if(strlen($request->tipodocumento_ordem_hidden) == 1){
+                    $ordem = "0".$request->tipodocumento_ordem_hidden;
+                }else{
+                    $ordem = $request->tipodocumento_ordem_hidden;
+                }
+
                 $file = $request->url;
                 $tempo = time();
-                $pathAndFileName = "documentos/requerente_". $request->requerente_id_hidden ."/doc_". $request->tipodocumento_ordem_hidden ."_". $tempo .".". $file->getClientOriginalExtension();
+                $pathAndFileName = "documentos/requerente_". $request->requerente_id_hidden ."/doc_". $ordem ."_". $tempo .".". $file->getClientOriginalExtension();
                 //$documentoURL = Storage::disk('public')->put($pathAndFileName, file_get_contents($file));
                 Storage::disk('public')->put($pathAndFileName, file_get_contents($file));
 
