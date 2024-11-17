@@ -31,7 +31,7 @@
 
             {{-- Este componente será acionado sempre que houver uma erro de exceção em: store, update ou delete --}}
             <x-errorexception />
-            <form action="{{ route('documento.update') }}" method="POST" autocomplete="off">
+            <form action="{{ route('documento.update', ['requerente' => $requerente->id]) }}" method="POST" autocomplete="off">
                 @csrf
                 @method('PUT')
 
@@ -57,32 +57,36 @@
                                 $array_ids_documentos[] = $documento->id;
                             @endphp
                             <tr>
-                                <td>{{ $documento->id }}</th>
-                                <td>{{ $documento->tipodocumento->nome }}</th>
-                                <td> <a href="{{ asset('/storage/'.$documento->url) }}" target="_blank"> <img src="{{ asset('images/icopdf3.png') }}" width="30" style="margin-left: 25px;"> </a></td>
+                                <td>{{ $documento->id }}</td>
+                                <td>{{ $documento->tipodocumento->nome }}</td>
+                                <td> 
+                                    <a href="{{ asset('/storage/'.$documento->url) }}" target="_blank"> 
+                                        <img src="{{ asset('images/documentos2.png') }}" width="30" style="margin-left: 25px;"> 
+                                    </a>
+                                </td>
                                 <td>
                                     <div style="margin-top: 7px">
                                         <div>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input aprovacao" type="radio" name="aprovado_{{ $documento->id }}" id="aprovado_{{ $documento->id }}sim" value="1"  required>
+                                                <input class="form-check-input aprovacao" type="radio" name="aprovado_{{ $documento->id }}" id="aprovado_{{ $documento->id }}sim" value="1" {{old("aprovado_$documento->id") == "1" ? "checked" : ""}}>
                                                 <label class="form-check-label" for="aprovado_{{ $documento->id }}sim">sim</label>
                                             </div>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input aprovacao" type="radio" name="aprovado_{{ $documento->id }}" id="aprovado_{{ $documento->id }}nao" value="0" required>
+                                                <input class="form-check-input aprovacao" type="radio" name="aprovado_{{ $documento->id }}" id="aprovado_{{ $documento->id }}nao" value="0" {{old("aprovado_$documento->id") == "0" ? "checked" : ""}}>
                                                 <label class="form-check-label" for="aprovado_{{ $documento->id }}nao">não</label>
                                             </div>
-                                        <br>
-                                        @error('aprovado_{{ $documento->id }}')
-                                            <small style="color: red">{{$message}}</small>
-                                        @enderror
+                                            <br>
+                                            @error("aprovado_{{ $documento->id }}")
+                                                <small style="color: red">{{$message}}</small>
+                                            @enderror
                                         </div>
                                     </div>
                                 </td>
                                 <td>
                                     {{-- observacao --}}
                                     <div class="form-group focused">
-                                        <textarea  style="visibility:hidden" class="form-control" name="observacao_{{ $documento->id }}" id="observacao_{{ $documento->id }}" rows="2"></textarea>
-                                        @error('observacao_{{ $documento->id}}')
+                                        <textarea style="visibility:hidden" class="form-control" name="observacao_{{ $documento->id }}" id="observacao_{{ $documento->id }}" rows="2" placeholder="justifique..."></textarea>
+                                        @error("observacao_{{ $documento->id}}")
                                             <small style="color: red">{{$message}}</small>
                                         @enderror
                                     </div>

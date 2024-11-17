@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\DocumentoRequest;
+use App\Http\Requests\ChecklistRequest;
 use App\Models\Requerente;
 use App\Models\Documento;
 use App\Models\Tipodocumento;
@@ -102,10 +103,18 @@ class DocumentoController extends Controller
     }
 
 
-    public function update(Request $request)
+    // Aprovaçãod do Checklist
+    // public function update(ChecklistRequest $request)
+    public function update(ChecklistRequest $request)
     {
         // Transformao retorno de $request_all() em uma collect e aplica o método count da collect
         //$campos =  collect($request->all())->count();
+
+        //dd($request);
+
+        // Validar o formulário
+        $request->validated();
+
 
 
         // Transformando o valor do camo array_ids_documentos_hidden(que vem como uma string), em um array novamente

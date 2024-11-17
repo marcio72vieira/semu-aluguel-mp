@@ -19,3 +19,23 @@ Sequência:
      http://localhost:8080/
 
 
+
+
+<td>
+    <div style="margin-top: 7px">
+        <div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input aprovacao" type="radio" name="aprovado_{{ $documento->id }}" id="aprovado_{{ $documento->id }}sim" value="1" {{old("aprovado_$documento->id") == "1" ? "checked" : ""}}>
+                <label class="form-check-label" for="aprovado_{{ $documento->id }}sim">sim</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input aprovacao" type="radio" name="aprovado_{{ $documento->id }}" id="aprovado_{{ $documento->id }}nao" value="0" {{old("aprovado_$documento->id") == "0" ? "checked" : ""}}>
+                <label class="form-check-label" for="aprovado_{{ $documento->id }}nao">não</label>
+            </div>
+            <br>
+            @error("aprovado_{{ $documento->id }}")
+                <small style="color: red">{{$message}}</small>
+            @enderror
+        </div>
+    </div>
+</td>
