@@ -77,7 +77,7 @@
                                             </div>
                                             <br>
                                             @error("aprovado_{{ $documento->id }}")
-                                                <small style="color: red">{{$message}}</small>
+                                                <small style="color: red">{{ $message }}</small>
                                             @enderror
                                         </div>
                                     </div>

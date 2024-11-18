@@ -24,26 +24,46 @@ class ChecklistRequest extends FormRequest
     public function rules(): array
     {
 
-
         $requerenteId = $this->route('requerente'); //$requerente =  Requerente::find($requerenteId); $nomeRequerente = $requerente->nomecompleto;
 
         $documentos =  Documento::where('requerente_id', "=", $requerenteId)->get();
-            
+        
+        // A multiplicação é por dois, pois existe dois campos para cada registro a ser validado (aprovado e observacao)
+        $qtddocs = $documentos->count() * 2;
+
+
+
+        $campos = [];
         $rules = [];
+
+        // $campos = array();
+        // $rules = array();
 
         foreach ($documentos as $documento) {
 
-            $validacao = "'aprovado_$documento->id' => 'required', 'observacao_$documento->id' => 'required_if:aprovado_$documento->id, ==, '0'";
+            $id = $documento->id;
+            
+            // Formando o nome dos campos dinamicamente
+            $campos[] = "aprovado_$id";         
+            $campos[] = "observacao_$id";
 
-            $rules[] = eval("\$validacao = \"$validacao\";");
         }
 
-        //eval("\$rule = $rule;");
+        foreach ($documentos as $documento) {
+
+            $id = $documento->id;
+            
+            // Formando o nome dos campos dinamicamente
+            $rules["aprovado_$id"] = "required";         
+    
+        }
+    
         return $rules;
     }
 
     public function messages()
     {
+        /* 
         $requerenteId = $this->route('requerente');     // $requerente =  Requerente::find($requerenteId); $nomeRequerente = $requerente->nomecompleto;
 
         $documentos =  Documento::where('requerente_id', "=", $requerenteId)->get();
@@ -58,7 +78,13 @@ class ChecklistRequest extends FormRequest
 
 
 
-        return $messages;
+        return $messages; 
+        */
+
+        return [
+            'aprovado_31' => 'Escolha uma opção',
+            'aprovado_32' => 'Escolha uma opção',
+        ];
     }
 }
 
