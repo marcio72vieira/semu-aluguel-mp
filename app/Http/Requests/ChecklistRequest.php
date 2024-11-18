@@ -24,67 +24,42 @@ class ChecklistRequest extends FormRequest
     public function rules(): array
     {
 
-        $requerenteId = $this->route('requerente'); //$requerente =  Requerente::find($requerenteId); $nomeRequerente = $requerente->nomecompleto;
-
+        $requerenteId = $this->route('requerente');
         $documentos =  Documento::where('requerente_id', "=", $requerenteId)->get();
-        
-        // A multiplicação é por dois, pois existe dois campos para cada registro a ser validado (aprovado e observacao)
-        $qtddocs = $documentos->count() * 2;
 
-
-
-        $campos = [];
-        $rules = [];
-
-        // $campos = array();
-        // $rules = array();
+        $rule = [];
 
         foreach ($documentos as $documento) {
 
             $id = $documento->id;
-            
+
             // Formando o nome dos campos dinamicamente
-            $campos[] = "aprovado_$id";         
-            $campos[] = "observacao_$id";
+            $rule["aprovado_$id"] = 'required';
+            $rule["observacao_$id"] = 'required_if:aprovado_'.$id.',==,"0"';
 
         }
 
-        foreach ($documentos as $documento) {
-
-            $id = $documento->id;
-            
-            // Formando o nome dos campos dinamicamente
-            $rules["aprovado_$id"] = "required";         
-    
-        }
-    
-        return $rules;
+        return $rule;
     }
 
     public function messages()
     {
-        /* 
-        $requerenteId = $this->route('requerente');     // $requerente =  Requerente::find($requerenteId); $nomeRequerente = $requerente->nomecompleto;
-
+        $requerenteId = $this->route('requerente');
         $documentos =  Documento::where('requerente_id', "=", $requerenteId)->get();
-        
-        $messages = [];
 
+        $message = [];
 
         foreach ($documentos as $documento) {
 
-            $messages[] = "'aprovado_$documento->id.required' => 'escolha uma opção', 'observacao_$documento->id.required_if' => 'Campo obrigatório'";
+            $id = $documento->id;
+
+            // Formando as mensagens para cada tipo de campo
+            $message["aprovado_$id.required"] = 'Escolha uma opção para o documento: '.$id;
+            $message["observacao_$id.required_if"] = 'É necessário uma justificativa para o documento: '.$id;
+
         }
 
-
-
-        return $messages; 
-        */
-
-        return [
-            'aprovado_31' => 'Escolha uma opção',
-            'aprovado_32' => 'Escolha uma opção',
-        ];
+        return $message;
     }
 }
 

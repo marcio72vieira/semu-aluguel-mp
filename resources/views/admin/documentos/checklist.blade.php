@@ -30,7 +30,9 @@
             <x-alert />
 
             {{-- Este componente será acionado sempre que houver uma erro de exceção em: store, update ou delete --}}
-            <x-errorexception />
+            {{-- <x-errorexception /> --}}
+
+
             <form action="{{ route('documento.update', ['requerente' => $requerente->id]) }}" method="POST" autocomplete="off">
                 @csrf
                 @method('PUT')
@@ -53,18 +55,19 @@
                         @endphp
                         @forelse ($documentos as $documento)
                             @php
-                                // Adiciona ao array o valor de cada id dos documentos 
+                                // Adiciona ao array o valor de cada id dos documentos
                                 $array_ids_documentos[] = $documento->id;
                             @endphp
                             <tr>
                                 <td>{{ $documento->id }}</td>
                                 <td>{{ $documento->tipodocumento->nome }}</td>
-                                <td> 
-                                    <a href="{{ asset('/storage/'.$documento->url) }}" target="_blank"> 
-                                        <img src="{{ asset('images/documentos2.png') }}" width="30" style="margin-left: 25px;"> 
+                                <td>
+                                    <a href="{{ asset('/storage/'.$documento->url) }}" target="_blank">
+                                        <img src="{{ asset('images/documentos2.png') }}" width="30" style="margin-left: 25px;">
                                     </a>
                                 </td>
                                 <td>
+                                    {{-- aprovado --}}
                                     <div style="margin-top: 7px">
                                         <div>
                                             <div class="form-check form-check-inline">
@@ -75,20 +78,28 @@
                                                 <input class="form-check-input aprovacao" type="radio" name="aprovado_{{ $documento->id }}" id="aprovado_{{ $documento->id }}nao" value="0" {{old("aprovado_$documento->id") == "0" ? "checked" : ""}}>
                                                 <label class="form-check-label" for="aprovado_{{ $documento->id }}nao">não</label>
                                             </div>
+                                            {{--
                                             <br>
                                             @error("aprovado_{{ $documento->id }}")
                                                 <small style="color: red">{{ $message }}</small>
                                             @enderror
+                                            --}}
                                         </div>
                                     </div>
                                 </td>
                                 <td>
                                     {{-- observacao --}}
                                     <div class="form-group focused">
-                                        <textarea style="visibility:hidden" class="form-control" name="observacao_{{ $documento->id }}" id="observacao_{{ $documento->id }}" rows="2" placeholder="justifique..."></textarea>
+                                        <textarea style="visibility:hidden" class="form-control observado" name="observacao_{{ $documento->id }}" id="observacao_{{ $documento->id }}" rows="2" placeholder="justifique..."></textarea>
+                                        {{-- <textarea style="visibility: @error('observacao_{{ $documento->id}}') ? hidden : visible @enderror" class="form-control" name="observacao_{{ $documento->id }}" id="observacao_{{ $documento->id }}" rows="2" placeholder="justifique..."></textarea> --}}
+                                        {{-- <textarea style="visibility: @if($errors->has('observacao_{{ $documento->id }}')) visible @else hidden @endif" class="form-control" name="observacao_{{ $documento->id }}" id="observacao_{{ $documento->id }}" rows="2" placeholder="justifique..."></textarea> --}}
+                                        {{-- <textarea style="visibility: @if($errors->has('observacao_{{ $documento->id }}')) visible @else hidden @endif" class="form-control" name="observacao_{{ $documento->id }}" id="observacao_{{ $documento->id }}" rows="2" placeholder="justifique..."></textarea> --}}
+
+                                        {{--
                                         @error("observacao_{{ $documento->id}}")
                                             <small style="color: red">{{$message}}</small>
                                         @enderror
+                                        --}}
                                     </div>
                                 </td>
                             </tr>
@@ -105,7 +116,7 @@
                     <div style="margin-top: 25px">
                         {{-- <a class="btn btn-outline-secondary me-2" href="{{ url()->previous() }}" role="button">Cancelar</a> --}}
                         <a class="btn btn-outline-secondary me-2" href="{{ route('requerente.index') }}" role="button">Cancelar</a>
-                        <button type="submit" class="btn btn-primary me-4" style="width: 95px;"> Anexar </button>
+                        <button type="submit" class="btn btn-primary me-4" style="width: 95px;" name="anexar"> Anexar </button>
 
                         {{--
                         Este campo só dever ser mostrado se não houver pendências (aprovado = não)
@@ -161,13 +172,26 @@
             });
         });
 
+
+        /* $(".observado").each(function(){
+            let nomeElemento = $(this).attr('name');
+            let idElementoRadioCorrespondente = nomeElemento.substring(11);
+            // $("input:text[name=userName]").val()
+            if($("input:radio[name=aprovado_" + idElementoRadioCorrespondente +"]:checked").val == 0){
+                $("#observacao_" + idElementoRadioCorrespondente).css("visibility","visible");
+                alert("Não foi escolhido!");
+            }
+        }); */
+
+
+
         function displayButtonMesclar(qtd_sim){
             // A comparação é maior ou igual, porquê o usuário pode definir um anexo como aprovado, depois como não aprovado e novamente como aprovado
             // o quê sempre acrescentara mais uma unidade para a variável num_sim_aprovado, podendo esta ultrapassar o valor da quantidade de radios buttons
             // dividido por dois
             if(qtd_sim >= (num_aprovacao / 2)){
                 $("#button-mesclar").css("visibility","visible");
-            } 
+            }
         }
 
 
