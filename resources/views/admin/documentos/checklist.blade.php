@@ -172,6 +172,39 @@
             });
         });
 
+        $(".observado").each(function() {
+
+            let nomeElemento = $(this).attr('name');
+            idElemento = nomeElemento.substring(11);
+
+            let elemento = $("#observacao_" + idElemento);
+
+            if($("input:radio[name=aprovado_" + idElemento +"]:checked").val() == 0){
+                //alert("não: exibir");
+                $("#observacao_" + idElemento).css("visibility","visible");
+                //elemento.css("visibility","visible");
+            }else{
+                //alert("sim: ocultar");
+            }
+
+            // $('input:radio[name=sex]:checked').val();
+
+            //alert(elemento.css("visibility"));
+           /*  if(elemento.css("visibility") == "hidden"){
+                alert("Elemento oculto");
+            }else{
+                alert("Elemento VISÍVEL");
+            } */
+
+
+
+            /* if($("#observacao_" + idElemento).is(":hidden")){
+                alert("A observacao: " + idElemento + " Está oculta");
+            }else{
+                alert("A observacao: " + idElemento + " Está visível");
+            } */
+        });
+
 
         /* $(".observado").each(function(){
             let nomeElemento = $(this).attr('name');
