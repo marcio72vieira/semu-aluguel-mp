@@ -12,6 +12,7 @@ use App\Models\Tipodocumento;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
+use Exception;
 
 class DocumentoController extends Controller
 {
@@ -107,19 +108,45 @@ class DocumentoController extends Controller
     // public function update(ChecklistRequest $request)
     public function update(ChecklistRequest $request)
     {
-        // Transformao retorno de $request_all() em uma collect e aplica o método count da collect
-        //$campos =  collect($request->all())->count();
+        // Transformao retorno de $request_all() em uma collect e aplica o método count da collect //$campos =  collect($request->all())->count();
 
-        //dd($request);
 
         // Validar o formulário
         $request->validated();
 
+        try {
+
+            // Recuperando o usuário autenticado responsavel pela análise dos documentos
+            $user = Auth::user();
+            $user = User::find($user->id);
+            $idAnalista = $user->id;    // Responsável pela análise dos documentos
+
+            // Transformando o valor do camo array_ids_documentos_hidden(que vem como uma string), em um array novamente
+            $ids =  explode(',', $request->array_ids_documentos_hidden);
+
+            foreach($ids as $id){
+                // Recupera o documento
+                $documento = Documento::find($id);
+
+                // Atualiza os campos necessários
+                $documento->update([
+                    'aprovado'      => $request["aprovado_$id"],
+                    'observacao'    => $request["observacao_$id"],
+                    'user_id'       => $idAnalista
+                ]);
+            }
+
+            // Redirecionar o usuário, enviar a mensagem de sucesso
+            return redirect()->route('requerente.index')->with('success', 'Análise efetuada com sucesso!');
+
+        } catch (Exception $e) {
+
+            // Redirecionar o usuário, enviar a mensagem de erro
+            return back()->withInput()->with('error', 'Análise não efetuada, tente mais tarde!'. $e->getMessage());
+        }
 
 
-        // Transformando o valor do camo array_ids_documentos_hidden(que vem como uma string), em um array novamente
-        $ids =  explode(',', $request->array_ids_documentos_hidden);
-
+        /*
         foreach($ids as $id){
 
             //echo $request["aprovado_$id"]."<br>";
@@ -129,6 +156,7 @@ class DocumentoController extends Controller
                 echo "Documento: ". $id . ", ". $request["observacao_$id"] ."<br>";
             }
         }
+        */
 
     }
 

@@ -78,36 +78,25 @@
                                                 <input class="form-check-input aprovacao" type="radio" name="aprovado_{{ $documento->id }}" id="aprovado_{{ $documento->id }}nao" value="0" {{old("aprovado_$documento->id") == "0" ? "checked" : ""}}>
                                                 <label class="form-check-label" for="aprovado_{{ $documento->id }}nao">não</label>
                                             </div>
-                                            {{--
-                                            <br>
-                                            @error("aprovado_{{ $documento->id }}")
-                                                <small style="color: red">{{ $message }}</small>
-                                            @enderror
-                                            --}}
+                                            {{-- <br> @error("aprovado_{{ $documento->id }}") <small style="color: red">{{ $message }}</small> @enderror --}}
                                         </div>
                                     </div>
                                 </td>
                                 <td>
                                     {{-- observacao --}}
                                     <div class="form-group focused">
-                                        <textarea style="visibility:hidden" class="form-control observado" name="observacao_{{ $documento->id }}" id="observacao_{{ $documento->id }}" rows="2" placeholder="justifique..."></textarea>
-                                        {{-- <textarea style="visibility: @error('observacao_{{ $documento->id}}') ? hidden : visible @enderror" class="form-control" name="observacao_{{ $documento->id }}" id="observacao_{{ $documento->id }}" rows="2" placeholder="justifique..."></textarea> --}}
-                                        {{-- <textarea style="visibility: @if($errors->has('observacao_{{ $documento->id }}')) visible @else hidden @endif" class="form-control" name="observacao_{{ $documento->id }}" id="observacao_{{ $documento->id }}" rows="2" placeholder="justifique..."></textarea> --}}
-                                        {{-- <textarea style="visibility: @if($errors->has('observacao_{{ $documento->id }}')) visible @else hidden @endif" class="form-control" name="observacao_{{ $documento->id }}" id="observacao_{{ $documento->id }}" rows="2" placeholder="justifique..."></textarea> --}}
-
-                                        {{--
-                                        @error("observacao_{{ $documento->id}}")
-                                            <small style="color: red">{{$message}}</small>
-                                        @enderror
-                                        --}}
+                                        <textarea style="visibility:hidden" class="form-control observado" name="observacao_{{ $documento->id }}" id="observacao_{{ $documento->id }}" rows="2" placeholder="justifique...">{{ old("observacao_$documento->id") }}</textarea>
+                                        {{-- @error("observacao_{{ $documento->id}}") <small style="color: red">{{$message}}</small> @enderror --}}
                                     </div>
                                 </td>
                             </tr>
                         @empty
                             <div class="alert alert-danger" role="alert">Nenhum documento encontrado! </div>
                         @endforelse
+
                         {{-- array_ids_documentos_hidden, recebe o valor do array tranformado em string separado por vírgula --}}
                         <input type="hidden" name="array_ids_documentos_hidden" value="{{ implode(',', $array_ids_documentos) }}">
+
                     </tbody>
                 </table>
 
@@ -115,11 +104,12 @@
                 <div class="flex-row col-12 d-md-flex justify-content-end">
                     <div style="margin-top: 25px">
                         {{-- <a class="btn btn-outline-secondary me-2" href="{{ url()->previous() }}" role="button">Cancelar</a> --}}
-                        <a class="btn btn-outline-secondary me-2" href="{{ route('requerente.index') }}" role="button">Cancelar</a>
-                        <button type="submit" class="btn btn-primary me-4" style="width: 95px;" name="anexar"> Anexar </button>
+                        <a class="btn btn-outline-secondary me-2" href="{{ route('requerente.index') }}" role="button" style="width: 160px;">Cancelar</a>
+
+                        <button type="submit" class="btn btn-primary me-4" style="width: 160px;" name="anexar"> Deferir / Indeferir </button>
 
                         {{--
-                        Este campo só dever ser mostrado se não houver pendências (aprovado = não)
+                        Este botão só dever ser exibido se todos os documentos forem aprovados, ou seja, não houver pendências (aprovado = não)
                         Quando submeter para análise, o campo pendente(status) na tabela requerente deverá ser atualizado para "em análise e nada mais poderá ser feito em relação ao requerente, ou seja, nem cadastrar, nem editar, nem apagar"
                         --}}
                         <a style="visibility:hidden" class="btn btn-danger me-1" href="{{ route('documento.merge', ['requerente' => $requerente->id]) }}"  id="button-mesclar"><i class="fa-solid fa-layer-group"></i> Mesclar </a>
@@ -134,12 +124,6 @@
 
 @section('scripts')
     <script>
-
-        // Resgata o número de radio button para cada aprovação, no caso, será o valor * 2 pois para cada aprovação existirá dois radios buttons (sim e não)
-        var num_aprovacao = $(".aprovacao").length;
-        // Define o número de aprovacoes do tipo sim para 0, pois para cada sim, será adicionado uma unidade.
-        var num_sim_aprovado = 0;
-        var num_nao_aprovado = 0;
 
         // Para cada radio button cuja classe seja "aprov", execute uma função
         $(".aprovacao").each(function() {
@@ -156,84 +140,24 @@
                     $("#observacao_" + idElemento).focus();
                     $("#observacao_" + idElemento).attr("required");
                     $("#button-mesclar").css("visibility","hidden");
-                    // Adiciona uma unidade para cada aprovação do tipo sim
-                    num_nao_aprovado = num_nao_aprovado + 1;
-                    // Chama a função que irá avaliar se a soma de todos os "sim" é igual à metade do radios button existentes.
-                    hiddenButtonMesclar(num_nao_aprovado);
                 }else{
                     $("#observacao_" + idElemento).css("visibility","hidden");
                     $("#observacao_" + idElemento).val("");
                     $("#observacao_" + idElemento).removeAttr("required");
-                    // Adiciona uma unidade para cada aprovação do tipo sim
-                    num_sim_aprovado = num_sim_aprovado + 1;
-                    // Chama a função que irá avaliar se a soma de todos os "sim" é igual à metade do radios button existentes.
-                    displayButtonMesclar(num_sim_aprovado);
                 };
             });
         });
 
         $(".observado").each(function() {
-
             let nomeElemento = $(this).attr('name');
-            idElemento = nomeElemento.substring(11);
-
+            let idElemento = nomeElemento.substring(11);
             let elemento = $("#observacao_" + idElemento);
 
-            if($("input:radio[name=aprovado_" + idElemento +"]:checked").val() == 0){
-                //alert("não: exibir");
-                $("#observacao_" + idElemento).css("visibility","visible");
-                //elemento.css("visibility","visible");
-            }else{
-                //alert("sim: ocultar");
-            }
-
             // $('input:radio[name=sex]:checked').val();
-
-            //alert(elemento.css("visibility"));
-           /*  if(elemento.css("visibility") == "hidden"){
-                alert("Elemento oculto");
-            }else{
-                alert("Elemento VISÍVEL");
-            } */
-
-
-
-            /* if($("#observacao_" + idElemento).is(":hidden")){
-                alert("A observacao: " + idElemento + " Está oculta");
-            }else{
-                alert("A observacao: " + idElemento + " Está visível");
-            } */
+            if($("input:radio[name=aprovado_" + idElemento +"]:checked").val() == 0){
+                $("#observacao_" + idElemento).css("visibility","visible");
+            }
         });
-
-
-        /* $(".observado").each(function(){
-            let nomeElemento = $(this).attr('name');
-            let idElementoRadioCorrespondente = nomeElemento.substring(11);
-            // $("input:text[name=userName]").val()
-            if($("input:radio[name=aprovado_" + idElementoRadioCorrespondente +"]:checked").val == 0){
-                $("#observacao_" + idElementoRadioCorrespondente).css("visibility","visible");
-                alert("Não foi escolhido!");
-            }
-        }); */
-
-
-
-        function displayButtonMesclar(qtd_sim){
-            // A comparação é maior ou igual, porquê o usuário pode definir um anexo como aprovado, depois como não aprovado e novamente como aprovado
-            // o quê sempre acrescentara mais uma unidade para a variável num_sim_aprovado, podendo esta ultrapassar o valor da quantidade de radios buttons
-            // dividido por dois
-            if(qtd_sim >= (num_aprovacao / 2)){
-                $("#button-mesclar").css("visibility","visible");
-            }
-        }
-
-
-        function hiddenButtonMesclar(qtd_nao){
-            // Qualquer  quantidade de num_nao_aprovado, ou seja, maior que 0, irá ocultar o botão de mesclar
-            if(qtd_nao > 0 ){
-                $("#button-mesclar").css("visibility","hidden");
-            }
-        }
 
     </script>
 
