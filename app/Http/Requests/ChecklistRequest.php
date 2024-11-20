@@ -53,9 +53,13 @@ class ChecklistRequest extends FormRequest
 
             $id = $documento->id;
 
+            // Formando as mensagens para cada tipo de campo, UTILIZANDO O COMPONENT <x-alert/> NO INÍCO DA VIEW
+            // $message["aprovado_$id.required"] = 'Escolha uma opção para o documento: '.$id;
+            // $message["observacao_$id.required_if"] = 'É necessário uma justificativa para o documento: '.$id;
+
             // Formando as mensagens para cada tipo de campo
-            $message["aprovado_$id.required"] = 'Escolha uma opção para o documento: '.$id;
-            $message["observacao_$id.required_if"] = 'É necessário uma justificativa para o documento: '.$id;
+            $message["aprovado_$id.required"] = 'Escolha uma opção';
+            $message["observacao_$id.required_if"] = 'Este campo é obrigatório!';
 
         }
 

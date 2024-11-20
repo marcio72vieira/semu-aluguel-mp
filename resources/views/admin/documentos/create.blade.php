@@ -38,10 +38,16 @@
                         <input type="hidden" name="ordem_hidden" id="ordem_hidden" value="1">
                         <div class="col-6">
                             <div class="form-group focused">
-                                <label class="form-control-label" for="tipodocumento_id">Documento<span class="small text-danger">*</span></label>
+                                <label class="form-control-label" for="tipodocumento_id">Documento<span class="small text-danger">*</span>
+                                    <span>
+                                        <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal" title="Documentos Anexados">
+                                            <i class="fas fa-question-circle"></i>
+                                        </a>
+                                    </span>
+                                </label>
+
                                 <select name="tipodocumento_id" id="tipodocumento_id" class="form-control select2" required>
                                     <option value="" selected disabled>Escolha...</option>
-
                                     @foreach($tiposdocumentos  as $tipodocumento)
                                         {{-- Exibe todos os documentos para seleção, exceto documentos processados --}}
                                         @if ($tipodocumento->id != 1)
@@ -50,8 +56,8 @@
                                             </option>
                                         @endif
                                     @endforeach
-
                                 </select>
+
                                 <input type="hidden" name="tipodocumento_ordem_hidden" id="tipodocumento_ordem_hidden"  value="">
                                 @error('tipodocumento_id')
                                     <small style="color: red">{{$message}}</small>
@@ -70,6 +76,7 @@
 
                     </div>
                 </form>
+
 
             </div>
 
@@ -133,17 +140,62 @@
             </div>
 
         </div>
-
-
     </div>
+
+    {{-- inicio modal --}}
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">DOCUMENTOS JÁ ANEXADOS</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <table class="table table-sm">
+                        
+                        <tbody>
+                            @foreach($tiposdocumentos  as $tipodocumento)
+                                <tr>
+                                    <td>
+                                        <span style="font-size: 12px;">{{$tipodocumento->nome}}</span>
+                                        @foreach ( $documentos as $documento )
+                                            @if ($documento->tipodocumento_id == $tipodocumento->id)
+                                                <b><i class='fas fa-check text-success mr-2' style="font-size: 30px;"></i></b>
+                                            @endif
+                                        @endforeach
+                                        
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- fim modal --}}
+ 
 @endsection
 
 @section('scripts')
     <script>
         // Atribui ao campo hidden o valor da ordem do tipo de documento atraves da propriedade "data-"
+        // Essa ordem é necessária para compor o nome do arquivo físico (Ex: doc_01_tempo.pdf, doc_02_tempo.pdf, ... doc_10_tempo.pdf) 
+        // que é de fundamental importância para a ordem de mesclagem dos arquivos pdfs. 
+        // A mesclagem tem que ser na ordem do check-list fornecido pelo cliente ou qualquer outra ordem que o mesmo definir.
+        // O valor do campo "tipodocumento_ordem_hidden" é fornecido pela propriedade data-, já que no select, o único valor que
+        // pode ser passado para o processamento da requisição através da request, é o value da "option". 
+        // Resumindo. Uma forma de passar vários valores para o processamento da requisição, é através da criação de campos do 
+        // do tipo "hidden" e definindo seus valores através das propriedades data-, como no script abaixo.
         $("#tipodocumento_id").on("change", function() {
 
-            tipodocumentoordem = $(this).find(':selected').data('tipodocumento_ordem')
+            let tipodocumentoordem = $(this).find(':selected').data('tipodocumento_ordem')
                 $(this).siblings("#tipodocumento_ordem_hidden").val(tipodocumentoordem);
 
         });

@@ -27,7 +27,7 @@
 
             {{-- @dd($documentos) --}}
 
-            <x-alert />
+            {{-- <x-alert /> --}}
 
             {{-- Este componente será acionado sempre que houver uma erro de exceção em: store, update ou delete --}}
             {{-- <x-errorexception /> --}}
@@ -78,7 +78,11 @@
                                                 <input class="form-check-input aprovacao" type="radio" name="aprovado_{{ $documento->id }}" id="aprovado_{{ $documento->id }}nao" value="0" {{old("aprovado_$documento->id") == "0" ? "checked" : ""}}>
                                                 <label class="form-check-label" for="aprovado_{{ $documento->id }}nao">não</label>
                                             </div>
-                                            {{-- <br> @error("aprovado_{{ $documento->id }}") <small style="color: red">{{ $message }}</small> @enderror --}}
+                                            <p> 
+                                                @error("aprovado_$documento->id") 
+                                                    <small style="color: red" id="msg_erro_apr_{{ $documento->id }}">{{ $message }}</small> 
+                                                @enderror
+                                            </p>
                                         </div>
                                     </div>
                                 </td>
@@ -86,7 +90,11 @@
                                     {{-- observacao --}}
                                     <div class="form-group focused">
                                         <textarea style="visibility:hidden" class="form-control observado" name="observacao_{{ $documento->id }}" id="observacao_{{ $documento->id }}" rows="2" placeholder="justifique...">{{ old("observacao_$documento->id") }}</textarea>
-                                        {{-- @error("observacao_{{ $documento->id}}") <small style="color: red">{{$message}}</small> @enderror --}}
+                                        <p>
+                                            @error("observacao_$documento->id") 
+                                                <small style="color: red" id="msg_erro_obs_{{ $documento->id }}">{{ $message }}</small> 
+                                            @enderror
+                                        </p>
                                     </div>
                                 </td>
                             </tr>
@@ -106,7 +114,7 @@
                         {{-- <a class="btn btn-outline-secondary me-2" href="{{ url()->previous() }}" role="button">Cancelar</a> --}}
                         <a class="btn btn-outline-secondary me-2" href="{{ route('requerente.index') }}" role="button" style="width: 160px;">Cancelar</a>
 
-                        <button type="submit" class="btn btn-primary me-4" style="width: 160px;" name="anexar"> Deferir / Indeferir </button>
+                        <button type="submit" class="btn btn-primary me-4" style="width: 160px;" name="anexar"> Concluir Análise </button>
 
                         {{--
                         Este botão só dever ser exibido se todos os documentos forem aprovados, ou seja, não houver pendências (aprovado = não)
@@ -140,10 +148,14 @@
                     $("#observacao_" + idElemento).focus();
                     $("#observacao_" + idElemento).attr("required");
                     $("#button-mesclar").css("visibility","hidden");
+                    $("#msg_erro_apr_" + idElemento).css("visibility","hidden");
                 }else{
                     $("#observacao_" + idElemento).css("visibility","hidden");
                     $("#observacao_" + idElemento).val("");
                     $("#observacao_" + idElemento).removeAttr("required");
+
+                    $("#msg_erro_apr_" + idElemento).css("visibility","hidden");
+                    $("#msg_erro_obs_" + idElemento).css("visibility","hidden");
                 };
             });
         });
