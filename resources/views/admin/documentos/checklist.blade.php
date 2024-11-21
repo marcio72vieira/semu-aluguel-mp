@@ -14,7 +14,7 @@
     <div class="mb-4 shadow card border-light">
         <div class="gap-2 card-header hstack">
 
-            <span class="p-2 small"><strong> Requerente: {{ $requerente->nomecompleto }} / CPF: {{ $requerente->cpf }} </strong></span>
+            <span class="p-2 small"><strong>ASSISTENTE SOCIAL RESPONSÁVEL: {{ $requerente->user->nomecompleto }} <br> REQUERENTE: {{ $requerente->nomecompleto }} / CPF: {{ $requerente->cpf }} </strong></span>
             {{--
             <span class="flex-row mt-1 mb-1 ms-auto d-sm-flex">
                 <a class="btn btn-outline-secondary me-2" href="{{ route('requerente.index')}}" role="button">Cancelar</a>
@@ -33,7 +33,7 @@
             {{-- <x-errorexception /> --}}
 
 
-            <form action="{{ route('documento.update', ['requerente' => $requerente->id]) }}" method="POST" autocomplete="off">
+            <form id="formchecklist" action="{{ route('documento.update', ['requerente' => $requerente->id]) }}" method="POST" autocomplete="off">
                 @csrf
                 @method('PUT')
 
@@ -78,9 +78,9 @@
                                                 <input class="form-check-input aprovacao" type="radio" name="aprovado_{{ $documento->id }}" id="aprovado_{{ $documento->id }}nao" value="0" {{old("aprovado_$documento->id") == "0" ? "checked" : ""}}>
                                                 <label class="form-check-label" for="aprovado_{{ $documento->id }}nao">não</label>
                                             </div>
-                                            <p> 
-                                                @error("aprovado_$documento->id") 
-                                                    <small style="color: red" id="msg_erro_apr_{{ $documento->id }}">{{ $message }}</small> 
+                                            <p>
+                                                @error("aprovado_$documento->id")
+                                                    <small style="color: red" id="msg_erro_apr_{{ $documento->id }}">{{ $message }}</small>
                                                 @enderror
                                             </p>
                                         </div>
@@ -91,8 +91,8 @@
                                     <div class="form-group focused">
                                         <textarea style="visibility:hidden" class="form-control observado" name="observacao_{{ $documento->id }}" id="observacao_{{ $documento->id }}" rows="2" placeholder="justifique...">{{ old("observacao_$documento->id") }}</textarea>
                                         <p>
-                                            @error("observacao_$documento->id") 
-                                                <small style="color: red" id="msg_erro_obs_{{ $documento->id }}">{{ $message }}</small> 
+                                            @error("observacao_$documento->id")
+                                                <small style="color: red" id="msg_erro_obs_{{ $documento->id }}">{{ $message }}</small>
                                             @enderror
                                         </p>
                                     </div>
@@ -119,6 +119,7 @@
                         {{--
                         Este botão só dever ser exibido se todos os documentos forem aprovados, ou seja, não houver pendências (aprovado = não)
                         Quando submeter para análise, o campo pendente(status) na tabela requerente deverá ser atualizado para "em análise e nada mais poderá ser feito em relação ao requerente, ou seja, nem cadastrar, nem editar, nem apagar"
+                        se o requerente não passar na análise, os botẽos de editar, visualizr docuemntos poderão ser habilitados novamente.
                         --}}
                         <a style="visibility:hidden" class="btn btn-danger me-1" href="{{ route('documento.merge', ['requerente' => $requerente->id]) }}"  id="button-mesclar"><i class="fa-solid fa-layer-group"></i> Mesclar </a>
                     </div>
@@ -159,10 +160,10 @@
                 };
 
                 exibeBotaoAnalise();
-
-                
             });
+
         });
+
 
         $(".observado").each(function() {
             let nomeElemento = $(this).attr('name');
@@ -176,73 +177,29 @@
         });
 
 
-        /* function ExibeBotao() {
-            var qtdRadioButtonSimNao = $('.aprovacao').length;
-            var qtdSim = 0;
-
-            $(".aprovacao").each(function() {
-                if(($(this)":checked") && ($(this)":checked".val() == 1)) {
-                    alert("VALOR CHECKADO");
-                }
-                
-                if($(this).val() == 1){
-                    qtdSim = qtdSim + 1;
-                } 
-               
-            });
-
-            //alert(qtdSim);
-
-            if(qtdSim == qtdRadioButtonSimNao / 2){
-                alert("EXIBE BOTÃO PARA CONCLUIR ANÁLISE");
-            }
-        } */
-
         function exibeBotaoAnalise() {
             var qtdRadioButtonSimNao = $('.aprovacao').length;
             var qtdSim = 0;
-            
+
             $(".aprovacao").each(function() {
-                
-                let nomeElemento = $(this).attr('name');
-                // Extraia apenas a parte que contenha o número da propriedade "name", no caso "aprovado_xx" com a função "substring"
-                let idElemento = nomeElemento.substring(9);
-
-                if($("aprovado_" + idElemento + "sim").is(":checked")){
-                    qtdSim = qtdSim + 1;
+                if($(this).is(':checked')){
+                    if($(this).val() == 1){
+                        qtdSim = qtdSim + 1;
+                    }
                 }
-
             });
 
-            console.log(qtdSim);
+            if(qtdSim == (qtdRadioButtonSimNao / 2)){
+
+                $("#button-mesclar").css("visibility", "visible");
+                $("#button-mesclar").html("<i class='fa-solid fa-layer-group'></i> Gerar Processo");
+
+            }else{
+                $("#button-mesclar").css("visibility", "visible");
+                $("#button-mesclar").html("<i class='fa-solid fa-arrow-rotate-left'></i> Retornar Origem");
+            }
 
         }
-        
-
-
-        /* function ExibeBotao() {
-            var qtdRadioButtonSimNao = $('.aprovacao').length;
-            var qtdAprovadoSim = $('.aprovacao').filter(function(item){
-                alert(this.val);
-                return this.val == 1;
-            });
-            if(qtdAprovadoSim.length == qtdRadioButtonSimNao / 2 ){
-                alert("PODE EXIBIR O BOTÃO");
-            }else {
-                alert("Não exibe;");
-            }
-        } */
-
-        // var qtdAprovadoSim = $('.aprovacao').length;
-        // alert(qtdAprovadoSim);
-
-
-
-        /* var visibleElements = $('.thumbs li').filter(function(item) {
-        return this.style.display !== 'none';
-        });
-
-        console.log(visibleElements.length > 0); */
 
     </script>
 

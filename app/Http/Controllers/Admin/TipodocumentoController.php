@@ -61,6 +61,10 @@ class TipodocumentoController extends Controller
         // Validar o formulário
         $request->validated();
 
+        // OBS: Quando a ordem do tipo do documento for alterada, a nova "ordem" só terá efeito do momento da atualização para frente. Esta alteração não surtirá efeito para os documentos já
+        //      cadastrados anteriormente no banco (pois estes foram cadastrados com a ordem antiga). Para resolver esssa questão, ou seja, alterar a "ordem" dos documentos já cadastrados,
+        //      é necessário atualizar todos os documentos da ordem antiga para a ordem atual, do tipo: Documentos::where('ordem', '==', 'ordem_antiga')->update('ordem','ordem_atual').
+
         try{
             $tipodocumento->update([
                 'nome' => Str::upper($request->nome),
