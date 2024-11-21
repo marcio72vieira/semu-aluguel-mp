@@ -135,7 +135,7 @@
                     Este botão só deverá ser exibido, caso todos do documentos ativos esteja listados aqui.
                     Quando submeter para análise, o campo pendente(status) na tabela/view requerente deverá ser atualizado para "em análise e nada mais poderá ser feito em relação ao requerente, ou seja, nem cadastrar, nem editar, nem apagar"
                     --}}
-                    <a class="btn btn-success me-2" href="" role="button"  style="margin-left: 70px; margin-bottom: 15px;"><i class="fa-solid fa-user-check" style="margin-right: 5px;"></i> Enviar para Análise</a>
+                    <a class="btn btn-success me-2" href="" role="button"  style="margin-left: 10px; margin-bottom: 15px; width: 200px;"><i class="fa-solid fa-user-check" style="margin-right: 5px;"></i> Enviar para Análise</a>
                 </div>
             </div>
 

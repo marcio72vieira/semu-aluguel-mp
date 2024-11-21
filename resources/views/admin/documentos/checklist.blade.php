@@ -140,7 +140,7 @@
                 // Obtenha o nome da propriedade "name" através da função "attr"
                 let nomeElemento = $(this).attr('name');
                 // Extraia apenas a parte que contenha o número da propriedade "name", no caso "aprovado_xx" com a função "substring"
-                idElemento = nomeElemento.substring(9);
+                let idElemento = nomeElemento.substring(9);
 
                 // Exibindo o campo observação corresponde ao radio button clicado
                 if($(this).val() == 0){
@@ -157,6 +157,10 @@
                     $("#msg_erro_apr_" + idElemento).css("visibility","hidden");
                     $("#msg_erro_obs_" + idElemento).css("visibility","hidden");
                 };
+
+                exibeBotaoAnalise();
+
+                
             });
         });
 
@@ -170,6 +174,75 @@
                 $("#observacao_" + idElemento).css("visibility","visible");
             }
         });
+
+
+        /* function ExibeBotao() {
+            var qtdRadioButtonSimNao = $('.aprovacao').length;
+            var qtdSim = 0;
+
+            $(".aprovacao").each(function() {
+                if(($(this)":checked") && ($(this)":checked".val() == 1)) {
+                    alert("VALOR CHECKADO");
+                }
+                
+                if($(this).val() == 1){
+                    qtdSim = qtdSim + 1;
+                } 
+               
+            });
+
+            //alert(qtdSim);
+
+            if(qtdSim == qtdRadioButtonSimNao / 2){
+                alert("EXIBE BOTÃO PARA CONCLUIR ANÁLISE");
+            }
+        } */
+
+        function exibeBotaoAnalise() {
+            var qtdRadioButtonSimNao = $('.aprovacao').length;
+            var qtdSim = 0;
+            
+            $(".aprovacao").each(function() {
+                
+                let nomeElemento = $(this).attr('name');
+                // Extraia apenas a parte que contenha o número da propriedade "name", no caso "aprovado_xx" com a função "substring"
+                let idElemento = nomeElemento.substring(9);
+
+                if($("aprovado_" + idElemento + "sim").is(":checked")){
+                    qtdSim = qtdSim + 1;
+                }
+
+            });
+
+            console.log(qtdSim);
+
+        }
+        
+
+
+        /* function ExibeBotao() {
+            var qtdRadioButtonSimNao = $('.aprovacao').length;
+            var qtdAprovadoSim = $('.aprovacao').filter(function(item){
+                alert(this.val);
+                return this.val == 1;
+            });
+            if(qtdAprovadoSim.length == qtdRadioButtonSimNao / 2 ){
+                alert("PODE EXIBIR O BOTÃO");
+            }else {
+                alert("Não exibe;");
+            }
+        } */
+
+        // var qtdAprovadoSim = $('.aprovacao').length;
+        // alert(qtdAprovadoSim);
+
+
+
+        /* var visibleElements = $('.thumbs li').filter(function(item) {
+        return this.style.display !== 'none';
+        });
+
+        console.log(visibleElements.length > 0); */
 
     </script>
 
