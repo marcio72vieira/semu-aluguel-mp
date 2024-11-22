@@ -12,11 +12,7 @@ class TipodocumentoSeeder extends Seeder
      */
     public function run(): void
     {
-        Tipodocumento::create([
-            'nome' => 'PROCESSO',
-            'ordem' => 20,
-            'ativo' => true,
-        ]);
+        /* Tipodocumento::create([ 'nome' => 'PROCESSO', 'ordem' => 20, 'ativo' => true, ]); */
 
         Tipodocumento::create([
             'nome' => 'SOLICITAÇÃO DO BENEFÍCIO (OFÍCIO OU OUTROS)',
@@ -89,5 +85,5 @@ class TipodocumentoSeeder extends Seeder
             'ordem' => 12,
             'ativo' => true,
         ]);
-    }   
+    }
 }

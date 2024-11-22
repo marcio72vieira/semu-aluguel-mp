@@ -33,7 +33,7 @@
             {{-- <x-errorexception /> --}}
 
 
-            <form id="formchecklist" action="{{ route('documento.update', ['requerente' => $requerente->id]) }}" method="POST" autocomplete="off">
+            <form id="formchecklist" action="{{ route('documento.update', ["requerente" => $requerente->id]) }}" method="POST" autocomplete="off">
                 @csrf
                 @method('PUT')
 
@@ -104,6 +104,9 @@
 
                         {{-- array_ids_documentos_hidden, recebe o valor do array tranformado em string separado por vírgula --}}
                         <input type="hidden" name="array_ids_documentos_hidden" value="{{ implode(',', $array_ids_documentos) }}">
+
+                        {{-- id do requerente a qual pertence os documentos --}}
+                        <input type="hidden" name="requerente_id_hidden" value="{{ $requerente->id }}">
 
                     </tbody>
                 </table>
@@ -199,7 +202,7 @@
 
         }
 
-        /* 
+        /*
         function exibeBotaoAnalise() {
             var qtdRadioButtonSimNao = $('.aprovacao').length;
             var qtdSim = 0;
@@ -222,7 +225,7 @@
                 $("#button-mesclar").html("<i class='fa-solid fa-arrow-rotate-left'></i> Retornar Origem");
             }
 
-        } 
+        }
         */
 
     </script>

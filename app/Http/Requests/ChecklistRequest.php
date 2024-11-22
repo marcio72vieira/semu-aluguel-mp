@@ -23,7 +23,10 @@ class ChecklistRequest extends FormRequest
      */
     public function rules(): array
     {
+        //Uma forma de obter os dados enviados para o método: public function update(ChecklistRequest $request) diretamente aqui no FormRequest (ChecklistRequest)
+        //$requerenteId = $this->requerente_id_hidden;
 
+        //Aqui, estou recebendo o id, pelo recurso: Id-Route-Bounding do Laravel, pois o id do requetente é fornecido na rota
         $requerenteId = $this->route('requerente');
         $documentos =  Documento::where('requerente_id', "=", $requerenteId)->get();
 

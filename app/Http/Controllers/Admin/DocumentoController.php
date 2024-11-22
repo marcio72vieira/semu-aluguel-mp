@@ -8,10 +8,12 @@ use App\Http\Requests\DocumentoRequest;
 use App\Http\Requests\ChecklistRequest;
 use App\Models\Requerente;
 use App\Models\Documento;
+use App\Models\Processo;
 use App\Models\Tipodocumento;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 use Exception;
 
 class DocumentoController extends Controller
@@ -108,61 +110,148 @@ class DocumentoController extends Controller
     // public function update(ChecklistRequest $request)
     public function update(ChecklistRequest $request)
     {
-        // Transformao retorno de $request_all() em uma collect e aplica o método count da collect //$campos =  collect($request->all())->count();
+
+        // NOTA: Transformando o retorno de "$request_all()" em uma "collect" e aplicando o método "count" da "collect" para saber quantos registros possui
+        //$campos =  collect($request->all())->count();
 
 
-        // Transformando o valor do camo array_ids_documentos_hidden(que vem como uma string), em um array novamente
+        // Transformando o valor do campo array_ids_documentos_hidden(que vem como uma string, aglutinando todos os ids dos registros), em um array novamente
         $ids =  explode(',', $request->array_ids_documentos_hidden);
-        $aprovado = "";
+
+        // Total de documentos analisados, independente de terem sidos aprovados ou não
+        $totalDocumentos = sizeof($ids);
+
+        // Acumulador para todos os documentos aprovados
+        $totalDocumentosAprovados = 0;
+
+        // Iterando sobre os documentos para saber se o mesmo foram aprovados ou não
         foreach($ids as $id){
+
+            // Se aprovados soma mais um
             if($request["aprovado_$id"] == 1){
-                $aprovado = "sim";
-            }else{
-                $aprovado = "nao";
+                $totalDocumentosAprovados = $totalDocumentosAprovados + 1;
             }
         }
-        if($aprovado = "sim"){
-            // executa o merge e grava na tabela processo todos as informações da requerente
+
+        if($totalDocumentosAprovados ==  $totalDocumentos){
+
+            // INICIO SALVAR PROCESSO
+
+            // Obtendo o REQUERENTE através do campo id_requerene_hidden a qual pertencerá o processo
+            $requerente = Requerente::find($request->requerente_id_hidden);
+
+            // Obtendo o id do requerente em questão
+            $requerenteId = $requerente->id;
+
+            // Retorna um array de todos os arquivos dentro do diretório do requerente em questão
+            $arquivosDaPasta = Storage::disk('public')->files('documentos/requerente_'.$requerenteId);
+
+            // Array para conter apenas o nome dos arquivos da pasta
+            $arraySoComONomeDosArquivos = [];
+
+            // Extraindo só o nome dos arquivos da pasta.
+            // O nome do arquivo está na poscião [2] da estrutura documentos/requerente_id/nome_do_arquivo.pdf
+            foreach($arquivosDaPasta as $arquivo) {
+                $arrayExplode =  explode("/", $arquivo);
+                $arquivoPdf = $arrayExplode[2];
+                $arraySoComONomeDosArquivos[] = $arquivoPdf;
+            }
+
+            // Criar um aquivo vazio no diretório atual.
+            file_put_contents(getcwd() . "/storage/documentos/requerente_".$requerenteId."/arquivos_mesclados.pdf", "");
+            //file_put_contents(getcwd() . "/storage/processos/processo_".$requerenteId.".pdf", "");
+
+            //$command = "gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=" . getcwd() . "/storage/documentos/requerente_".$requerenteId."/arquivos_mesclados.pdf ";
+            $command = "gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=" . getcwd() . "/storage/processos/processo_".$requerenteId.".pdf ";
+
+            foreach ($arraySoComONomeDosArquivos as $file) {
+                //$command .= getcwd() . "/storage/documentos/requerente_".$requerenteId."/" . $file . " ";
+                $command .= getcwd() . "/storage/processos/processo_".$requerenteId."/" . $file . " ";
+            }
+
+            $command .= "2&>1";
+
+            $result = shell_exec($command);
+
+
+            if($result){
+                // Obtém o id do usuario (Assistente Social) que anexou os documentos. Durante a análise, este id do usuário (Assistente Social) será substituido pelo id do usuário (Servidor da SEMU)
+                // responsável pela Análise dos Documentos anexado. O id do usuário (Assistente Social) que anexou os documentos, poderá ser recuperado através da relação Requerente X Usuário
+
+                // Id do Funcionáro da SEMU
+                $user = Auth::user();
+                $user = User::find($user->id);
+                $idUsuario = $user->id;
+                $nomeUsuario = $user->nomecompleto;
+
+                //Armazenando o caminho do arquivo mesclado (processo gerado) no Banco de Dados na tabela "processos"
+                $processo = new Processo();
+                    //$processo->url = 'documentos/requerente_'.$requerenteId.'/arquivos_mesclados.pdf';
+                    $processo->url = 'processos/processo_'.$requerenteId.'.pdf';
+                    $processo->funcionariosemu_id = $idUsuario;
+                    $processo->funcionario = $nomeUsuario;
+                $processo->save();
+
+                // Redirecionar o usuário, enviar a mensagem de sucesso
+                return redirect()->route('documento.index', ['requerente' => $requerenteId])->with('success', 'PROCESSO gerado com sucesso!');
+
+            }
+
+            // FIM SALVAR PROCESSO
+
         }else{
-            // executa o update abaixo e retorna para o Assistente Social tomar conhecimento das notificações
-        }
-        dd($request);
-        
 
-        // Validar o formulário
-        $request->validated();
+            // Define o campo status (na tabela requerente) para 3 (pendente), e atualiza na tabela documentos os demais campos referente a análise
 
-        try {
+            // Validar o formulário
+            $request->validated();
 
-            // Recuperando o usuário autenticado responsavel pela análise dos documentos
-            $user = Auth::user();
-            $user = User::find($user->id);
-            $idAnalista = $user->id;    // Responsável pela análise dos documentos
+            // Marcar o ponto inicial de uma transação
+            DB::beginTransaction();
 
-            // Transformando o valor do camo array_ids_documentos_hidden(que vem como uma string), em um array novamente
-            $ids =  explode(',', $request->array_ids_documentos_hidden);
+            try {
 
-            foreach($ids as $id){
-                // Recupera o documento
-                $documento = Documento::find($id);
+                // Recuperando o usuário autenticado responsavel pela análise dos documentos
+                $user = Auth::user();
+                $user = User::find($user->id);
+                $idAnalista = $user->id;    // Responsável pela análise dos documentos
 
-                // Atualiza os campos necessários
-                $documento->update([
-                    'aprovado'      => $request["aprovado_$id"],
-                    'observacao'    => $request["observacao_$id"],
-                    'user_id'       => $idAnalista
+                // Transformando o valor do camo array_ids_documentos_hidden(que vem como uma string), em um array novamente
+                $ids =  explode(',', $request->array_ids_documentos_hidden);
+
+                foreach($ids as $id){
+                    // Recupera o documento
+                    $documento = Documento::find($id);
+
+                    // Atualiza os campos necessários
+                    $documento->update([
+                        'aprovado'      => $request["aprovado_$id"],
+                        'observacao'    => $request["observacao_$id"],
+                        'user_id'       => $idAnalista
+                    ]);
+                }
+
+                // Atualiza o status da situação do requerente (1-andamento; 2-análise; 3-pendnete; 4-concluído )
+                $requerente = Requerente::find($request->requerente_id_hidden);
+                $requerente->update([
+                    'status' => 3   // Pendente
                 ]);
+
+                // Operação concluída com êxito
+                DB::commit();
+
+                // Redirecionar o usuário, enviar a mensagem de sucesso
+                return redirect()->route('requerente.index')->with('success', 'Análise efetuada com sucesso!');
+
+            } catch (Exception $e) {
+
+                // Operação não é concluiída com êxito
+                DB::rollBack();
+
+                // Redirecionar o usuário, enviar a mensagem de erro
+                return back()->withInput()->with('error', 'Análise não efetuada, tente mais tarde!'. $e->getMessage());
             }
-
-            // Redirecionar o usuário, enviar a mensagem de sucesso
-            return redirect()->route('requerente.index')->with('success', 'Análise efetuada com sucesso!');
-
-        } catch (Exception $e) {
-
-            // Redirecionar o usuário, enviar a mensagem de erro
-            return back()->withInput()->with('error', 'Análise não efetuada, tente mais tarde!'. $e->getMessage());
         }
-
 
         /*
         foreach($ids as $id){

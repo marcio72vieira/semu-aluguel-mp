@@ -21,21 +21,180 @@ Sequência:
 
 
 
-<td>
-    <div style="margin-top: 7px">
-        <div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input aprovacao" type="radio" name="aprovado_{{ $documento->id }}" id="aprovado_{{ $documento->id }}sim" value="1" {{old("aprovado_$documento->id") == "1" ? "checked" : ""}}>
-                <label class="form-check-label" for="aprovado_{{ $documento->id }}sim">sim</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input aprovacao" type="radio" name="aprovado_{{ $documento->id }}" id="aprovado_{{ $documento->id }}nao" value="0" {{old("aprovado_$documento->id") == "0" ? "checked" : ""}}>
-                <label class="form-check-label" for="aprovado_{{ $documento->id }}nao">não</label>
-            </div>
-            <br>
-            @error("aprovado_{{ $documento->id }}")
-                <small style="color: red">{{$message}}</small>
-            @enderror
-        </div>
-    </div>
-</td>
+/////
+    // Aprovaçãod do Checklist
+    // public function update(ChecklistRequest $request)
+    public function update(ChecklistRequest $request)
+    {
+
+        // NOTA: Transformando o retorno de "$request_all()" em uma "collect" e aplicando o método "count" da "collect" para saber quantos registros possui
+        //$campos =  collect($request->all())->count();
+
+
+        // Transformando o valor do campo array_ids_documentos_hidden(que vem como uma string, aglutinando todos os ids dos registros), em um array novamente
+        $ids =  explode(',', $request->array_ids_documentos_hidden);
+
+        // Total de documentos analisados, independente de terem sidos aprovados ou não
+        $totalDocumentos = sizeof($ids);
+
+        // Acumulador para todos os documentos aprovados
+        $totalDocumentosAprovados = 0;
+
+        // Iterando sobre os documentos para saber se o mesmo foram aprovados ou não
+        foreach($ids as $id){
+
+            // Se aprovados soma mais um
+            if($request["aprovado_$id"] == 1){
+                $totalDocumentosAprovados = $totalDocumentosAprovados + 1;
+            }
+        }
+
+        if($totalDocumentosAprovados ==  $totalDocumentos){
+            //echo "SALVAR O PROCESSO (DOCUMENTOS MESCLADOS) NA TABELA PROCESSOS COM TODOS OS DADOS PERTINENTES AO REQUERNETE, USUÁRIO ETC... E NA TABELA DOCUMENTOS OS DEVIDOS CAMPOS DE QUEM FEZ A ANALISE ETC...";
+
+
+        }else{
+
+            // Define o campo status (na tabela requerente) para 3 (pendente), e atualiza na tabela documentos os demais campos referente a análise
+
+            // Validar o formulário
+            $request->validated();
+
+            // Marcar o ponto inicial de uma transação
+            DB::beginTransaction();
+
+            try {
+
+                // Recuperando o usuário autenticado responsavel pela análise dos documentos
+                $user = Auth::user();
+                $user = User::find($user->id);
+                $idAnalista = $user->id;    // Responsável pela análise dos documentos
+
+                // Transformando o valor do camo array_ids_documentos_hidden(que vem como uma string), em um array novamente
+                $ids =  explode(',', $request->array_ids_documentos_hidden);
+
+                foreach($ids as $id){
+                    // Recupera o documento
+                    $documento = Documento::find($id);
+
+                    // Atualiza os campos necessários
+                    $documento->update([
+                        'aprovado'      => $request["aprovado_$id"],
+                        'observacao'    => $request["observacao_$id"],
+                        'user_id'       => $idAnalista
+                    ]);
+                }
+
+                // Atualiza o status da situação do requerente (1-andamento; 2-análise; 3-pendnete; 4-concluído )
+                $requerente = Requerente::find($request->requerente_id_hidden);
+                $requerente->update([
+                    'status' => 3   // Pendente
+                ]);
+
+                // Operação concluída com êxito
+                DB::commit();
+
+                // Redirecionar o usuário, enviar a mensagem de sucesso
+                return redirect()->route('requerente.index')->with('success', 'Análise efetuada com sucesso!');
+
+            } catch (Exception $e) {
+
+                // Operação não é concluiída com êxito
+                DB::rollBack();
+
+                // Redirecionar o usuário, enviar a mensagem de erro
+                return back()->withInput()->with('error', 'Análise não efetuada, tente mais tarde!'. $e->getMessage());
+            }
+        }
+
+        /*
+        foreach($ids as $id){
+
+            //echo $request["aprovado_$id"]."<br>";
+            //echo $request["observacao_$id"]."<br>";
+
+            if($request["aprovado_$id"] == 0){
+                echo "Documento: ". $id . ", ". $request["observacao_$id"] ."<br>";
+            }
+        }
+        */
+
+    }
+
+
+//////////////////
+ UPDATE ORIGINAL
+//////////////////
+        // Aprovaçãod do Checklist
+    // public function update(ChecklistRequest $request)
+    public function update(ChecklistRequest $request)
+    {
+
+        // NOTA: Transformando o retorno de "$request_all()" em uma "collect" e aplicando o método "count" da "collect" para saber quantos registros possui
+        //$campos =  collect($request->all())->count();
+
+        // Define o campo status (na tabela requerente) para 3 (pendente), e atualiza na tabela documentos os demais campos referente a análise
+
+        // Validar o formulário
+        $request->validated();
+
+        // Marcar o ponto inicial de uma transação
+        DB::beginTransaction();
+
+        try {
+
+            // Recuperando o usuário autenticado responsavel pela análise dos documentos
+            $user = Auth::user();
+            $user = User::find($user->id);
+            $idAnalista = $user->id;    // Responsável pela análise dos documentos
+
+            // Transformando o valor do camo array_ids_documentos_hidden(que vem como uma string), em um array novamente
+            $ids =  explode(',', $request->array_ids_documentos_hidden);
+
+            foreach($ids as $id){
+                // Recupera o documento
+                $documento = Documento::find($id);
+
+                // Atualiza os campos necessários
+                $documento->update([
+                    'aprovado'      => $request["aprovado_$id"],
+                    'observacao'    => $request["observacao_$id"],
+                    'user_id'       => $idAnalista
+                ]);
+            }
+
+            // Atualiza o status da situação do requerente (1-andamento; 2-análise; 3-pendnete; 4-concluído )
+            $requerente = Requerente::find($request->requerente_id_hidden);
+            $requerente->update([
+                'status' => 3   // Pendente
+            ]);
+
+            // Operação concluída com êxito
+            DB::commit();
+
+            // Redirecionar o usuário, enviar a mensagem de sucesso
+            return redirect()->route('requerente.index')->with('success', 'Análise efetuada com sucesso!');
+
+        } catch (Exception $e) {
+
+            // Operação não é concluiída com êxito
+            DB::rollBack();
+
+            // Redirecionar o usuário, enviar a mensagem de erro
+            return back()->withInput()->with('error', 'Análise não efetuada, tente mais tarde!'. $e->getMessage());
+        }
+
+        /*
+        foreach($ids as $id){
+
+            //echo $request["aprovado_$id"]."<br>";
+            //echo $request["observacao_$id"]."<br>";
+
+            if($request["aprovado_$id"] == 0){
+                echo "Documento: ". $id . ", ". $request["observacao_$id"] ."<br>";
+            }
+        }
+        */
+
+    }
+

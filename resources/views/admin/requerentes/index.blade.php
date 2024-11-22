@@ -48,7 +48,14 @@
                             <td>{{ $requerente->municipio->nome }}</td>
                             <td>{{ $requerente->foneresidencial }} <br> {{ $requerente->fonecelular }} </td>
                             <td>{{ $requerente->cpf }} <br> {{ $requerente->rg }} {{ $requerente->orgaoexpedidor }}</td>
-                            <td>{{ $requerente->status == 1 ? "Pendente" : "Pendente" }}</td>
+                            {{-- <td>{{ ($requerente->status == 1 ? "...andamento" : ($requerente->status == 2 ? "...análise" : "pendente")) }}</td> --}}
+                            {{-- <td>{{ ($requerente->status == 1 ? "...andamento" : ($requerente->status == 2 ? "...análise" : ($requerente->status == 3 ? "pendente" : "concluído" ))) }}</td> --}}
+                            <td>
+                                @if($requerente->status == 1) <i class="fa-solid fa-shoe-prints"></i> andamento  @endif
+                                @if($requerente->status == 2) <i class="fa-solid fa-user-check"></i> análise @endif
+                                @if($requerente->status == 3) <i class="fa-solid fa-clock-rotate-left"></i> pendente  @endif
+                                @if($requerente->status == 4) <i class="fa-regular fa-circle-check"></i> concluído @endif
+                            </td>
                             <td class="flex-row d-md-flex justify-content-start align-content-stretch flex-wrap">
                                 {{-- <a href="{{ route('requerimento.index', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-info btn-sm me-1"> <i class="fa-regular fa-paste"></i> Requerimento </a> --}}
 

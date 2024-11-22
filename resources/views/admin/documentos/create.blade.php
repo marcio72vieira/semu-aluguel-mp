@@ -49,12 +49,10 @@
                                 <select name="tipodocumento_id" id="tipodocumento_id" class="form-control select2" required>
                                     <option value="" selected disabled>Escolha...</option>
                                     @foreach($tiposdocumentos  as $tipodocumento)
-                                        {{-- Exibe todos os documentos para seleção, exceto documentos processados --}}
-                                        @if ($tipodocumento->id != 1)
-                                            <option value="{{$tipodocumento->id}}" {{ old('tipodocumento_id') == $tipodocumento->id ? 'selected' : '' }} data-tipodocumento_ordem = "{{ $tipodocumento->ordem }}" style="font-color: red">
-                                                {{ $tipodocumento->nome }}
-                                            </option>
-                                        @endif
+                                        {{-- Exibe todos os documentos para seleção, exceto documentos processados  @if ($tipodocumento->id != 1) ... @endif --}}
+                                        <option value="{{$tipodocumento->id}}" {{ old('tipodocumento_id') == $tipodocumento->id ? 'selected' : '' }} data-tipodocumento_ordem = "{{ $tipodocumento->ordem }}" style="font-color: red">
+                                            {{ $tipodocumento->nome }}
+                                        </option>
                                     @endforeach
                                 </select>
 
@@ -104,25 +102,23 @@
 
                     <tbody>
                         @forelse ($documentos as $documento)
-                            {{-- Exibe todos os documentos anexados do requerente, com exceção do documento processado pelo servidor da semu  --}}
-                            @if ($documento->tipodocumento_id != 1)
-                                <tr>
-                                    <td>{{ $documento->id }}</th>
-                                    <td>{{ $documento->tipodocumento->nome }}</th>
-                                    <td> <a href="{{ asset('/storage/'.$documento->url) }}" target="_blank" title="Visualizar este documento"> <img src="{{ asset('images/documentos2.png') }}" width="30" style="margin-left: 25px;"> </a></td>
-                                    <td class="flex-row flex-wrap d-md-flex justify-content-start align-content-stretch">
-                                        <form id="formDelete{{ $documento->id }}" method="POST" action="{{ route('documento.destroy', ['documento' => $documento->id]) }}" style="margin-left: 10px;" title="Excluir este documento">
-                                            @csrf
-                                            @method('delete')
-                                            <button type="submit" class="btn btn-danger btn-sm btnDelete" data-delete-entidade="Documento" data-delete-id="{{ $documento->id }}"  data-value-record="{{ $documento->tipodocumento->nome }}">
-                                                <i class="fa-regular fa-trash-can"></i>
-                                            </button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            @endif
+                            {{-- Exibia todos os documentos anexados do requerente, com exceção do documento processado pelo servidor da semu   @if ($documento->tipodocumento_id != 1) ... @endif --}}
+                            <tr>
+                                <td>{{ $documento->id }}</th>
+                                <td>{{ $documento->tipodocumento->nome }}</th>
+                                <td> <a href="{{ asset('/storage/'.$documento->url) }}" target="_blank" title="Visualizar este documento"> <img src="{{ asset('images/documentos2.png') }}" width="30" style="margin-left: 25px;"> </a></td>
+                                <td class="flex-row flex-wrap d-md-flex justify-content-start align-content-stretch">
+                                    <form id="formDelete{{ $documento->id }}" method="POST" action="{{ route('documento.destroy', ['documento' => $documento->id]) }}" style="margin-left: 10px;" title="Excluir este documento">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="submit" class="btn btn-danger btn-sm btnDelete" data-delete-entidade="Documento" data-delete-id="{{ $documento->id }}"  data-value-record="{{ $documento->tipodocumento->nome }}">
+                                            <i class="fa-regular fa-trash-can"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
                         @empty
-                            <div class="alert alert-danger" role="alert">Nenhum documento encontrado! </div>
+                            <div class="alert alert-danger" role="alert">Nenhum documento vinculado! </div>
                         @endforelse
                     </tbody>
                 </table>
@@ -135,7 +131,7 @@
                     Este botão só deverá ser exibido, caso todos do documentos ativos esteja listados aqui.
                     Quando submeter para análise, o campo pendente(status) na tabela/view requerente deverá ser atualizado para "em análise e nada mais poderá ser feito em relação ao requerente, ou seja, nem cadastrar, nem editar, nem apagar"
                     --}}
-                    <a class="btn btn-success me-2" href="" role="button"  style="margin-left: 10px; margin-bottom: 15px; width: 200px;"><i class="fa-solid fa-user-check" style="margin-right: 5px;"></i> Enviar para Análise</a>
+                    <a class="btn btn-success me-2" href="" role="button"  style="margin-left: 110px; margin-bottom: 15px; width: 200px;"><i class="fa-solid fa-user-check" style="margin-right: 5px;"></i> Submeter a Análise</a>
                 </div>
             </div>
 
@@ -153,7 +149,7 @@
 
                 <div class="modal-body">
                     <table class="table table-sm">
-                        
+
                         <tbody>
                             @foreach($tiposdocumentos  as $tipodocumento)
                                 <tr>
@@ -164,7 +160,7 @@
                                                 <b><i class='fas fa-check text-success mr-2' style="font-size: 30px;"></i></b>
                                             @endif
                                         @endforeach
-                                        
+
                                     </td>
                                 </tr>
                             @endforeach
@@ -180,18 +176,18 @@
         </div>
     </div>
     {{-- fim modal --}}
- 
+
 @endsection
 
 @section('scripts')
     <script>
         // Atribui ao campo hidden o valor da ordem do tipo de documento atraves da propriedade "data-"
-        // Essa ordem é necessária para compor o nome do arquivo físico (Ex: doc_01_tempo.pdf, doc_02_tempo.pdf, ... doc_10_tempo.pdf) 
-        // que é de fundamental importância para a ordem de mesclagem dos arquivos pdfs. 
+        // Essa ordem é necessária para compor o nome do arquivo físico (Ex: doc_01_tempo.pdf, doc_02_tempo.pdf, ... doc_10_tempo.pdf)
+        // que é de fundamental importância para a ordem de mesclagem dos arquivos pdfs.
         // A mesclagem tem que ser na ordem do check-list fornecido pelo cliente ou qualquer outra ordem que o mesmo definir.
         // O valor do campo "tipodocumento_ordem_hidden" é fornecido pela propriedade data-, já que no select, o único valor que
-        // pode ser passado para o processamento da requisição através da request, é o value da "option". 
-        // Resumindo. Uma forma de passar vários valores para o processamento da requisição, é através da criação de campos do 
+        // pode ser passado para o processamento da requisição através da request, é o value da "option".
+        // Resumindo. Uma forma de passar vários valores para o processamento da requisição, é através da criação de campos do
         // do tipo "hidden" e definindo seus valores através das propriedades data-, como no script abaixo.
         $("#tipodocumento_id").on("change", function() {
 
