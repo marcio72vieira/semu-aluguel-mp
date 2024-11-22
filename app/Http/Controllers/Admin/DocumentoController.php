@@ -111,6 +111,24 @@ class DocumentoController extends Controller
         // Transformao retorno de $request_all() em uma collect e aplica o método count da collect //$campos =  collect($request->all())->count();
 
 
+        // Transformando o valor do camo array_ids_documentos_hidden(que vem como uma string), em um array novamente
+        $ids =  explode(',', $request->array_ids_documentos_hidden);
+        $aprovado = "";
+        foreach($ids as $id){
+            if($request["aprovado_$id"] == 1){
+                $aprovado = "sim";
+            }else{
+                $aprovado = "nao";
+            }
+        }
+        if($aprovado = "sim"){
+            // executa o merge e grava na tabela processo todos as informações da requerente
+        }else{
+            // executa o update abaixo e retorna para o Assistente Social tomar conhecimento das notificações
+        }
+        dd($request);
+        
+
         // Validar o formulário
         $request->validated();
 

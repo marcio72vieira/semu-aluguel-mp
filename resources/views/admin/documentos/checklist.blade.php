@@ -114,14 +114,16 @@
                         {{-- <a class="btn btn-outline-secondary me-2" href="{{ url()->previous() }}" role="button">Cancelar</a> --}}
                         <a class="btn btn-outline-secondary me-2" href="{{ route('requerente.index') }}" role="button" style="width: 160px;">Cancelar</a>
 
-                        <button type="submit" class="btn btn-primary me-4" style="width: 160px;" name="anexar"> Concluir Análise </button>
+                        <button type="submit" class="btn btn-primary me-4" id="analise-processo" style="width: 180px;"><i class='fa-solid fa-arrow-rotate-left'></i> Notificar Análise </button>
 
                         {{--
                         Este botão só dever ser exibido se todos os documentos forem aprovados, ou seja, não houver pendências (aprovado = não)
                         Quando submeter para análise, o campo pendente(status) na tabela requerente deverá ser atualizado para "em análise e nada mais poderá ser feito em relação ao requerente, ou seja, nem cadastrar, nem editar, nem apagar"
                         se o requerente não passar na análise, os botẽos de editar, visualizr docuemntos poderão ser habilitados novamente.
                         --}}
+                        {{--
                         <a style="visibility:hidden" class="btn btn-danger me-1" href="{{ route('documento.merge', ['requerente' => $requerente->id]) }}"  id="button-mesclar"><i class="fa-solid fa-layer-group"></i> Mesclar </a>
+                        --}}
                     </div>
                 </div>
             </form>
@@ -190,6 +192,27 @@
             });
 
             if(qtdSim == (qtdRadioButtonSimNao / 2)){
+                $("#analise-processo").html("<i class='fa-solid fa-layer-group'></i> Gerar Processo");
+            }else{
+                $("#analise-processo").html("<i class='fa-solid fa-arrow-rotate-left'></i> Notificar Análise");
+            }
+
+        }
+
+        /* 
+        function exibeBotaoAnalise() {
+            var qtdRadioButtonSimNao = $('.aprovacao').length;
+            var qtdSim = 0;
+
+            $(".aprovacao").each(function() {
+                if($(this).is(':checked')){
+                    if($(this).val() == 1){
+                        qtdSim = qtdSim + 1;
+                    }
+                }
+            });
+
+            if(qtdSim == (qtdRadioButtonSimNao / 2)){
 
                 $("#button-mesclar").css("visibility", "visible");
                 $("#button-mesclar").html("<i class='fa-solid fa-layer-group'></i> Gerar Processo");
@@ -199,7 +222,8 @@
                 $("#button-mesclar").html("<i class='fa-solid fa-arrow-rotate-left'></i> Retornar Origem");
             }
 
-        }
+        } 
+        */
 
     </script>
 
