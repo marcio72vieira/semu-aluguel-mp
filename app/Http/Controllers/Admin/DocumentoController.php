@@ -202,14 +202,14 @@ class DocumentoController extends Controller
                 $arr_identidadegenero = ['1' => 'Feminino', '2' => 'Transexual', '3' => 'Travesti', '4' => 'Transgênero', '20' => 'Outra'];
                 $arr_orientacaosexual = ['1'=>'Homossexual', '2'=>'Heterossexual', '3'=>'Bissexual', '20'=>'Outra'];
                 $arr_deficiente = ['1' => 'sim', '2' => 'não'];
+                $arr_estadocivil = ['1' => 'Solteira', '2' => 'Casada', '3' => 'Divorciada', '4' => 'Viúva', '20' => 'Outro'];
 
                 //Armazenando o caminho do arquivo mesclado (processo gerado) no Banco de Dados na tabela "processos"
                 $processo = new Processo();
                     //$processo->url = 'documentos/requerente_'.$requerenteId.'/arquivos_mesclados.pdf';
                     $processo->url = 'processos/processo_'.$requerenteId.'.pdf';
-
-                    //--- incluir este campo na migration e no model 
-                    //----$processo->requerente_id = $requerente->id;
+ 
+                    $processo->requerente_id = $requerente->id;
                     $processo->nomecompleto = $requerente->nomecompleto;
                     $processo->rg = $requerente->rg;
                     $processo->orgaoexpedidor = $requerente->orgaoexpedidor;
@@ -218,27 +218,45 @@ class DocumentoController extends Controller
                     $processo->agencia = $requerente->agencia;
                     $processo->conta = $requerente->conta;
                     $processo->contaespecifica = $requerente->contaespecifica;
-
                     $processo->comunidade_id = $requerente->comunidade;
                     $processo->comunidade = $arr_comunidade[$requerente->comunidade];
                     $processo->outracomunidade = $requerente->outracomunidade;
-
                     $processo->racacor_id = $requerente->racacor;
                     $processo->racacor = $arr_racacor[$requerente->racacor];
                     $processo->outraracacor = $requerente->outraracacor;
-
                     $processo->identidadegenero_id = $requerente->identidadegenero;
                     $processo->identidadegenero = $arr_identidadegenero[$requerente->identidadegenero];
                     $processo->outraidentidadegenero = $requerente->outraidentidadegenero;
-
                     $processo->orientacaosexual_id = $requerente->orientacaosexual;
                     $processo->orientacaosexual = $arr_orientacaosexual[$requerente->orientacaosexual];
                     $processo->outraorientacaosexual = $requerente->outraorientacaosexual;
-
                     $processo->deficiente_id = $requerente->deficiente;
                     $processo->deficiente = $arr_deficiente[$requerente->deficiente];
                     $processo->deficiencia = $requerente->deficiencia;
-
+                    $processo->sexobiologico = $requerente->sexobiologico;
+                    $processo->nacionalidade = $requerente->nacionalidade;
+                    $processo->profissao = $requerente->profissao;
+                    $processo->estadocivil_id = $requerente->estadocivil;
+                    $processo->estadocivil = $arr_estadocivil[$requerente->estadocivil];
+                    $processo->endereco = $requerente->endereco;
+                    $processo->numero = $requerente->numero;
+                    $processo->complemento = $requerente->complemento;
+                    $processo->bairro = $requerente->bairro;
+                    $processo->cep = $requerente->cep;
+                    $processo->foneresidencial = $requerente->foneresidencial;
+                    $processo->fonecelular = $requerente->fonecelular;
+                    $processo->email = $requerente->email;
+                    $processo->regional_id = $requerente->regional_id;
+                    $processo->regional = $requerente->regional->nome;
+                    $processo->municipio_id = $requerente->municipio_id;
+                    $processo->municipio = $requerente->municipio->nome;
+                    $processo->tipounidade_id = $requerente->tipounidade_id;
+                    $processo->tipounidade = $requerente->tipounidade->nome;
+                    $processo->unidadeatendimento_id = $requerente->unidadeatendimento_id;
+                    $processo->unidadeatendimento = $requerente->unidadeatendimento->nome;
+                    $processo->datacadastro = $requerente->created_at;                          // data em que a Requerente foi cadastrada no Sistema
+                    
+                    // campos referene ao processo judicial e ao questionário
                   
                     $processo->assistente_id = $requerente->user->id;
                     $processo->assistente = $requerente->user->nomecompleto;

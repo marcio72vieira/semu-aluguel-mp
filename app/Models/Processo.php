@@ -13,6 +13,7 @@ class Processo extends Model
 
     protected $fillable = [
         'url',
+        'requerente_id',
         'nomecompleto',
         'rg',
         'orgaoexpedidor',
@@ -30,13 +31,13 @@ class Processo extends Model
         'identidadegenero_id',
         'identidadegenero',
         'outraidentidadegenero',
-        'sexobiologico',
         'orientacaosexual_id',
         'orientacaosexual',
         'outraorientacaosexual',
         'deficiente_id',
         'deficiente',
         'deficiencia',
+        'sexobiologico',
         'nacionalidade',
         'profissao',
         'estadocivil_id',

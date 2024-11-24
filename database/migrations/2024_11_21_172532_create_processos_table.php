@@ -45,12 +45,13 @@ return new class extends Migration
             $table->string('orientacaosexual')->nullable();
             $table->string('outraorientacaosexual')->nullable();
 
-            $table->string('sexobiologico')->nullable();
-
+            
             $table->integer('deficiente_id')->nullable();
             $table->string('deficiente')->nullable();
             $table->string('deficiencia')->nullable();
-
+            
+            $table->string('sexobiologico')->nullable();
+            
             $table->string('nacionalidade')->nullable();
             $table->string('profissao')->nullable();
 
