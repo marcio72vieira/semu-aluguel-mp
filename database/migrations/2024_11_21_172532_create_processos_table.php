@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('url');
 
             // Campos referente ao cadastro da Requerente
+            $table->integer('requerente_id')->nullable();
             $table->string('nomecompleto')->nullable();
             $table->string('rg')->nullable();
             $table->string('orgaoexpedidor')->nullable();
@@ -39,12 +40,12 @@ return new class extends Migration
             $table->integer('identidadegenero_id')->nullable();
             $table->string('identidadegenero')->nullable();
             $table->string('outraidentidadegenero')->nullable();
-
-            $table->string('sexobiologico')->nullable();
-
+            
             $table->integer('orientacaosexual_id')->nullable();
             $table->string('orientacaosexual')->nullable();
             $table->string('outraorientacaosexual')->nullable();
+
+            $table->string('sexobiologico')->nullable();
 
             $table->integer('deficiente_id')->nullable();
             $table->string('deficiente')->nullable();

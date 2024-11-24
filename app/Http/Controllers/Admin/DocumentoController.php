@@ -132,9 +132,11 @@ class DocumentoController extends Controller
             }
         }
 
+        // Verifica se todos os documentos analisados foram aprovados. Se  verdade (gera o processo). Se falso (retorna para correção)
         if($totalDocumentosAprovados ==  $totalDocumentos){
 
             // INICIO SALVAR PROCESSO
+
             // Cria um diretório "processos", caso o diretório não exista.
             if(!Storage::exists("processos")){
                 //Storage::makeDirectory($path, 0777, true, true);
@@ -194,16 +196,65 @@ class DocumentoController extends Controller
                 $idUsuario = $user->id;
                 $nomeUsuario = $user->nomecompleto;
 
+                // Formação de Arrays dos campos selects
+                $arr_comunidade = ['1' => 'Cigano', '2' => 'Quilombola', '3' => 'Matriz Africana', '4' => 'Indígena', '5' => 'Assentado / acampado', '6' => 'Pessoa do campo / floresta', '7' => 'Pessoa em situação de rua', '20' => 'Outra'];
+                $arr_racacor = ['1' => 'Branca', '2' => 'Preta', '3' => 'Amarela', '4' => 'Parda', '5' => 'Indígena', '6' => 'Não se aplica', '20' => 'Outra'];
+                $arr_identidadegenero = ['1' => 'Feminino', '2' => 'Transexual', '3' => 'Travesti', '4' => 'Transgênero', '20' => 'Outra'];
+                $arr_orientacaosexual = ['1'=>'Homossexual', '2'=>'Heterossexual', '3'=>'Bissexual', '20'=>'Outra'];
+                $arr_deficiente = ['1' => 'sim', '2' => 'não'];
+
                 //Armazenando o caminho do arquivo mesclado (processo gerado) no Banco de Dados na tabela "processos"
                 $processo = new Processo();
                     //$processo->url = 'documentos/requerente_'.$requerenteId.'/arquivos_mesclados.pdf';
                     $processo->url = 'processos/processo_'.$requerenteId.'.pdf';
+
+                    //--- incluir este campo na migration e no model 
+                    //----$processo->requerente_id = $requerente->id;
+                    $processo->nomecompleto = $requerente->nomecompleto;
+                    $processo->rg = $requerente->rg;
+                    $processo->orgaoexpedidor = $requerente->orgaoexpedidor;
+                    $processo->cpf = $requerente->cpf;
+                    $processo->banco = $requerente->banco;
+                    $processo->agencia = $requerente->agencia;
+                    $processo->conta = $requerente->conta;
+                    $processo->contaespecifica = $requerente->contaespecifica;
+
+                    $processo->comunidade_id = $requerente->comunidade;
+                    $processo->comunidade = $arr_comunidade[$requerente->comunidade];
+                    $processo->outracomunidade = $requerente->outracomunidade;
+
+                    $processo->racacor_id = $requerente->racacor;
+                    $processo->racacor = $arr_racacor[$requerente->racacor];
+                    $processo->outraracacor = $requerente->outraracacor;
+
+                    $processo->identidadegenero_id = $requerente->identidadegenero;
+                    $processo->identidadegenero = $arr_identidadegenero[$requerente->identidadegenero];
+                    $processo->outraidentidadegenero = $requerente->outraidentidadegenero;
+
+                    $processo->orientacaosexual_id = $requerente->orientacaosexual;
+                    $processo->orientacaosexual = $arr_orientacaosexual[$requerente->orientacaosexual];
+                    $processo->outraorientacaosexual = $requerente->outraorientacaosexual;
+
+                    $processo->deficiente_id = $requerente->deficiente;
+                    $processo->deficiente = $arr_deficiente[$requerente->deficiente];
+                    $processo->deficiencia = $requerente->deficiencia;
+
+                  
+                    $processo->assistente_id = $requerente->user->id;
+                    $processo->assistente = $requerente->user->nomecompleto;
                     $processo->funcionariosemu_id = $idUsuario;
                     $processo->funcionario = $nomeUsuario;
                 $processo->save();
 
+                // Atualiza o status da situação do requerente (1-andamento; 2-análise; 3-pendnete; 4-concluído )
+                $requerente = Requerente::find($request->requerente_id_hidden);
+                $requerente->update([
+                    'status' => 4   // Concluído
+                ]);
+
                 // Redirecionar o usuário, enviar a mensagem de sucesso
-                return redirect()->route('documento.index', ['requerente' => $requerenteId])->with('success', 'PROCESSO gerado com sucesso!');
+                // return redirect()->route('documento.index', ['requerente' => $requerenteId])->with('success', 'PROCESSO gerado com sucesso!');
+                return redirect()->route('requerente.index')->with('success', 'PROCESSO gerado com sucesso!');
 
             }
 
