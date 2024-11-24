@@ -114,7 +114,6 @@ class DocumentoController extends Controller
         // NOTA: Transformando o retorno de "$request_all()" em uma "collect" e aplicando o método "count" da "collect" para saber quantos registros possui
         //$campos =  collect($request->all())->count();
 
-
         // Transformando o valor do campo array_ids_documentos_hidden(que vem como uma string, aglutinando todos os ids dos registros), em um array novamente
         $ids =  explode(',', $request->array_ids_documentos_hidden);
 
@@ -136,6 +135,12 @@ class DocumentoController extends Controller
         if($totalDocumentosAprovados ==  $totalDocumentos){
 
             // INICIO SALVAR PROCESSO
+            // Cria um diretório "processos", caso o diretório não exista.
+            if(!Storage::exists("processos")){
+                //Storage::makeDirectory($path, 0777, true, true);
+                Storage::disk('public')->makeDirectory("processos");
+            }
+        
 
             // Obtendo o REQUERENTE através do campo id_requerene_hidden a qual pertencerá o processo
             $requerente = Requerente::find($request->requerente_id_hidden);
@@ -158,15 +163,20 @@ class DocumentoController extends Controller
             }
 
             // Criar um aquivo vazio no diretório atual.
-            file_put_contents(getcwd() . "/storage/documentos/requerente_".$requerenteId."/arquivos_mesclados.pdf", "");
-            //file_put_contents(getcwd() . "/storage/processos/processo_".$requerenteId.".pdf", "");
+            // file_put_contents(getcwd() . "/storage/documentos/requerente_".$requerenteId."/arquivos_mesclados.pdf", "");
+            // file_put_contents(getcwd() . "/storage/processos/processo_".$requerenteId.".pdf", "");
+            file_put_contents(getcwd() . "/storage/processos/processo_$requerenteId.pdf", "");
 
-            //$command = "gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=" . getcwd() . "/storage/documentos/requerente_".$requerenteId."/arquivos_mesclados.pdf ";
-            $command = "gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=" . getcwd() . "/storage/processos/processo_".$requerenteId.".pdf ";
+            // Obs: O "espaço em branco" no final do comando é fundamental para o funcionamento do mesmos.
+            // $command = "gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=" . getcwd() . "/storage/documentos/requerente_".$requerenteId."/arquivos_mesclados.pdf ";
+            // $command = "gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=" . getcwd() . "/storage/processos/processo_".$requerenteId.".pdf ";
+            $command = "gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=" . getcwd() . "/storage/processos/processo_$requerenteId.pdf ";
 
+
+            // Iterando sobre os arquivos, na pasta original onde os mesmos se encontram. 
+            // Resgata o conteúdo de cada arquivo para mesclar no arquivo final. Observe o "espaco em branco" no final do comando.
             foreach ($arraySoComONomeDosArquivos as $file) {
-                //$command .= getcwd() . "/storage/documentos/requerente_".$requerenteId."/" . $file . " ";
-                $command .= getcwd() . "/storage/processos/processo_".$requerenteId."/" . $file . " ";
+                $command .= getcwd() . "/storage/documentos/requerente_".$requerenteId."/" . $file . " ";               
             }
 
             $command .= "2&>1";

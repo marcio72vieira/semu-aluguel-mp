@@ -46,6 +46,8 @@
                                     </span>
                                 </label>
 
+                                {{-- {{ $documentosAnexados = $documentos->count() }} de {{ $totalTipoDocumentoAtivo = $tiposdocumentos->count() }} --}}
+
                                 <select name="tipodocumento_id" id="tipodocumento_id" class="form-control select2" required>
                                     <option value="" selected disabled>Escolha...</option>
                                     @foreach($tiposdocumentos  as $tipodocumento)
@@ -127,11 +129,13 @@
 
             <div class="row">
                 <div class="col-2 offset-10">
-                    {{--
-                    Este botão só deverá ser exibido, caso todos do documentos ativos esteja listados aqui.
-                    Quando submeter para análise, o campo pendente(status) na tabela/view requerente deverá ser atualizado para "em análise e nada mais poderá ser feito em relação ao requerente, ou seja, nem cadastrar, nem editar, nem apagar"
+                    {{-- Butão deve ser exibido quando todos os documentos exigidos estiverem anexados
+                         O campo status (pendente) tabela "requerente" deverá ser atualizado para "em análise"
+                         Desabilitar todas as operações ref. ao requerente, ou seja, desabillitar: nem cadastrar, nem editar, nem consultar, anexos e documentos
                     --}}
-                    <a class="btn btn-success me-2" href="" role="button"  style="margin-left: 110px; margin-bottom: 15px; width: 200px;"><i class="fa-solid fa-user-check" style="margin-right: 5px;"></i> Submeter a Análise</a>
+                    @if ($documentos->count() >= $tiposdocumentos->count())
+                        <a class="btn btn-success me-2" href="" role="button"  style="margin-left: 10px; margin-bottom: 15px; width: 200px;"><i class="fa-solid fa-user-check" style="margin-right: 5px;"></i> Submeter a Análise</a>
+                    @endif
                 </div>
             </div>
 
@@ -157,7 +161,7 @@
                                         <span style="font-size: 12px;">{{$tipodocumento->nome}}</span>
                                         @foreach ( $documentos as $documento )
                                             @if ($documento->tipodocumento_id == $tipodocumento->id)
-                                                <b><i class='fas fa-check text-success mr-2' style="font-size: 30px;"></i></b>
+                                                <b><i class='mr-2 fas fa-check text-success' style="font-size: 30px;"></i></b>
                                             @endif
                                         @endforeach
 
