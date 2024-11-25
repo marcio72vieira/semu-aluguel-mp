@@ -30,7 +30,8 @@ class DocumentoController extends Controller
     {
         // Recuperando os tipos de documentos para compor o campo select
         // $tiposdocumentos = Tipodocumento::where('ativo', '=', '1')->orderBy('nome', 'ASC')->get();
-        $tiposdocumentos = Tipodocumento::where('ativo', '=', '1')->where('id', '>', '1')->orderBy('nome', 'ASC')->get();
+        //$tiposdocumentos = Tipodocumento::where('ativo', '=', '1')->where('id', '>', '1')->orderBy('nome', 'ASC')->get();
+        $tiposdocumentos = Tipodocumento::where('ativo', '=', '1')->orderBy('nome', 'ASC')->get();
 
         // Recuperando todos os documentos anexados da requerente
         $documentos =  Documento::where('requerente_id', '=', $requerente->id)->orderBy('ordem', 'ASC')->get();
@@ -142,7 +143,7 @@ class DocumentoController extends Controller
                 //Storage::makeDirectory($path, 0777, true, true);
                 Storage::disk('public')->makeDirectory("processos");
             }
-        
+
 
             // Obtendo o REQUERENTE através do campo id_requerene_hidden a qual pertencerá o processo
             $requerente = Requerente::find($request->requerente_id_hidden);
@@ -175,10 +176,10 @@ class DocumentoController extends Controller
             $command = "gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=" . getcwd() . "/storage/processos/processo_$requerenteId.pdf ";
 
 
-            // Iterando sobre os arquivos, na pasta original onde os mesmos se encontram. 
+            // Iterando sobre os arquivos, na pasta original onde os mesmos se encontram.
             // Resgata o conteúdo de cada arquivo para mesclar no arquivo final. Observe o "espaco em branco" no final do comando.
             foreach ($arraySoComONomeDosArquivos as $file) {
-                $command .= getcwd() . "/storage/documentos/requerente_".$requerenteId."/" . $file . " ";               
+                $command .= getcwd() . "/storage/documentos/requerente_".$requerenteId."/" . $file . " ";
             }
 
             $command .= "2&>1";
@@ -201,14 +202,14 @@ class DocumentoController extends Controller
                 $arr_racacor = ['1' => 'Branca', '2' => 'Preta', '3' => 'Amarela', '4' => 'Parda', '5' => 'Indígena', '6' => 'Não se aplica', '20' => 'Outra'];
                 $arr_identidadegenero = ['1' => 'Feminino', '2' => 'Transexual', '3' => 'Travesti', '4' => 'Transgênero', '20' => 'Outra'];
                 $arr_orientacaosexual = ['1'=>'Homossexual', '2'=>'Heterossexual', '3'=>'Bissexual', '20'=>'Outra'];
-                $arr_deficiente = ['1' => 'sim', '2' => 'não'];
+                $arr_deficiente = ['0' => 'não', '1' => 'sim'];
                 $arr_estadocivil = ['1' => 'Solteira', '2' => 'Casada', '3' => 'Divorciada', '4' => 'Viúva', '20' => 'Outro'];
 
                 //Armazenando o caminho do arquivo mesclado (processo gerado) no Banco de Dados na tabela "processos"
                 $processo = new Processo();
                     //$processo->url = 'documentos/requerente_'.$requerenteId.'/arquivos_mesclados.pdf';
                     $processo->url = 'processos/processo_'.$requerenteId.'.pdf';
- 
+
                     $processo->requerente_id = $requerente->id;
                     $processo->nomecompleto = $requerente->nomecompleto;
                     $processo->rg = $requerente->rg;
@@ -255,13 +256,36 @@ class DocumentoController extends Controller
                     $processo->unidadeatendimento_id = $requerente->unidadeatendimento_id;
                     $processo->unidadeatendimento = $requerente->unidadeatendimento->nome;
                     $processo->datacadastro = $requerente->created_at;                          // data em que a Requerente foi cadastrada no Sistema
-                    
+
                     // campos referene ao processo judicial e ao questionário
-                  
+                    $processo->processojudicial = $requerente->detalhe->processojudicial;
+                    $processo->orgaojudicial = $requerente->detalhe->orgaojudicial;
+                    $processo->comarca = $requerente->detalhe->comarca;
+                    $processo->prazomedidaprotetiva = $requerente->detalhe->prazomedidaprotetiva;
+                    $processo->dataconcessaomedidaprotetiva = $requerente->detalhe->dataconcessaomedidaprotetiva;
+                    $processo->medproturgcaminhaprogoficial = $requerente->detalhe->medproturgcaminhaprogoficial;
+                    $processo->medproturgafastamentolar = $requerente->detalhe->medproturgafastamentolar;
+                    $processo->riscmortvioldomesmoradprotegsigilosa = $requerente->detalhe->riscmortvioldomesmoradprotegsigilosa;
+                    $processo->riscvidaaguardmedproturg = $requerente->detalhe->riscvidaaguardmedproturg;
+                    $processo->relatodescomprmedproturgagressor = $requerente->detalhe->relatodescomprmedproturgagressor;
+                    $processo->sitvulnerabnaoconsegarcardespmoradia = $requerente->detalhe->sitvulnerabnaoconsegarcardespmoradia;
+                    $processo->temrendfamiliardoissalconvivagressor = $requerente->detalhe->temrendfamiliardoissalconvivagressor;
+                    $processo->paiavofilhonetomaiormesmomunicipresid = $requerente->detalhe->paiavofilhonetomaiormesmomunicipresid;
+                    $processo->parentesmesmomunicipioresidencia = $requerente->detalhe->parentesmesmomunicipioresidencia;
+                    $processo->filhosmenoresidade = $requerente->detalhe->filhosmenoresidade;
+                    $processo->trabalhaougerarenda = $requerente->detalhe->trabalhaougerarenda;
+                    $processo->valortrabalhorenda = $requerente->detalhe->valortrabalhorenda;
+                    $processo->temcadunico = $requerente->detalhe->temcadunico;
+                    $processo->teminteresformprofisdesenvolvhabilid = $requerente->detalhe->teminteresformprofisdesenvolvhabilid;
+                    $processo->apresentoudocumentoidentificacao = $requerente->detalhe->apresentoudocumentoidentificacao;
+                    $processo->cumprerequisitositensnecessarios = $requerente->detalhe->cumprerequisitositensnecessarios;
+
+                    // Campos referente ao Assisente Social, responsável pelo cadastro e ao Servidor da SEMU, responsavel pelo checklist
                     $processo->assistente_id = $requerente->user->id;
                     $processo->assistente = $requerente->user->nomecompleto;
                     $processo->funcionariosemu_id = $idUsuario;
                     $processo->funcionario = $nomeUsuario;
+
                 $processo->save();
 
                 // Atualiza o status da situação do requerente (1-andamento; 2-análise; 3-pendnete; 4-concluído )

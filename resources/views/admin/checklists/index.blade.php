@@ -3,7 +3,7 @@
 @section('content')
 <div class="px-4 container-fluid">
     <div class="mb-1 hstack gap-2">
-        <h2 class="mt-3">REQUERENTES - lista</h2>
+        <h2 class="mt-3">CHECK LIST REQUERENTES</h2>
         {{-- <ol class="breadcrumb mb-3 mt-3 ms-auto">
             <li class="breadcrumb-item"><a href="">Dashboard</a></li>
             <li class="breadcrumb-item"><a class="text-decoration-none" href="">Requerentes</a></li>
@@ -13,7 +13,7 @@
     <div class="mb-4 shadow card border-light">
         <div class="card-header hstack gap-2">
             <span class="ms-auto d-sm-flex flex-row mt-1 mb-1">
-                <a href="{{ route('requerente.create') }}" class="btn btn-success btn-sm me-1"><i class="fa-regular fa-square-plus"></i> Cadastrar </a>
+                <a href="{{ route('requerente.create') }}" class="btn btn-success btn-sm me-1"><i class="fa-solid fa-magnifying-glass"></i> Filtrar </a>
                 {{-- <a href="{{ route('user.pdflistusers') }}" class="btn btn-danger btn-sm me-1" target="_blank"><i class="fa-solid fa-file-pdf"></i> pdf</a> --}}
             </span>
         </div>
@@ -29,13 +29,13 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Nome</th>
-                        <th class="d-none d-md-table-cell">Unidade Atendimento</th>
+                        <th>Requerente</th>
                         <th class="d-none d-md-table-cell">Município</th>
+                        <th class="d-none d-md-table-cell">Unidade Atendimento</th>
+                        <th>Assitente Social</th>
                         <th>Telefones</th>
-                        <th class="d-none d-md-table-cell">CPF / RG</th>
                         <th class="d-none d-md-table-cell">Status</th>
-                        <th width="35%">Ações</th>
+                        <th width="35%">Ação</th>
                     </tr>
                 </thead>
 
@@ -44,12 +44,10 @@
                         <tr>
                             <td>{{ $requerente->id }}</th>
                             <td>{{ $requerente->nomecompleto }}</th>
+                                <td>{{ $requerente->municipio->nome }}</td>
                             <td>{{ $requerente->unidadeatendimento->nome }}</td>
-                            <td>{{ $requerente->municipio->nome }}</td>
+                            <td>{{ $requerente->user->nomecompleto }}</td>
                             <td>{{ $requerente->foneresidencial }} <br> {{ $requerente->fonecelular }} </td>
-                            <td>{{ $requerente->cpf }} <br> {{ $requerente->rg }} {{ $requerente->orgaoexpedidor }}</td>
-                            {{-- <td>{{ ($requerente->status == 1 ? "...andamento" : ($requerente->status == 2 ? "...análise" : "pendente")) }}</td> --}}
-                            {{-- <td>{{ ($requerente->status == 1 ? "...andamento" : ($requerente->status == 2 ? "...análise" : ($requerente->status == 3 ? "pendente" : "concluído" ))) }}</td> --}}
                             <td>
                                 @if($requerente->status == 1) <span style="font-size: 14px;"> <i class="fa-solid fa-shoe-prints"></i> andamento </span> @endif  {{-- falta anexar todos os documentos --}}
                                 @if($requerente->status == 2) <span style="font-size: 14px;"> <i class="fa-solid fa-user-check"></i> análise  </span> @endif    {{-- os documentos foram enviados para análise depois de anexar os documentos --}}
@@ -57,40 +55,10 @@
                                 @if($requerente->status == 4) <span style="font-size: 14px;"> <i class="fa-regular fa-circle-check"></i> concluído  </span> @endif {{-- O check list foi feito e o processo foi gerado --}}
                             </td>
                             <td class="flex-row d-md-flex justify-content-start align-content-stretch flex-wrap">
-                                {{-- <a href="{{ route('requerimento.index', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-info btn-sm me-1"> <i class="fa-regular fa-paste"></i> Requerimento </a> --}}
-
-                                <a href="{{ route('requerente.show', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-primary btn-sm me-1">
-                                    <i class="fa-regular fa-eye"></i> Visualizar
-                                </a>
-
-                                <a href="{{ route('requerente.edit', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-warning btn-sm me-1">
-                                    <i class="fa-solid fa-pen-to-square"></i> Editar
-                                </a>
-
-                                <a href="{{ route('requerente.relpdfrequerente', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-danger btn-sm me-1" target="_blank">
-                                    <i class="fa-solid fa-file-pdf"></i> Anexos
-                                </a>
-                                {{-- <a href="{{ route('documento.index', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-info btn-sm me-1">
-                                    <i class="fas fa-upload"></i> Documentos
-                                </a> --}}
-
-                                <a href="{{ route('documento.create', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-info btn-sm me-1">
-                                    <i class="fas fa-upload"></i> Documentos
-                                </a>
-
                                 <a href="{{ route('documento.index', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-warning btn-sm me-1">
-                                    <i class="fa-solid fa-list-check"></i> Check List
+                                    <i class="fa-solid fa-list-check"></i> Analisar
                                 </a>
-
-                                <form id="formDelete{{ $requerente->id }}" method="POST" action="{{ route('requerente.destroy', ['requerente' => $requerente->id]) }}">
-                                    @csrf
-                                    @method('delete')
-                                    <button type="submit" class="mb-3 btn btn-danger btn-sm me-1 btnDelete" data-delete-entidade="Requerente" data-delete-id="{{ $requerente->id }}"  data-value-record="{{ $requerente->nomecompleto }}">
-                                        <i class="fa-regular fa-trash-can"></i> Apagar
-                                    </button>
-                                </form>
                             </td>
-
                         </tr>
                     @empty
                         <div class="alert alert-danger" role="alert">Nenhum Requerente encontrado!</div>

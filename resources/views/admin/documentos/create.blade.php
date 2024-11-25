@@ -11,8 +11,8 @@
                 <span class="p-3 small text-danger"><strong>Campo marcado com * é de preenchimento obrigatório!</strong></span>
             </div>
 
+            {{-- Formulário para anexar documentos --}}
             <div class="card-body">
-
                 <form action="{{ route('documento.store') }}" method="POST" enctype="multipart/form-data" autocomplete="off">
                     @csrf
                     @method('POST')
@@ -33,32 +33,44 @@
                             </div>
                         </div>
 
-                        {{-- tipodocumento_id --}}
                         {{-- identificacao da ordem do documento --}}
                         <input type="hidden" name="ordem_hidden" id="ordem_hidden" value="1">
+
+                        {{-- tipodocumento_id --}}
                         <div class="col-6">
                             <div class="form-group focused">
                                 <label class="form-control-label" for="tipodocumento_id">Documento<span class="small text-danger">*</span>
+                                    {{-- Exibe a modal com os documentos que já foram anexados para guiar o assistente social --}}
                                     <span>
                                         <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal" title="Documentos Anexados">
-                                            <i class="fas fa-question-circle"></i>
+                                            <i class="fas fa-question-circle"style="font-size: 15px; margin-left: 10px;"></i>
                                         </a>
                                     </span>
                                 </label>
 
                                 {{-- {{ $documentosAnexados = $documentos->count() }} de {{ $totalTipoDocumentoAtivo = $tiposdocumentos->count() }} --}}
 
+                                @php
+                                    // Arrays para recuperar todos os TIPOSDEDOCUMENTOS(ativos) e DOCUEMNTOS(à medida que forem anexados)
+                                    $arr_tiposdocumentos = [];
+                                    $arr_documentos = [];
+                                @endphp
+
                                 <select name="tipodocumento_id" id="tipodocumento_id" class="form-control select2" required>
                                     <option value="" selected disabled>Escolha...</option>
                                     @foreach($tiposdocumentos  as $tipodocumento)
-                                        {{-- Exibe todos os documentos para seleção, exceto documentos processados  @if ($tipodocumento->id != 1) ... @endif --}}
                                         <option value="{{$tipodocumento->id}}" {{ old('tipodocumento_id') == $tipodocumento->id ? 'selected' : '' }} data-tipodocumento_ordem = "{{ $tipodocumento->ordem }}" style="font-color: red">
                                             {{ $tipodocumento->nome }}
                                         </option>
+
+                                        {{-- Populando arr_tiposdocumentos --}}
+                                        @php $arr_tiposdocumentos[] = $tipodocumento->id; @endphp
+
                                     @endforeach
                                 </select>
 
                                 <input type="hidden" name="tipodocumento_ordem_hidden" id="tipodocumento_ordem_hidden"  value="">
+
                                 @error('tipodocumento_id')
                                     <small style="color: red">{{$message}}</small>
                                 @enderror
@@ -68,7 +80,6 @@
                         <!-- Buttons -->
                         <div class="flex-row col-2 d-md-flex justify-content-end">
                             <div style="margin-top: 25px">
-                                {{-- <a class="btn btn-outline-secondary me-2" href="{{ url()->previous() }}" role="button">Cancelar</a> --}}
                                 <a class="btn btn-outline-secondary me-2" href="{{ route('requerente.index') }}" role="button">Cancelar</a>
                                 <button type="submit" class="btn btn-primary " style="width: 95px;"> Anexar </button>
                             </div>
@@ -76,16 +87,12 @@
 
                     </div>
                 </form>
-
-
             </div>
 
-            {{-- Início Lista de documentos  --}}
+            {{-- Início Lista de documentos anexados --}}
             <div class="card-body">
 
                 <hr style="border: none; height: 3px; background-color: #545454;">
-
-                {{-- @dd($documentos) --}}
 
                 <x-alert />
 
@@ -104,7 +111,6 @@
 
                     <tbody>
                         @forelse ($documentos as $documento)
-                            {{-- Exibia todos os documentos anexados do requerente, com exceção do documento processado pelo servidor da semu   @if ($documento->tipodocumento_id != 1) ... @endif --}}
                             <tr>
                                 <td>{{ $documento->id }}</th>
                                 <td>{{ $documento->tipodocumento->nome }}</th>
@@ -119,22 +125,35 @@
                                     </form>
                                 </td>
                             </tr>
+
+                            {{-- Populando arr_documentos, à medida que forem sendo anexados --}}
+                             @php $arr_documentos[] = $documento->tipodocumento_id; @endphp
+
                         @empty
-                            <div class="alert alert-danger" role="alert">Nenhum documento vinculado! </div>
+                            <div class="alert alert-danger" role="alert">Nenhum documento anexado! </div>
                         @endforelse
                     </tbody>
                 </table>
+
+                {{-- Transformando os arrays em string // {{ implode(",", $arr_tiposdocumentos) }} <br> {{ implode(",", $arr_documentos) }} --}}
+                {{-- Comparando quantidade de elementos das coleções: @if ($documentos->count() >= $tiposdocumentos->count()) ...faz alguma coisa.. @endif --}}
+
+                {{-- Removendo os elementos duplicados do array documentos, para que seu tamanho, seja comparado com a quantidade de elemntos do array tiposdocumntos --}}
+                @php $arr_documentos = array_unique($arr_documentos); @endphp
             </div>
-            {{-- fim Lista de documentos --}}
+            {{-- fim Lista de documentos anexados--}}
 
             <div class="row">
                 <div class="col-2 offset-10">
                     {{-- Butão deve ser exibido quando todos os documentos exigidos estiverem anexados
                          O campo status (pendente) tabela "requerente" deverá ser atualizado para "em análise"
                          Desabilitar todas as operações ref. ao requerente, ou seja, desabillitar: nem cadastrar, nem editar, nem consultar, anexos e documentos
+
+
                     --}}
-                    @if ($documentos->count() >= $tiposdocumentos->count())
-                        <a class="btn btn-success me-2" href="" role="button"  style="margin-left: 10px; margin-bottom: 15px; width: 200px;"><i class="fa-solid fa-user-check" style="margin-right: 5px;"></i> Submeter a Análise</a>
+                    {{-- Só exibe o botão se todos os documentos exigidos forem anexados --}}
+                    @if (count($arr_documentos) ==  count($arr_tiposdocumentos))
+                        <a class="btn btn-success me-2" href="" role="button"  style="margin-left: 10px; margin-bottom: 15px; width: 200px;"><i class="fa-solid fa-user-check" style="margin-right: 5px;"></i> Submeter Análise</a>
                     @endif
                 </div>
             </div>
@@ -147,24 +166,23 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">DOCUMENTOS JÁ ANEXADOS</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h2 class="modal-title fs-5" id="exampleModalLabel">DOCUMENTOS ANEXADOS</h2>
                 </div>
 
                 <div class="modal-body">
                     <table class="table table-sm">
-
                         <tbody>
                             @foreach($tiposdocumentos  as $tipodocumento)
                                 <tr>
                                     <td>
                                         <span style="font-size: 12px;">{{$tipodocumento->nome}}</span>
-                                        @foreach ( $documentos as $documento )
+                                    </td>
+                                    <td>
+                                        @foreach ($documentos as $documento )
                                             @if ($documento->tipodocumento_id == $tipodocumento->id)
                                                 <b><i class='mr-2 fas fa-check text-success' style="font-size: 30px;"></i></b>
                                             @endif
                                         @endforeach
-
                                     </td>
                                 </tr>
                             @endforeach
@@ -174,7 +192,6 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
                 </div>
             </div>
         </div>

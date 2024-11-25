@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\RequerenteController;
 use App\Http\Controllers\Admin\AnexoController;
 use App\Http\Controllers\Admin\TipodocumentoController;
 use App\Http\Controllers\Admin\DocumentoController;
+use App\Http\Controllers\Admin\ChecklistController;
 use App\Http\Controllers\Admin\RequerimentoController;
 
 
@@ -92,6 +93,8 @@ Route::put('/update-documento/{requerente}', [DocumentoController::class, 'updat
 Route::delete('/destroy-documento/{documento}', [DocumentoController::class, 'destroy'])->name('documento.destroy');
 Route::get('/merge-documento/{requerente}', [DocumentoController::class, 'merge'])->name('documento.merge');
 
+// CHECKLIST
+Route::get('/index-checklist', [ChecklistController::class, 'index'])->name('checklist.index');
 
 
 // REQUERIMENTO

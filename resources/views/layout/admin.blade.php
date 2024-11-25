@@ -73,6 +73,11 @@
                             Requerentes
                         </a>
 
+                        <a class="nav-link" href="{{ route('checklist.index') }}">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-list-check"></i></div>
+                            Check List
+                        </a>
+
                         <a class="nav-link" href="{{ route('user.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                             Usuários
