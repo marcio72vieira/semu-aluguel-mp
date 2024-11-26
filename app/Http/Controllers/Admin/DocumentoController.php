@@ -107,9 +107,22 @@ class DocumentoController extends Controller
     }
 
 
+    public function submeteranalise(Requerente $requerente)
+    {
+        // Atualiza o campo status para 2(análise)
+        $requerente->update([
+            'status' => 2
+        ]);
+
+        // Redirecionar o usuário(Assistente Social), enviar a mensagem de sucesso
+        return redirect()->route('requerente.index')->with('success', 'Documentos submetidos para análise com sucesso!');
+
+    }
+
+
     // Aprovaçãod do Checklist
     // public function update(ChecklistRequest $request)
-    public function update(ChecklistRequest $request)
+    public function efetuaanalisegeraprocesso(ChecklistRequest $request)
     {
 
         // NOTA: Transformando o retorno de "$request_all()" em uma "collect" e aplicando o método "count" da "collect" para saber quantos registros possui
@@ -368,6 +381,19 @@ class DocumentoController extends Controller
         }
         */
 
+    }
+
+
+    public function pendentes(Requerente $requerente)
+    {
+        // Recuperando todos os documentos anexados da requerente com suas devias pendências
+        // Obs: analisar se não seria melhor exibir só os documentos com pendência ao invés de todos os documentos novamente.
+        $tiposdocumentos = Tipodocumento::where('ativo', '=', '1')->orderBy('nome', 'ASC')->get();
+
+        // Recuperando todos os documentos anexados da requerente
+        $documentos =  Documento::where('requerente_id', '=', $requerente->id)->orderBy('ordem', 'ASC')->get();
+
+        return view('admin.documentos.pendencia', compact('requerente', 'tiposdocumentos', 'documentos'));
     }
 
 

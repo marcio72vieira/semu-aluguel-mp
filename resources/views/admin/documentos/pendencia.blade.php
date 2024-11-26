@@ -3,7 +3,7 @@
 @section('content')
     <div class="px-4 container-fluid">
         <div class="gap-2 mb-1 hstack">
-            <h2 class="mt-3">Documentos - {{ $requerente->nomecompleto }} / CPF: {{ $requerente->cpf }} </h2>
+            <h2 class="mt-3">PENDENCIAS - {{ $requerente->nomecompleto }} / CPF: {{ $requerente->cpf }} </h2>
         </div>
 
         <div class="mb-4 shadow card border-light">
@@ -104,6 +104,7 @@
                         <tr>
                             <th>ID</th>
                             <th>Documento</th>
+                            <th>Observação</th>
                             <th>Visualizar</th>
                             <th>Excluir</th>
                         </tr>
@@ -114,6 +115,7 @@
                             <tr>
                                 <td>{{ $documento->id }}</th>
                                 <td>{{ $documento->tipodocumento->nome }}</th>
+                                <td>{{ $documento->observacao }}</th>
                                 <td> <a href="{{ asset('/storage/'.$documento->url) }}" target="_blank" title="Visualizar este documento"> <img src="{{ asset('images/documentos2.png') }}" width="30" style="margin-left: 25px;"> </a></td>
                                 <td class="flex-row flex-wrap d-md-flex justify-content-start align-content-stretch">
                                     <form id="formDelete{{ $documento->id }}" method="POST" action="{{ route('documento.destroy', ['documento' => $documento->id]) }}" style="margin-left: 10px;" title="Excluir este documento">

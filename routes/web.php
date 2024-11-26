@@ -89,9 +89,12 @@ Route::delete('/destroy-anexo/{anexo}', [AnexoController::class, 'destroy'])->na
 Route::get('/index-documento/{requerente}', [DocumentoController::class, 'index'])->name('documento.index');
 Route::get('/create-documento/{requerente}', [DocumentoController::class, 'create'])->name('documento.create');
 Route::post('/store-documento', [DocumentoController::class, 'store'])->name('documento.store');
-Route::put('/update-documento/{requerente}', [DocumentoController::class, 'update'])->name('documento.update');
+//Route::put('/update-documento/{requerente}', [DocumentoController::class, 'update'])->name('documento.update');
+Route::put('/efetuaanalisegeraprocesso-documento/{requerente}', [DocumentoController::class, 'efetuaanalisegeraprocesso'])->name('documento.efetuaanalisegeraprocesso');
 Route::delete('/destroy-documento/{documento}', [DocumentoController::class, 'destroy'])->name('documento.destroy');
 Route::get('/merge-documento/{requerente}', [DocumentoController::class, 'merge'])->name('documento.merge');
+Route::put('/submeteranalise-documento/{requerente}', [DocumentoController::class, 'submeteranalise'])->name('documento.submeteranalise');
+Route::get('/pendentes-documento/{requerente}', [DocumentoController::class, 'pendentes'])->name('documento.pendentes');
 
 // CHECKLIST
 Route::get('/index-checklist', [ChecklistController::class, 'index'])->name('checklist.index');

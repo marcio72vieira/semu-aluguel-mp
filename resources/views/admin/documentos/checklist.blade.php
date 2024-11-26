@@ -33,7 +33,7 @@
             {{-- <x-errorexception /> --}}
 
 
-            <form id="formchecklist" action="{{ route('documento.update', ["requerente" => $requerente->id]) }}" method="POST" autocomplete="off">
+            <form id="formchecklist" action="{{ route('documento.efetuaanalisegeraprocesso', ["requerente" => $requerente->id]) }}" method="POST" autocomplete="off">
                 @csrf
                 @method('PUT')
 
