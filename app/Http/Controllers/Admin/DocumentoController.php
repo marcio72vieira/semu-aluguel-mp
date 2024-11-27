@@ -347,7 +347,7 @@ class DocumentoController extends Controller
                     ]);
                 }
 
-                // Atualiza o status da situação do requerente (1-andamento; 2-análise; 3-pendnete; 4-concluído )
+                // Atualiza o status da situação do requerente (1-andamento; 2-análise; 3-pendente; 4-Corrigido, 5-concluído )
                 $requerente = Requerente::find($request->requerente_id_hidden);
                 $requerente->update([
                     'status' => 3   // Pendente
@@ -420,6 +420,17 @@ class DocumentoController extends Controller
         if(count($files) == 0){
             Storage::disk('public')->deleteDirectory('documentos/requerente_'.$requerenteId);
         }
+
+    
+        // Modifica o status dependendo da quantidade de documentos exigidos e que foram apagados
+        if(Documento::documentosexigidos($requerenteId)){
+            // Atualiza o status da situação do requerente (1-andamento; 2-análise; 3-pendente; 4-Corrigido, 5-concluído )
+            $requerente = Requerente::find($requerenteId);
+            $requerente->update([
+                'status' => 1   // Andamento
+            ]);
+        }
+        
 
         // Redirecionar o usuário, enviar a mensagem de sucesso
         return redirect()->route('documento.create', ['requerente' => $requerenteId])->with('success', 'Documento excluído com sucesso!');

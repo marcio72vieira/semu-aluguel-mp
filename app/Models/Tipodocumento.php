@@ -23,7 +23,8 @@ class Tipodocumento extends Model
         return $this->hasMany(Documento::class);
     }
 
-    //Obtendo a quantidade de documentos de uma regional, de um outro jeito
+    // Obtendo a quantidade de documentos de um determinado tipo. A quantidade diz que aquele tipo de 
+    // documento já foi utilizado e portanto não pode seer deletado nunca do banco de dados.
     public function qtddocumentosdotipo($id)
     {
         $qtd = DB::table('documentos')->where('tipodocumento_id', '=', $id)->count();

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Documento extends Model
 {
@@ -41,5 +42,30 @@ class Documento extends Model
         return $this->belongsTo(User::class);
     }
 
-
+    
+    public static function documentosexigidos($idRequerente)
+    {
+        // Recuperando só os id's das collections(pluck) e de forma única, sem repetição(unique)
+        $tiposdocumentosexigidos = Tipodocumento::where('ativo', '=', 1)->pluck('id')->unique()->count();
+        $documentosanexados = Documento::where('requerente_id', '=', $idRequerente)->pluck('tipodocumento_id')->unique()->count();
+        
+        if($documentosanexados < $tiposdocumentosexigidos){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+    /* 
+    //Obtendo a quantidade de documentos de uma requerente, para determinar o status(andamento, analise, pendente etc... )
+    public static function qtddocumentosrequerente($idRequerente)
+    {
+        // Recupera a quantidade de docuemntos exigidos para análise
+        $documentosExigidos = DB::table('tipodocumentos')->where('ativo', '=', 1)->count();
+        // Recuoera todos os documentos cadastrados do requerente
+        $qtdDocs = DB::table('documentos')->where('requerente_id', '=', $idRequerente)->count();
+        // Verifica se a quantidade de documento da requernete é igual ou maior a quantidade de documentos exigidos para análise
+        if($qtdDocs >= $documentosExigidos){ return true; }else{ return false; }
+    }
+     */
 }
