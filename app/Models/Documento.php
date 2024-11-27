@@ -42,21 +42,22 @@ class Documento extends Model
         return $this->belongsTo(User::class);
     }
 
-    
+
     public static function documentosexigidos($idRequerente)
     {
         // Recuperando só os id's das collections(pluck) e de forma única, sem repetição(unique)
         $tiposdocumentosexigidos = Tipodocumento::where('ativo', '=', 1)->pluck('id')->unique()->count();
         $documentosanexados = Documento::where('requerente_id', '=', $idRequerente)->pluck('tipodocumento_id')->unique()->count();
-        
+
         if($documentosanexados < $tiposdocumentosexigidos){
             return true;
         }else{
             return false;
         }
     }
-    
-    /* 
+
+
+    /*
     //Obtendo a quantidade de documentos de uma requerente, para determinar o status(andamento, analise, pendente etc... )
     public static function qtddocumentosrequerente($idRequerente)
     {

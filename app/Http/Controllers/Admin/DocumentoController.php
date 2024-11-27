@@ -23,7 +23,7 @@ class DocumentoController extends Controller
         // Recuperando todos os documentos anexados da requerente
         $documentos =  Documento::where('requerente_id', '=', $requerente->id)->orderBy('ordem', 'ASC')->get();
 
-        return view('admin.documentos.checklist', compact('requerente', 'documentos'));
+        return view('admin.documentos.analise', compact('requerente', 'documentos'));
     }
 
     public function create(Requerente $requerente)
@@ -309,7 +309,7 @@ class DocumentoController extends Controller
 
                 // Redirecionar o usuário, enviar a mensagem de sucesso
                 // return redirect()->route('documento.index', ['requerente' => $requerenteId])->with('success', 'PROCESSO gerado com sucesso!');
-                return redirect()->route('requerente.index')->with('success', 'PROCESSO gerado com sucesso!');
+                return redirect()->route('processo.index')->with('success', 'PROCESSO gerado com sucesso!');
 
             }
 
@@ -386,12 +386,13 @@ class DocumentoController extends Controller
 
     public function pendentes(Requerente $requerente)
     {
-        // Recuperando todos os documentos anexados da requerente com suas devias pendências
+        // Recuperando todos os documentos anexados da requerente com suas devias pendências (observações)
         // Obs: analisar se não seria melhor exibir só os documentos com pendência ao invés de todos os documentos novamente.
         $tiposdocumentos = Tipodocumento::where('ativo', '=', '1')->orderBy('nome', 'ASC')->get();
 
         // Recuperando todos os documentos anexados da requerente
-        $documentos =  Documento::where('requerente_id', '=', $requerente->id)->orderBy('ordem', 'ASC')->get();
+        $documentos =  Documento::where('requerente_id', '=', $requerente->id)->where('aprovado', '=', 0)->orderBy('ordem', 'ASC')->get();
+        //$documentos =  Documento::where('requerente_id', '=', $requerente->id)->orderBy('ordem', 'ASC')->get();
 
         return view('admin.documentos.pendencia', compact('requerente', 'tiposdocumentos', 'documentos'));
     }
@@ -421,7 +422,7 @@ class DocumentoController extends Controller
             Storage::disk('public')->deleteDirectory('documentos/requerente_'.$requerenteId);
         }
 
-    
+
         // Modifica o status dependendo da quantidade de documentos exigidos e que foram apagados
         if(Documento::documentosexigidos($requerenteId)){
             // Atualiza o status da situação do requerente (1-andamento; 2-análise; 3-pendente; 4-Corrigido, 5-concluído )
@@ -430,7 +431,7 @@ class DocumentoController extends Controller
                 'status' => 1   // Andamento
             ]);
         }
-        
+
 
         // Redirecionar o usuário, enviar a mensagem de sucesso
         return redirect()->route('documento.create', ['requerente' => $requerenteId])->with('success', 'Documento excluído com sucesso!');

@@ -69,7 +69,7 @@
                                     @endforeach
                                 </select>
 
-                                <input type="hidden" name="tipodocumento_ordem_hidden" id="tipodocumento_ordem_hidden"  value="">
+                                <input type="hidden" name="tipodocumento_ordem_hidden" id="tipodocumento_ordem_hidden"  value="{{ old('tipodocumento_ordem_hidden')}}">
 
                                 @error('tipodocumento_id')
                                     <small style="color: red">{{$message}}</small>

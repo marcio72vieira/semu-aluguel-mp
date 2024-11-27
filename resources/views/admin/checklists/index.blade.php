@@ -3,7 +3,7 @@
 @section('content')
 <div class="px-4 container-fluid">
     <div class="mb-1 hstack gap-2">
-        <h2 class="mt-3">CHECK LIST REQUERENTES</h2>
+        <h2 class="mt-3">CHECK LIST - REQUERENTES</h2>
         {{-- <ol class="breadcrumb mb-3 mt-3 ms-auto">
             <li class="breadcrumb-item"><a href="">Dashboard</a></li>
             <li class="breadcrumb-item"><a class="text-decoration-none" href="">Requerentes</a></li>
@@ -49,19 +49,19 @@
                             <td>{{ $requerente->user->nomecompleto }}</td>
                             <td>{{ $requerente->foneresidencial }} <br> {{ $requerente->fonecelular }} </td>
                             <td>
-                                @if($requerente->status == 1) <span style="font-size: 14px;"> <i class="fa-solid fa-shoe-prints"></i> andamento </span> @endif  {{-- falta anexar todos os documentos --}}
-                                @if($requerente->status == 2) <span style="font-size: 14px;"> <i class="fa-solid fa-user-check"></i> análise  </span> @endif    {{-- os documentos foram enviados para análise depois de anexar os documentos --}}
+                                @if($requerente->status == 1) <span style="font-size: 14px;"> <i class="fa-solid fa-shoe-prints"></i> em andamento </span> @endif  {{-- falta anexar todos os documentos --}}
+                                @if($requerente->status == 2) <span style="font-size: 14px;"> <i class="fa-solid fa-user-check"></i> em análise  </span> @endif    {{-- os documentos foram enviados para análise depois de anexar os documentos --}}
                                 @if($requerente->status == 3) <span style="font-size: 14px;"> <i class="fa-solid fa-clock-rotate-left"></i> pendente  </span> @endif {{-- falta anexar documents --}}
                                 @if($requerente->status == 4) <span style="font-size: 14px;"> <i class="fa-regular fa-circle-check"></i> concluído  </span> @endif {{-- O check list foi feito e o processo foi gerado --}}
                             </td>
                             <td class="flex-row d-md-flex justify-content-start align-content-stretch flex-wrap">
                                 <a href="{{ route('documento.index', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-warning btn-sm me-1">
-                                    <i class="fa-solid fa-list-check"></i> Analisar
+                                    <i class="fa-solid fa-list-check"></i> Analisar documentos
                                 </a>
                             </td>
                         </tr>
                     @empty
-                        <div class="alert alert-danger" role="alert">Nenhum Requerente encontrado!</div>
+                        <div class="alert alert-danger" role="alert">Nenhum Requerente para ser análise encontrado!</div>
                     @endforelse
                 </tbody>
             </table>

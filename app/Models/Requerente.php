@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Requerente extends Model
 {
@@ -98,6 +99,13 @@ class Requerente extends Model
     public function documentos()
     {
         return $this->hasMany(Documento::class);
+    }
+
+    // Retorna a quantidade de Documentos que o Requetente possui cadastrado
+    public static function docsAnexados($id)
+    {
+        $qtd = DB::table('documentos')->where('requerente_id', '=', $id)->count();
+        return $qtd;
     }
 
 

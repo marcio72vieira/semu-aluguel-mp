@@ -330,9 +330,9 @@
                             <dd class="col-sm-3">
                                 <a class="btn btn-outline-secondary" href="{{ route('requerente.index')}}" role="button">Listar</a>
 
-                                <a href="{{ route('requerente.edit', ['requerente' => $requerente->id]) }}" class="p-2 btn btn-warning btn-sm md-2">
+                                {{-- <a href="{{ route('requerente.edit', ['requerente' => $requerente->id]) }}" class="p-2 btn btn-warning btn-sm md-2">
                                     <i class="fa-solid fa-pen-to-square"></i> Editar
-                                </a>
+                                </a> --}}
 
                                 {{-- <a href="{{ route('requerente.relpdfrequerente', ['requerente' => $requerente->id]) }}" class="p-2 btn btn-danger btn-sm" target="_blank">
                                     <i class="fa-solid fa-file-pdf"></i> Anexos

@@ -69,7 +69,7 @@
                         </a> --}}
 
                         <a class="nav-link" href="{{ route('requerente.index') }}">
-                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-child-dress"></i></div>
                             Requerentes
                         </a>
 
@@ -78,8 +78,13 @@
                             Check List
                         </a>
 
+                        <a class="nav-link" href="{{ route('processo.index') }}">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-file-powerpoint"></i></div>
+                            Processos
+                        </a>
+
                         <a class="nav-link" href="{{ route('user.index') }}">
-                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-users"></i></div>
                             Usuários
                         </a>
 

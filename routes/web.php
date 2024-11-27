@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\AnexoController;
 use App\Http\Controllers\Admin\TipodocumentoController;
 use App\Http\Controllers\Admin\DocumentoController;
 use App\Http\Controllers\Admin\ChecklistController;
+use App\Http\Controllers\Admin\ProcessoController;
 use App\Http\Controllers\Admin\RequerimentoController;
 
 
@@ -98,6 +99,10 @@ Route::get('/pendentes-documento/{requerente}', [DocumentoController::class, 'pe
 
 // CHECKLIST
 Route::get('/index-checklist', [ChecklistController::class, 'index'])->name('checklist.index');
+
+// PROCESSO
+Route::get('/index-processo', [ProcessoController::class, 'index'])->name('processo.index');
+
 
 
 // REQUERIMENTO

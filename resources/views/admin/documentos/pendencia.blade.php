@@ -118,13 +118,19 @@
                                 <td>{{ $documento->observacao }}</th>
                                 <td> <a href="{{ asset('/storage/'.$documento->url) }}" target="_blank" title="Visualizar este documento"> <img src="{{ asset('images/documentos2.png') }}" width="30" style="margin-left: 25px;"> </a></td>
                                 <td class="flex-row flex-wrap d-md-flex justify-content-start align-content-stretch">
-                                    <form id="formDelete{{ $documento->id }}" method="POST" action="{{ route('documento.destroy', ['documento' => $documento->id]) }}" style="margin-left: 10px;" title="Excluir este documento">
-                                        @csrf
-                                        @method('delete')
-                                        <button type="submit" class="btn btn-danger btn-sm btnDelete" data-delete-entidade="Documento" data-delete-id="{{ $documento->id }}"  data-value-record="{{ $documento->tipodocumento->nome }}">
-                                            <i class="fa-regular fa-trash-can"></i>
-                                        </button>
-                                    </form>
+                                    {{-- Só possibilita a exclusão dos documentos pendentes--}}
+                                    @if ($documento->aprovado == 0)
+                                        <form id="formDelete{{ $documento->id }}" method="POST" action="{{ route('documento.destroy', ['documento' => $documento->id]) }}" style="margin-left: 10px;" title="Excluir este documento">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit" class="btn btn-danger btn-sm btnDelete" data-delete-entidade="Documento" data-delete-id="{{ $documento->id }}"  data-value-record="{{ $documento->tipodocumento->nome }}">
+                                                <i class="fa-regular fa-trash-can"></i>
+                                            </button>
+                                        </form>
+                                    @else
+                                        <button type="button" class="btn btn-outline-secondary btn-sm" title="Documento aprovado!" style="margin-left: 10px;"> <i class="fa-solid fa-ban"></i> </button>
+                                    @endif
+
                                 </td>
                             </tr>
 

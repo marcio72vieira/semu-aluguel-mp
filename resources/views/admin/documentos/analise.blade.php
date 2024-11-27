@@ -1,9 +1,11 @@
 @extends('layout.admin')
 
+{{-- RENOMEAR ESTA VIEW checklist.blade.php PARA analise.blade.php --}}
+
 @section('content')
 <div class="px-4 container-fluid">
     <div class="gap-2 mb-1 hstack">
-        <h2 class="mt-3">Check List</h2>
+        <h2 class="mt-3">CHECK LIST - ANÁLISE</h2>
         {{--
         <span class="flex-row mt-1 mt-3 mb-1 ms-auto d-sm-flex">
             <a href="{{ route('requerente.create') }}" class="btn btn-success btn-sm me-1"><i class="fas fa-upload"></i> Adicionar </a>
@@ -115,7 +117,7 @@
                 <div class="flex-row col-12 d-md-flex justify-content-end">
                     <div style="margin-top: 25px">
                         {{-- <a class="btn btn-outline-secondary me-2" href="{{ url()->previous() }}" role="button">Cancelar</a> --}}
-                        <a class="btn btn-outline-secondary me-2" href="{{ route('requerente.index') }}" role="button" style="width: 160px;">Cancelar</a>
+                        <a class="btn btn-outline-secondary me-2" href="{{ route('checklist.index') }}" role="button" style="width: 160px;">Cancelar</a>
 
                         <button type="submit" class="btn btn-primary me-4" id="analise-processo" style="width: 180px;"><i class='fa-solid fa-arrow-rotate-left'></i> Notificar Análise </button>
 
