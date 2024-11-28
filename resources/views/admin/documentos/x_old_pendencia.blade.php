@@ -3,7 +3,7 @@
 @section('content')
     <div class="px-4 container-fluid">
         <div class="gap-2 mb-1 hstack">
-            <h2 class="mt-3">PENDÊNCIAS - {{ $requerente->nomecompleto }} / CPF: {{ $requerente->cpf }} </h2>
+            <h2 class="mt-3">PENDENCIAS - {{ $requerente->nomecompleto }} / CPF: {{ $requerente->cpf }} </h2>
         </div>
 
         <div class="mb-4 shadow card border-light">
@@ -138,16 +138,10 @@
                                         @method('POST')
                                         <div class="row">
                                             <div class="col-9">
-                                                <input type="file" name="url"  id="url" style="display:block" value="{{ old('url') }}">
-                                                <input type="hidden" name="documento_id" id="documento_id"  value="{{ $documento->id }}">
-                                                <input type="hidden" name="nome_arquivo_antigo" id="nome_arquivo_antigo"  value="{{ explode('/', $documento->url)[2] }}">
-                                                <input type="hidden" name="tipodocumento_id" id="tipodocumento_id"  value="{{ $documento->tipodocumento->id }}">
-                                                <input type="hidden" name="tipodocumento_ordem_hidden" id="tipodocumento_ordem_hidden"  value="{{ $documento->tipodocumento->ordem }}">
-                                                <input type="hidden" name="requerente_id_hidden" id="requerente_id_hidden" value="{{ $requerente->id }}">
+                                                <input type="file" id="url" style="display:block" name="url" value="{{ old('url') }}">
                                             </div>
-                                            <div class="col-2">
+                                            <div class="col-1">
                                                 <button type="submit" class="btn btn-primary btn-sm"><i class="fa-solid fa-right-left"></i></button>
-                                                <i class="fa-solid fa-check-double"></i>
                                             </div>
                                         </div>
                                     </form>

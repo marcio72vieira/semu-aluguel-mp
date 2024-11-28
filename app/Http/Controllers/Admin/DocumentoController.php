@@ -398,6 +398,70 @@ class DocumentoController extends Controller
     }
 
 
+    // INICIO REPLACE
+    public function replace(DocumentoRequest $request)
+    {
+        //dd($request->all());
+
+        // Validar o formulário
+        $request->validated();
+
+
+
+        // Checando se veio a imagem/arquivo na requisição e depois verifica se não houve erro de upload na imagem.
+        if($request->hasFile('url')) {
+
+            if($request->url->isValid()) {
+
+                //dd($request->all());
+
+                // Armazenando o arquivo fisico no disco public e retornando a url (caminho) do arquivo
+                // $documentoURL = $request->url->store("documentos/requerente_".$request->requerente_id_hidden, "public");
+
+                //$file = $request->url;
+                //$documentoURL = Storage::disk('public')->put("documentos/requerente_".$request->requerente_id_hidden, $file);
+
+                // Obs: Na situação: doc_1_1020304050 e doc_10_1020304051, o documento doc_10_1020304051 será impresso primeiro
+                // por isso é necessário o trecho de script abaixo. Se orodem = 1 fica 01, ordem = 2 fica 02 etc...
+                if(strlen($request->tipodocumento_ordem_hidden) == 1){
+                    $ordem = "0".$request->tipodocumento_ordem_hidden;
+                }else{
+                    $ordem = $request->tipodocumento_ordem_hidden;
+                }
+
+                $file = $request->url;
+                $tempo = time();
+                $pathAndFileName = "documentos/requerente_". $request->requerente_id_hidden ."/doc_". $ordem ."_". $tempo .".". $file->getClientOriginalExtension();
+                Storage::disk('public')->put($pathAndFileName, file_get_contents($file));
+
+                // Obtém o id do usuario (Assistente Social) que está atualizando os documentos(arquivos).
+                $user = Auth::user();
+                $user = User::find($user->id);
+                $idUsuario = $user->id;
+
+                //Armazenando os caminhos do arquivo no Banco de Dados e as demais informações sobre o Documento anexado
+                $documento =  Documento::find($request->documento_id);
+                $documento->update([
+                    'url'       => $pathAndFileName,
+                    'user_id'   => $idUsuario
+                ]);
+            }
+
+            // Apagando fisicamente o arquivo antigo do disco
+            if(Storage::disk('public')->exists("documentos/requerente_$request->requerente_id_hidden/$request->nome_arquivo_antigo")){
+                Storage::disk('public')->delete("documentos/requerente_$request->requerente_id_hidden/$request->nome_arquivo_antigo");
+            }
+
+        }
+
+         // Redirecionar o usuário, enviar a mensagem de sucesso
+         return redirect()->route('documento.pendentes', ['requerente' => $request->requerente_id_hidden])->with('success', 'Documento atualizado com sucesso!');
+    }
+
+
+    // FIM REPLACE
+
+
     public function destroy(Documento $documento)
     {
 
