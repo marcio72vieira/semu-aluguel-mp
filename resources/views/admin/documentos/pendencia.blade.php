@@ -107,6 +107,7 @@
                             <th>Observação</th>
                             <th>Visualizar</th>
                             <th>Excluir</th>
+                            <th>Substituir</th>
                         </tr>
                     </thead>
 
@@ -130,15 +131,17 @@
                                     @else
                                         <button type="button" class="btn btn-outline-secondary btn-sm" title="Documento aprovado!" style="margin-left: 10px;"> <i class="fa-solid fa-ban"></i> </button>
                                     @endif
-
+                                </td>
+                                <td>
+                                    <input type="file" id="url" style="display:block" name="url" value="{{ old('url') }}">
                                 </td>
                             </tr>
-
+                            
                             {{-- Populando arr_documentos, à medida que forem sendo anexados --}}
                              @php $arr_documentos[] = $documento->tipodocumento_id; @endphp
 
                         @empty
-                            <div class="alert alert-danger" role="alert">Nenhum documento anexado! </div>
+                            <div class="alert alert-danger" role="alert">Nenhum documento com pendência encontrado! </div>
                         @endforelse
                     </tbody>
                 </table>

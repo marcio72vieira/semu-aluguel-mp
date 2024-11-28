@@ -61,7 +61,7 @@
                             </td>
                         </tr>
                     @empty
-                        <div class="alert alert-danger" role="alert">Nenhum Requerente para ser análise encontrado!</div>
+                        <div class="alert alert-danger" role="alert">Nenhuma Requerente a ser analisda foi encontrada!</div>
                     @endforelse
                 </tbody>
             </table>
