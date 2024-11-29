@@ -357,7 +357,8 @@ class DocumentoController extends Controller
                 DB::commit();
 
                 // Redirecionar o usuário, enviar a mensagem de sucesso
-                return redirect()->route('requerente.index')->with('success', 'Análise efetuada com sucesso!');
+                // return redirect()->route('requerente.index')->with('success', 'Análise efetuada com sucesso!');
+                return redirect()->route('checklist.index')->with('success', 'Análise efetuada com sucesso!');
 
             } catch (Exception $e) {
 
@@ -443,6 +444,7 @@ class DocumentoController extends Controller
                 $documento =  Documento::find($request->documento_id);
                 $documento->update([
                     'url'       => $pathAndFileName,
+                    'corrigido' => 1,
                     'user_id'   => $idUsuario
                 ]);
             }

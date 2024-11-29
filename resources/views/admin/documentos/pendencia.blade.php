@@ -116,10 +116,17 @@
                             <tr>
                                 <td>{{ $documento->id }}</th>
                                 <td>{{ $documento->tipodocumento->nome }}</th>
-                                <td>{{ $documento->observacao }}</th>
+                                <td>
+                                    {{ $documento->observacao }} 
+                                    @if ($documento->corrigido == 1)
+                                        <b><i class='mr-2 fas fa-check text-success' style="font-size: 15px;"></i></b>
+                                    @endif
+                                </td>
                                 <td> <a href="{{ asset('/storage/'.$documento->url) }}" target="_blank" title="Visualizar este documento"> <img src="{{ asset('images/documentos2.png') }}" width="30" style="margin-left: 25px;"> </a></td>
+                                
+                                
                                 <td class="flex-row flex-wrap d-md-flex justify-content-start align-content-stretch">
-                                    {{-- Só possibilita a exclusão dos documentos pendentes--}}
+                                    {{-- Só possibilita a exclusão dos documentos pendentes. Esta exclusão é necessária caso algum documento duplicado, como foi o caso verificado nos testes --}}
                                     @if ($documento->aprovado == 0)
                                         <form id="formDelete{{ $documento->id }}" method="POST" action="{{ route('documento.destroy', ['documento' => $documento->id]) }}" style="margin-left: 10px;" title="Excluir este documento">
                                             @csrf
@@ -132,12 +139,13 @@
                                         <button type="button" class="btn btn-outline-secondary btn-sm" title="Documento aprovado!" style="margin-left: 10px;"> <i class="fa-solid fa-ban"></i> </button>
                                     @endif
                                 </td>
+                               
                                 <td>
                                     <form action="{{ route('documento.replace') }}" method="POST" enctype="multipart/form-data" autocomplete="off">
                                         @csrf
                                         @method('POST')
                                         <div class="row">
-                                            <div class="col-9">
+                                            <div class="col-10">
                                                 <input type="file" name="url"  id="url" style="display:block" value="{{ old('url') }}">
                                                 <input type="hidden" name="documento_id" id="documento_id"  value="{{ $documento->id }}">
                                                 <input type="hidden" name="nome_arquivo_antigo" id="nome_arquivo_antigo"  value="{{ explode('/', $documento->url)[2] }}">
@@ -145,9 +153,8 @@
                                                 <input type="hidden" name="tipodocumento_ordem_hidden" id="tipodocumento_ordem_hidden"  value="{{ $documento->tipodocumento->ordem }}">
                                                 <input type="hidden" name="requerente_id_hidden" id="requerente_id_hidden" value="{{ $requerente->id }}">
                                             </div>
-                                            <div class="col-2">
+                                            <div class="col-1">
                                                 <button type="submit" class="btn btn-primary btn-sm"><i class="fa-solid fa-right-left"></i></button>
-                                                <i class="fa-solid fa-check-double"></i>
                                             </div>
                                         </div>
                                     </form>
