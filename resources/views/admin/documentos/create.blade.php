@@ -156,6 +156,8 @@
                         <form action="{{ route('documento.submeteranalise', ['requerente' => $requerente->id]) }}" method="POST">
                             @csrf
                             @method('PUT')
+                            {{-- status = 2, significa que os documetos foram colocados para análise --}}
+                            <input type="hidden" name="status_hidden" value="2">
                             <button type="submit" class="btn btn-success me-2" style="margin-left: 10px; margin-bottom: 15px; width: 200px;"><i class="fa-solid fa-user-check" style="margin-right: 5px;"></i> Submeter Análise</button>
                         </form>
                     @endif

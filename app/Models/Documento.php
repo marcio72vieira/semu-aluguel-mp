@@ -18,6 +18,7 @@ class Documento extends Model
         'tipodocumento_id',
         'aprovado',             // Aprovado 1 ou 0
         'observacao',
+        'corrigido',             // Corrigido 1 ou 0
         'requerente_id',        // Através da relação com User (no model Requerente), é possível saber o Assistente Social responsavel pelo cadastro dos documentos
         'user_id',              // Responsavel pela análise dos documentos
 

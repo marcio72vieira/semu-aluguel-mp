@@ -65,19 +65,23 @@
                                 <td>{{ $documento->tipodocumento->nome }}</td>
                                 <td>
                                     <a href="{{ asset('/storage/'.$documento->url) }}" target="_blank">
-                                        <img src="{{ asset('images/documentos2.png') }}" width="30" style="margin-left: 25px;">
+                                        <img src="{{ asset('images/documentos2.png') }}" width="30" style="margin-left: 20px;">
                                     </a>
+
+                                    @if ($documento->corrigido == 1) 
+                                        <b><i class='mr-2 fas fa-check text-success' style="margin-left: 2px; font-size: 15px;"></i></b> 
+                                    @endif
                                 </td>
                                 <td>
                                     {{-- aprovado --}}
                                     <div style="margin-top: 7px">
                                         <div>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input aprovacao" type="radio" name="aprovado_{{ $documento->id }}" id="aprovado_{{ $documento->id }}sim" value="1" {{old("aprovado_$documento->id") == "1" ? "checked" : ""}}>
+                                                <input class="form-check-input aprovacao" type="radio" name="aprovado_{{ $documento->id }}" id="aprovado_{{ $documento->id }}sim" value="1" {{old("aprovado_$documento->id", $documento->aprovado) == "1" ? "checked" : ""}}>
                                                 <label class="form-check-label" for="aprovado_{{ $documento->id }}sim">sim</label>
                                             </div>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input aprovacao" type="radio" name="aprovado_{{ $documento->id }}" id="aprovado_{{ $documento->id }}nao" value="0" {{old("aprovado_$documento->id") == "0" ? "checked" : ""}}>
+                                                <input class="form-check-input aprovacao" type="radio" name="aprovado_{{ $documento->id }}" id="aprovado_{{ $documento->id }}nao" value="0" {{old("aprovado_$documento->id", $documento->aprovado) == "0" ? "checked" : ""}}>
                                                 <label class="form-check-label" for="aprovado_{{ $documento->id }}nao">não</label>
                                             </div>
                                             <p>
@@ -91,7 +95,7 @@
                                 <td>
                                     {{-- observacao --}}
                                     <div class="form-group focused">
-                                        <textarea style="visibility:hidden" class="form-control observado" name="observacao_{{ $documento->id }}" id="observacao_{{ $documento->id }}" rows="2" placeholder="justifique...">{{ old("observacao_$documento->id") }}</textarea>
+                                        <textarea style="visibility:hidden" class="form-control observado" name="observacao_{{ $documento->id }}" id="observacao_{{ $documento->id }}" rows="2" placeholder="justifique...">{{ old("observacao_$documento->id", $documento->observacao) }}</textarea>
                                         <p>
                                             @error("observacao_$documento->id")
                                                 <small style="color: red" id="msg_erro_obs_{{ $documento->id }}">{{ $message }}</small>

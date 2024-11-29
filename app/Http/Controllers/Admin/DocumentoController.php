@@ -440,12 +440,13 @@ class DocumentoController extends Controller
                 $user = User::find($user->id);
                 $idUsuario = $user->id;
 
-                //Armazenando os caminhos do arquivo no Banco de Dados e as demais informações sobre o Documento anexado
+                // Atualizando o caminho do novo arquivo fisico no Banco de Dados e as demais informações sobre Documentos que se fazem necessárias
                 $documento =  Documento::find($request->documento_id);
+
                 $documento->update([
                     'url'       => $pathAndFileName,
                     'corrigido' => 1,
-                    'user_id'   => $idUsuario
+                    'user_id'   => $idUsuario,
                 ]);
             }
 

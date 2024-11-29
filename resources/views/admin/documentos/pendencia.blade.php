@@ -11,89 +11,9 @@
                 <span class="p-3 small text-danger"><strong>Campo marcado com * é de preenchimento obrigatório!</strong></span>
             </div>
 
-            {{-- Formulário para anexar documentos --}}
-            <div class="card-body">
-                <form action="{{ route('documento.store') }}" method="POST" enctype="multipart/form-data" autocomplete="off">
-                    @csrf
-                    @method('POST')
-
-                    <div class="row">
-                        {{-- identificacao do requerente --}}
-                        <input type="hidden" name="requerente_id_hidden" id="requerente_id_hidden" value="{{ $requerente->id }}">
-
-
-                        {{-- url--}}
-                        <div class="col-4">
-                            <div class="form-group focused">
-                                <label class="form-control-label" for="url">Arquivo do Documento (Arquivo do tipo .pdf e máximo de 2Mb)<span class="small text-danger">*</span></label>
-                                <input type="file" id="url" style="display:block" name="url" value="{{ old('url') }}">
-                                @error('url')
-                                    <small style="color: red">{{$message}}</small>
-                                @enderror
-                            </div>
-                        </div>
-
-                        {{-- identificacao da ordem do documento --}}
-                        <input type="hidden" name="ordem_hidden" id="ordem_hidden" value="1">
-
-                        {{-- tipodocumento_id --}}
-                        <div class="col-6">
-                            <div class="form-group focused">
-                                <label class="form-control-label" for="tipodocumento_id">Documento<span class="small text-danger">*</span>
-                                    {{-- Exibe a modal com os documentos que já foram anexados para guiar o assistente social --}}
-                                    <span>
-                                        <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal" title="Documentos Anexados">
-                                            <i class="fas fa-question-circle"style="font-size: 15px; margin-left: 10px;"></i>
-                                        </a>
-                                    </span>
-                                </label>
-
-                                {{-- {{ $documentosAnexados = $documentos->count() }} de {{ $totalTipoDocumentoAtivo = $tiposdocumentos->count() }} --}}
-
-                                @php
-                                    // Arrays para recuperar todos os TIPOSDEDOCUMENTOS(ativos) e DOCUEMNTOS(à medida que forem anexados)
-                                    $arr_tiposdocumentos = [];
-                                    $arr_documentos = [];
-                                @endphp
-
-                                <select name="tipodocumento_id" id="tipodocumento_id" class="form-control select2" required>
-                                    <option value="" selected disabled>Escolha...</option>
-                                    @foreach($tiposdocumentos  as $tipodocumento)
-                                        <option value="{{$tipodocumento->id}}" {{ old('tipodocumento_id') == $tipodocumento->id ? 'selected' : '' }} data-tipodocumento_ordem = "{{ $tipodocumento->ordem }}" style="font-color: red">
-                                            {{ $tipodocumento->nome }}
-                                        </option>
-
-                                        {{-- Populando arr_tiposdocumentos --}}
-                                        @php $arr_tiposdocumentos[] = $tipodocumento->id; @endphp
-
-                                    @endforeach
-                                </select>
-
-                                <input type="hidden" name="tipodocumento_ordem_hidden" id="tipodocumento_ordem_hidden"  value="">
-
-                                @error('tipodocumento_id')
-                                    <small style="color: red">{{$message}}</small>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <!-- Buttons -->
-                        <div class="flex-row col-2 d-md-flex justify-content-end">
-                            <div style="margin-top: 25px">
-                                <a class="btn btn-outline-secondary me-2" href="{{ route('requerente.index') }}" role="button">Cancelar</a>
-                                <button type="submit" class="btn btn-primary " style="width: 95px;"> Anexar </button>
-                            </div>
-                        </div>
-
-                    </div>
-                </form>
-            </div>
-
             {{-- Início Lista de documentos anexados --}}
             <div class="card-body">
-
-                <hr style="border: none; height: 3px; background-color: #545454;">
-
+                
                 <x-alert />
 
                 {{-- Este componente será acionado sempre que houver uma erro de exceção em: store, update ou delete --}}
@@ -105,28 +25,33 @@
                             <th>ID</th>
                             <th>Documento</th>
                             <th>Observação</th>
+                            <th>Corrigido {{-- Excluir --}}</th>
                             <th>Visualizar</th>
-                            <th>Excluir</th>
                             <th>Documento corrigido</th>
                         </tr>
                     </thead>
 
                     <tbody>
+                        @php
+                            $qtd_documentos_reprovados = $documentos->count();
+                            $qtd_documentos_corrigidos = 0;
+                        @endphp
+
                         @forelse ($documentos as $documento)
                             <tr>
                                 <td>{{ $documento->id }}</th>
                                 <td>{{ $documento->tipodocumento->nome }}</th>
-                                <td>
-                                    {{ $documento->observacao }} 
-                                    @if ($documento->corrigido == 1)
-                                        <b><i class='mr-2 fas fa-check text-success' style="font-size: 15px;"></i></b>
-                                    @endif
-                                </td>
-                                <td> <a href="{{ asset('/storage/'.$documento->url) }}" target="_blank" title="Visualizar este documento"> <img src="{{ asset('images/documentos2.png') }}" width="30" style="margin-left: 25px;"> </a></td>
-                                
-                                
+                                <td>{{ $documento->observacao }}</td>                    
                                 <td class="flex-row flex-wrap d-md-flex justify-content-start align-content-stretch">
-                                    {{-- Só possibilita a exclusão dos documentos pendentes. Esta exclusão é necessária caso algum documento duplicado, como foi o caso verificado nos testes --}}
+                                    @if ($documento->corrigido == 1) 
+                                        {{-- Acrescenta + 1 toda vez que um documento for corrigido --}}
+                                        @php $qtd_documentos_corrigidos = $qtd_documentos_corrigidos + 1 @endphp
+                                        <b><i class='mr-2 fas fa-check text-success' style="margin-left: 25px; font-size: 30px;"></i></b> 
+                                    @else
+                                        <b><i class='mr-2 fa-solid fa-xmark text-danger' style="margin-left: 25px; font-size: 30px;"></i></b> 
+                                    @endif
+                                    {{-- 
+                                        Só possibilita a exclusão dos documentos pendentes. Esta exclusão é necessária caso algum documento duplicado, como foi o caso verificado nos testes
                                     @if ($documento->aprovado == 0)
                                         <form id="formDelete{{ $documento->id }}" method="POST" action="{{ route('documento.destroy', ['documento' => $documento->id]) }}" style="margin-left: 10px;" title="Excluir este documento">
                                             @csrf
@@ -138,8 +63,9 @@
                                     @else
                                         <button type="button" class="btn btn-outline-secondary btn-sm" title="Documento aprovado!" style="margin-left: 10px;"> <i class="fa-solid fa-ban"></i> </button>
                                     @endif
+                                     --}}
                                 </td>
-                               
+                                <td> <a href="{{ asset('/storage/'.$documento->url) }}" target="_blank" title="Visualizar este documento"> <img src="{{ asset('images/documentos2.png') }}" width="30" style="margin-left: 25px;"> </a></td>
                                 <td>
                                     <form action="{{ route('documento.replace') }}" method="POST" enctype="multipart/form-data" autocomplete="off">
                                         @csrf
@@ -154,49 +80,34 @@
                                                 <input type="hidden" name="requerente_id_hidden" id="requerente_id_hidden" value="{{ $requerente->id }}">
                                             </div>
                                             <div class="col-1">
-                                                <button type="submit" class="btn btn-primary btn-sm"><i class="fa-solid fa-right-left"></i></button>
+                                                <button type="submit" class="btn btn-primary btn-sm" title="Substituir"><i class="fa-solid fa-right-left"></i></button>
                                             </div>
                                         </div>
                                     </form>
                                 </td>
                             </tr>
-
-                            {{-- Populando arr_documentos, à medida que forem sendo anexados --}}
-                             @php $arr_documentos[] = $documento->tipodocumento_id; @endphp
-
                         @empty
                             <div class="alert alert-danger" role="alert">Nenhum documento com pendência encontrado! </div>
                         @endforelse
                     </tbody>
                 </table>
-
-                {{-- Transformando os arrays em string // {{ implode(",", $arr_tiposdocumentos) }} <br> {{ implode(",", $arr_documentos) }} --}}
-                {{-- Comparando quantidade de elementos das coleções: @if ($documentos->count() >= $tiposdocumentos->count()) ...faz alguma coisa.. @endif --}}
-
-                {{-- Removendo os elementos duplicados do array documentos, para que seu tamanho, seja comparado com a quantidade de elemntos do array tiposdocumntos --}}
-                @php $arr_documentos = array_unique($arr_documentos); @endphp
             </div>
             {{-- fim Lista de documentos anexados--}}
 
             <div class="row">
                 <div class="col-2 offset-10">
-                    {{-- Butão deve ser exibido quando todos os documentos exigidos estiverem anexados
-                         O campo status (pendente) tabela "requerente" deverá ser atualizado para "em análise"
-                         Desabilitar todas as operações ref. ao requerente, ou seja, desabillitar: nem cadastrar, nem editar, nem consultar, anexos e documentos
-
-
-                    --}}
-                    {{-- Só exibe o formulário com o botão se todos os documentos exigidos forem anexados --}}
-                    @if (count($arr_documentos) ==  count($arr_tiposdocumentos))
+                    {{-- Só exibe o formulário com o botão se documentos_corrigidos for maior ou igual (um documento pode ser corrigido mais de uma vez) a quantidade de docuemtnos reprovados --}}
+                    @if ($qtd_documentos_corrigidos >=  $qtd_documentos_reprovados)
                         <form action="{{ route('documento.submeteranalise', ['requerente' => $requerente->id]) }}" method="POST">
                             @csrf
                             @method('PUT')
-                            <button type="submit" class="btn btn-success me-2" style="margin-left: 10px; margin-bottom: 15px; width: 200px;"><i class="fa-solid fa-user-check" style="margin-right: 5px;"></i> Submeter Análise</button>
+                            {{-- status = 5, significa que os documetos foram corrigidos --}}
+                            <input type="hidden" name="status_hidden" value="5">
+                            <button type="submit" class="btn btn-success me-2" style="margin-left: 10px; margin-bottom: 15px; width: 200px;"><i class="fa-solid fa-user-check" style="margin-right: 5px;"></i> Submeter Reanálise</button>
                         </form>
                     @endif
                 </div>
             </div>
-
         </div>
     </div>
 
@@ -239,23 +150,4 @@
 
 @endsection
 
-@section('scripts')
-    <script>
-        // Atribui ao campo hidden o valor da ordem do tipo de documento atraves da propriedade "data-"
-        // Essa ordem é necessária para compor o nome do arquivo físico (Ex: doc_01_tempo.pdf, doc_02_tempo.pdf, ... doc_10_tempo.pdf)
-        // que é de fundamental importância para a ordem de mesclagem dos arquivos pdfs.
-        // A mesclagem tem que ser na ordem do check-list fornecido pelo cliente ou qualquer outra ordem que o mesmo definir.
-        // O valor do campo "tipodocumento_ordem_hidden" é fornecido pela propriedade data-, já que no select, o único valor que
-        // pode ser passado para o processamento da requisição através da request, é o value da "option".
-        // Resumindo. Uma forma de passar vários valores para o processamento da requisição, é através da criação de campos do
-        // do tipo "hidden" e definindo seus valores através das propriedades data-, como no script abaixo.
-        $("#tipodocumento_id").on("change", function() {
-
-            let tipodocumentoordem = $(this).find(':selected').data('tipodocumento_ordem')
-                $(this).siblings("#tipodocumento_ordem_hidden").val(tipodocumentoordem);
-
-        });
-    </script>
-
-@endsection
 
