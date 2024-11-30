@@ -85,8 +85,9 @@ class DocumentoController extends Controller
                     $documento->ordem = $request->tipodocumento_ordem_hidden;
                     $documento->url = $pathAndFileName;
                     $documento->tipodocumento_id =  $request->tipodocumento_id;
-                    $documento->aprovado =  1;          // Não há a necessidade desta atribuição, já que seu valor default é 1
-                    $documento->observacao =  NULL;     // Não há a necessidade desta atribuição, já que seu valor default é NULL
+                    $documento->aprovado =  NULL;       // Não há a necessidade desta atribuição, já que seu valor default é NULL. A obrigação do preenchimento está definida no DocumentoRequest
+                    $documento->observacao =  NULL;     // Não há a necessidade desta atribuição, já que seu valor default é NULL. A obrigação do preenchimento está definida no DocumentoRequest
+                    $documento->corrigido = NULL;       // Não há a necessidade desta atribuição, já que seu valor default é NULL
                     $documento->requerente_id = $request->requerente_id_hidden;
                     $documento->user_id = $idUsuario;
                 $documento->save();
@@ -107,11 +108,11 @@ class DocumentoController extends Controller
     }
 
 
-    public function submeteranalise(Requerente $requerente)
+    public function submeteranalise(Request $request, Requerente $requerente)
     {
-        // Atualiza o campo status para 2(análise)
+        // Atualiza o campo status conforme a necessidade
         $requerente->update([
-            'status' => 2
+            'status' => $request->status_hidden
         ]);
 
         // Redirecionar o usuário(Assistente Social), enviar a mensagem de sucesso
@@ -301,10 +302,10 @@ class DocumentoController extends Controller
 
                 $processo->save();
 
-                // Atualiza o status da situação do requerente (1-andamento; 2-análise; 3-pendnete; 4-concluído )
+                // Atualiza o status da situação do requerente (1-andamento; 2-análise; 3-pendnete; 4-corrigido; 5-concluido )
                 $requerente = Requerente::find($request->requerente_id_hidden);
                 $requerente->update([
-                    'status' => 4   // Concluído
+                    'status' => 5   // Concluído
                 ]);
 
                 // Redirecionar o usuário, enviar a mensagem de sucesso
@@ -342,6 +343,7 @@ class DocumentoController extends Controller
                     // Atualiza os campos necessários
                     $documento->update([
                         'aprovado'      => $request["aprovado_$id"],
+                        'corrigido'     => null,
                         'observacao'    => $request["observacao_$id"],
                         'user_id'       => $idAnalista
                     ]);

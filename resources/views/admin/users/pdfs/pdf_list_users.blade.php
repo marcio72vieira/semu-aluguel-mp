@@ -15,7 +15,16 @@
                     <td style="width: 40px;" class="dados-lista">{{$user->id}}</td>
                     <td style="width: 160px;" class="dados-lista">{{$user->nomecompleto}}</td>
                     {{-- <td style="width: 100px;" class="dados-lista">@if($user->perfil == 'adm') <b>ADMINISTRADOR</b> @elseif($user->perfil == 'nut') Nutricionista @else Inativo @endif </td> --}}
-                    <td style="width: 100px;" class="dados-lista">@if($user->perfil == 'adm') <b>ADMINISTRADOR</b> @else Assistente Social @endif <br> {{ $user->cargo }}</td>
+                    <td style="width: 100px;" class="dados-lista">
+                        @if($user->perfil == 'adm') 
+                            <b>ADMINISTRADOR</b> 
+                        @elseif($user->perfil == 'srv') 
+                            <b>Servidor</b>
+                        @elseif($user->perfil == 'ass') 
+                            <b>Assistente Social</b>
+                        @endif 
+                        <br> {{ $user->cargo }}
+                    </td>
                     <td style="width: 200px;" class="dados-lista">{{ $user->regional->nome }} <br> {{$user->municipio->nome}}</td>
                     <td style="width: 200px;" class="dados-lista">{{$user->email}} <br> {{$user->fone}} </td>
                     <td style="width: 100px;" class="dados-lista">{{$user->cpf}}</td>

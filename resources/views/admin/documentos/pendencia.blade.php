@@ -92,18 +92,21 @@
                     </tbody>
                 </table>
             </div>
-            {{-- fim Lista de documentos anexados--}}
+            {{-- fim Lista de documentos anexados offset-8 --}}
 
             <div class="row">
-                <div class="col-2 offset-10">
+                <div class="col-1 offset-9" style="text-align: right">
+                    <a class="btn btn-outline-secondary me-2" href="{{ route('requerente.index') }}" role="button" style="margin-bottom: 15px;">Cancelar</a>
+                </div>
+                <div class="col-2">
                     {{-- Só exibe o formulário com o botão se documentos_corrigidos for maior ou igual (um documento pode ser corrigido mais de uma vez) a quantidade de docuemtnos reprovados --}}
                     @if ($qtd_documentos_corrigidos >=  $qtd_documentos_reprovados)
                         <form action="{{ route('documento.submeteranalise', ['requerente' => $requerente->id]) }}" method="POST">
                             @csrf
                             @method('PUT')
-                            {{-- status = 5, significa que os documetos foram corrigidos --}}
-                            <input type="hidden" name="status_hidden" value="5">
-                            <button type="submit" class="btn btn-success me-2" style="margin-left: 10px; margin-bottom: 15px; width: 200px;"><i class="fa-solid fa-user-check" style="margin-right: 5px;"></i> Submeter Reanálise</button>
+                            {{-- status = 4, significa que os documetos foram corrigidos --}}
+                            <input type="hidden" name="status_hidden" value="4">
+                            <button type="submit" class="btn btn-success me-2" style="margin-bottom: 15px;"><i class="fa-solid fa-user-check" style="margin-right: 5px;"></i> Submeter a Reanálise</button>
                         </form>
                     @endif
                 </div>

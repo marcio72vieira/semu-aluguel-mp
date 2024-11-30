@@ -45,7 +45,7 @@
                             <th>ID</th>
                             <th>Documento</th>
                             <th>Visualizar</th>
-                            <th style="padding-left: 40px">Aprovado{{-- Confere --}}</th>
+                            <th style="padding-left: 40px">Aprovado</th>
                             <th>Observação</th>
                         </tr>
                     </thead>
@@ -64,12 +64,14 @@
                                 <td>{{ $documento->id }}</td>
                                 <td>{{ $documento->tipodocumento->nome }}</td>
                                 <td>
-                                    <a href="{{ asset('/storage/'.$documento->url) }}" target="_blank">
-                                        <img src="{{ asset('images/documentos2.png') }}" width="30" style="margin-left: 20px;">
-                                    </a>
-
-                                    @if ($documento->corrigido == 1) 
-                                        <b><i class='mr-2 fas fa-check text-success' style="margin-left: 2px; font-size: 15px;"></i></b> 
+                                    @if ($documento->corrigido != 1)
+                                        <a href="{{ asset('/storage/'.$documento->url) }}" target="_blank">
+                                            <img src="{{ asset('images/documentos2.png') }}" width="30" style="margin-left: 20px;">
+                                        </a>
+                                    @else
+                                        <a href="{{ asset('/storage/'.$documento->url) }}" target="_blank">
+                                            <img src="{{ asset('images/docs_verify.webp') }}" width="30" style="margin-left: 20px;">
+                                        </a>
                                     @endif
                                 </td>
                                 <td>

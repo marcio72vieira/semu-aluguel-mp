@@ -51,7 +51,7 @@
                             <td>{{ $user->unidadeatendimento->nome }}</td>
                             <td>{{ $user->fone }}</td>
                             <td>{{ $user->ativo == 1 ? "Sim" : "Não" }}</td>
-                            <td>0</td>
+                            <td>0</td>{{-- quantas requisições foram cadastradas analisadas pelo usuário --}}
                             <td>{{ \Carbon\Carbon::parse($user->created_at)->format('d/m/Y') }}</td>
                             <td class="flex-row d-md-flex justify-content-start">
                                 <a href="{{ route('user.show', ['user' => $user->id]) }}" class="mb-1 btn btn-primary btn-sm me-1">
