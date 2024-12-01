@@ -108,6 +108,13 @@ class Requerente extends Model
         return $qtd;
     }
 
+    public function servidorResponsavelAnalise($id)
+    {
+        $servidorResponsavel = DB::table('users')->where('id', '=', $id)->select('nomecompleto')->get();
+
+        return $servidorResponsavel; 
+    }
+
 
     /*
     // Preparado caso as regras mudem e um requerente possa ter mais de um requerimento

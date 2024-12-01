@@ -41,6 +41,13 @@
                 </thead>
 
                 <tbody>
+                    {{-- Acessando propriedades diretamente sem foreach--}}
+                    {{-- @dd("Acessando a collection requerentes", $requerentes[0]) --}}
+                    {{-- @dd("Acessando a propriedade nomecompleto de requerentes", $requerentes[0]['nomecompleto']) --}}
+                    {{-- @dd("Acessando um relacionamento de requerentes", $requerentes[0]['documentos']) --}}
+                    {{-- @dd("Acessando uma propriedade de um dos relacionamento de requerentes", $requerentes[0]['documentos'][0]['url']) --}}
+                    {{-- @dd("Acessando a propriedade nome do relacionamento regional de requernete", $requerentes[0]['regional']['nome']) --}}
+                    
                     @forelse ($requerentes as $requerente)
                         <tr>
                             <td>{{ $requerente->id }}</td>
@@ -49,7 +56,10 @@
                             <td>{{ $requerente->unidadeatendimento->nome }}</td>
                             <td>{{ $requerente->user->nomecompleto }}</td>
                             <td>{{ $requerente->foneresidencial }} <br> {{ $requerente->fonecelular }} </td>
-                            <td> @foreach ($requerente->documentos as $documento) {{ $documento->user->nomecompleto }} @if ($loop->first) @break @endif @endforeach </td>
+                            <td> 
+                                {{-- @foreach ($requerente->documentos as $documento) {{ $documento->user->nomecompleto }} @if ($loop->first) @break @endif @endforeach --}}
+                                {{ $requerente->servidorResponsavelAnalise(3) }}
+                            </td>
                             <td>
                                 @if($requerente->status == 1) <span style="font-size: 14px;"> <i class="fa-solid fa-shoe-prints"></i> em andamento </span> @endif  {{-- falta anexar todos os documentos --}}
                                 @if($requerente->status == 2) <span style="font-size: 14px;"> <i class="fa-solid fa-user-check"></i> para análise  </span> @endif    {{-- os documentos foram enviados para análise depois de anexar os documentos --}}
