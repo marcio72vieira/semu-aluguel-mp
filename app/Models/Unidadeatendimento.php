@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+
 
 class Unidadeatendimento extends Model
 {
@@ -44,6 +46,13 @@ class Unidadeatendimento extends Model
     public function users ()
     {
         return $this->hasMany(User::class);
+    }
+
+    // Retorna a quantidade de Usuários cadastrados na Unidade de Atendimento
+    public function qtdusuariosdaunidade($idUnidade)
+    {
+        $qtd = DB::table('users')->where('unidadeatendimento_id', '=', $idUnidade)->pluck('id')->count();
+        return $qtd;
     }
 
 

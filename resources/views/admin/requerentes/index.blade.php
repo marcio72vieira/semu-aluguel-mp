@@ -66,12 +66,12 @@
 
                                 {{-- <a href="{{ route('requerimento.index', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-info btn-sm me-1"> <i class="fa-regular fa-paste"></i> Requerimento </a> --}}
 
-                                <a href="{{ route('requerente.show', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-primary btn-sm me-1">
+                                <a href="{{ route('requerente.show', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-primary btn-sm me-1" title="Visualizar os dados cadastrados">
                                     <i class="fa-regular fa-eye"></i> Visualizar
                                 </a>
 
                                 @if ($requerente->status != 2 && $requerente->status != 5)
-                                    <a href="{{ route('requerente.edit', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-warning btn-sm me-1">
+                                    <a href="{{ route('requerente.edit', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-warning btn-sm me-1" title="Editar os dados cadastrados">
                                         <i class="fa-solid fa-pen-to-square"></i> Editar
                                     </a>
                                 @else
@@ -79,7 +79,7 @@
                                 @endif
 
                                 @if ($requerente->status != 2 && $requerente->status != 5)
-                                    <a href="{{ route('requerente.relpdfrequerente', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-danger btn-sm me-1" target="_blank">
+                                    <a href="{{ route('requerente.relpdfrequerente', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-danger btn-sm me-1" target="_blank" title="Emitir anexos para assinatura">
                                         <i class="fa-solid fa-file-pdf"></i> Anexos
                                     </a>
                                 @else
@@ -90,8 +90,8 @@
                                     <i class="fas fa-upload"></i> Documentos
                                 </a> --}}
 
-                                @if ($requerente->status != 2 && $requerente->status != 5)
-                                    <a href="{{ route('documento.create', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-info btn-sm me-1">
+                                @if ($requerente->status != 2 && $requerente->status != 3 && $requerente->status != 5)
+                                    <a href="{{ route('documento.create', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-info btn-sm me-1" title="Anexar documentos para análise">
                                         <i class="fas fa-upload"></i> Documentos
                                     </a>
                                 @else
@@ -103,7 +103,7 @@
                                 </a> --}}
 
                                 @if ($requerente->status != 2 && $requerente->status != 5)
-                                    <a href="{{ route('documento.pendentes', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-warning btn-sm me-1">
+                                    <a href="{{ route('documento.pendentes', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-warning btn-sm me-1" title="Substituir documentos com pendências">
                                         <i class="fa-solid fa-clock-rotate-left"></i> Pendências
                                     </a>
                                 @else
@@ -115,7 +115,7 @@
                                     <form id="formDelete{{ $requerente->id }}" method="POST" action="{{ route('requerente.destroy', ['requerente' => $requerente->id]) }}">
                                         @csrf
                                         @method('delete')
-                                        <button type="submit" class="mb-3 btn btn-danger btn-sm me-1 btnDelete" data-delete-entidade="Requerente" data-delete-id="{{ $requerente->id }}"  data-value-record="{{ $requerente->nomecompleto }}">
+                                        <button type="submit" class="mb-3 btn btn-danger btn-sm me-1 btnDelete" data-delete-entidade="Requerente" data-delete-id="{{ $requerente->id }}"  data-value-record="{{ $requerente->nomecompleto }}" title="Excluir uma requerente cadastrada">
                                             <i class="fa-regular fa-trash-can"></i> Apagar
                                         </button>
                                     </form>

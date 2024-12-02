@@ -13,6 +13,10 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         // Redireciona o usuário para a página de login (pasta raiz), caso o mesmo não esteja autenticado
         $middleware->redirectGuestsTo('/'); 
+        // Registrando o middleware unidaderestrita
+        $middleware->alias([
+            'unidaderestrita' => \App\Http\Middleware\UnidadeRestrita::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

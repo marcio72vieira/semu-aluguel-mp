@@ -108,10 +108,12 @@ class Requerente extends Model
         return $qtd;
     }
 
-    public function servidorResponsavelAnalise($id)
+    // Este método retorna só o nome do servidor (user), para servir a view (resources/views/admin/checklists/index.blade.php)
+    public function servidorResponsavelPelaAnaliseDocumentos($id)
     {
         $servidorResponsavel = DB::table('users')->where('id', '=', $id)->select('nomecompleto')->get();
 
+        //dd($servidorResponsavel);
         return $servidorResponsavel; 
     }
 

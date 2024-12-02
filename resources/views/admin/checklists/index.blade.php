@@ -30,12 +30,13 @@
                     <tr>
                         <th>ID</th>
                         <th>Requerente</th>
-                        <th class="d-none d-md-table-cell">Município</th>
-                        <th class="d-none d-md-table-cell">Unidade Atendimento</th>
+                        <th>Município</th>
+                        <th>Tipo</th>
+                        <th>Unidade Atendimento</th>
                         <th>Assitente Social</th>
                         <th>Telefones</th>
                         <th>Servidor SEMU</th>
-                        <th class="d-none d-md-table-cell">Status</th>
+                        <th>Status</th>
                         <th width="200px">Ação</th>
                     </tr>
                 </thead>
@@ -46,19 +47,32 @@
                     {{-- @dd("Acessando a propriedade nomecompleto de requerentes", $requerentes[0]['nomecompleto']) --}}
                     {{-- @dd("Acessando um relacionamento de requerentes", $requerentes[0]['documentos']) --}}
                     {{-- @dd("Acessando uma propriedade de um dos relacionamento de requerentes", $requerentes[0]['documentos'][0]['url']) --}}
+                    {{-- @dd("Acessando uma propriedade de um dos relacionamento de requerentes", $requerentes[0]['documentos'][0]['user_id']) --}}
                     {{-- @dd("Acessando a propriedade nome do relacionamento regional de requernete", $requerentes[0]['regional']['nome']) --}}
                     
+                   
+
                     @forelse ($requerentes as $requerente)
                         <tr>
                             <td>{{ $requerente->id }}</td>
                             <td>{{ $requerente->nomecompleto }}</td>
                             <td>{{ $requerente->municipio->nome }}</td>
+                            <td>{{ $requerente->tipounidade->nome }}</td>
                             <td>{{ $requerente->unidadeatendimento->nome }}</td>
                             <td>{{ $requerente->user->nomecompleto }}</td>
                             <td>{{ $requerente->foneresidencial }} <br> {{ $requerente->fonecelular }} </td>
                             <td> 
+                                {{-- $requerente->servidorResponsavelPelaAnaliseDocumentos(3)[0]->nomecompleto --}}
                                 {{-- @foreach ($requerente->documentos as $documento) {{ $documento->user->nomecompleto }} @if ($loop->first) @break @endif @endforeach --}}
-                                {{ $requerente->servidorResponsavelAnalise(3) }}
+                                
+                                @foreach ($requerente->documentos as $documento) 
+                                    @if ($documento->user->nomecompleto == $requerente->user->nomecompleto)
+                                        <i class="fa-solid fa-ellipsis"></i>
+                                    @else
+                                        {{ $documento->user->nomecompleto }}
+                                    @endif
+                                    @if ($loop->first) @break @endif 
+                                @endforeach
                             </td>
                             <td>
                                 @if($requerente->status == 1) <span style="font-size: 14px;"> <i class="fa-solid fa-shoe-prints"></i> em andamento </span> @endif  {{-- falta anexar todos os documentos --}}

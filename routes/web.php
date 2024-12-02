@@ -77,11 +77,11 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/index-requerente', [RequerenteController::class, 'index'])->name('requerente.index');
     Route::get('/create-requerente', [RequerenteController::class, 'create'])->name('requerente.create');
     Route::post('/store-requerente', [RequerenteController::class, 'store'])->name('requerente.store');
-    Route::get('/show-requerente/{requerente}', [RequerenteController::class, 'show'])->name('requerente.show');
-    Route::get('/edit-requerente/{requerente}', [RequerenteController::class, 'edit'])->name('requerente.edit');
+    Route::get('/show-requerente/{requerente}', [RequerenteController::class, 'show'])->name('requerente.show')->middleware('unidaderestrita');
+    Route::get('/edit-requerente/{requerente}', [RequerenteController::class, 'edit'])->name('requerente.edit')->middleware('unidaderestrita');
     Route::put('/update-requerente/{requerente}', [RequerenteController::class, 'update'])->name('requerente.update');
     Route::delete('/destroy-requerente/{requerente}', [RequerenteController::class, 'destroy'])->name('requerente.destroy');
-    Route::get('pdf-requerente/relpdfrequerente/{requerente}', [RequerenteController::class, 'relpdfrequerente'])->name('requerente.relpdfrequerente');
+    Route::get('pdf-requerente/relpdfrequerente/{requerente}', [RequerenteController::class, 'relpdfrequerente'])->name('requerente.relpdfrequerente')->middleware('unidaderestrita');
 
     // ANEXO
     Route::get('/index-anexo/{requerente}', [AnexoController::class, 'index'])->name('anexo.index');
@@ -90,15 +90,15 @@ Route::group(['middleware' => 'auth'], function(){
     Route::delete('/destroy-anexo/{anexo}', [AnexoController::class, 'destroy'])->name('anexo.destroy');
 
     // DOCUMENTO
-    Route::get('/index-documento/{requerente}', [DocumentoController::class, 'index'])->name('documento.index');
-    Route::get('/create-documento/{requerente}', [DocumentoController::class, 'create'])->name('documento.create');
+    Route::get('/index-documento/{requerente}', [DocumentoController::class, 'index'])->name('documento.index'); // Aqui não é preciso o middleware(unidaderestrita), porque o Servidor da SEMU pode acessar os documentos de  qualquer Requerente cadastrado pronto para análise dos documentos independente da Unidade de Atendimento que o mesmo foi cadastado.
+    Route::get('/create-documento/{requerente}', [DocumentoController::class, 'create'])->name('documento.create')->middleware('unidaderestrita');
     Route::post('/store-documento', [DocumentoController::class, 'store'])->name('documento.store');
     //Route::put('/update-documento/{requerente}', [DocumentoController::class, 'update'])->name('documento.update');
     Route::put('/efetuaanalisegeraprocesso-documento/{requerente}', [DocumentoController::class, 'efetuaanalisegeraprocesso'])->name('documento.efetuaanalisegeraprocesso');
     Route::delete('/destroy-documento/{documento}', [DocumentoController::class, 'destroy'])->name('documento.destroy');
     Route::get('/merge-documento/{requerente}', [DocumentoController::class, 'merge'])->name('documento.merge');
     Route::put('/submeteranalise-documento/{requerente}', [DocumentoController::class, 'submeteranalise'])->name('documento.submeteranalise');
-    Route::get('/pendentes-documento/{requerente}', [DocumentoController::class, 'pendentes'])->name('documento.pendentes');
+    Route::get('/pendentes-documento/{requerente}', [DocumentoController::class, 'pendentes'])->name('documento.pendentes')->middleware('unidaderestrita');
     Route::post('/replace-documento', [DocumentoController::class, 'replace'])->name('documento.replace');
 
     // CHECKLIST

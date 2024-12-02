@@ -70,7 +70,7 @@
                                         </a>
                                     @else
                                         <a href="{{ asset('/storage/'.$documento->url) }}" target="_blank">
-                                            <img src="{{ asset('images/docs_verify.webp') }}" width="30" style="margin-left: 20px;">
+                                            <img src="{{ asset('images/left_right.png') }}" width="30" style="margin-left: 20px;">
                                         </a>
                                     @endif
                                 </td>

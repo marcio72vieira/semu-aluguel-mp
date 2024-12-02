@@ -306,3 +306,14 @@ echo (explode(" ",$str)[0]);
         });
     }
 
+/// Exibe o nome do Assistente social e o nome do Servidor da SEMU que realizou a analise dos documentos se analisou. Se não, não mosta nada
+ {{-- Se os documentos já foram analisados por alguém exibe seu nome, caso contrário, não exibe nada --}}
+@foreach ($requerente->documentos as $documento) 
+    {{-- $documento->user->nomecompleto --}}
+    @if ($documento->user->nomecompleto == $requerente->user->nomecompleto)
+
+    @else
+        {{ $documento->user->nomecompleto }}
+    @endif
+    @if ($loop->first) @break @endif 
+@endforeach

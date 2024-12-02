@@ -28,11 +28,11 @@
                         <th>ID</th>
                         <th>Tipo</th>
                         <th>Nome</th>
-                        <th class="d-none d-md-table-cell">Regional</th>
-                        <th class="d-none d-md-table-cell">Município</th>
-                        <th class="d-none d-md-table-cell">Ativo</th>
-                        <th class="d-none d-md-table-cell">Usuários</th>
-                        <th class="d-none d-md-table-cell">Cadastrado</th>
+                        <th>Regional</th>
+                        <th>Município</th>
+                        <th>Ativo</th>
+                        <th>Usuários</th>
+                        <th>Cadastrado</th>
                         <th width="18%">Ações</th>
                     </tr>
                 </thead>
@@ -46,7 +46,7 @@
                             <td>{{ $unidadeatendimento->regional->nome }}</td>
                             <td>{{ $unidadeatendimento->municipio->nome }}</td>
                             <td>{{ $unidadeatendimento->ativo == 1 ? "Sim" : "Não" }}</td>
-                            <td>0</td>
+                            <td>{{ $unidadeatendimento->qtdusuariosdaunidade($unidadeatendimento->id) }}</td>
                             <td>{{ \Carbon\Carbon::parse($unidadeatendimento->created_at)->format('d/m/Y') }}</td>
                             <td class="flex-row d-md-flex justify-content-start">
                                 <a href="{{ route('unidadeatendimento.show', ['unidadeatendimento' => $unidadeatendimento->id]) }}" class="mb-1 btn btn-primary btn-sm me-1">
@@ -57,7 +57,7 @@
                                     <i class="fa-solid fa-pen-to-square"></i> Editar
                                 </a>
 
-                                @if(2 > 1)
+                                @if($unidadeatendimento->qtdusuariosdaunidade($unidadeatendimento->id) == 0)
                                     <form id="formDelete{{ $unidadeatendimento->id }}" method="POST" action="{{ route('unidadeatendimento.destroy', ['unidadeatendimento' => $unidadeatendimento->id]) }}">
                                         @csrf
                                         @method('delete')
@@ -66,7 +66,7 @@
                                         </button>
                                     </form>
                                 @else
-                                    <button type="button" class="btn btn-outline-secondary btn-sm me-1 mb-1"  title="há processos vinculados!"> <i class="fa-regular fa-trash-can"></i> Apagar </button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm me-1 mb-1"  title="há usuários vinculados!"> <i class="fa-solid fa-ban"></i> Apagar </button>
                                 @endif
                             </td>
                         </tr>

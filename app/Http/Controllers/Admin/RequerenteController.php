@@ -18,17 +18,34 @@ use Illuminate\Support\Str;
 
 class RequerenteController extends Controller
 {
+    
     public function index()
     {
+        // Recuperando o Usuario authenticado
+        $user = Auth::user();
+
+        // Recuperando a Unidade de Atendimento do Usuário authenticado
+        $unidadeatendimento_user = $user->unidadeatendimento_id;
+
         // Recuperando todas os municípios
         $municipios = Municipio::where('ativo', '=', '1')->orderBy('nome', 'ASC')->get();
 
-        // Recuperando requerentes e seus registros relacionados
-        $requerentes = Requerente::with(['regional', 'municipio', 'tipounidade', 'unidadeatendimento', 'user'])->orderBy('nomecompleto')->paginate(10);
-        return view('admin.requerentes.index', [
-            'requerentes' => $requerentes,
-            'municipios' => $municipios,
-        ]);
+        // Se o usuário authenticado for ADM, exibe todos os registros, caso contrário só os registros da sua Unidade de Atendimento
+        // Recuperando Requerentes e seus relacionamentos
+        if($user->perfil == "adm"){
+            $requerentes = Requerente::with(['regional', 'municipio', 'tipounidade', 'unidadeatendimento', 'user'])->orderBy('nomecompleto')->paginate(10);
+            return view('admin.requerentes.index', [
+                'requerentes' => $requerentes,
+                'municipios' => $municipios,
+            ]);
+        } else{
+            $requerentes = Requerente::with(['regional', 'municipio', 'tipounidade', 'unidadeatendimento', 'user'])->where('unidadeatendimento_id', '=', $unidadeatendimento_user)->orderBy('nomecompleto')->paginate(10);
+            return view('admin.requerentes.index', [
+                'requerentes' => $requerentes,
+                'municipios' => $municipios,
+            ]);
+        }
+
     }
 
 
@@ -210,6 +227,7 @@ class RequerenteController extends Controller
 
     public function show(Requerente $requerente)
     {
+        
         $requerente =  Requerente::with(['detalhe','locacao'])->find($requerente->id);
 
         $arr_comunidade = ['1' => 'Cigano', '2' => 'Quilombola', '3' => 'Matriz Africana', '4' => 'Indígena', '5' => 'Assentado / acampado', '6' => 'Pessoa do campo / floresta', '7'  => 'Pessoa em situação de rua', '20' => 'Outra'];
