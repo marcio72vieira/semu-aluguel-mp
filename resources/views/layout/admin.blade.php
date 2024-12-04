@@ -61,7 +61,7 @@
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                        <div class="sb-sidenav-menu-heading">Core</div>
+                        <div class="sb-sidenav-menu-heading">Operação</div>
 
                         {{-- <a class="nav-link" href="index.html">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
@@ -73,37 +73,42 @@
                             Requerentes
                         </a>
 
-                        <a class="nav-link" href="{{ route('checklist.index') }}">
-                            <div class="sb-nav-link-icon"><i class="fa-solid fa-list-check"></i></div>
-                            Check List
-                        </a>
+                        @can("adm")
+                                <a class="nav-link" href="{{ route('checklist.index') }}">
+                                    <div class="sb-nav-link-icon"><i class="fa-solid fa-list-check"></i></div>
+                                    Check List
+                                </a>
+                                <a class="nav-link" href="{{ route('processo.index') }}">
+                                    <div class="sb-nav-link-icon"><i class="fa-solid fa-file-powerpoint"></i></div>
+                                    Processos
+                                </a>
+                        @endcan
+                            
 
-                        <a class="nav-link" href="{{ route('processo.index') }}">
-                            <div class="sb-nav-link-icon"><i class="fa-solid fa-file-powerpoint"></i></div>
-                            Processos
-                        </a>
 
-                        <a class="nav-link" href="{{ route('user.index') }}">
-                            <div class="sb-nav-link-icon"><i class="fa-solid fa-users"></i></div>
-                            Usuários
-                        </a>
+                        @can("adm")
+                            <div class="sb-sidenav-menu-heading">Administração</div>
+                            <a class="nav-link" href="{{ route('user.index') }}">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-users"></i></div>
+                                Usuários
+                            </a>
 
-                        <div class="sb-sidenav-menu-heading">Interface</div>
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                            Suporte
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                        </a>
-                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="{{ route('regional.index') }}">Regionais</a>
-                                <a class="nav-link" href="{{ route('municipio.index') }}">Municípios</a>
-                                <a class="nav-link" href="{{ route('tipounidade.index') }}">Tipos de Unidades</a>
-                                <a class="nav-link" href="{{ route('unidadeatendimento.index')}}">Unidades</a>
-                                <a class="nav-link" href="{{ route('tipodocumento.index')}}">Tipos de Documentos</a>
-                                {{-- <a class="nav-link" href="{{ url('index-datatables') }}">DataTable</a> --}}
-                            </nav>
-                        </div>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-gears"></i></div>
+                                Suporte
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="{{ route('regional.index') }}">Regionais</a>
+                                    <a class="nav-link" href="{{ route('municipio.index') }}">Municípios</a>
+                                    <a class="nav-link" href="{{ route('tipounidade.index') }}">Tipos de Unidades</a>
+                                    <a class="nav-link" href="{{ route('unidadeatendimento.index')}}">Unidades</a>
+                                    <a class="nav-link" href="{{ route('tipodocumento.index')}}">Tipos de Documentos</a>
+                                    {{-- <a class="nav-link" href="{{ url('index-datatables') }}">DataTable</a> --}}
+                                </nav>
+                            </div>
+                        @endcan
 
                         {{--
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">

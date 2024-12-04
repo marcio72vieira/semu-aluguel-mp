@@ -61,17 +61,6 @@ Route::post('/reset-password', [ForgotPasswordController::class, 'submitResetPas
 // Rotas restritas (deve-se está autenticado)
 Route::group(['middleware' => 'auth'], function(){
 
-    // USUÁRIO
-    Route::get('/index-user', [UserController::class, 'index'])->name('user.index');
-    Route::get('/create-user', [UserController::class, 'create'])->name('user.create');
-    Route::post('/store-user', [UserController::class, 'store'])->name('user.store');
-    Route::get('/show-user/{user}', [UserController::class, 'show'])->name('user.show');
-    Route::get('/edit-user/{user}', [UserController::class, 'edit'])->name('user.edit');
-    Route::put('/update-user/{user}', [UserController::class, 'update'])->name('user.update');
-    Route::delete('/destroy-user/{user}', [UserController::class, 'destroy'])->name('user.destroy');
-    Route::get('/getunidadesatendimentomunicipio',[UserController::class, 'getunidadesatendimentomunicipio'])->name('getunidadesatendimentomunicipio');
-    Route::get('pdf-user/relpdflistusers', [UserController::class, 'relpdflistusers'])->name('user.pdflistusers');
-
 
     // REQUERENTE
     Route::get('/index-requerente', [RequerenteController::class, 'index'])->name('requerente.index');
@@ -101,8 +90,9 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/pendentes-documento/{requerente}', [DocumentoController::class, 'pendentes'])->name('documento.pendentes')->middleware('unidaderestrita');
     Route::post('/replace-documento', [DocumentoController::class, 'replace'])->name('documento.replace');
 
+
     // CHECKLIST
-    Route::get('/index-checklist', [ChecklistController::class, 'index'])->name('checklist.index');
+    Route::get('/index-checklist', [ChecklistController::class, 'index'])->name('checklist.index')->middleware(['can:adm']);
 
     // PROCESSO
     Route::get('/index-processo', [ProcessoController::class, 'index'])->name('processo.index');
@@ -115,45 +105,60 @@ Route::group(['middleware' => 'auth'], function(){
 
 
 
-    // REGIONAL
-    Route::get('/index-regional', [RegionalController::class, 'index'])->name('regional.index');
-    Route::get('/create-regional', [RegionalController::class, 'create'])->name('regional.create');
-    Route::post('/store-regional', [RegionalController::class, 'store'])->name('regional.store');
-    Route::get('/edit-regional/{regional}', [RegionalController::class, 'edit'])->name('regional.edit');
-    Route::put('/update-regional/{regional}', [RegionalController::class, 'update'])->name('regional.update');
-    Route::delete('/destroy-regional/{regional}', [RegionalController::class, 'destroy'])->name('regional.destroy');
+    // Rotas restritas, além de estarem autenticadas, devem também ter o perfil de administrador "adm". (Só o Administrador pode acessar)
+    Route::group(['middleware' => 'can:adm'], function(){
+        // USUÁRIO
+        Route::get('/index-user', [UserController::class, 'index'])->name('user.index');
+        Route::get('/create-user', [UserController::class, 'create'])->name('user.create');
+        Route::post('/store-user', [UserController::class, 'store'])->name('user.store');
+        Route::get('/show-user/{user}', [UserController::class, 'show'])->name('user.show');
+        Route::get('/edit-user/{user}', [UserController::class, 'edit'])->name('user.edit');
+        Route::put('/update-user/{user}', [UserController::class, 'update'])->name('user.update');
+        Route::delete('/destroy-user/{user}', [UserController::class, 'destroy'])->name('user.destroy');
+        Route::get('/getunidadesatendimentomunicipio',[UserController::class, 'getunidadesatendimentomunicipio'])->name('getunidadesatendimentomunicipio');
+        Route::get('pdf-user/relpdflistusers', [UserController::class, 'relpdflistusers'])->name('user.pdflistusers');
 
-    // MUNICIPIO
-    Route::get('/index-municipio', [MunicipioController::class, 'index'])->name('municipio.index');
-    Route::get('/create-municipio', [MunicipioController::class, 'create'])->name('municipio.create');
-    Route::post('/store-municipio', [MunicipioController::class, 'store'])->name('municipio.store');
-    Route::get('/edit-municipio/{municipio}', [MunicipioController::class, 'edit'])->name('municipio.edit');
-    Route::put('/update-municipio/{municipio}', [MunicipioController::class, 'update'])->name('municipio.update');
-    Route::delete('/destroy-municipio/{municipio}', [MunicipioController::class, 'destroy'])->name('municipio.destroy');
+        // REGIONAL
+        Route::get('/index-regional', [RegionalController::class, 'index'])->name('regional.index');
+        Route::get('/create-regional', [RegionalController::class, 'create'])->name('regional.create');
+        Route::post('/store-regional', [RegionalController::class, 'store'])->name('regional.store');
+        Route::get('/edit-regional/{regional}', [RegionalController::class, 'edit'])->name('regional.edit');
+        Route::put('/update-regional/{regional}', [RegionalController::class, 'update'])->name('regional.update');
+        Route::delete('/destroy-regional/{regional}', [RegionalController::class, 'destroy'])->name('regional.destroy');
 
-    // TIPO UNIDADE
-    Route::get('/index-tipounidade', [TipounidadeController::class, 'index'])->name('tipounidade.index');
-    Route::get('/create-tipounidade', [TipounidadeController::class, 'create'])->name('tipounidade.create');
-    Route::post('/store-tipounidade', [TipounidadeController::class, 'store'])->name('tipounidade.store');
-    Route::get('/edit-tipounidade/{tipounidade}', [TipounidadeController::class, 'edit'])->name('tipounidade.edit');
-    Route::put('/update-tipounidade/{tipounidade}', [TipounidadeController::class, 'update'])->name('tipounidade.update');
-    Route::delete('/destroy-tipounidade/{tipounidade}', [TipounidadeController::class, 'destroy'])->name('tipounidade.destroy');
+        // MUNICIPIO
+        Route::get('/index-municipio', [MunicipioController::class, 'index'])->name('municipio.index');
+        Route::get('/create-municipio', [MunicipioController::class, 'create'])->name('municipio.create');
+        Route::post('/store-municipio', [MunicipioController::class, 'store'])->name('municipio.store');
+        Route::get('/edit-municipio/{municipio}', [MunicipioController::class, 'edit'])->name('municipio.edit');
+        Route::put('/update-municipio/{municipio}', [MunicipioController::class, 'update'])->name('municipio.update');
+        Route::delete('/destroy-municipio/{municipio}', [MunicipioController::class, 'destroy'])->name('municipio.destroy');
 
-    // UNIDADE ATENDIMENTO
-    Route::get('/index-unidadeatendimento', [UnidadeatendimentoController::class, 'index'])->name('unidadeatendimento.index');
-    Route::get('/create-unidadeatendimento', [UnidadeatendimentoController::class, 'create'])->name('unidadeatendimento.create');
-    Route::post('/store-unidadeatendimento', [UnidadeatendimentoController::class, 'store'])->name('unidadeatendimento.store');
-    Route::get('/show-unidadeatendimento/{unidadeatendimento}', [UnidadeatendimentoController::class, 'show'])->name('unidadeatendimento.show');
-    Route::get('/edit-unidadeatendimento/{unidadeatendimento}', [UnidadeatendimentoController::class, 'edit'])->name('unidadeatendimento.edit');
-    Route::put('/update-unidadeatendimento/{unidadeatendimento}', [UnidadeatendimentoController::class, 'update'])->name('unidadeatendimento.update');
-    Route::delete('/destroy-unidadeatendimento/{unidadeatendimento}', [UnidadeatendimentoController::class, 'destroy'])->name('unidadeatendimento.destroy');
+        // TIPO UNIDADE
+        Route::get('/index-tipounidade', [TipounidadeController::class, 'index'])->name('tipounidade.index');
+        Route::get('/create-tipounidade', [TipounidadeController::class, 'create'])->name('tipounidade.create');
+        Route::post('/store-tipounidade', [TipounidadeController::class, 'store'])->name('tipounidade.store');
+        Route::get('/edit-tipounidade/{tipounidade}', [TipounidadeController::class, 'edit'])->name('tipounidade.edit');
+        Route::put('/update-tipounidade/{tipounidade}', [TipounidadeController::class, 'update'])->name('tipounidade.update');
+        Route::delete('/destroy-tipounidade/{tipounidade}', [TipounidadeController::class, 'destroy'])->name('tipounidade.destroy');
 
-    // TIPO DOCUMENTO
-    Route::get('/index-tipodocumento', [TipodocumentoController::class, 'index'])->name('tipodocumento.index');
-    Route::get('/create-tipodocumento', [TipodocumentoController::class, 'create'])->name('tipodocumento.create');
-    Route::post('/store-tipodocumento', [TipodocumentoController::class, 'store'])->name('tipodocumento.store');
-    Route::get('/edit-tipodocumento/{tipodocumento}', [TipodocumentoController::class, 'edit'])->name('tipodocumento.edit');
-    Route::put('/update-tipodocumento/{tipodocumento}', [TipodocumentoController::class, 'update'])->name('tipodocumento.update');
-    Route::delete('/destroy-tipodocumento/{tipodocumento}', [TipodocumentoController::class, 'destroy'])->name('tipodocumento.destroy');
+        // UNIDADE ATENDIMENTO
+        Route::get('/index-unidadeatendimento', [UnidadeatendimentoController::class, 'index'])->name('unidadeatendimento.index');
+        Route::get('/create-unidadeatendimento', [UnidadeatendimentoController::class, 'create'])->name('unidadeatendimento.create');
+        Route::post('/store-unidadeatendimento', [UnidadeatendimentoController::class, 'store'])->name('unidadeatendimento.store');
+        Route::get('/show-unidadeatendimento/{unidadeatendimento}', [UnidadeatendimentoController::class, 'show'])->name('unidadeatendimento.show');
+        Route::get('/edit-unidadeatendimento/{unidadeatendimento}', [UnidadeatendimentoController::class, 'edit'])->name('unidadeatendimento.edit');
+        Route::put('/update-unidadeatendimento/{unidadeatendimento}', [UnidadeatendimentoController::class, 'update'])->name('unidadeatendimento.update');
+        Route::delete('/destroy-unidadeatendimento/{unidadeatendimento}', [UnidadeatendimentoController::class, 'destroy'])->name('unidadeatendimento.destroy');
 
-});
+        // TIPO DOCUMENTO
+        Route::get('/index-tipodocumento', [TipodocumentoController::class, 'index'])->name('tipodocumento.index');
+        Route::get('/create-tipodocumento', [TipodocumentoController::class, 'create'])->name('tipodocumento.create');
+        Route::post('/store-tipodocumento', [TipodocumentoController::class, 'store'])->name('tipodocumento.store');
+        Route::get('/edit-tipodocumento/{tipodocumento}', [TipodocumentoController::class, 'edit'])->name('tipodocumento.edit');
+        Route::put('/update-tipodocumento/{tipodocumento}', [TipodocumentoController::class, 'update'])->name('tipodocumento.update');
+        Route::delete('/destroy-tipodocumento/{tipodocumento}', [TipodocumentoController::class, 'destroy'])->name('tipodocumento.destroy');
+    
+    }); // Final das rotas restritas referente a ser administrador
+
+});// Final das rotas restritas referente a estar autenticado

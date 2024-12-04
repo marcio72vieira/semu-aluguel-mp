@@ -82,13 +82,25 @@ class LoginController extends Controller
             // Redirecionar o usuário para o Dashboard, caso o mesmo seja autenticado 
             // return redirect()->route('dashboard.index')->with('success', 'Seja bem vindo!');
             // Redireciona o usuário para a página dashboard e lá são exibidas os menus o que mesmo tem acesso
-            return redirect()->route('regional.index')->with('success', Auth::user()->nome .', Bem vindo!');
+
+            // Redireciona o usuário conforme seu perfil
+            if($user->perfil == "adm"){
+                return redirect()->route('regional.index')->with('success', Auth::user()->nome .', Bem vindo!');
+            }
+
+            if($user->perfil == "srv"){
+                return redirect()->route('checklist.index')->with('success', Auth::user()->nome .', Bem vindo!');
+            }
+
+            if($user->perfil == "ass"){
+                return redirect()->route('requerente.index')->with('success', Auth::user()->nome .', Bem vindo!');
+            }
         }
 
     }
 
 
-    // Carregar o formulário cadastrar novo usuário
+    // Carregar o formulário recadastrar senha no caso do primeiro acesso
     public function createprimeiroacesso(User $user)
     {
         // Carregr a view
