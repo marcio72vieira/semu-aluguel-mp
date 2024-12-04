@@ -31,12 +31,12 @@
                         <th>ID</th>
                         <th>Nome</th>
                         <th>Perfil</th>
-                        <th class="d-none d-md-table-cell">Município</th>
-                        <th class="d-none d-md-table-cell">Unidade Atendimento</th>
+                        <th>Município</th>
+                        <th>Unidade Atendimento</th>
                         <th>Telefone</th>
-                        <th class="d-none d-md-table-cell">Ativo</th>
-                        <th class="d-none d-md-table-cell">Requisições Aluguel</th>
-                        <th class="d-none d-md-table-cell">Cadastrado</th>
+                        <th>Cadastro / Processos</th>
+                        <th>Cadastrado</th>
+                        <th>Ativo</th>
                         <th width="18%">Ações</th>
                     </tr>
                 </thead>
@@ -46,13 +46,13 @@
                         <tr>
                             <td>{{ $user->id }}</th>
                             <td>{{ $user->nomecompleto }}</th>
-                                <td>{{ ($user->perfil == "adm" ? "ADMINISTRADOR" : ($user->perfil == "srv" ? "SERVIDOR SEMU" : "ASS. SOCIAL")) }}</th>
+                            <td>{{ ($user->perfil == "adm" ? "ADMINISTRADOR" : ($user->perfil == "srv" ? "SERVIDOR SEMU" : "ASS. SOCIAL")) }}</th>
                             <td>{{ $user->municipio->nome }}</td>
                             <td>{{ $user->unidadeatendimento->nome }}</td>
                             <td>{{ $user->fone }}</td>
-                            <td>{{ $user->ativo == 1 ? "Sim" : "Não" }}</td>
-                            <td>0</td>{{-- quantas requisições foram cadastradas analisadas pelo usuário --}}
+                            <td style="text-align: center">{{ $user->qtd_requerentes_cadastrados_ou_analisados($user->id, $user->perfil) }}</td>
                             <td>{{ \Carbon\Carbon::parse($user->created_at)->format('d/m/Y') }}</td>
+                            <td>{{ $user->ativo == 1 ? "Sim" : "Não" }}</td>
                             
                             <td class="flex-row d-md-flex justify-content-start">
                                 <a href="{{ route('user.show', ['user' => $user->id]) }}" class="mb-1 btn btn-primary btn-sm me-1">
@@ -63,7 +63,7 @@
                                     <i class="fa-solid fa-pen-to-square"></i> Editar
                                 </a>
 
-                                @if(2 > 1)
+                                @if($user->qtd_requerentes_cadastrados_ou_analisados($user->id, $user->perfil) == 0)
                                     <form id="formDelete{{ $user->id }}" method="POST" action="{{ route('user.destroy', ['user' => $user->id]) }}">
                                         @csrf
                                         @method('delete')
@@ -72,7 +72,7 @@
                                         </button>
                                     </form>
                                 @else
-                                    <button type="button" class="btn btn-outline-secondary btn-sm me-1 mb-1"  title="há processos vinculados!"> <i class="fa-regular fa-trash-can"></i> Apagar </button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm me-1 mb-1"  title="Há requerentes cadastrados ou processados!"> <i class="fa-regular fa-trash-can"></i> Apagar </button>
                                 @endif
                             </td>
                         </tr>

@@ -25,9 +25,9 @@
                             <th>ID</th>
                             <th>Documento</th>
                             <th>Observação</th>
-                            <th>Corrigido {{-- Excluir --}}</th>
                             <th>Visualizar</th>
-                            <th>Documento corrigido</th>
+                            <th>Atualizar {{-- Excluir --}}</th>
+                            <th>Corrigido</th>
                         </tr>
                     </thead>
 
@@ -41,7 +41,32 @@
                             <tr>
                                 <td>{{ $documento->id }}</th>
                                 <td>{{ $documento->tipodocumento->nome }}</th>
-                                <td>{{ $documento->observacao }}</td>                    
+                                <td>{{ $documento->observacao }}</td>
+                                
+                                {{-- Visualizando o documento --}}
+                                <td> <a href="{{ asset('/storage/'.$documento->url) }}" target="_blank" title="Visualizar este documento"> <img src="{{ asset('images/documentos2.png') }}" width="30" style="margin-left: 25px;"> </a></td>
+                                
+                                {{-- Formulári para atualizar documentos --}}
+                                <td>
+                                    <form action="{{ route('documento.replace') }}" method="POST" enctype="multipart/form-data" autocomplete="off">
+                                        @csrf
+                                        @method('POST')
+                                        <div class="row">
+                                            <div class="col-10">
+                                                <input type="file" name="url"  id="url" style="display:block" value="{{ old('url') }}">
+                                                <input type="hidden" name="documento_id" id="documento_id"  value="{{ $documento->id }}">
+                                                <input type="hidden" name="nome_arquivo_antigo" id="nome_arquivo_antigo"  value="{{ explode('/', $documento->url)[2] }}">
+                                                <input type="hidden" name="tipodocumento_id" id="tipodocumento_id"  value="{{ $documento->tipodocumento->id }}">
+                                                <input type="hidden" name="tipodocumento_ordem_hidden" id="tipodocumento_ordem_hidden"  value="{{ $documento->tipodocumento->ordem }}">
+                                                <input type="hidden" name="requerente_id_hidden" id="requerente_id_hidden" value="{{ $requerente->id }}">
+                                            </div>
+                                            <div class="col-1">
+                                                <button type="submit" class="btn btn-primary btn-sm" title="Substituir"><i class="fa-solid fa-right-left"></i></button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </td>
+                                {{-- Indicador de Docuemntos Corrigidos --}}
                                 <td class="flex-row flex-wrap d-md-flex justify-content-start align-content-stretch">
                                     @if ($documento->corrigido == 1) 
                                         {{-- Acrescenta + 1 toda vez que um documento for corrigido --}}
@@ -65,26 +90,6 @@
                                     @endif
                                      --}}
                                 </td>
-                                <td> <a href="{{ asset('/storage/'.$documento->url) }}" target="_blank" title="Visualizar este documento"> <img src="{{ asset('images/documentos2.png') }}" width="30" style="margin-left: 25px;"> </a></td>
-                                <td>
-                                    <form action="{{ route('documento.replace') }}" method="POST" enctype="multipart/form-data" autocomplete="off">
-                                        @csrf
-                                        @method('POST')
-                                        <div class="row">
-                                            <div class="col-10">
-                                                <input type="file" name="url"  id="url" style="display:block" value="{{ old('url') }}">
-                                                <input type="hidden" name="documento_id" id="documento_id"  value="{{ $documento->id }}">
-                                                <input type="hidden" name="nome_arquivo_antigo" id="nome_arquivo_antigo"  value="{{ explode('/', $documento->url)[2] }}">
-                                                <input type="hidden" name="tipodocumento_id" id="tipodocumento_id"  value="{{ $documento->tipodocumento->id }}">
-                                                <input type="hidden" name="tipodocumento_ordem_hidden" id="tipodocumento_ordem_hidden"  value="{{ $documento->tipodocumento->ordem }}">
-                                                <input type="hidden" name="requerente_id_hidden" id="requerente_id_hidden" value="{{ $requerente->id }}">
-                                            </div>
-                                            <div class="col-1">
-                                                <button type="submit" class="btn btn-primary btn-sm" title="Substituir"><i class="fa-solid fa-right-left"></i></button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </td>
                             </tr>
                         @empty
                             <div class="alert alert-danger" role="alert">Nenhum documento com pendência encontrado! </div>
@@ -99,8 +104,8 @@
                     <a class="btn btn-outline-secondary me-2" href="{{ route('requerente.index') }}" role="button" style="margin-bottom: 15px;">Cancelar</a>
                 </div>
                 <div class="col-2">
-                    {{-- Só exibe o formulário com o botão se documentos_corrigidos for maior ou igual (um documento pode ser corrigido mais de uma vez) a quantidade de docuemtnos reprovados --}}
-                    @if ($qtd_documentos_corrigidos >=  $qtd_documentos_reprovados)
+                    {{-- Só exibe o formulário com o botão se documentos_corrigidos diferente de zero e for maior ou igual (um documento pode ser corrigido mais de uma vez) a quantidade de docuemtnos reprovados --}}
+                    @if (($qtd_documentos_corrigidos != 0) && ($qtd_documentos_corrigidos >=  $qtd_documentos_reprovados))
                         <form action="{{ route('documento.submeteranalise', ['requerente' => $requerente->id]) }}" method="POST">
                             @csrf
                             @method('PUT')
@@ -109,6 +114,7 @@
                             <button type="submit" class="btn btn-success me-2" style="margin-bottom: 15px;"><i class="fa-solid fa-user-check" style="margin-right: 5px;"></i> Submeter a Reanálise</button>
                         </form>
                     @endif
+
                 </div>
             </div>
         </div>

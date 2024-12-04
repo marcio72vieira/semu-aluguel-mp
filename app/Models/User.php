@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -88,5 +89,35 @@ class User extends Authenticatable
         return $this->hasMany(Documento::class);
     }
 
-
+    
+    
+    public function qtd_requerentes_cadastrados_ou_analisados($idUsuario, $perfilUsuario)
+    {
+        if($perfilUsuario == "adm" || $perfilUsuario == "srv"){
+            $qtd = DB::table('documentos')->distinct('requerente_id')->where('user_id', '=', $idUsuario)->count();
+        }
+        
+        if($perfilUsuario == "ass"){
+            $qtd = DB::table('requerentes')->where('user_id', '=', $idUsuario)->count();
+        }
+        
+        return $qtd;
+        
+    }
+    
+    /* 
+    //Obtendo a quantidade de requerimentos cadastrado pelo usuário com perfil de ASSISTENTE SOCIAL
+    public function qtdrequerentescadastrados($id)
+    {
+        $qtd = DB::table('requerentes')->where('user_id', '=', $id)->count();
+        return $qtd;
+    }
+    //Obtendo a quantidade de requerimentos Analisados processados pelo usuário com perfil de ADMINISTRADOR ou SERVIDOR DA SEMU
+    public function qtdrequerentesprocessados($id)
+    {
+        $qtd = DB::table('documentos')->distinct('requerente_id')->where('user_id', '=', $id)->count();
+        return $qtd;
+    }
+    */
+    
 }

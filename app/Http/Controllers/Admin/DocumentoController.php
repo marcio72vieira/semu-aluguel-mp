@@ -152,6 +152,22 @@ class DocumentoController extends Controller
 
             // INICIO SALVAR PROCESSO
 
+            // Se todos os documentos foram aprovados, atualiza os campos APROVADDO para "1", CORRIGIDO para "null" e OBSERVACAO para "null"
+            // e atribui a correção dos documentos ao usuário (Servidor da SEMU) logado e responsável pela geração do processo.
+            foreach($ids as $id){
+                // Recupera o documento
+                $documento = Documento::find($id);
+
+                // Atualiza os campos necessários
+                $documento->update([
+                    'aprovado'      => 1,
+                    'corrigido'     => null,
+                    'observacao'    => null,
+                    'user_id'       => Auth::user()->id
+                ]);
+            }
+
+
             // Cria um diretório "processos", caso o diretório não exista.
             if(!Storage::exists("processos")){
                 //Storage::makeDirectory($path, 0777, true, true);

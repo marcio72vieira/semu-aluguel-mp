@@ -56,11 +56,11 @@
                                 {{-- 3 - Pendente - O Servidor da SEMU, detectou alguma inconsistência no processo de análise dos documentos anexados --}}
                                 {{-- 4 - Corrigido - Os documentos com pendênica foram substituidos e submetidos para análise novamenteada --}}
                                 {{-- 5 - Concluído - A análise foi realizada com sucesso, nenhuma inconsistência foi encontrad e o processo foi gerado com êxito --}}
-                                @if($requerente->status == 1) <span style="font-size: 14px" title="Falta anexar os documentos exigidos!"> <i class="fa-solid fa-shoe-prints"></i> em andamento </span> @endif
+                                @if($requerente->status == 1) <span style="font-size: 14px" title="Falta enviar os anexos assinados e demais documentos exigidos!"> <i class="fa-solid fa-shoe-prints"></i> em andamento </span> @endif
                                 @if($requerente->status == 2) <span style="font-size: 14px" title="Aguardando ser analisado!"> <i class="fa-solid fa-user-check"></i> em análise  </span> @endif
-                                @if($requerente->status == 3) <span style="font-size: 14px" title="Foram detectadas inconsistências nos documentos fornecidos!"> <i class="fa-solid fa-clock-rotate-left"></i> com pendência  </span> @endif
+                                @if($requerente->status == 3) <span style="font-size: 14px" title="Foram detectadas inconsistências nos documentos enviados!"> <i class="fa-solid fa-clock-rotate-left"></i> com pendência  </span> @endif
                                 @if($requerente->status == 4) <span style="font-size: 14px" title="Os documentos inconsistentes foram substituidos!"> <i class="fa-solid fa-check-double"></i> corrigidos </span> @endif
-                                @if($requerente->status == 5) <span style="font-size: 14px" title="Processo gerado e arquivado com sucesso!"> <i class="fa-regular fa-circle-check"></i> concluído  </span> @endif
+                                @if($requerente->status == 5) <span style="font-size: 14px" title="Processo gerado com sucesso!"> <i class="fa-regular fa-circle-check"></i> concluído  </span> @endif
                             </td>
                             <td class="flex-row d-md-flex justify-content-start align-content-stretch flex-wrap">
 
@@ -70,7 +70,7 @@
                                     <i class="fa-regular fa-eye"></i> Visualizar
                                 </a>
 
-                                @if ($requerente->status != 2 && $requerente->status != 5)
+                                @if ($requerente->status != 2 && $requerente->status != 4 && $requerente->status != 5)
                                     <a href="{{ route('requerente.edit', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-warning btn-sm me-1" title="Editar os dados cadastrados">
                                         <i class="fa-solid fa-pen-to-square"></i> Editar
                                     </a>
@@ -78,7 +78,7 @@
                                     <button type="button" class="btn btn-outline-secondary btn-sm me-1 mb-3"> <i class="fa-solid fa-ban"></i> Editar </button>
                                 @endif
 
-                                @if ($requerente->status != 2 && $requerente->status != 5)
+                                @if ($requerente->status != 2 && $requerente->status != 4 && $requerente->status != 5)
                                     <a href="{{ route('requerente.relpdfrequerente', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-danger btn-sm me-1" target="_blank" title="Emitir anexos para assinatura">
                                         <i class="fa-solid fa-file-pdf"></i> Anexos
                                     </a>
@@ -90,8 +90,8 @@
                                     <i class="fas fa-upload"></i> Documentos
                                 </a> --}}
 
-                                @if ($requerente->status != 2 && $requerente->status != 3 && $requerente->status != 5)
-                                    <a href="{{ route('documento.create', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-info btn-sm me-1" title="Anexar documentos para análise">
+                                @if ($requerente->status != 2 && $requerente->status != 3 && $requerente->status != 4 && $requerente->status != 5)
+                                    <a href="{{ route('documento.create', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-info btn-sm me-1" title="Enviar documentos para análise">
                                         <i class="fas fa-upload"></i> Documentos
                                     </a>
                                 @else
@@ -102,7 +102,7 @@
                                     <i class="fa-solid fa-list-check"></i> Check List
                                 </a> --}}
 
-                                @if ($requerente->status != 2 && $requerente->status != 5)
+                                @if ($requerente->status != 1 && $requerente->status != 2 && $requerente->status != 4 && $requerente->status != 5)
                                     <a href="{{ route('documento.pendentes', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-warning btn-sm me-1" title="Substituir documentos com pendências">
                                         <i class="fa-solid fa-clock-rotate-left"></i> Pendências
                                     </a>
@@ -115,7 +115,7 @@
                                     <form id="formDelete{{ $requerente->id }}" method="POST" action="{{ route('requerente.destroy', ['requerente' => $requerente->id]) }}">
                                         @csrf
                                         @method('delete')
-                                        <button type="submit" class="mb-3 btn btn-danger btn-sm me-1 btnDelete" data-delete-entidade="Requerente" data-delete-id="{{ $requerente->id }}"  data-value-record="{{ $requerente->nomecompleto }}" title="Excluir uma requerente cadastrada">
+                                        <button type="submit" class="mb-3 btn btn-danger btn-sm me-1 btnDelete" data-delete-entidade="Requerente" data-delete-id="{{ $requerente->id }}"  data-value-record="{{ $requerente->nomecompleto }}" title="Excluir a requerente cadastrada!">
                                             <i class="fa-regular fa-trash-can"></i> Apagar
                                         </button>
                                     </form>

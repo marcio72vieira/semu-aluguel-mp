@@ -82,9 +82,13 @@
                                 @if($requerente->status == 5) <span style="font-size: 14px;"> <i class="fa-regular fa-circle-check"></i> concluído  </span> @endif {{-- O check list foi feito e o processo foi gerado --}}
                             </td>
                             <td class="flex-row d-md-flex justify-content-start align-content-stretch flex-wrap">
-                                <a href="{{ route('documento.index', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-warning btn-sm me-1">
-                                    <i class="fa-solid fa-list-check"></i> Analisar documentos
-                                </a>
+                                @if($requerente->status != 5)
+                                    <a href="{{ route('documento.index', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-warning btn-sm me-1">
+                                        <i class="fa-solid fa-list-check"></i> Analisar documentos
+                                    </a>
+                                @else
+                                    <button type="button"  class="btn btn-outline-secondary btn-sm me-1 mb-3"> <i class="fa-solid fa-ban"></i> Analisar documentos </button>
+                                @endif
                             </td>
                         </tr>
                     @empty

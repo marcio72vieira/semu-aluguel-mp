@@ -41,6 +41,15 @@ class LoginController extends Controller
         $user = Auth::user();
         $user = User::find($user->id);
 
+        // Vefifica se o usuário autentica está inativo(0)
+        if($user->ativo == 0){
+            // Deslogar o usuário
+            Auth::logout();
+
+            // Redireciona o usuário para a página anterior.
+            return back()->withInput()->with('error', 'Você está inativo!');
+        }
+
         
         if($user->primeiroacesso == 1){
         
