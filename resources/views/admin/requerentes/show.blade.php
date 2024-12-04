@@ -12,6 +12,11 @@
         </div>
 
         <div class="row">
+            <x-alert />
+
+            {{-- Este componente será acionado sempre que houver uma erro de exceção em: store, update ou delete --}}
+            <x-errorexception />
+            
             <div class="col-5">
                 <div class="mb-4 shadow card border-light">
                     <div class="gap-2 card-header hstack">
@@ -19,6 +24,7 @@
                     </div>
 
                     <div class="card-body">
+                        
 
                         <dl class="row">
 

@@ -35,10 +35,10 @@
         <a class="navbar-brand ps-3" href="index.html">SEMU - ALUGUEL MP</a>
 
         <!-- Sidebar Toggle-->
-        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+        <button class="order-1 btn btn-link btn-sm order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
 
         <!-- Navbar Search-->
-        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0"></form>
+        <form class="my-2 d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-md-0"></form>
 
         <!-- Navbar-->
         <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
@@ -73,7 +73,8 @@
                             Requerentes
                         </a>
 
-                        @can("adm")
+                        {{-- Garante o acesso apenas de quem é Administrador ou Servidor --}}
+                        @can("onlyAdmSrv")
                                 <a class="nav-link" href="{{ route('checklist.index') }}">
                                     <div class="sb-nav-link-icon"><i class="fa-solid fa-list-check"></i></div>
                                     Check List
@@ -85,8 +86,8 @@
                         @endcan
                             
 
-
-                        @can("adm")
+                        {{-- Garante o acesso apenas de quem é Administrador --}}
+                        @can("onlyAdm")
                             <div class="sb-sidenav-menu-heading">Administração</div>
                             <a class="nav-link" href="{{ route('user.index') }}">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-users"></i></div>
@@ -174,8 +175,8 @@
             </main>
 
             {{-- RODAPÉ --}}
-            <footer class="py-4 bg-light mt-auto">
-                <div class="container-fluid px-4">
+            <footer class="py-4 mt-auto bg-light">
+                <div class="px-4 container-fluid">
                     <div class="d-flex align-items-center justify-content-between small">
                         <div class="text-muted">Copyright &copy; ATI {{ date('Y') }}</div>
                         {{-- <div>

@@ -2,17 +2,17 @@
 
 @section('content')
 <div class="px-4 container-fluid">
-    <div class="mb-1 hstack gap-2">
+    <div class="gap-2 mb-1 hstack">
         <h2 class="mt-3">PROCESSOS</h2>
-        {{-- <ol class="breadcrumb mb-3 mt-3 ms-auto">
+        {{-- <ol class="mt-3 mb-3 breadcrumb ms-auto">
             <li class="breadcrumb-item"><a href="">Dashboard</a></li>
             <li class="breadcrumb-item"><a class="text-decoration-none" href="">Requerentes</a></li>
         </ol> --}}
     </div>
 
     <div class="mb-4 shadow card border-light">
-        <div class="card-header hstack gap-2">
-            <span class="ms-auto d-sm-flex flex-row mt-1 mb-1">
+        <div class="gap-2 card-header hstack">
+            <span class="flex-row mt-1 mb-1 ms-auto d-sm-flex">
                 <a href="{{ route('requerente.create') }}" class="btn btn-success btn-sm me-1"><i class="fa-solid fa-magnifying-glass"></i> Filtrar </a>
                 {{-- <a href="{{ route('user.pdflistusers') }}" class="btn btn-danger btn-sm me-1" target="_blank"><i class="fa-solid fa-file-pdf"></i> pdf</a> --}}
             </span>

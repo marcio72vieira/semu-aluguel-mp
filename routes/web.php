@@ -91,22 +91,24 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/replace-documento', [DocumentoController::class, 'replace'])->name('documento.replace');
 
 
-    // CHECKLIST
-    Route::get('/index-checklist', [ChecklistController::class, 'index'])->name('checklist.index')->middleware(['can:adm']);
 
-    // PROCESSO
-    Route::get('/index-processo', [ProcessoController::class, 'index'])->name('processo.index');
+    // Rotas restritas, além de estarem autenticadas, devem também ter o perfil de administrador e Servidor "onlyAdmSrv"
+    Route::group(['middleware' => 'can:onlyAdmSrv'], function(){
 
+        // CHECKLIST
+        Route::get('/index-checklist', [ChecklistController::class, 'index'])->name('checklist.index');
 
-
-    // REQUERIMENTO
-    // Route::get('/index-requerimento/{requerente}', [RequerimentoController::class, 'index'])->name('requerimento.index');
-    // Route::get('/create-requerimento', [RequerimentoController::class, 'create'])->name('requerimento.create');
-
+        // PROCESSO
+        Route::get('/index-processo', [ProcessoController::class, 'index'])->name('processo.index');
+    }); // Final das rotas restritas referente a ser administrador e Servidor(onlyAdmSrv)
 
 
-    // Rotas restritas, além de estarem autenticadas, devem também ter o perfil de administrador "adm". (Só o Administrador pode acessar)
-    Route::group(['middleware' => 'can:adm'], function(){
+
+
+
+    // Rotas restritas, além de estarem autenticadas, devem também ter o perfil de administrador "onlyAdm"
+    Route::group(['middleware' => 'can:onlyAdm'], function(){
+
         // USUÁRIO
         Route::get('/index-user', [UserController::class, 'index'])->name('user.index');
         Route::get('/create-user', [UserController::class, 'create'])->name('user.create');
@@ -159,6 +161,12 @@ Route::group(['middleware' => 'auth'], function(){
         Route::put('/update-tipodocumento/{tipodocumento}', [TipodocumentoController::class, 'update'])->name('tipodocumento.update');
         Route::delete('/destroy-tipodocumento/{tipodocumento}', [TipodocumentoController::class, 'destroy'])->name('tipodocumento.destroy');
     
-    }); // Final das rotas restritas referente a ser administrador
+    }); // Final das rotas restritas referente a ser administrador(onlyAdm)
 
-});// Final das rotas restritas referente a estar autenticado
+});// Final das rotas restritas referente a estar autenticado(auth)
+
+
+// REQUERIMENTO
+// Route::get('/index-requerimento/{requerente}', [RequerimentoController::class, 'index'])->name('requerimento.index');
+// Route::get('/create-requerimento', [RequerimentoController::class, 'create'])->name('requerimento.create');
+

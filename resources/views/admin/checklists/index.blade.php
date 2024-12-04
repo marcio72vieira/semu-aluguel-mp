@@ -2,17 +2,17 @@
 
 @section('content')
 <div class="px-4 container-fluid">
-    <div class="mb-1 hstack gap-2">
+    <div class="gap-2 mb-1 hstack">
         <h2 class="mt-3">CHECK LIST - REQUERENTES</h2>
-        {{-- <ol class="breadcrumb mb-3 mt-3 ms-auto">
+        {{-- <ol class="mt-3 mb-3 breadcrumb ms-auto">
             <li class="breadcrumb-item"><a href="">Dashboard</a></li>
             <li class="breadcrumb-item"><a class="text-decoration-none" href="">Requerentes</a></li>
         </ol> --}}
     </div>
 
     <div class="mb-4 shadow card border-light">
-        <div class="card-header hstack gap-2">
-            <span class="ms-auto d-sm-flex flex-row mt-1 mb-1">
+        <div class="gap-2 card-header hstack">
+            <span class="flex-row mt-1 mb-1 ms-auto d-sm-flex">
                 <a href="{{ route('requerente.create') }}" class="btn btn-success btn-sm me-1"><i class="fa-solid fa-magnifying-glass"></i> Filtrar </a>
                 {{-- <a href="{{ route('user.pdflistusers') }}" class="btn btn-danger btn-sm me-1" target="_blank"><i class="fa-solid fa-file-pdf"></i> pdf</a> --}}
             </span>
@@ -81,13 +81,13 @@
                                 @if($requerente->status == 4) <span style="font-size: 14px;"> <i class="fa-solid fa-check-double"></i> corrigido  </span> @endif {{-- Os documentos inconsistentes foram substituidos --}}
                                 @if($requerente->status == 5) <span style="font-size: 14px;"> <i class="fa-regular fa-circle-check"></i> concluído  </span> @endif {{-- O check list foi feito e o processo foi gerado --}}
                             </td>
-                            <td class="flex-row d-md-flex justify-content-start align-content-stretch flex-wrap">
-                                @if($requerente->status != 5)
+                            <td class="flex-row flex-wrap d-md-flex justify-content-start align-content-stretch">
+                                @if($requerente->status != 1 && $requerente->status != 3 && $requerente->status != 5)
                                     <a href="{{ route('documento.index', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-warning btn-sm me-1">
                                         <i class="fa-solid fa-list-check"></i> Analisar documentos
                                     </a>
                                 @else
-                                    <button type="button"  class="btn btn-outline-secondary btn-sm me-1 mb-3"> <i class="fa-solid fa-ban"></i> Analisar documentos </button>
+                                    <button type="button"  class="mb-3 btn btn-outline-secondary btn-sm me-1"> <i class="fa-solid fa-ban"></i> Analisar documentos </button>
                                 @endif
                             </td>
                         </tr>

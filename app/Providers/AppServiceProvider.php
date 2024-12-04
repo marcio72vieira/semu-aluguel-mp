@@ -27,27 +27,25 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-         // Incluir a paginação do Bootstrap 5
-         Paginator::useBootstrapFive();
+
+        // Incluir a paginação do Bootstrap 5
+        Paginator::useBootstrapFive();
 
 
+        // Define o acesso apenas de quem é Administrdor
+        Gate::define('onlyAdm', function($user) {
+            return $user->perfil == 'adm'
+                ? Response::allow()
+                : Response::deny('Acesso não autorizado!');
+        });
+        
          
-         /* define os papeis para os Usuários: admin, servidor e assistente role */
-         Gate::define('adm', function($user) {
-             return $user->perfil == 'adm'
-                    ? Response::allow()
-                    : Response::deny('Acesso não autorizado!');
-         });
+        // Define o acesso apenas de quem é Administrador ou Servidor
+        Gate::define('onlyAdmSrv', function($user) {
+            return $user->perfil == 'adm' || $user->perfil == 'srv' 
+                ? Response::allow()
+                : Response::deny('Acesso não autorizado!');
+        });
           
-         Gate::define('srv', function($user) {
-              return $user->perfil == 'srv'
-                    ? Response::allow()
-                    : Response::deny('Acesso não autorizado!');
-          });
-
-         Gate::define('ass', function($user) {
-             return $user->perfil == 'ass';
-         });
-
     }
 }

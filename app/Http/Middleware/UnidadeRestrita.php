@@ -35,11 +35,16 @@ class UnidadeRestrita
 
             // Verifica se a Unidade de Atendimento do Usuário é a mesma Unidade de Atendimento da Requerente
             if (Auth::user()->unidadeatendimento_id != $idUnidAtendimentoRequerente) {
+                
+                /*
                 // Deslogar o usuário
                 Auth::logout();
-                
                 // Redireciona o usuário enviando a mensagem de aviso
                 return redirect()->route('login.index')->with('warning', 'Operação ilegal!');
+                */
+
+                // Redireciona o usuário para a página anterior.
+                return back()->withInput()->with('warning', 'Tentativa INAPROPRIADA!');
             }
             
         }
