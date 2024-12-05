@@ -16,7 +16,7 @@ class ForgotPasswordController extends Controller
     public function showForgotPassword()
     {
         // Carregar a VIEW
-        return view('login.forgotPassword');
+        return view('publico.login.forgotPassword');
     }
 
     public function submitForgotPassword(Request $request)

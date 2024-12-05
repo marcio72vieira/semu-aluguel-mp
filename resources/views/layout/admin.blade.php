@@ -68,10 +68,13 @@
                             Dashboard
                         </a> --}}
 
-                        <a class="nav-link" href="{{ route('requerente.index') }}">
-                            <div class="sb-nav-link-icon"><i class="fa-solid fa-child-dress"></i></div>
-                            Requerentes
-                        </a>
+                        {{-- Garante o acesso apenas de quem é Administrador e Assistente Social. Se o acesso for garantido a todos, elimine esta regra  --}}
+                        @can("onlyAdmAss")
+                            <a class="nav-link" href="{{ route('requerente.index') }}">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-child-dress"></i></div>
+                                Requerentes
+                            </a>
+                        @endcan
 
                         {{-- Garante o acesso apenas de quem é Administrador ou Servidor --}}
                         @can("onlyAdmSrv")
@@ -167,7 +170,7 @@
         </div>
 
         {{-- CONTEÚDO --}}
-        <div id="layoutSidenav_content">
+        <div id="layoutSidenav_content" style ="background-image: url('{{ asset("images/background_06_opct10.png")}}'); background-repeat: no-repeat; background-attachment: fixed; background-size: cover; background-size: 100% 100%;">
             <main>
 
                  @yield('content')

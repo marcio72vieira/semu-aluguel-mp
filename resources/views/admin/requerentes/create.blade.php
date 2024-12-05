@@ -23,7 +23,7 @@
                 {{-- Este componente será acionado sempre que houver uma erro de exceção em: store, update ou delete --}}
                 <x-errorexception />
 
-                <form action="{{ route('requerente.store') }}" method="POST" autocomplete="off" id="formcadastrorequerente">
+                <form action="{{ route('requerente.store') }}" method="POST" autocomplete="off" id="formcadastrorequerente" style ="background-image: url('{{ asset("images/background_06_opct5.png")}}'); background-repeat: no-repeat; background-attachment: fixed; background-size: cover; background-size: 100% 100%;">
                     @csrf
                     @method('POST')
 

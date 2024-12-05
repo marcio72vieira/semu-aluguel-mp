@@ -1,4 +1,4 @@
-@extends('layouts.login')
+@extends('layout.login')
 @section('content')
     <div class="col-lg-5">
         <div class="mt-5 border-0 rounded-lg shadow-lg card">

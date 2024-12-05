@@ -56,10 +56,10 @@
                                 {{-- 3 - Pendente - O Servidor da SEMU, detectou alguma inconsistência no processo de análise dos documentos anexados --}}
                                 {{-- 4 - Corrigido - Os documentos com pendênica foram substituidos e submetidos para análise novamenteada --}}
                                 {{-- 5 - Concluído - A análise foi realizada com sucesso, nenhuma inconsistência foi encontrad e o processo foi gerado com êxito --}}
-                                @if($requerente->status == 1) <span style="font-size: 14px" title="Falta enviar os anexos assinados e demais documentos exigidos!"> <i class="fa-solid fa-shoe-prints"></i> em andamento </span> @endif
+                                @if($requerente->status == 1) <span style="font-size: 14px" title="Falta enviar os documentos exigidos para análise!"> <i class="fa-solid fa-shoe-prints"></i> em andamento </span> @endif
                                 @if($requerente->status == 2) <span style="font-size: 14px" title="Aguardando ser analisado!"> <i class="fa-solid fa-user-check"></i> em análise  </span> @endif
                                 @if($requerente->status == 3) <span style="font-size: 14px" title="Foram detectadas inconsistências nos documentos enviados!"> <i class="fa-solid fa-clock-rotate-left"></i> com pendência  </span> @endif
-                                @if($requerente->status == 4) <span style="font-size: 14px" title="Os documentos inconsistentes foram substituidos!"> <i class="fa-solid fa-check-double"></i> corrigidos (em análise) </span> @endif
+                                @if($requerente->status == 4) <span style="font-size: 14px" title="Os documentos inconsistentes foram substituidos!"> <i class="fa-solid fa-check-double"></i> corrigidos para reanálise </span> @endif
                                 @if($requerente->status == 5) <span style="font-size: 14px" title="Processo gerado com sucesso!"> <i class="fa-regular fa-circle-check"></i> concluído  </span> @endif
                             </td>
                             <td class="flex-row flex-wrap d-md-flex justify-content-start align-content-stretch">

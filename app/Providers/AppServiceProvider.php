@@ -46,6 +46,16 @@ class AppServiceProvider extends ServiceProvider
                 ? Response::allow()
                 : Response::deny('Acesso não autorizado!');
         });
+
+
+        // Define o acesso apenas de quem é Administrador ou Assistente Social.
+        Gate::define('onlyAdmAss', function($user) {
+            return $user->perfil == 'adm' || $user->perfil == 'ass'
+                ? Response::allow()
+                : Response::deny('Acesso não autorizado!');
+        });
+
+        
           
     }
 }

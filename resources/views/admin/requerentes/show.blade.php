@@ -23,7 +23,7 @@
                         <span class="p-2 small"><strong> INFORMAÇÕES DA REQUERENTE </strong></span>
                     </div>
 
-                    <div class="card-body">
+                    <div class="card-body" style ="background-image: url('{{ asset("images/background_06_opct5.png")}}'); background-repeat: no-repeat; background-attachment: fixed; background-size: cover; background-size: 100% 100%;">
                         
 
                         <dl class="row">
@@ -143,7 +143,7 @@
                         <span class="p-2 small"><strong>DETALHES DO REQUERIMENTO </strong></span>
                     </div>
 
-                    <div class="card-body">
+                    <div class="card-body" style ="background-image: url('{{ asset("images/background_06_opct5.png")}}'); background-repeat: no-repeat; background-attachment: fixed; background-size: cover; background-size: 100% 100%;">
 
                         <dl class="row">
 
@@ -334,7 +334,7 @@
                         <dl class="row">
                             <dt class="col-sm-2"></dt>
                             <dd class="col-sm-3">
-                                <a class="btn btn-outline-secondary" href="{{ route('requerente.index')}}" role="button">Listar</a>
+                                <a class="btn btn-outline-secondary" href="{{ route('requerente.index')}}" role="button">Retornar</a>
 
                                 {{-- <a href="{{ route('requerente.edit', ['requerente' => $requerente->id]) }}" class="p-2 btn btn-warning btn-sm md-2">
                                     <i class="fa-solid fa-pen-to-square"></i> Editar

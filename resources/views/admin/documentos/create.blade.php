@@ -39,7 +39,7 @@
                         {{-- tipodocumento_id --}}
                         <div class="col-6">
                             <div class="form-group focused">
-                                <label class="form-control-label" for="tipodocumento_id">Documento<span class="small text-danger">*</span>
+                                <label class="form-control-label" for="tipodocumento_id">Documento exigido <span class="small text-danger">*</span>
                                     {{-- Exibe a modal com os documentos que já foram anexados para guiar o assistente social --}}
                                     <span>
                                         <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal" title="Documentos Anexados">
@@ -80,7 +80,7 @@
                         <!-- Buttons -->
                         <div class="flex-row col-2 d-md-flex justify-content-end">
                             <div style="margin-top: 25px">
-                                <a class="btn btn-outline-secondary me-2" href="{{ route('requerente.index') }}" role="button">Cancelar</a>
+                                <a class="btn btn-outline-secondary me-2" href="{{ route('requerente.index') }}" role="button">Retornar</a>
                                 <button type="submit" class="btn btn-primary " style="width: 95px;"> Anexar </button>
                             </div>
                         </div>

@@ -15,13 +15,23 @@
     <link href="{{ asset('css/stylesmrc_admin.css') }}" rel="stylesheet">
 
     <title>SEMU - ALUGUEL MP</title>
+    <style>
+        body{
+            background-image: url('{{ asset("images/background_06.png")}}');
+            background-repeat: no-repeat; 
+            background-attachment: fixed; 
+            background-size: cover; 
+            background-size: 100% 100%;
+        }
+    </style>
 </head>
+
 <body class="bg-primary">
     <div id="layoutAuthentication">
         <div id="layoutAuthentication_content">
             <main>
                 <div class="container">
-                    <div class="row justify-content-center">
+                    <div class="row justify-content-center" style="margin-top: 22%">
 
                         @yield('content')
 

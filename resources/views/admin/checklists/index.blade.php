@@ -59,17 +59,22 @@
                             <td>{{ $requerente->municipio->nome }}</td>
                             <td>{{ $requerente->tipounidade->nome }}</td>
                             <td>{{ $requerente->unidadeatendimento->nome }}</td>
-                            <td>{{ $requerente->user->nomecompleto }}</td>
+                            <td>{{ $requerente->user->nome }}</td>
                             <td>{{ $requerente->foneresidencial }} <br> {{ $requerente->fonecelular }} </td>
                             <td> 
                                 {{-- $requerente->servidorResponsavelPelaAnaliseDocumentos(3)[0]->nomecompleto --}}
                                 {{-- @foreach ($requerente->documentos as $documento) {{ $documento->user->nomecompleto }} @if ($loop->first) @break @endif @endforeach --}}
                                 
-                                @foreach ($requerente->documentos as $documento) 
-                                    @if ($documento->user->nomecompleto == $requerente->user->nomecompleto)
-                                        <i class="fa-solid fa-ellipsis"></i>
+                                @foreach ($requerente->documentos as $documento)
+                                    {{-- No momento do cadastro dos documentos o usuário(user_id) que será cadastrado na tabela "documentos", é o usuário(user_id)
+                                         do Assistente Social, responsável pelo cadastro  da Requerente. Só quando  for feita a análise  dos documentos  é  que  o
+                                         (user_id) do Servidor da Semu irá  substituir o (user_id) do Assistente Social na tabela "documentos". Enquanto a análise
+                                         não for concluída, irá aparecer  as "reticẽncias", indicando que os documentos  da Requerente ainda não foram analisados.
+                                         Seria um erro exibir o nome do Assistente Social como sendo o Nome do Servidor da SEMU. --}} 
+                                    @if ($documento->user->nome == $requerente->user->nome)
+                                        <i class="fa-solid fa-ellipsis" title="documentos sendo anexados..."></i>
                                     @else
-                                        {{ $documento->user->nomecompleto }}
+                                        {{ $documento->user->nome }}
                                     @endif
                                     @if ($loop->first) @break @endif 
                                 @endforeach
