@@ -448,12 +448,15 @@ class DocumentoController extends Controller
                     $ordem = $request->tipodocumento_ordem_hidden;
                 }
 
+                $nomedocumento = $request->nome_documento_hidden;
+
                 $file = $request->url;
                 $tempo = time();
                 $pathAndFileName = "documentos/requerente_". $request->requerente_id_hidden ."/doc_". $ordem ."_". $tempo .".". $file->getClientOriginalExtension();
                 Storage::disk('public')->put($pathAndFileName, file_get_contents($file));
 
-                // Obtém o id do usuario (Assistente Social) que está atualizando os documentos(arquivos).
+                // Obtém o id do usuario (Assistente Social) que está atualizando os documentos(arquivos), visto quê um profissional Assistente Social,
+                // pode dar continuidade no trabalho iniciado por outra.
                 $user = Auth::user();
                 $user = User::find($user->id);
                 $idUsuario = $user->id;
@@ -461,10 +464,16 @@ class DocumentoController extends Controller
                 // Atualizando o caminho do novo arquivo fisico no Banco de Dados e as demais informações sobre Documentos que se fazem necessárias
                 $documento =  Documento::find($request->documento_id);
 
+                // Atualização original com o id do Assistente Social que Atualizou os documentos (DESNECESSÁRIO, pois inibeo nome do Servidor da SEMU que fez a análise dos documentos)
+                //$documento->update([
+                //    'url'       => $pathAndFileName,
+                //    'corrigido' => 1,
+                //    'user_id'   => $idUsuario,
+                //]);
+
                 $documento->update([
                     'url'       => $pathAndFileName,
                     'corrigido' => 1,
-                    'user_id'   => $idUsuario,
                 ]);
             }
 
@@ -476,7 +485,7 @@ class DocumentoController extends Controller
         }
 
          // Redirecionar o usuário, enviar a mensagem de sucesso
-         return redirect()->route('documento.pendentes', ['requerente' => $request->requerente_id_hidden])->with('success', 'Documento atualizado com sucesso!');
+         return redirect()->route('documento.pendentes', ['requerente' => $request->requerente_id_hidden])->with("success", "Documento: $nomedocumento, atualizado com sucesso!");
     }
 
 

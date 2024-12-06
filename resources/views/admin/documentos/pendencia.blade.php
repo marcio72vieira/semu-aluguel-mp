@@ -55,6 +55,7 @@
                                             <div class="col-10">
                                                 <input type="file" name="url"  id="url" style="display:block" value="{{ old('url') }}">
                                                 <input type="hidden" name="documento_id" id="documento_id"  value="{{ $documento->id }}">
+                                                <input type="hidden" name="nome_documento_hidden" id="nome_documento_hidden"  value="{{ $documento->tipodocumento->nome }}">
                                                 <input type="hidden" name="nome_arquivo_antigo" id="nome_arquivo_antigo"  value="{{ explode('/', $documento->url)[2] }}">
                                                 <input type="hidden" name="tipodocumento_id" id="tipodocumento_id"  value="{{ $documento->tipodocumento->id }}">
                                                 <input type="hidden" name="tipodocumento_ordem_hidden" id="tipodocumento_ordem_hidden"  value="{{ $documento->tipodocumento->ordem }}">
@@ -76,7 +77,7 @@
                                         <b><i class='mr-2 fa-solid fa-xmark text-danger' style="margin-left: 25px; font-size: 30px;"></i></b> 
                                     @endif
                                     {{-- 
-                                        Só possibilita a exclusão dos documentos pendentes. Esta exclusão é necessária caso algum documento duplicado, como foi o caso verificado nos testes
+                                        Só possibilita a exclusão dos documentos pendentes. Esta exclusão é necessária caso haja algum documento duplicado como foi o caso verificado nos testes
                                     @if ($documento->aprovado == 0)
                                         <form id="formDelete{{ $documento->id }}" method="POST" action="{{ route('documento.destroy', ['documento' => $documento->id]) }}" style="margin-left: 10px;" title="Excluir este documento">
                                             @csrf

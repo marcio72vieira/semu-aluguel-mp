@@ -86,29 +86,30 @@
                                     <button type="button" class="mb-3 btn btn-outline-secondary btn-sm me-1"> <i class="fa-solid fa-ban"></i> Anexos </button>
                                 @endif
 
-                                @if ($requerente->status == 1)
+                                {{-- <a href="{{ route('documento.index', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-info btn-sm me-1">
+                                    <i class="fas fa-upload"></i> Documentos
+                                </a> --}}
+
+                                @if ($requerente->status != 2 && $requerente->status != 3 && $requerente->status != 4 && $requerente->status != 5)
                                     <a href="{{ route('documento.create', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-info btn-sm me-1" title="Enviar documentos para análise">
                                         <i class="fas fa-upload"></i> Documentos
                                     </a>
                                 @else
-                                    @if ($requerente->status == 2)
-                                        <button type="button" class="mb-3 btn btn-outline-secondary btn-sm me-1"> <i class="fa-solid fa-ban"></i> Documentos </button>
-                                    @else
-                                        @if ($requerente->status == 3)
-                                            <a href="{{ route('documento.pendentes', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-warning btn-sm me-1" title="Substituir documentos com pendências">
-                                                <i class="fa-solid fa-clock-rotate-left"></i> Pendências
-                                            </a>
-                                        @else
-                                            @if ($requerente->status == 4)
-                                                <button type="button" class="mb-3 btn btn-outline-secondary btn-sm me-1"> <i class="fa-solid fa-ban"></i> Pendências </button>
-                                            @else
-                                                <button type="button" class="mb-3 btn btn-outline-secondary btn-sm me-1"> <i class="fa-solid fa-ban"></i> Documentos </button>
-                                            @endif
-                                        @endif
-                                    @endif
+                                    <button type="button" class="mb-3 btn btn-outline-secondary btn-sm me-1"> <i class="fa-solid fa-ban"></i> Documentos </button>
                                 @endif
 
-                               
+                                {{-- <a href="{{ route('documento.index', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-warning btn-sm me-1">
+                                    <i class="fa-solid fa-list-check"></i> Check List
+                                </a> --}}
+
+                                @if ($requerente->status != 1 && $requerente->status != 2 && $requerente->status != 4 && $requerente->status != 5)
+                                    <a href="{{ route('documento.pendentes', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-warning btn-sm me-1" title="Substituir documentos com pendências">
+                                        <i class="fa-solid fa-clock-rotate-left"></i> Pendências
+                                    </a>
+                                @else
+                                    <button type="button" class="mb-3 btn btn-outline-secondary btn-sm me-1"> <i class="fa-solid fa-ban"></i> Pendências </button>
+                                @endif
+
                                 {{-- Só poderá deletar o requerente, se o mesmo não possuir nenhum documento anexado. Pois nem todos os documentos serão anexados de uma só vez --}}
                                 @if ($requerente->docsAnexados($requerente->id) == 0)
                                     <form id="formDelete{{ $requerente->id }}" method="POST" action="{{ route('requerente.destroy', ['requerente' => $requerente->id]) }}">
