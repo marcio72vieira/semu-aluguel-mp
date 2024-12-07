@@ -61,7 +61,7 @@
                 <dl class="row">
                     <dt class="col-sm-2"></dt>
                     <dd class="col-sm-10">
-                        <a class="btn btn-outline-secondary" href="{{ route('user.index')}}" role="button">Listar</a>
+                        <a class="btn btn-outline-secondary" href="{{ route('user.index')}}" role="button">Retornar</a>
                     </dd>
                 </dl>
 

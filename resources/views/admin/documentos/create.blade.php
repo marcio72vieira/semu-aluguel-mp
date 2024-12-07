@@ -145,14 +145,14 @@
 
             <div class="row">
                 <div class="col-2 offset-10">
-                    {{-- Butão deve ser exibido quando todos os documentos exigidos estiverem anexados
-                         O campo status (pendente) tabela "requerente" deverá ser atualizado para "em análise"
-                         Desabilitar todas as operações ref. ao requerente, ou seja, desabillitar: nem cadastrar, nem editar, nem consultar, anexos e documentos
-
-
+                    {{-- 
+                        Se a certidaõ de nascimento (id = 9) estiver contida no array arr_documentos, a variável recebe o valor zero (0), caso contrário recebe o valor hum (1).
+                        O valor da variável $certidaoFilho servirá para o cálculo comparativo entre a quantidade de elementos entre os dois arrays "documentos" e "tipodocuemntos".
                     --}}
+                    @php if(in_array(9, $arr_documentos)){ $certidaoFilho = 0; } else { $certidaoFilho = 1; } @endphp
+                    
                     {{-- Só exibe o formulário com o botão se todos os documentos exigidos forem anexados --}}
-                    @if (count($arr_documentos) ==  count($arr_tiposdocumentos))
+                    @if (count($arr_documentos) == (count($arr_tiposdocumentos) - $certidaoFilho))
                         <form action="{{ route('documento.submeteranalise', ['requerente' => $requerente->id]) }}" method="POST">
                             @csrf
                             @method('PUT')
