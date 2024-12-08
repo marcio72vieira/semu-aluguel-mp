@@ -63,10 +63,11 @@
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Operação</div>
 
-                        {{-- <a class="nav-link" href="index.html">
+                        <a class="nav-link" href="{{ url('index-dashboard') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Dashboard
-                        </a> --}}
+                        </a>
+                        
 
                         {{-- Garante o acesso apenas de quem é Administrador e Assistente Social. Se o acesso for garantido a todos, elimine esta regra  --}}
                         @can("onlyAdmAss")
@@ -164,7 +165,7 @@
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">
-                    <div class="small">Logado: {{ Auth::user()->nome }}</div>
+                    <div class="small">Perfil: {{ (Auth::user()->perfil == "adm" ? "ADMINISTRADOR" : (Auth::user()->perfil == "srv" ? "SERVIDOR" : "ASS.SOCIAL")) }}</div>
                 </div>
             </nav>
         </div>
@@ -199,6 +200,12 @@
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('js/scripts_sbadmin.js') }}"></script>
     <script src="{{ asset('js/all.min.js') }}"></script>
+
+    {{-- charts--}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+    <script src="{{ asset('js/demo/chart-area-demo.js') }}"></script>
+    <script src="{{ asset('js/demo/chart-bar-demo.js') }}"></script>
+    <script src="{{ asset('js/demo/chart-pie-demo.js') }}"></script>
 
 
     <!--Plugin jQuery para máscaras de campos -->

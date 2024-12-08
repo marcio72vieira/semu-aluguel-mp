@@ -11,3 +11,55 @@
     color: rgb(233, 10, 10);
 }
 
+/* .sb-sidenav-dark {
+    background-color: #691a56;
+} */
+
+
+/* TOP BAR*/
+.sb-nav-fixed .bg-dark {
+    background-color: rgb(145, 41, 131) !important;
+}
+
+/* BARRA DE NAVEGAÇÃO LATERAL */
+.sb-sidenav-menu{
+    background-color: rgb(169, 49, 153) !important;
+}
+
+/* BARRA DE BAIXO DA BARRA DE NAVEGACAO LATERAL */
+.sb-sidenav-dark .sb-sidenav-footer {
+    padding-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    background-color: rgb(138, 38, 124) !important;
+}
+
+/* BRAND*/
+.sb-topnav .navbar-brand{
+    font-weight: bold;
+    color: rgb(255, 252, 252);
+}
+
+/* CABEÇALHO DOS MENUS NA BARRA DE NAVEGAÇÃO LATERAL*/
+.sb-sidenav-dark .sb-sidenav-menu .sb-sidenav-menu-heading{
+    font-size: 1rem;
+    font-weight: bold;
+    color: rgba(255, 255, 255);
+}
+
+/* ICONES DA BARRA DE NAVEGACAO LATERAL*/
+.sb-sidenav-dark .sb-sidenav-menu .nav-link .sb-nav-link-icon {
+    color: rgb(255, 255, 255);
+    font-size: 2rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+

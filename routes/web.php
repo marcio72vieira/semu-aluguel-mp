@@ -27,6 +27,11 @@ Route::get('/index-datatables', function(){
     return view('datatables.datatables');
 });
 
+// TESTE DASHBOARD
+Route::get('/index-dashboard', function(){
+    return view('dashboard.dashboard');
+});
+
 Route::get('enviaremail', function() {
     $destinatario = 'diego.cicero@seati.ma.gov.br';
     $mensagem = "Olá, este é um e-mail de teste apenas em texto!";
