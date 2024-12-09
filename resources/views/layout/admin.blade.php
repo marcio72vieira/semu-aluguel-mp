@@ -63,12 +63,6 @@
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Operação</div>
 
-                        <a class="nav-link" href="{{ url('index-dashboard') }}">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Dashboard
-                        </a>
-                        
-
                         {{-- Garante o acesso apenas de quem é Administrador e Assistente Social. Se o acesso for garantido a todos, elimine esta regra  --}}
                         @can("onlyAdmAss")
                             <a class="nav-link" href="{{ route('requerente.index') }}">
@@ -79,6 +73,10 @@
 
                         {{-- Garante o acesso apenas de quem é Administrador ou Servidor --}}
                         @can("onlyAdmSrv")
+                                <a class="nav-link" href="{{ route('dashboard.index') }}">
+                                    <div class="sb-nav-link-icon"><i class="fa-solid fa-chart-column"></i></div>
+                                    Dashboard
+                                </a>
                                 <a class="nav-link" href="{{ route('checklist.index') }}">
                                     <div class="sb-nav-link-icon"><i class="fa-solid fa-list-check"></i></div>
                                     Check List
@@ -202,10 +200,11 @@
     <script src="{{ asset('js/all.min.js') }}"></script>
 
     {{-- charts--}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
     <script src="{{ asset('js/demo/chart-area-demo.js') }}"></script>
     <script src="{{ asset('js/demo/chart-bar-demo.js') }}"></script>
-    <script src="{{ asset('js/demo/chart-pie-demo.js') }}"></script>
+    <script src="{{ asset('js/demo/chart-pie-demo.js') }}"></script> --}}
 
 
     <!--Plugin jQuery para máscaras de campos -->

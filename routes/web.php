@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Publico\LoginController;
 use App\Http\Controllers\Publico\ForgotPasswordController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\RegionalController;
 use App\Http\Controllers\Admin\MunicipioController;
 use App\Http\Controllers\Admin\TipounidadeController;
@@ -29,7 +30,7 @@ Route::get('/index-datatables', function(){
 
 // TESTE DASHBOARD
 Route::get('/index-dashboard', function(){
-    return view('dashboard.dashboard');
+    return view('admin.dashboard.index');
 });
 
 Route::get('enviaremail', function() {
@@ -100,11 +101,6 @@ Route::group(['middleware' => 'auth'], function(){
     });// Final das rotas restritas referente a ser administrador e assistente(onlyAdmAss)
 
     
-
-
-
-
-
     // Rotas restritas, além de estarem autenticadas, devem também ter o perfil de administrador ou Servidor "onlyAdmSrv"
     Route::group(['middleware' => 'can:onlyAdmSrv'], function(){
         // DOCUMENTO - Substituir o nome deste rota para index-documentoanalise documentoanalise-index
@@ -117,9 +113,10 @@ Route::group(['middleware' => 'auth'], function(){
         // PROCESSO
         Route::get('/index-processo', [ProcessoController::class, 'index'])->name('processo.index');
 
+        // DASHBOARD
+        Route::get('/index-dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+
     }); // Final das rotas restritas referente a ser administrador e Servidor(onlyAdmSrv)
-
-
 
 
 
