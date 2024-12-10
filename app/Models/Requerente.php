@@ -117,6 +117,11 @@ class Requerente extends Model
         return $servidorResponsavel; 
     }
 
+    public static function totalprocessos()
+    {
+        return $totprocessos = Requerente::where('status', '=', '5')->count();
+    } 
+
 
     /*
     // Preparado caso as regras mudem e um requerente possa ter mais de um requerimento

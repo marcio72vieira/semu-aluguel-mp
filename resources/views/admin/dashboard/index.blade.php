@@ -6,45 +6,65 @@
         <h2 class="mt-4">Dashboard</h2>
 
         <div class="row">
-            <div class="col-xl-3 col-md-6">
+            {{-- Regionais --}}
+            <div class="col-xl-1 col-md-6">
                 <div class="mb-4 text-white card bg-primary">
-                    <div class="card-body">Primary Card</div>
-                    <div class="card-footer d-flex align-items-center justify-content-between">
-                        <a class="text-white small stretched-link" href="#">View Details</a>
-                        <div class="text-white small"><i class="fas fa-angle-right"></i></div>
-                    </div>
+                    <div class="card-body"><strong>{{ $totRegionais }} Regionais</strong></div>
                 </div>
             </div>
-            <div class="col-xl-3 col-md-6">
-                <div class="mb-4 text-white card bg-warning">
-                    <div class="card-body">Warning Card</div>
-                    <div class="card-footer d-flex align-items-center justify-content-between">
-                        <a class="text-white small stretched-link" href="#">View Details</a>
-                        <div class="text-white small"><i class="fas fa-angle-right"></i></div>
-                    </div>
+
+            {{-- Municipios --}}
+            <div class="col-xl-1 col-md-6">
+                <div class="mb-4 text-white card bg-primary">
+                    <div class="card-body"><strong>{{ $totMunicipios }} Municípios</strong></div>
                 </div>
             </div>
-            <div class="col-xl-3 col-md-6">
-                <div class="mb-4 text-white card bg-success">
-                    <div class="card-body">Success Card</div>
-                    <div class="card-footer d-flex align-items-center justify-content-between">
-                        <a class="text-white small stretched-link" href="#">View Details</a>
-                        <div class="text-white small"><i class="fas fa-angle-right"></i></div>
-                    </div>
+
+            {{-- Tipos de Unidades --}}
+            <div class="col-xl-2 col-md-6">
+                <div class="mb-4 text-white card bg-primary">
+                    <div class="card-body"><strong>{{ $totMunicipios }} Tipos de Unidades</strong></div>
                 </div>
             </div>
-            <div class="col-xl-3 col-md-6">
-                <div class="mb-4 text-white card bg-danger">
-                    <div class="card-body">Danger Card</div>
-                    <div class="card-footer d-flex align-items-center justify-content-between">
-                        <a class="text-white small stretched-link" href="#">View Details</a>
-                        <div class="text-white small"><i class="fas fa-angle-right"></i></div>
-                    </div>
+
+            {{-- Unidades --}}
+            <div class="col-xl-1 col-md-6">
+                <div class="mb-4 text-white card bg-primary">
+                    <div class="card-body"><strong>{{ $totUnidades }} Unidades</strong></div>
                 </div>
             </div>
+
+            {{-- Tipos de Documentos --}}
+            <div class="col-xl-2 col-md-6">
+                <div class="mb-4 text-white card bg-primary">
+                    <div class="card-body"><strong>{{ $totTipodocumentos }} Tipos de Documentos</strong></div>
+                </div>
+            </div>
+
+            {{-- Usuários --}}
+            <div class="col-xl-1 col-md-6">
+                <div class="mb-4 text-white card bg-primary">
+                    <div class="card-body"><strong>{{ $totUsuarios }} Usuários</strong></div>
+                </div>
+            </div>
+
+            {{-- Requerentes --}}
+            <div class="col-xl-2 col-md-6">
+                <div class="mb-4 text-white card bg-primary">
+                    <div class="card-body"><strong>{{ $totRequerentes }} Requerentes</strong></div>
+                </div>
+            </div>
+
+            {{-- Processos --}}
+            <div class="col-xl-1 col-md-6">
+                <div class="mb-4 text-white card bg-primary">
+                    <div class="card-body"><strong>{{ $totProcessos }} Processos</strong></div>
+                </div>
+            </div>
+
         </div>
         <div class="row">
-            <div class="col-xl-4">
+            <div class="col-xl-9">
                 <div class="mb-4 card">
                     <div class="card-header">
                         <i class="fas fa-chart-area me-1"></i>
@@ -52,12 +72,12 @@
                     </div>
                     <div class="card-body">
                         <div>
-                            <canvas id="myAreaChart" width="100%" height="40"></canvas>
+                            <canvas id="myAreaChart" width="100%" height="30"></canvas>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-4">
+            {{-- <div class="col-xl-4">
                 <div class="mb-4 card">
                     <div class="card-header">
                         <i class="fas fa-chart-bar me-1"></i>
@@ -69,8 +89,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-xl-4">
+            </div> --}}
+            <div class="col-xl-3">
                 <div class="mb-4 card">
                     <div class="card-header">
                         <i class="fas fa-chart-pie me-1"></i>
@@ -81,7 +101,23 @@
                             <canvas id="myPieDoughnutChart" width="100%" height="50"></canvas>
                         </div>
                     </div>
-                    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+                    {{-- <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div> --}}
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="mb-4 card">
+                    <div class="card-header">
+                        <i class="fas fa-chart-bar me-1"></i>
+                        Bar Chart Example
+                    </div>
+                    <div class="card-body">
+                        <div>
+                            <canvas id="myBarChart" width="100%" height="15"></canvas>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -133,51 +169,6 @@
 
 @section('scripts')
     <script>
-        // Gráfico de Barras
-        const ctx = document.getElementById('myBarChart');
-    
-        new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-            datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-            y: {
-                beginAtZero: true
-            }
-            }
-        }
-        });
-
-        // Gráfico de Pizza ou Dounougth
-        const ctx_piedoughnut = document.getElementById('myPieDoughnutChart');
-        
-        new Chart(ctx_piedoughnut, {
-            type: 'doughnut', // ou pie
-            data: {
-                labels: [
-                    'Red',
-                    'Blue',
-                    'Yellow'
-                ],
-                datasets: [{
-                    label: 'My First Dataset',
-                    data: [300, 50, 100],
-                    backgroundColor: [
-                        'rgb(255, 99, 132)',
-                        'rgb(54, 162, 235)',
-                        'rgb(255, 205, 86)'
-                    ],
-                    hoverOffset: 4
-                }]
-            }
-        });
 
         // Gráfico de Area
         var ctx_area = document.getElementById("myAreaChart");
@@ -230,6 +221,56 @@
                 },
             }
         });
+
+
+        // Gráfico de Pizza ou Dounougth
+        const ctx_piedoughnut = document.getElementById('myPieDoughnutChart');
+        
+        new Chart(ctx_piedoughnut, {
+            type: 'doughnut', // ou pie
+            data: {
+                labels: [
+                    'Red',
+                    'Blue',
+                    'Yellow'
+                ],
+                datasets: [{
+                    label: 'My First Dataset',
+                    data: [300, 50, 100],
+                    backgroundColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(54, 162, 235)',
+                        'rgb(255, 205, 86)'
+                    ],
+                    hoverOffset: 4
+                }]
+            }
+        });
+
+
+        // Gráfico de Barras
+        const ctx = document.getElementById('myBarChart');
+    
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'Ojunho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'],
+                datasets: [{
+                label: '# of Votes',
+                data: [12, 19, 3, 5, 2, 3, 8, 11, 9, 2, 5, 1],
+                backgroundColor: "rgb(2,117,216)",
+                borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
         
     </script>
 @endsection

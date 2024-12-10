@@ -62,8 +62,16 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Operação</div>
+                        
+                        {{-- Garante a visualização/acesso apenas de quem é Administrador ou Servidor --}}
+                        @can("onlyAdmSrv")
+                            <a class="nav-link" href="{{ route('dashboard.index') }}">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-gauge-high"></i></div>
+                                Dashboard
+                            </a>
+                        @endcan
 
-                        {{-- Garante o acesso apenas de quem é Administrador e Assistente Social. Se o acesso for garantido a todos, elimine esta regra  --}}
+                        {{-- Garante a visualização/acesso apenas de quem é Administrador e Assistente Social. Se o acesso for garantido a todos, elimine esta regra  --}}
                         @can("onlyAdmAss")
                             <a class="nav-link" href="{{ route('requerente.index') }}">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-child-dress"></i></div>
@@ -71,12 +79,8 @@
                             </a>
                         @endcan
 
-                        {{-- Garante o acesso apenas de quem é Administrador ou Servidor --}}
+                        {{-- Garante a visualização/acesso apenas de quem é Administrador ou Servidor --}}
                         @can("onlyAdmSrv")
-                                <a class="nav-link" href="{{ route('dashboard.index') }}">
-                                    <div class="sb-nav-link-icon"><i class="fa-solid fa-chart-column"></i></div>
-                                    Dashboard
-                                </a>
                                 <a class="nav-link" href="{{ route('checklist.index') }}">
                                     <div class="sb-nav-link-icon"><i class="fa-solid fa-list-check"></i></div>
                                     Check List
