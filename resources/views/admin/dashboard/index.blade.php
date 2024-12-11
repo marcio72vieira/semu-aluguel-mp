@@ -20,38 +20,10 @@
                 </div>
             </div>
 
-            {{-- Tipos de Unidades --}}
-            <div class="col-xl-2 col-md-6">
-                <div class="mb-4 text-white card bg-primary">
-                    <div class="card-body"><strong>{{ $totMunicipios }} Tipos de Unidades</strong></div>
-                </div>
-            </div>
-
             {{-- Unidades --}}
             <div class="col-xl-1 col-md-6">
                 <div class="mb-4 text-white card bg-primary">
                     <div class="card-body"><strong>{{ $totUnidades }} Unidades</strong></div>
-                </div>
-            </div>
-
-            {{-- Tipos de Documentos --}}
-            <div class="col-xl-2 col-md-6">
-                <div class="mb-4 text-white card bg-primary">
-                    <div class="card-body"><strong>{{ $totTipodocumentos }} Tipos de Documentos</strong></div>
-                </div>
-            </div>
-
-            {{-- Usuários --}}
-            <div class="col-xl-1 col-md-6">
-                <div class="mb-4 text-white card bg-primary">
-                    <div class="card-body"><strong>{{ $totUsuarios }} Usuários</strong></div>
-                </div>
-            </div>
-
-            {{-- Requerentes --}}
-            <div class="col-xl-2 col-md-6">
-                <div class="mb-4 text-white card bg-primary">
-                    <div class="card-body"><strong>{{ $totRequerentes }} Requerentes</strong></div>
                 </div>
             </div>
 
@@ -61,10 +33,46 @@
                     <div class="card-body"><strong>{{ $totProcessos }} Processos</strong></div>
                 </div>
             </div>
+            
+            {{-- Usuários --}}
+            <div class="col-xl-1 col-md-6">
+                <div class="mb-4 text-white card bg-primary">
+                    <div class="card-body"><strong>{{ $totUsuarios }} Usuários</strong></div>
+                </div>
+            </div>
+
+            {{-- Tipos de Unidades --}}
+            <div class="col-xl-2 col-md-6">
+                <div class="mb-4 text-white card bg-primary">
+                    <div class="card-body"><strong>{{ $totMunicipios }} Tipos de Unidades</strong></div>
+                </div>    
+            </div>                
+
+            {{-- Tipos de Documentos --}}
+            <div class="col-xl-2 col-md-6">
+                <div class="mb-4 text-white card bg-primary">
+                    <div class="card-body"><strong>{{ $totTipodocumentos }} Tipos de Documentos</strong></div>
+                </div>
+            </div>
+
+
+            {{-- Requerentes --}}
+            <div class="col-xl-3 col-md-6">
+                <div class="mb-4 text-white card bg-primary">
+                    <div class="card-body">
+                        <strong>{{ $totRequerentes }} Requerentes</strong>
+                        &nbsp;&nbsp;&nbsp;<strong>100 <i class="fa-solid fa-shoe-prints" title="andamento"></i></strong>
+                        &nbsp;&nbsp;&nbsp;<strong>100 <i class="fa-solid fa-user-check" title="análise"></i></strong>
+                        &nbsp;&nbsp;&nbsp;<strong>100 <i class="fa-solid fa-clock-rotate-left" title="pendente"></i></strong>
+                        &nbsp;&nbsp;&nbsp;<strong>100 <i class="fa-solid fa-check-double" title="corrigidos"></i></strong>
+                        &nbsp;&nbsp;&nbsp;<strong>100 <i class="fa-regular fa-circle-check" title="concluídos"></i></strong>
+                    </div>
+                </div>
+            </div>
 
         </div>
         <div class="row">
-            <div class="col-xl-9">
+            <div class="col-xl-8">
                 <div class="mb-4 card">
                     <div class="card-header">
                         <i class="fas fa-chart-area me-1"></i>
@@ -72,7 +80,7 @@
                     </div>
                     <div class="card-body">
                         <div>
-                            <canvas id="myAreaChart" width="100%" height="30"></canvas>
+                            <canvas id="myAreaChart" width="100%" height="50"></canvas>
                         </div>
                     </div>
                 </div>
@@ -90,11 +98,40 @@
                     </div>
                 </div>
             </div> --}}
-            <div class="col-xl-3">
+            <div class="col-xl-4">
                 <div class="mb-4 card">
                     <div class="card-header">
-                        <i class="fas fa-chart-pie me-1"></i>
-                        Pie Chart Example
+                        {{-- --}}
+                        <div id="mesesanoscategoriaparapesquisa" class="col-md-12 d-sm-flex justify-content-between">
+                            <span id="selecionames" class="text-primary" style="margin: 5px;">Mês:</span>
+                            <select id="selectMesPesquisa_id" class="form-control col-form-label-sm selectsmesesanoscategoriaspesquisa">
+                                <option value="" selected disabled>Mês...</option>
+                                @foreach($mesespesquisa as $key => $value)
+                                    {{-- Obs: Os índices dos mêses são 1, 2, 3 ... 12 (sem zeros à esquerda) que corresponde exatamente aos seus índices, vindo do controller e seus valores são: Janeiro, Fevereiro, Março ... Dezembro, por isso a necessidade usarmos o parâmetro $key --}}
+                                    {{-- <option value="{{ $value}}" {{date('n') == $key ? 'selected' : ''}} data-mespesquisa="{{$key}}" class="optionMesPesquisa"> {{ $value }} </option>  OU --}}
+                                    <option value="{{ $key }}" {{date('n') == $key ? 'selected' : ''}} data-mespesquisa="{{$key}}" class="optionMesPesquisa"> {{ $value }} </option>
+                                @endforeach
+                            </select>
+                            &nbsp;&nbsp;
+                            <span id="selecionaano" class="text-primary" style="margin: 5px;">Ano:</span>
+                            <select id="selectAnoPesquisa_id" class="form-control col-form-label-sm selectsmesesanoscategoriaspesquisa">
+                                <option value="" selected disabled>Ano...</option>
+                                @foreach($anospesquisa as $value)
+                                    <option value="{{ $value }}" {{date('Y') == $value ? 'selected' : ''}} data-anopesquisa="{{$value}}" class="optionAnoPesquisa"> {{ $value }} </option>
+                                @endforeach
+                            </select>
+                            &nbsp;&nbsp;
+                            <span id="selecionacategoria" class="text-primary" style="margin: 5px;">Categoria:</span>
+                            <select id="selectCategoriaPesquisa_id" class="form-control col-form-label-sm selectsmesesanoscategoriaspesquisa">
+                                <option value="">Categoria</option>
+                                @foreach($categorias as $key => $value)
+                                    <option value="{{ $key }}"> {{ $value }}</option>
+                                @endforeach
+                            </select>
+                            &nbsp;&nbsp;
+                        </div>
+    
+                        {{-- --}}
                     </div>
                     <div class="card-body">
                         <div>
@@ -230,9 +267,9 @@
             type: 'doughnut', // ou pie
             data: {
                 labels: [
-                    'Red',
-                    'Blue',
-                    'Yellow'
+                    'Branco',
+                    'Preto',
+                    'Pardo'
                 ],
                 datasets: [{
                     label: 'My First Dataset',
@@ -244,6 +281,22 @@
                     ],
                     hoverOffset: 4
                 }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'right'
+                    },
+                    title: {
+                        display: true,
+                        text: 'SEXO BIOLÓGICO'
+                    },
+                    subtitle: {
+                        display: true,
+                        text: 'Dezembro - 2024'
+                    }
+                }
             }
         });
 
