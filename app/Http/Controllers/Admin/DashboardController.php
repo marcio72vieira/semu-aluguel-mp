@@ -13,6 +13,8 @@ use App\Models\Requerente;
 use App\Models\User;
 use App\Models\Processo;
 use App\Models\Dashboard;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 
 class DashboardController extends Controller
@@ -64,9 +66,29 @@ class DashboardController extends Controller
         // $processos = Processo::orderBy('nomecompleto')->paginate(10);
         $processos =  Dashboard::processos();
 
+        //Dados SexoBiológico para gráfico de Pizza
+        //$records = DB::select("SELECT COUNT(id) as quantidade, sexobiologico as sexo FROM requerentes WHERE MONTH(created_at) = $mes_corrente  AND YEAR(created_at) = $ano_corrente GROUP BY sexobiologico ORDER BY COUNT(id) DESC");
+        $records = DB::select("SELECT COUNT(id) as quantidade, sexobiologico as sexo FROM requerentes WHERE YEAR(created_at) = $ano_corrente GROUP BY sexobiologico ORDER BY COUNT(id) DESC");
+
+
+        
+        //Ignite
+        $dataRecords = [];
+
+        if(count($records) > 0){
+            foreach($records as $value) {
+                $dataRecords[Str::upper($value->sexo)] =  $value->quantidade;
+            }
+        }else{
+            $dataRecords[''] =  0;
+        }
+
         return view('admin.dashboard.index', compact(
             'categorias',
             'mes_corrente','ano_corrente','mesespesquisa', 'anospesquisa',
-            'totRegionais', 'totMunicipios', 'totTipounidades', 'totUnidades', 'totTipodocumentos', 'totUsuarios', 'totRequerentes', 'totProcessos', 'processos'));
+            'totRegionais', 'totMunicipios', 'totTipounidades', 'totUnidades', 'totTipodocumentos', 'totUsuarios', 'totRequerentes', 'totProcessos', 
+            'dataRecords',
+            'processos',
+        ));
     }
 }

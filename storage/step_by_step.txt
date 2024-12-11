@@ -317,3 +317,10 @@ echo (explode(" ",$str)[0]);
     @endif
     @if ($loop->first) @break @endif 
 @endforeach
+
+// QUERYS
+// Obtendo a quantidade de requerente por sexobiologico no mês e ano corrente
+// No MySQL original 
+SELECT COUNT(id) as quantidade, sexobiologico FROM requerentes WHERE MONTH(created_at) = 12 GROUP BY sexobiologico  ORDER BY COUNT(id) DESC;
+// No Laravel (FACADES DB)
+$records = DB::select("SELECT COUNT(id) as quantidade, sexobiologico as sexo FROM requerentes WHERE MONTH(created_at) = $mes_corrente  AND YEAR(created_at) = $ano_corrente GROUP BY sexobiologico ORDER BY COUNT(id) DESC");

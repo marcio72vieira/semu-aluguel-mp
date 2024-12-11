@@ -205,7 +205,41 @@
 
 
 @section('scripts')
+    @php
+    //@dd($dataRecords)
+
+    //Configurando os labels para os gráficos
+    if(count($dataRecords)){
+        //Recuperando só as chaves do array, que será o label dos registros
+        $labelRecords = array_keys($dataRecords);
+
+        //Recuperando só os valores do array, que irá compor label dos registros
+        $valueRecords = array_values($dataRecords);
+
+        $arrLabel = [];
+        
+        foreach($labelRecords as $labelRecord){
+            // Substitui caracteres especiais (' " / . ,) em uma string por espaço vazio. Evita erro. Ex: farinha D'agua = faria Dagua
+            $arrbusca = ["'","/","."];
+            $arrtroca = [""];
+            $labelRecord = str_replace($arrbusca, $arrtroca, $labelRecord);
+
+            // Faz uma concatenação do tipo: 'labelX', 'labelY', 'labelZ', 'labelW', etc... LINHA ORIGINAL
+            $arrLabel[] = "'".$labelRecord."'";
+
+            // Faz uma concatenação do tipo: 'labelX valor', 'labelY valor', 'labelZ valor', 'labelW valor', etc...
+            // $arrLabel[] = "'".$labelRecord." - 2"."'";
+            
+        }
+    }
+    //@dd($arrLabel);
+    @endphp
+
+
+
     <script>
+        // DEFININDO VARIÁVEIS
+        var titulomesanoatual = "{{$mesespesquisa[$mes_corrente]}} " + " - " + "{{$ano_corrente}}";
 
         // Gráfico de Area
         var ctx_area = document.getElementById("myAreaChart");
@@ -264,20 +298,15 @@
         const ctx_piedoughnut = document.getElementById('myPieDoughnutChart');
         
         new Chart(ctx_piedoughnut, {
-            type: 'doughnut', // ou pie
+            type: 'pie', // ou pie
             data: {
-                labels: [
-                    'Branco',
-                    'Preto',
-                    'Pardo'
-                ],
+                labels: [ {!! implode(',', $arrLabel) !!} ], //labels: ['MASCULINO', 'FEMININO'],
                 datasets: [{
-                    label: 'My First Dataset',
-                    data: [300, 50, 100],
+                    label: 'total',
+                    data: [ {{ implode(',', $dataRecords) }} ], //Dados vindo da view via método compact. São os valores propriamente ditos, ficando do tipo: [10, 30, 20.50, 70 ..etc]
                     backgroundColor: [
                         'rgb(255, 99, 132)',
-                        'rgb(54, 162, 235)',
-                        'rgb(255, 205, 86)'
+                        'rgb(54, 162, 235)'
                     ],
                     hoverOffset: 4
                 }]
@@ -294,7 +323,7 @@
                     },
                     subtitle: {
                         display: true,
-                        text: 'Dezembro - 2024'
+                        text: titulomesanoatual
                     }
                 }
             }
