@@ -139,7 +139,7 @@
                         {{-- --}}
                     </div>
                     <div class="card-body">
-                        <div>
+                        <div id="containerchartpiedoughnut">
                             <canvas id="myPieDoughnutChart" width="100%" height="50"></canvas>
                         </div>
                     </div>
@@ -262,11 +262,10 @@
         var textcategoria = ""
         var textmes = "";
         var textano = "";
-        var titulo =  "SEXO BIOLÓGICO";                             // valor padão definido no carregamento da página
-        var subtitulo = valmespesquisa + " - " + valanopesquisa;    // valor padão vindo da no carregamento da pagina
+        var estilo = "";                                            // estilo do gráfico de pizza ou rosca quando escolhido
+        var titulo =  "SEXO BIOLÓGICO";                             // valor da pesquisa padão definido no carregamento da página
+        var subtitulo = valmespesquisa + " - " + valanopesquisa;    // valor da pesquisa padão vindo da no carregamento da pagina
 
-        var arr_rotuloscategoria = [];
-        var arr_valorescategoira = [];
 
         ///////////////////////////////////////
         //  ÁREA DE DEFINIÇÃO DOS GRÁFICOS   //
@@ -281,7 +280,7 @@
                 datasets: [{
                     label: "Sessions",
                     lineTension: 0.3,
-                    backgroundColor: "rgba(2,117,216,0.2)",
+                    backgroundColor: "rgba(247,10,226,0.3)",
                     borderColor: "rgba(2,117,216,1)",
                     pointRadius: 5,
                     pointBackgroundColor: "rgba(2,117,216,1)",
@@ -313,7 +312,7 @@
         const ctx_piedoughnut = document.getElementById('myPieDoughnutChart');
         
         const graficopizzarosca = new Chart(ctx_piedoughnut, {
-            type: 'pie', // ou pie
+            type: 'pie', // ou doughnut
             data: {
                 labels: [ {!! implode(',', $arrLabel) !!} ], //labels: ['1 MASCULINO', '2 FEMININO'],
                 datasets: [{
@@ -346,7 +345,7 @@
                 datasets: [{
                 label: '# of Votes',
                 data: [12, 19, 3, 5, 2, 3, 8, 11, 9, 2, 5, 1],
-                backgroundColor: "rgb(2,117,216)",
+                backgroundColor: "rgb(181,66,162)",
                 borderWidth: 1
                 }]
             },
@@ -395,44 +394,15 @@
             textmes = $("#selectMesPesquisa_id").find('option:selected').text();
             textano = $("#selectAnoPesquisa_id").find('option:selected').text();
             
+            // Capturando o tipo de gráfico desejado (pizza ou rosca)
+            estilografico = $("#tipografico").val();
+            
             // Definindo o título e o subtitulo do gráfico
             titulo = textcategoria;
             subtitulo = textmes + " - " + textano;
 
-            // //Altera o título, o subtítulo e atualiza o gráfico pizza/doughnut
-            // graficopizzarosca.options.plugins.title.text = titulo;
-            // graficopizzarosca.options.plugins.subtitle.text = subtitulo;
-            // graficopizzarosca.update();
 
-            /*
-            //Define a categoria como sendo todas as categorias, para trazer todas as Regionais, Municípios, Restaurantes que fizeram algum tipo de compra no período
-            catpesquisa = 0;
-
-            //Redefine o label (Regionais, Municipios, Restaurante, Produtos ou Categoria, no cabeçalho do card), para plotar o gráfico
-            $("#dropdownMenuDados").text(tipodados);
-
-            //Remove o select de pesquisa de produto de uma categoria específica (selecionada)
-            $("#selecionaproduto").remove();
-            $("#selectProdutoPesquisa_id").remove();
-
-            // Se o tipo de dados(Entidade) escolhido for diferente de Categorias, ou seja, Produtos, Regionais, Municípios ou Restaurante exibe o select (#selectCategoriaPesquisa_id)
-            // Caso contrário, esconde o select(#selectCategoriaPesquisa_id). O título é definido independente da situação exibir ou esconder
-            if(tipodados != "Categorias"){
-                $("#selecionacategoria").css("display", "inline");
-                $("#selectCategoriaPesquisa_id").css("display", "inline");
-                titulomesanoatual = mes + " - " + ano;
-            }else{
-                $("#selecionacategoria").css("display", "none");
-                $("#selectCategoriaPesquisa_id").css("display", "none");
-                titulomesanoatual = mes + " - " + ano;
-            }
-
-
-            // Sempre que Dados(Produtos, Regionais ou Categorias) for escolhido, define a categoria de pesquisa como sendo geral(todos os produtos)
-            $("#selectCategoriaPesquisa_id").val("0");      // OU $("#selectCategoriaPesquisa_id").val("0").change();
-            */           
-
-            var urltipo = "";
+            // var urltipo = "";
 
             //Faz requisição para obter novos dados
             $.ajax({
@@ -449,50 +419,57 @@
                 //      result['titulo'] que é uma string e result['dados'] que é um array
                 success: function(result){
 
-                    // //Zerando o valor das variáveis globais do tipo array
-                    // valorLabels = [];
-                    // valorData = [];
-                    // somaCompra = 0;
-                    // porcentagemCompra = 0;
-                    // valorTituloGrafico = "";
+                    // Definindo os array que conterão os novos valores de label e data a cada nova pesquisa. 
+                    // OBS: São definidos aqui e não na área de definição de variáveis, para que não acumulem os valores anteriores,
+                    //      como foi observado em teste. 
+                    var arr_rotuloscategoria = [];
+                    var arr_valorescategoria = [];
+                    var arr_cores = [];
+
 
                     //Iterando sobre o array['dados'] e // Obtém o valor da soma de todas as compras realizadas, para cálculo da %
                     $.each(result['dados'], function(key,value){
-                        arr_rotuloscategoria.push(key);
-                        arr_valorescategoira.push(value);
+                        arr_rotuloscategoria.push(value + " " + key);
+                        arr_valorescategoria.push(value);
                     });
 
-                    //valorTituloGrafico = result['titulo'];
+                    arr_cores = [ 'rgb(255, 99, 132)', 'rgb(54, 162, 235)', 'rgb(51, 255, 51)', 'rgb(252, 255, 51)', 'rgb(247, 10, 226)', 'rgb(252, 195, 3)', 'rgb(139, 3, 252)' ];
 
-                    //Se tipo é igual a espaço em branco, é porque nenhum outro estilo de gráfico foi escolhido, permanecendo portanto o padrão "bar"
-                    //if(estilo == ""){estilo = "bar";}
+                    //Limpa a área do grafico de pizza ou rosca para evitar sobreposição de informações
+                    $('#myPieDoughnutChart').remove();
+                    $('#containerchartpiedoughnut').append('<canvas id="myPieDoughnutChart" width="100%" height="50"></canvas>');
 
-                    //Renderiza gráfico passando as informações necessárias
-                    //renderGraficoDinamico(estilo, tipodados, valorLabels, valorData, valorTituloGrafico, titulomesanoatual, larguraContainerOriginal);
-                    
+                    /// novo grafico
+                    // Gráfico de Pizza ou Dounougth
+                    const ctx_piedoughnut = document.getElementById('myPieDoughnutChart');
+                    const graficopizzarosca = new Chart(ctx_piedoughnut, {
+                        type: estilografico, 
+                        data: {
+                            labels: arr_rotuloscategoria,
+                            datasets: [{
+                                label: 'total',
+                                data: arr_valorescategoria,
+                                backgroundColor: arr_cores,
+                                hoverOffset: 4
+                            }]
+                        },
+                        options: {
+                            plugins: {
+                                legend: { display: true, position: 'right' },
+                                title: { display: true, text: titulo },
+                                subtitle: { display: true, text: subtitulo }
+                            }
+                        }
+                    });
+                    // fim novo grafico
+
                     // Atualiza o gráfico de pizza/doughnut de acoro com as opções(selects) escolhidas
-                    graficopizzarosca.data.labels = arr_rotuloscategoria;
-                    graficopizzarosca.data.datasets.data = arr_valorescategoira;
-                    graficopizzarosca.options.plugins.title.text = titulo;
-                    graficopizzarosca.options.plugins.subtitle.text = subtitulo;
-                    graficopizzarosca.update();
-
-
-                    //Atualiza a tabela tradução
-                    // $(".tabelatraducao").html('');
-                    // $(".tabelatraducao").append('<tr><td colspan="3" class="titulotraducao">'+ valorTituloGrafico + '<br><span class="titulomesanoatual" style="font-size: 12px;">'+ titulomesanoatual + '</span></td></tr>');
-                    // $(".tabelatraducao").append('<tr><td class="subtitulolabeltraducao">Nome</td><td class="subtitulovalortraducao">Valor (R$)</td><td class="subtitulovalortraducao">Percentagem (%)</td></tr>');
-
-                    // //Itera sobre os dados retornados pela requisição Ajax
-                    // $.each(result['dados'], function(key,value){
-                    //     // Calcula a porcentagem da compra do produto atual
-                    //     porcentagemCompra = ((value * 100) / somaCompra);
-
-                    //     $(".tabelatraducao").append('<tr class="destaque"><td class="dadoslabel">' + key + '</td><td class="dadosvalor">' + number_format(value,2,",",".") + '</td><td class="dadosvalor">' + number_format(porcentagemCompra,2,",",".") + '</td></tr>');
-                    //     //somaCompra = somaCompra += Number(value);
-                    // });
-
-                    // $(".tabelatraducao").append('<tr class="totaldadosvalor"><td class="dadoslabel">Total GERAL</td><td class="dadosvalor">' + number_format(somaCompra,2,",",".") + '</td><td class="dadosvalor">' + number_format(100,2,",",".") + '</td></tr>');
+                    // graficopizzarosca.data.labels = arr_rotuloscategoria;
+                    // graficopizzarosca.data.backgroundColor = arr_cores;
+                    // graficopizzarosca.data.datasets.data = arr_valorescategoria;
+                    // graficopizzarosca.options.plugins.title.text = titulo;
+                    // graficopizzarosca.options.plugins.subtitle.text = subtitulo;
+                    // graficopizzarosca.update();
                 },
                 error: function(result){
                     alert("Error ao retornar dados!");

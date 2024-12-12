@@ -22,7 +22,7 @@ class DashboardController extends Controller
     public function index()
     {
         $categorias = [
-            '1' => 'Sexo Biológico', '2' => 'Comunidade', '3' => 'Cor/Raça', '4' => 'Identidade de Gênero', '5' => 'Orientação Sexual', '6' => 'Deficiente'
+            '1' => 'Sexo Biológico', '2' => 'Comunidade', '3' => 'Cor/Raça', '4' => 'Identidade de Gênero', '5' => 'Orientação Sexual', '6' => 'Deficiente', '7' => 'Estado Civil'
         ];
 
         // Definindo mês para computo dos dados OK!
@@ -66,9 +66,9 @@ class DashboardController extends Controller
         // $processos = Processo::orderBy('nomecompleto')->paginate(10);
         $processos =  Dashboard::processos();
 
-        //Dados SexoBiológico para gráfico de Pizza
+        //Dados SexoBiológico para gráfico de Pizza padrão, ou seja, logo que a Dashboard é carregada
         //$records = DB::select("SELECT COUNT(id) as quantidade, sexobiologico as sexo FROM requerentes WHERE MONTH(created_at) = $mes_corrente  AND YEAR(created_at) = $ano_corrente GROUP BY sexobiologico ORDER BY COUNT(id) DESC");
-        $records = DB::select("SELECT COUNT(id) as quantidade, sexobiologico as sexo FROM requerentes WHERE YEAR(created_at) = $ano_corrente GROUP BY sexobiologico ORDER BY COUNT(id) DESC");
+        $records = DB::select("SELECT COUNT(id) as quantidade, sexobiologico as sexo FROM processos WHERE YEAR(created_at) = $ano_corrente GROUP BY sexobiologico ORDER BY COUNT(id) DESC");
 
 
         
@@ -95,7 +95,7 @@ class DashboardController extends Controller
 
     public function ajaxgetcategoriachartpie(Request $request)
     {
-        // Obtendo os dados vindo na requisição json
+        // Obtendo os dados vindo na requisição ajax/json
         $cat_corrente = $request->categoria;
         $mes_corrente = $request->mescorrente;
         $ano_corrente = $request->anocorrente;
@@ -129,9 +129,13 @@ class DashboardController extends Controller
             case 6:
                 $records = DB::select("SELECT COUNT(id) as quantidade, deficiente as labelcategoria FROM processos WHERE YEAR(created_at) = $ano_corrente GROUP BY deficiente ORDER BY COUNT(id) DESC");
             break;
+            // Estado Civil
+            case 7:
+                $records = DB::select("SELECT COUNT(id) as quantidade, estadocivil as labelcategoria FROM processos WHERE YEAR(created_at) = $ano_corrente GROUP BY estadocivil ORDER BY COUNT(id) DESC");
+            break;
         }
 
-        //dd(count($records));
+        // Vê resultado na requisião ajax: dd(count($records));
 
         if(count($records) > 0){
             foreach($records as $value) {
@@ -144,8 +148,5 @@ class DashboardController extends Controller
         $data['dados'] =  $dataRecords;
 
         return response()->json($data);
-
-
-
     }
 }
