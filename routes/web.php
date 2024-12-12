@@ -180,6 +180,9 @@ Route::group(['middleware' => 'auth'], function(){
 });// Final das rotas restritas referente a estar autenticado(auth)
 
 
+// ROTA FAKE ROTA FAKE ROTA FAKE -- UTILIZADA SÓ PARA NÃO DÁ ERRO DE JAVASCRIPT -- PODE APAGAR PODE APAGAR PODE APAGAR
+Route::get('/rota-fake', [RequerimentoController::class, 'index'])->name('admin.dashboard.ajaxrecuperadadosgrafico');
+
 // REQUERIMENTO
 // Route::get('/index-requerimento/{requerente}', [RequerimentoController::class, 'index'])->name('requerimento.index');
 // Route::get('/create-requerimento', [RequerimentoController::class, 'create'])->name('requerimento.create');

@@ -22,7 +22,7 @@ class DashboardController extends Controller
     public function index()
     {
         $categorias = [
-            '1' => 'Sexo Biológico', '2' => 'Comunidade', '2' => 'Cor/Raça', '4' => 'Identidade de Gênero', '5' => 'Orientação Sexual', '6' => 'Deficiente'
+            '1' => 'Sexo Biológico', '2' => 'Comunidade', '3' => 'Cor/Raça', '4' => 'Identidade de Gênero', '5' => 'Orientação Sexual', '6' => 'Deficiente'
         ];
 
         // Definindo mês para computo dos dados OK!

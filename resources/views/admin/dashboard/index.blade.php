@@ -104,7 +104,7 @@
                         {{-- --}}
                         <div id="mesesanoscategoriaparapesquisa" class="col-md-12 d-sm-flex justify-content-between">
                             <span id="selecionames" class="text-primary" style="margin: 5px;">Mês:</span>
-                            <select id="selectMesPesquisa_id" class="form-control col-form-label-sm selectsmesesanoscategoriaspesquisa">
+                            <select id="selectMesPesquisa_id" class="form-control col-form-label-sm selectsmesesanoscategoriasgraficospesquisa">
                                 <option value="" selected disabled>Mês...</option>
                                 @foreach($mesespesquisa as $key => $value)
                                     {{-- Obs: Os índices dos mêses são 1, 2, 3 ... 12 (sem zeros à esquerda) que corresponde exatamente aos seus índices, vindo do controller e seus valores são: Janeiro, Fevereiro, Março ... Dezembro, por isso a necessidade usarmos o parâmetro $key --}}
@@ -114,7 +114,7 @@
                             </select>
                             &nbsp;&nbsp;
                             <span id="selecionaano" class="text-primary" style="margin: 5px;">Ano:</span>
-                            <select id="selectAnoPesquisa_id" class="form-control col-form-label-sm selectsmesesanoscategoriaspesquisa">
+                            <select id="selectAnoPesquisa_id" class="form-control col-form-label-sm selectsmesesanoscategoriasgraficospesquisa">
                                 <option value="" selected disabled>Ano...</option>
                                 @foreach($anospesquisa as $value)
                                     <option value="{{ $value }}" {{date('Y') == $value ? 'selected' : ''}} data-anopesquisa="{{$value}}" class="optionAnoPesquisa"> {{ $value }} </option>
@@ -122,13 +122,17 @@
                             </select>
                             &nbsp;&nbsp;
                             <span id="selecionacategoria" class="text-primary" style="margin: 5px;">Categoria:</span>
-                            <select id="selectCategoriaPesquisa_id" class="form-control col-form-label-sm selectsmesesanoscategoriaspesquisa">
+                            <select id="selectCategoriaPesquisa_id" class="form-control col-form-label-sm selectsmesesanoscategoriasgraficospesquisa">
                                 <option value="">Categoria</option>
                                 @foreach($categorias as $key => $value)
                                     <option value="{{ $key }}"> {{ $value }}</option>
                                 @endforeach
                             </select>
-                            &nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <select id="tipografico" class="form-control col-form-label-sm selectsmesesanoscategoriasgraficospesquisa">
+                                <option value="pie">Pizza</option>
+                                <option value="doughnut">Rosca</option>
+                            </select>
                         </div>
     
                         {{-- --}}
@@ -138,7 +142,6 @@
                             <canvas id="myPieDoughnutChart" width="100%" height="50"></canvas>
                         </div>
                     </div>
-                    {{-- <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div> --}}
                 </div>
             </div>
         </div>
@@ -206,16 +209,13 @@
 
 @section('scripts')
     @php
+    /*
     //@dd($dataRecords)
-
     //Configurando os labels para os gráficos
-    if(count($dataRecords)){
+     if(count($dataRecords)){
         //Recuperando só as chaves do array, que será o label dos registros
         $labelRecords = array_keys($dataRecords);
-
-        //Recuperando só os valores do array, que irá compor label dos registros
-        $valueRecords = array_values($dataRecords);
-
+        
         $arrLabel = [];
         
         foreach($labelRecords as $labelRecord){
@@ -224,22 +224,43 @@
             $arrtroca = [""];
             $labelRecord = str_replace($arrbusca, $arrtroca, $labelRecord);
 
-            // Faz uma concatenação do tipo: 'labelX', 'labelY', 'labelZ', 'labelW', etc... LINHA ORIGINAL
-            $arrLabel[] = "'".$labelRecord."'";
+            // Faz uma concatenação do tipo: 'labelX', 'labelY', 'labelZ', 'labelW', etc...
+            $arrLabel[] = "'".$labelRecord."'";            
+        }
+    } 
+    */
 
-            // Faz uma concatenação do tipo: 'labelX valor', 'labelY valor', 'labelZ valor', 'labelW valor', etc...
-            // $arrLabel[] = "'".$labelRecord." - 2"."'";
-            
+    // Versão resumida do script acima. Exibe também no label do gráfico, seu respectivo valor.
+    if(count($dataRecords)){
+        $arrLabel = [];
+        
+        foreach($dataRecords as $key => $value){
+            // Substitui caracteres especiais (' " / . ,) em uma string por espaço vazio. Evita erro. Ex: farinha D'agua = faria Dagua
+            $arrbusca = ["'","/","."];
+            $arrtroca = [""];
+            $key = str_replace($arrbusca, $arrtroca, $key);
+
+            // Faz uma concatenação do tipo: 'labelX', 'labelY', 'labelZ', 'labelW', etc...
+            $arrLabel[] = "'".$value." ".$key."'";            
         }
     }
-    //@dd($arrLabel);
     @endphp
 
 
 
     <script>
-        // DEFININDO VARIÁVEIS
+        //////////////////////////////////////
+        //  ÁREA DE DEFINIÇÃO DE VARIÁVEIS  //
+        //////////////////////////////////////
+
         var titulomesanoatual = "{{$mesespesquisa[$mes_corrente]}} " + " - " + "{{$ano_corrente}}";
+
+
+
+
+        ///////////////////////////////////////
+        //  ÁREA DE DEFINIÇÃO DOS GRÁFICOS   //
+        ///////////////////////////////////////
 
         // Gráfico de Area
         var ctx_area = document.getElementById("myAreaChart");
@@ -297,10 +318,10 @@
         // Gráfico de Pizza ou Dounougth
         const ctx_piedoughnut = document.getElementById('myPieDoughnutChart');
         
-        new Chart(ctx_piedoughnut, {
+        const graficopizzarosca = new Chart(ctx_piedoughnut, {
             type: 'pie', // ou pie
             data: {
-                labels: [ {!! implode(',', $arrLabel) !!} ], //labels: ['MASCULINO', 'FEMININO'],
+                labels: [ {!! implode(',', $arrLabel) !!} ], //labels: ['1 MASCULINO', '2 FEMININO'],
                 datasets: [{
                     label: 'total',
                     data: [ {{ implode(',', $dataRecords) }} ], //Dados vindo da view via método compact. São os valores propriamente ditos, ficando do tipo: [10, 30, 20.50, 70 ..etc]
@@ -313,18 +334,9 @@
             },
             options: {
                 plugins: {
-                    legend: {
-                        display: true,
-                        position: 'right'
-                    },
-                    title: {
-                        display: true,
-                        text: 'SEXO BIOLÓGICO'
-                    },
-                    subtitle: {
-                        display: true,
-                        text: titulomesanoatual
-                    }
+                    legend: { display: true, position: 'right' },
+                    title: { display: true, text: 'SEXO BIOLÓGICO' },
+                    subtitle: { display: true, text: titulomesanoatual }
                 }
             }
         });
@@ -353,7 +365,142 @@
             }
         });
 
+
+
+
+        ///////////////////////////////////////
+        //  ÁREA DE DEFINIÇÃO DOS SCRIPTS    //
+        ///////////////////////////////////////
         
+        // Alterna o estilo do gráfico de Pizza para Rosca
+        $(document).ready(function() {
+            $("#tipografico").on("change", function(){
+                
+                if(graficopizzarosca.config.type == 'pie'){
+                    graficopizzarosca.config.type = 'doughnut';
+                }else{
+                    graficopizzarosca.config.type = 'pie';
+                }
+                
+                graficopizzarosca.update();
+            });
+        });
+
+
+        //Escolha de outro tipo de categoria além do tipo padrão: "Sexo Biológico" ou escolha do mẽs, ano ou tipo de gráfico
+        //$("#selectCategoriaPesquisa_id").on("change", function(){
+        $(".selectsmesesanoscategoriasgraficospesquisa").on("change", function(){
+            
+            //Captura o valor e o texto do elemento "select" categoria a ser exibida
+            valCategoria = $("#selectCategoriaPesquisa_id").val();
+            textCategoria = $("#selectCategoriaPesquisa_id").find('option:selected').text();
+
+            //Capturando o texto do mês e do ano para compor o subtitulo do gráfico
+            mes = $("#selectMesPesquisa_id").find('option:selected').text();
+            ano = $("#selectAnoPesquisa_id").find('option:selected').text();
+            
+            // Definindo o título e o subtitulo do gráfico
+            titulo = textCategoria.toUpperCase();
+            subtitulo = mes + " - " + ano;
+
+            //Altera o título, o subtítulo e atualiza o gráfico pizza/doughnut
+            graficopizzarosca.options.plugins.title.text = titulo;
+            graficopizzarosca.options.plugins.subtitle.text = subtitulo;
+            graficopizzarosca.update();
+
+            /*
+            //Define a categoria como sendo todas as categorias, para trazer todas as Regionais, Municípios, Restaurantes que fizeram algum tipo de compra no período
+            catpesquisa = 0;
+
+            //Redefine o label (Regionais, Municipios, Restaurante, Produtos ou Categoria, no cabeçalho do card), para plotar o gráfico
+            $("#dropdownMenuDados").text(tipodados);
+
+            //Remove o select de pesquisa de produto de uma categoria específica (selecionada)
+            $("#selecionaproduto").remove();
+            $("#selectProdutoPesquisa_id").remove();
+
+            // Se o tipo de dados(Entidade) escolhido for diferente de Categorias, ou seja, Produtos, Regionais, Municípios ou Restaurante exibe o select (#selectCategoriaPesquisa_id)
+            // Caso contrário, esconde o select(#selectCategoriaPesquisa_id). O título é definido independente da situação exibir ou esconder
+            if(tipodados != "Categorias"){
+                $("#selecionacategoria").css("display", "inline");
+                $("#selectCategoriaPesquisa_id").css("display", "inline");
+                titulomesanoatual = mes + " - " + ano;
+            }else{
+                $("#selecionacategoria").css("display", "none");
+                $("#selectCategoriaPesquisa_id").css("display", "none");
+                titulomesanoatual = mes + " - " + ano;
+            }
+
+
+            // Sempre que Dados(Produtos, Regionais ou Categorias) for escolhido, define a categoria de pesquisa como sendo geral(todos os produtos)
+            $("#selectCategoriaPesquisa_id").val("0");      // OU $("#selectCategoriaPesquisa_id").val("0").change();
+            
+
+            var urltipo = "";
+
+            //Faz requisição para obter novos dados
+            $.ajax({
+                url:"{{route('admin.dashboard.ajaxrecuperadadosgrafico')}}",    //urltipo
+                type: "GET",
+                data: {
+                    tipodados: tipodados,
+                    mescorrente: mespesquisa,
+                    anocorrente: anopesquisa,
+                    catcorrente: catpesquisa
+                },
+                dataType : 'json',
+
+                //Obs:  "result", recebe o valor retornado pela requisição Ajax (result = $data), logo, como resultado, temos:
+                //      result['titulo'] que é uma string e result['dados'] que é um array
+                success: function(result){
+
+                    //Zerando o valor das variáveis globais do tipo array
+                    valorLabels = [];
+                    valorData = [];
+                    somaCompra = 0;
+                    porcentagemCompra = 0;
+                    valorTituloGrafico = "";
+
+                    //Iterando sobre o array['dados'] e // Obtém o valor da soma de todas as compras realizadas, para cálculo da %
+                    $.each(result['dados'], function(key,value){
+                        valorLabels.push(key);
+                        valorData.push(value);
+                        somaCompra = somaCompra += Number(value);
+                    });
+
+                    valorTituloGrafico = result['titulo'];
+
+                    //Se tipo é igual a espaço em branco, é porque nenhum outro estilo de gráfico foi escolhido, permanecendo portanto o padrão "bar"
+                    if(estilo == ""){estilo = "bar";}
+
+                    //Renderiza gráfico passando as informações necessárias
+                    renderGraficoDinamico(estilo, tipodados, valorLabels, valorData, valorTituloGrafico, titulomesanoatual, larguraContainerOriginal);
+
+                    //Atualiza a tabela tradução
+                    $(".tabelatraducao").html('');
+                    $(".tabelatraducao").append('<tr><td colspan="3" class="titulotraducao">'+ valorTituloGrafico + '<br><span class="titulomesanoatual" style="font-size: 12px;">'+ titulomesanoatual + '</span></td></tr>');
+                    $(".tabelatraducao").append('<tr><td class="subtitulolabeltraducao">Nome</td><td class="subtitulovalortraducao">Valor (R$)</td><td class="subtitulovalortraducao">Percentagem (%)</td></tr>');
+
+                    //Itera sobre os dados retornados pela requisição Ajax
+                    $.each(result['dados'], function(key,value){
+                        // Calcula a porcentagem da compra do produto atual
+                        porcentagemCompra = ((value * 100) / somaCompra);
+
+                        $(".tabelatraducao").append('<tr class="destaque"><td class="dadoslabel">' + key + '</td><td class="dadosvalor">' + number_format(value,2,",",".") + '</td><td class="dadosvalor">' + number_format(porcentagemCompra,2,",",".") + '</td></tr>');
+                        //somaCompra = somaCompra += Number(value);
+                    });
+
+                    $(".tabelatraducao").append('<tr class="totaldadosvalor"><td class="dadoslabel">Total GERAL</td><td class="dadosvalor">' + number_format(somaCompra,2,",",".") + '</td><td class="dadosvalor">' + number_format(100,2,",",".") + '</td></tr>');
+                },
+                error: function(result){
+                    alert("Error ao retornar dados!");
+                }
+            });
+            */
+            
+        });
+
+
     </script>
 @endsection
 
