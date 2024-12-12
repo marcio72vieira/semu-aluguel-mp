@@ -115,6 +115,7 @@ Route::group(['middleware' => 'auth'], function(){
 
         // DASHBOARD
         Route::get('/index-dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+        Route::get('/index-dashboard/ajaxgetcategoriachartpie', [DashboardController::class, 'ajaxgetcategoriachartpie'])->name('dashboard.index.ajaxgetcategoriachartpie');
 
     }); // Final das rotas restritas referente a ser administrador e Servidor(onlyAdmSrv)
 
@@ -179,9 +180,6 @@ Route::group(['middleware' => 'auth'], function(){
 
 });// Final das rotas restritas referente a estar autenticado(auth)
 
-
-// ROTA FAKE ROTA FAKE ROTA FAKE -- UTILIZADA SÓ PARA NÃO DÁ ERRO DE JAVASCRIPT -- PODE APAGAR PODE APAGAR PODE APAGAR
-Route::get('/rota-fake', [RequerimentoController::class, 'index'])->name('admin.dashboard.ajaxrecuperadadosgrafico');
 
 // REQUERIMENTO
 // Route::get('/index-requerimento/{requerente}', [RequerimentoController::class, 'index'])->name('requerimento.index');

@@ -123,7 +123,8 @@
                             &nbsp;&nbsp;
                             <span id="selecionacategoria" class="text-primary" style="margin: 5px;">Categoria:</span>
                             <select id="selectCategoriaPesquisa_id" class="form-control col-form-label-sm selectsmesesanoscategoriasgraficospesquisa">
-                                <option value="">Categoria</option>
+                                {{-- Se a "option" Categoria está desabilitada, então ele seleciona o primeiro da lista, no caso "Sexo Biológico", por default --}}
+                                <option value="" disabled>Categoria</option>
                                 @foreach($categorias as $key => $value)
                                     <option value="{{ $key }}"> {{ $value }}</option>
                                 @endforeach
@@ -224,7 +225,7 @@
             $arrtroca = [""];
             $labelRecord = str_replace($arrbusca, $arrtroca, $labelRecord);
 
-            // Faz uma concatenação do tipo: 'labelX', 'labelY', 'labelZ', 'labelW', etc...
+            // Faz uma concatenação do tipo: 'labelX', 'labelY', 'labelZ', 'labelW', etc... para compor as Labels do Gráfico de Pizza
             $arrLabel[] = "'".$labelRecord."'";            
         }
     } 
@@ -240,7 +241,7 @@
             $arrtroca = [""];
             $key = str_replace($arrbusca, $arrtroca, $key);
 
-            // Faz uma concatenação do tipo: 'labelX', 'labelY', 'labelZ', 'labelW', etc...
+            // Faz uma concatenação do tipo: 'labelX', 'labelY', 'labelZ', 'labelW', etc... para compor as Labels do Gráfico de Pizza
             $arrLabel[] = "'".$value." ".$key."'";            
         }
     }
@@ -253,10 +254,19 @@
         //  ÁREA DE DEFINIÇÃO DE VARIÁVEIS  //
         //////////////////////////////////////
 
-        var titulomesanoatual = "{{$mesespesquisa[$mes_corrente]}} " + " - " + "{{$ano_corrente}}";
+        var valmespesquisa = "{{ $mesespesquisa[$mes_corrente] }} ";   // valor padão vindo da view
+        var valanopesquisa = "{{ $ano_corrente }}";                    // valor padão vindo da view
+                
+        // var titulomesanoatual = "{{ $mesespesquisa[$mes_corrente] }} " + " - " + "{{ $ano_corrente }}"; // Valores vindo da "view" através do "compac()"
+        var valcategoria = 0;
+        var textcategoria = ""
+        var textmes = "";
+        var textano = "";
+        var titulo =  "SEXO BIOLÓGICO";                             // valor padão definido no carregamento da página
+        var subtitulo = valmespesquisa + " - " + valanopesquisa;    // valor padão vindo da no carregamento da pagina
 
-
-
+        var arr_rotuloscategoria = [];
+        var arr_valorescategoira = [];
 
         ///////////////////////////////////////
         //  ÁREA DE DEFINIÇÃO DOS GRÁFICOS   //
@@ -285,29 +295,13 @@
                 }],
             },
             options: {
+                /* 
+                // Comentar essas propriedades, por algum motivo evita o erro: Invalid scale configuration for scale: xAxes  e yAxes
                 scales: {
-                    xAxes: [{
-                        time: {
-                        unit: 'date'
-                        },
-                        gridLines: {
-                        display: false
-                        },
-                        ticks: {
-                        maxTicksLimit: 7
-                        }
-                    }],
-                    yAxes: [{
-                        ticks: {
-                        min: 0,
-                        max: 40000,
-                        maxTicksLimit: 5
-                        },
-                        gridLines: {
-                        color: "rgba(0, 0, 0, .125)",
-                        }
-                    }],
-                },
+                    xAxes: [{ time: { unit: 'date' }, gridLines: { display: false }, ticks: { maxTicksLimit: 7 } }],
+                    yAxes: [{ ticks: { min: 0, max: 40000, maxTicksLimit: 5 }, gridLines: { color: "rgba(0, 0, 0, .125)", } }],
+                }, 
+                */
                 legend: {
                     display: false
                 },
@@ -335,8 +329,8 @@
             options: {
                 plugins: {
                     legend: { display: true, position: 'right' },
-                    title: { display: true, text: 'SEXO BIOLÓGICO' },
-                    subtitle: { display: true, text: titulomesanoatual }
+                    title: { display: true, text: titulo },
+                    subtitle: { display: true, text: subtitulo }
                 }
             }
         });
@@ -391,22 +385,24 @@
         //$("#selectCategoriaPesquisa_id").on("change", function(){
         $(".selectsmesesanoscategoriasgraficospesquisa").on("change", function(){
             
-            //Captura o valor e o texto do elemento "select" categoria a ser exibida
-            valCategoria = $("#selectCategoriaPesquisa_id").val();
-            textCategoria = $("#selectCategoriaPesquisa_id").find('option:selected').text();
-
-            //Capturando o texto do mês e do ano para compor o subtitulo do gráfico
-            mes = $("#selectMesPesquisa_id").find('option:selected').text();
-            ano = $("#selectAnoPesquisa_id").find('option:selected').text();
+            //Capturando o valor do mês, ano e da categoria de pesquisa para enviar para a requisição ajax
+            valcategoria = $("#selectCategoriaPesquisa_id").val();
+            valmespesquisa = $("#selectMesPesquisa_id").val();
+            valanopesquisa = $("#selectAnoPesquisa_id").val();
+            
+            //Capturando o texto do mês, ano e da categoria de pesquisa para compor o título e o subtitulo do gráfico
+            textcategoria = $("#selectCategoriaPesquisa_id").find('option:selected').text().toUpperCase();
+            textmes = $("#selectMesPesquisa_id").find('option:selected').text();
+            textano = $("#selectAnoPesquisa_id").find('option:selected').text();
             
             // Definindo o título e o subtitulo do gráfico
-            titulo = textCategoria.toUpperCase();
-            subtitulo = mes + " - " + ano;
+            titulo = textcategoria;
+            subtitulo = textmes + " - " + textano;
 
-            //Altera o título, o subtítulo e atualiza o gráfico pizza/doughnut
-            graficopizzarosca.options.plugins.title.text = titulo;
-            graficopizzarosca.options.plugins.subtitle.text = subtitulo;
-            graficopizzarosca.update();
+            // //Altera o título, o subtítulo e atualiza o gráfico pizza/doughnut
+            // graficopizzarosca.options.plugins.title.text = titulo;
+            // graficopizzarosca.options.plugins.subtitle.text = subtitulo;
+            // graficopizzarosca.update();
 
             /*
             //Define a categoria como sendo todas as categorias, para trazer todas as Regionais, Municípios, Restaurantes que fizeram algum tipo de compra no período
@@ -434,19 +430,18 @@
 
             // Sempre que Dados(Produtos, Regionais ou Categorias) for escolhido, define a categoria de pesquisa como sendo geral(todos os produtos)
             $("#selectCategoriaPesquisa_id").val("0");      // OU $("#selectCategoriaPesquisa_id").val("0").change();
-            
+            */           
 
             var urltipo = "";
 
             //Faz requisição para obter novos dados
             $.ajax({
-                url:"{{route('admin.dashboard.ajaxrecuperadadosgrafico')}}",    //urltipo
+                url:"{{ route('dashboard.index.ajaxgetcategoriachartpie') }}",    //urltipo
                 type: "GET",
                 data: {
-                    tipodados: tipodados,
-                    mescorrente: mespesquisa,
-                    anocorrente: anopesquisa,
-                    catcorrente: catpesquisa
+                    categoria: valcategoria,
+                    mescorrente: valmespesquisa,
+                    anocorrente: valanopesquisa,
                 },
                 dataType : 'json',
 
@@ -454,49 +449,55 @@
                 //      result['titulo'] que é uma string e result['dados'] que é um array
                 success: function(result){
 
-                    //Zerando o valor das variáveis globais do tipo array
-                    valorLabels = [];
-                    valorData = [];
-                    somaCompra = 0;
-                    porcentagemCompra = 0;
-                    valorTituloGrafico = "";
+                    // //Zerando o valor das variáveis globais do tipo array
+                    // valorLabels = [];
+                    // valorData = [];
+                    // somaCompra = 0;
+                    // porcentagemCompra = 0;
+                    // valorTituloGrafico = "";
 
                     //Iterando sobre o array['dados'] e // Obtém o valor da soma de todas as compras realizadas, para cálculo da %
                     $.each(result['dados'], function(key,value){
-                        valorLabels.push(key);
-                        valorData.push(value);
-                        somaCompra = somaCompra += Number(value);
+                        arr_rotuloscategoria.push(key);
+                        arr_valorescategoira.push(value);
                     });
 
-                    valorTituloGrafico = result['titulo'];
+                    //valorTituloGrafico = result['titulo'];
 
                     //Se tipo é igual a espaço em branco, é porque nenhum outro estilo de gráfico foi escolhido, permanecendo portanto o padrão "bar"
-                    if(estilo == ""){estilo = "bar";}
+                    //if(estilo == ""){estilo = "bar";}
 
                     //Renderiza gráfico passando as informações necessárias
-                    renderGraficoDinamico(estilo, tipodados, valorLabels, valorData, valorTituloGrafico, titulomesanoatual, larguraContainerOriginal);
+                    //renderGraficoDinamico(estilo, tipodados, valorLabels, valorData, valorTituloGrafico, titulomesanoatual, larguraContainerOriginal);
+                    
+                    // Atualiza o gráfico de pizza/doughnut de acoro com as opções(selects) escolhidas
+                    graficopizzarosca.data.labels = arr_rotuloscategoria;
+                    graficopizzarosca.data.datasets.data = arr_valorescategoira;
+                    graficopizzarosca.options.plugins.title.text = titulo;
+                    graficopizzarosca.options.plugins.subtitle.text = subtitulo;
+                    graficopizzarosca.update();
+
 
                     //Atualiza a tabela tradução
-                    $(".tabelatraducao").html('');
-                    $(".tabelatraducao").append('<tr><td colspan="3" class="titulotraducao">'+ valorTituloGrafico + '<br><span class="titulomesanoatual" style="font-size: 12px;">'+ titulomesanoatual + '</span></td></tr>');
-                    $(".tabelatraducao").append('<tr><td class="subtitulolabeltraducao">Nome</td><td class="subtitulovalortraducao">Valor (R$)</td><td class="subtitulovalortraducao">Percentagem (%)</td></tr>');
+                    // $(".tabelatraducao").html('');
+                    // $(".tabelatraducao").append('<tr><td colspan="3" class="titulotraducao">'+ valorTituloGrafico + '<br><span class="titulomesanoatual" style="font-size: 12px;">'+ titulomesanoatual + '</span></td></tr>');
+                    // $(".tabelatraducao").append('<tr><td class="subtitulolabeltraducao">Nome</td><td class="subtitulovalortraducao">Valor (R$)</td><td class="subtitulovalortraducao">Percentagem (%)</td></tr>');
 
-                    //Itera sobre os dados retornados pela requisição Ajax
-                    $.each(result['dados'], function(key,value){
-                        // Calcula a porcentagem da compra do produto atual
-                        porcentagemCompra = ((value * 100) / somaCompra);
+                    // //Itera sobre os dados retornados pela requisição Ajax
+                    // $.each(result['dados'], function(key,value){
+                    //     // Calcula a porcentagem da compra do produto atual
+                    //     porcentagemCompra = ((value * 100) / somaCompra);
 
-                        $(".tabelatraducao").append('<tr class="destaque"><td class="dadoslabel">' + key + '</td><td class="dadosvalor">' + number_format(value,2,",",".") + '</td><td class="dadosvalor">' + number_format(porcentagemCompra,2,",",".") + '</td></tr>');
-                        //somaCompra = somaCompra += Number(value);
-                    });
+                    //     $(".tabelatraducao").append('<tr class="destaque"><td class="dadoslabel">' + key + '</td><td class="dadosvalor">' + number_format(value,2,",",".") + '</td><td class="dadosvalor">' + number_format(porcentagemCompra,2,",",".") + '</td></tr>');
+                    //     //somaCompra = somaCompra += Number(value);
+                    // });
 
-                    $(".tabelatraducao").append('<tr class="totaldadosvalor"><td class="dadoslabel">Total GERAL</td><td class="dadosvalor">' + number_format(somaCompra,2,",",".") + '</td><td class="dadosvalor">' + number_format(100,2,",",".") + '</td></tr>');
+                    // $(".tabelatraducao").append('<tr class="totaldadosvalor"><td class="dadoslabel">Total GERAL</td><td class="dadosvalor">' + number_format(somaCompra,2,",",".") + '</td><td class="dadosvalor">' + number_format(100,2,",",".") + '</td></tr>');
                 },
                 error: function(result){
                     alert("Error ao retornar dados!");
                 }
             });
-            */
             
         });
 

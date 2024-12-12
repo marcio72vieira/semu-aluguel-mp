@@ -91,4 +91,61 @@ class DashboardController extends Controller
             'processos',
         ));
     }
+
+
+    public function ajaxgetcategoriachartpie(Request $request)
+    {
+        // Obtendo os dados vindo na requisição json
+        $cat_corrente = $request->categoria;
+        $mes_corrente = $request->mescorrente;
+        $ano_corrente = $request->anocorrente;
+
+        $data = [];
+        $dataRecords = [];
+        $records = "";
+
+        switch($cat_corrente){
+            // Sexo Biolgócigo
+            case 1:
+                $records = DB::select("SELECT COUNT(id) as quantidade, sexobiologico as labelcategoria FROM processos WHERE YEAR(created_at) = $ano_corrente GROUP BY sexobiologico ORDER BY COUNT(id) DESC");
+            break;
+            // Comunidade
+            case 2:
+                $records = DB::select("SELECT COUNT(id) as quantidade, comunidade as labelcategoria FROM processos WHERE YEAR(created_at) = $ano_corrente GROUP BY comunidade ORDER BY COUNT(id) DESC");
+            break;
+            // Cor/raca
+            case 3:
+                $records = DB::select("SELECT COUNT(id) as quantidade, racacor as labelcategoria FROM processos WHERE YEAR(created_at) = $ano_corrente GROUP BY racacor ORDER BY COUNT(id) DESC");
+            break;
+            // Identidade de Gênero
+            case 4:
+                $records = DB::select("SELECT COUNT(id) as quantidade, identidadegenero as labelcategoria FROM processos WHERE YEAR(created_at) = $ano_corrente GROUP BY identidadegenero ORDER BY COUNT(id) DESC");
+            break;
+            // Orientação Sexual
+            case 5:
+                $records = DB::select("SELECT COUNT(id) as quantidade, orientacaosexual as labelcategoria FROM processos WHERE YEAR(created_at) = $ano_corrente GROUP BY orientacaosexual ORDER BY COUNT(id) DESC");
+            break;
+            // Deficiente
+            case 6:
+                $records = DB::select("SELECT COUNT(id) as quantidade, deficiente as labelcategoria FROM processos WHERE YEAR(created_at) = $ano_corrente GROUP BY deficiente ORDER BY COUNT(id) DESC");
+            break;
+        }
+
+        //dd(count($records));
+
+        if(count($records) > 0){
+            foreach($records as $value) {
+                $dataRecords[Str::upper($value->labelcategoria)] =  $value->quantidade;
+            }
+        }else{
+            $dataRecords[''] =  0;
+        }
+
+        $data['dados'] =  $dataRecords;
+
+        return response()->json($data);
+
+
+
+    }
 }
