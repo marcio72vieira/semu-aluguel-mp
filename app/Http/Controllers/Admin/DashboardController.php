@@ -104,6 +104,9 @@ class DashboardController extends Controller
         $dataRecords = [];
         $records = "";
 
+        // Número total de registros de processos no banco de dados
+        $totalRecordsProcessos = Processo::all()->count();
+
         switch($cat_corrente){
             // Sexo Biolgócigo
             case 1:
@@ -145,6 +148,7 @@ class DashboardController extends Controller
             $dataRecords[''] =  0;
         }
 
+        $data['totalrecords'] = $totalRecordsProcessos;
         $data['dados'] =  $dataRecords;
 
         return response()->json($data);

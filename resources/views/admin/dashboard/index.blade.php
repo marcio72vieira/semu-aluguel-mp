@@ -104,7 +104,7 @@
                         {{-- --}}
                         <div id="mesesanoscategoriaparapesquisa" class="col-md-12 d-sm-flex justify-content-between">
                             <span id="selecionames" class="text-primary" style="margin: 5px;">Mês:</span>
-                            <select id="selectMesPesquisa_id" class="form-control col-form-label-sm selectsmesesanoscategoriasgraficospesquisa">
+                            <select id="selectMesPesquisa_id" class="form-control col-form-label-sm selectsgraficopizzarosaca">
                                 <option value="" selected disabled>Mês...</option>
                                 @foreach($mesespesquisa as $key => $value)
                                     {{-- Obs: Os índices dos mêses são 1, 2, 3 ... 12 (sem zeros à esquerda) que corresponde exatamente aos seus índices, vindo do controller e seus valores são: Janeiro, Fevereiro, Março ... Dezembro, por isso a necessidade usarmos o parâmetro $key --}}
@@ -114,7 +114,7 @@
                             </select>
                             &nbsp;&nbsp;
                             <span id="selecionaano" class="text-primary" style="margin: 5px;">Ano:</span>
-                            <select id="selectAnoPesquisa_id" class="form-control col-form-label-sm selectsmesesanoscategoriasgraficospesquisa">
+                            <select id="selectAnoPesquisa_id" class="form-control col-form-label-sm selectsgraficopizzarosaca">
                                 <option value="" selected disabled>Ano...</option>
                                 @foreach($anospesquisa as $value)
                                     <option value="{{ $value }}" {{date('Y') == $value ? 'selected' : ''}} data-anopesquisa="{{$value}}" class="optionAnoPesquisa"> {{ $value }} </option>
@@ -122,7 +122,7 @@
                             </select>
                             &nbsp;&nbsp;
                             <span id="selecionacategoria" class="text-primary" style="margin: 5px;">Categoria:</span>
-                            <select id="selectCategoriaPesquisa_id" class="form-control col-form-label-sm selectsmesesanoscategoriasgraficospesquisa">
+                            <select id="selectCategoriaPesquisa_id" class="form-control col-form-label-sm selectsgraficopizzarosaca">
                                 {{-- Se a "option" Categoria está desabilitada, então ele seleciona o primeiro da lista, no caso "Sexo Biológico", por default --}}
                                 <option value="" disabled>Categoria</option>
                                 @foreach($categorias as $key => $value)
@@ -130,7 +130,7 @@
                                 @endforeach
                             </select>
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            <select id="tipografico" class="form-control col-form-label-sm selectsmesesanoscategoriasgraficospesquisa">
+                            <select id="tipografico" class="form-control col-form-label-sm selectsgraficopizzarosaca">
                                 <option value="pie">Pizza</option>
                                 <option value="doughnut">Rosca</option>
                             </select>
@@ -229,7 +229,6 @@
             $arrLabel[] = "'".$labelRecord."'";            
         }
     } 
-    */
 
     // Versão resumida do script acima. Exibe também no label do gráfico, seu respectivo valor.
     if(count($dataRecords)){
@@ -243,6 +242,29 @@
 
             // Faz uma concatenação do tipo: 'labelX', 'labelY', 'labelZ', 'labelW', etc... para compor as Labels do Gráfico de Pizza
             $arrLabel[] = "'".$value." ".$key."'";            
+        }
+    */
+
+    // Versão resumida do script acima. Exibe também no label do gráfico, seu respectivo valor em %.
+    $totalrecords = $totProcessos;
+
+    if(count($dataRecords)){
+        $arrLabel = [];
+        
+        foreach($dataRecords as $key => $value){
+
+            // Substitui caracteres especiais (' " / . ,) em uma string por espaço vazio. Evita erro. Ex: farinha D'agua = faria Dagua
+            $arrbusca = ["'","/","."];
+            $arrtroca = [""];
+            $key = str_replace($arrbusca, $arrtroca, $key);
+
+            // Calculando a porcentagem de cada label da categoria
+            $porcentagem = ((100 * $value) / $totalrecords);
+            $porcentagem = number_format($porcentagem, 1, ",", ".");
+
+            // Faz uma concatenação do tipo: 'labelX', 'labelY', 'labelZ', 'labelW', etc... para compor as Labels do Gráfico de Pizza
+            // $arrLabel[] = "'".$value." ".$key."'";       // Exibe valores em números
+            $arrLabel[] = "'".$porcentagem."% ".$key."'";   // Exibe valores em porcentagem
         }
     }
     @endphp
@@ -276,11 +298,11 @@
         var myLineChart = new Chart(ctx_area, {
             type: 'line',
             data: {
-                labels: ["Mar 1", "Mar 2", "Mar 3", "Mar 4", "Mar 5", "Mar 6", "Mar 7", "Mar 8", "Mar 9", "Mar 10", "Mar 11", "Mar 12", "Mar 13"],
+                labels: ["Andamento", "Análise", "Pendente", "Corrigido", "Concluído"],
                 datasets: [{
-                    label: "Sessions",
-                    lineTension: 0.3,
-                    backgroundColor: "rgba(247,10,226,0.3)",
+                    label: "STATUS REQUERENTES",
+                    lineTension: 0.1,
+                    backgroundColor: "rgba(247,10,226,0.4)",
                     borderColor: "rgba(2,117,216,1)",
                     pointRadius: 5,
                     pointBackgroundColor: "rgba(2,117,216,1)",
@@ -289,8 +311,8 @@
                     pointHoverBackgroundColor: "rgba(2,117,216,1)",
                     pointHitRadius: 50,
                     pointBorderWidth: 2,
-                    data: [10000, 30162, 26263, 18394, 18287, 28682, 31274, 33259, 25849, 24159, 32651, 31984, 38451],
-                    fill: true,
+                    data: [25, 10, 30, 30, 20],
+                    fill: false,
                 }],
             },
             options: {
@@ -316,7 +338,7 @@
             data: {
                 labels: [ {!! implode(',', $arrLabel) !!} ], //labels: ['1 MASCULINO', '2 FEMININO'],
                 datasets: [{
-                    label: 'total',
+                    label: 'registros',
                     data: [ {{ implode(',', $dataRecords) }} ], //Dados vindo da view via método compact. São os valores propriamente ditos, ficando do tipo: [10, 30, 20.50, 70 ..etc]
                     backgroundColor: [
                         'rgb(255, 99, 132)',
@@ -382,7 +404,7 @@
 
         //Escolha de outro tipo de categoria além do tipo padrão: "Sexo Biológico" ou escolha do mẽs, ano ou tipo de gráfico
         //$("#selectCategoriaPesquisa_id").on("change", function(){
-        $(".selectsmesesanoscategoriasgraficospesquisa").on("change", function(){
+        $(".selectsgraficopizzarosaca").on("change", function(){
             
             //Capturando o valor do mês, ano e da categoria de pesquisa para enviar para a requisição ajax
             valcategoria = $("#selectCategoriaPesquisa_id").val();
@@ -419,6 +441,8 @@
                 //      result['titulo'] que é uma string e result['dados'] que é um array
                 success: function(result){
 
+                    var totalregistros = result['totalrecords'];
+                    var percent = 0;
                     // Definindo os array que conterão os novos valores de label e data a cada nova pesquisa. 
                     // OBS: São definidos aqui e não na área de definição de variáveis, para que não acumulem os valores anteriores,
                     //      como foi observado em teste. 
@@ -429,7 +453,12 @@
 
                     //Iterando sobre o array['dados'] e // Obtém o valor da soma de todas as compras realizadas, para cálculo da %
                     $.each(result['dados'], function(key,value){
-                        arr_rotuloscategoria.push(value + " " + key);
+
+                        percent = ((100 * value) / totalregistros);
+
+                        //arr_rotuloscategoria.push(value + " " + key);                                // Exibe valores em números
+                        arr_rotuloscategoria.push(number_formatJS(percent,1,",",".") + "% " + key);    // Exibe valores em porcentagem
+
                         arr_valorescategoria.push(value);
                     });
 
@@ -447,7 +476,7 @@
                         data: {
                             labels: arr_rotuloscategoria,
                             datasets: [{
-                                label: 'total',
+                                label: 'registros',
                                 data: arr_valorescategoria,
                                 backgroundColor: arr_cores,
                                 hoverOffset: 4
@@ -477,6 +506,34 @@
             });
             
         });
+
+        //******************************
+        // FUNÇÃO PARA FORMATAR NÚMEROS
+        //******************************
+        function number_formatJS(number, decimals, dec_point, thousands_sep) {
+            // *     example: number_format(1234.56, 2, ',', ' ');
+            // *     return: '1 234,56'
+            number = (number + '').replace(',', '').replace(' ', '');
+            var n = !isFinite(+number) ? 0 : +number,
+                prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
+                sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
+                dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
+                s = '',
+                toFixedFix = function(n, prec) {
+                var k = Math.pow(10, prec);
+                return '' + Math.round(n * k) / k;
+                };
+            // Fix for IE parseFloat(0.55).toFixed(0) = 0;
+            s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
+            if (s[0].length > 3) {
+                s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+            }
+            if ((s[1] || '').length < prec) {
+                s[1] = s[1] || '';
+                s[1] += new Array(prec - s[1].length + 1).join('0');
+            }
+            return s.join(dec);
+        }
 
 
     </script>
