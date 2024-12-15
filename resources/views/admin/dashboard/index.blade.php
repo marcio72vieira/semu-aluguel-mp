@@ -210,12 +210,32 @@
 
 @section('scripts')
     @php
-    /*
-    //@dd($dataRecords)
-    //Configurando os labels para os gráficos
-     if(count($dataRecords)){
+    //Configurando os labels para o gráfico de Linha
+    if(count($recordsstatusrequerente)){
         //Recuperando só as chaves do array, que será o label dos registros
-        $labelRecords = array_keys($dataRecords);
+        $labelRecordsSituacoes = array_keys($recordsstatusrequerente);
+        
+        $arrLabelSituacao = [];
+        
+        foreach($labelRecordsSituacoes as $labelRecordSituacao){
+            // Substitui caracteres especiais (' " / . ,) em uma string por espaço vazio. Evita erro. Ex: farinha D'agua = faria Dagua
+            $arrbusca = ["'","/","."];
+            $arrtroca = [""];
+            $labelRecordSituacao = str_replace($arrbusca, $arrtroca, $labelRecordSituacao);
+
+            // Faz uma concatenação do tipo: 'labelX', 'labelY', 'labelZ', 'labelW', etc... para compor as Labels do Gráfico de Pizza
+            $arrLabelSituacao[] = "'".$labelRecordSituacao."'";            
+        }
+    } 
+
+
+
+    /*
+    //@dd($dataRecordsCategorias)
+    //Configurando os labels para os gráficos de Pizza
+     if(count($dataRecordsCategorias)){
+        //Recuperando só as chaves do array, que será o label dos registros
+        $labelRecords = array_keys($dataRecordsCategorias);
         
         $arrLabel = [];
         
@@ -231,10 +251,10 @@
     } 
 
     // Versão resumida do script acima. Exibe também no label do gráfico, seu respectivo valor.
-    if(count($dataRecords)){
+    if(count($dataRecordsCategorias)){
         $arrLabel = [];
         
-        foreach($dataRecords as $key => $value){
+        foreach($dataRecordsCategorias as $key => $value){
             // Substitui caracteres especiais (' " / . ,) em uma string por espaço vazio. Evita erro. Ex: farinha D'agua = faria Dagua
             $arrbusca = ["'","/","."];
             $arrtroca = [""];
@@ -246,20 +266,18 @@
     */
 
     // Versão resumida do script acima. Exibe também no label do gráfico, seu respectivo valor em %.
-    $totalrecords = $totProcessos;
-
-    if(count($dataRecords)){
+    if(count($dataRecordsCategorias)){
         $arrLabel = [];
         
-        foreach($dataRecords as $key => $value){
+        foreach($dataRecordsCategorias as $key => $value){
 
             // Substitui caracteres especiais (' " / . ,) em uma string por espaço vazio. Evita erro. Ex: farinha D'agua = faria Dagua
             $arrbusca = ["'","/","."];
             $arrtroca = [""];
             $key = str_replace($arrbusca, $arrtroca, $key);
 
-            // Calculando a porcentagem de cada label da categoria
-            $porcentagem = ((100 * $value) / $totalrecords);
+            // Calculando a porcentagem de cada label da categoria e evitando o erro de divisão por zero
+            $porcentagem = $totProcessosMesAnoCorrente != 0 ? ((100 * $value) / $totProcessosMesAnoCorrente) : 0;
             $porcentagem = number_format($porcentagem, 1, ",", ".");
 
             // Faz uma concatenação do tipo: 'labelX', 'labelY', 'labelZ', 'labelW', etc... para compor as Labels do Gráfico de Pizza
@@ -300,7 +318,7 @@
             data: {
                 labels: ["Andamento", "Análise", "Pendente", "Corrigido", "Concluído"],
                 datasets: [{
-                    label: "STATUS REQUERENTES",
+                    label: "status",
                     lineTension: 0.1,
                     backgroundColor: "rgba(247,10,226,0.4)",
                     borderColor: "rgba(2,117,216,1)",
@@ -311,8 +329,8 @@
                     pointHoverBackgroundColor: "rgba(2,117,216,1)",
                     pointHitRadius: 50,
                     pointBorderWidth: 2,
-                    data: [25, 10, 30, 30, 20],
-                    fill: false,
+                    data: [ {{ implode(',', $recordsstatusrequerente) }} ],     // Valor vindo diretamente da view, pelo método compact
+                    fill: true,
                 }],
             },
             options: {
@@ -323,6 +341,7 @@
                     yAxes: [{ ticks: { min: 0, max: 40000, maxTicksLimit: 5 }, gridLines: { color: "rgba(0, 0, 0, .125)", } }],
                 }, 
                 */
+                scales: {y: {min: 0, max: 10 }},
                 legend: {
                     display: false
                 },
@@ -339,7 +358,7 @@
                 labels: [ {!! implode(',', $arrLabel) !!} ], //labels: ['1 MASCULINO', '2 FEMININO'],
                 datasets: [{
                     label: 'registros',
-                    data: [ {{ implode(',', $dataRecords) }} ], //Dados vindo da view via método compact. São os valores propriamente ditos, ficando do tipo: [10, 30, 20.50, 70 ..etc]
+                    data: [ {{ implode(',', $dataRecordsCategorias) }} ], //Dados vindo da view via método compact. São os valores propriamente ditos, ficando do tipo: [10, 30, 20.50, 70 ..etc]
                     backgroundColor: [
                         'rgb(255, 99, 132)',
                         'rgb(54, 162, 235)'

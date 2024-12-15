@@ -21,6 +21,10 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        $statusreq = [
+            '1' => 'Andamento', '2' => 'Análise', '3' => 'Pendente', '4' => 'Corrigido', '5' => 'Concluído'
+        ];
+
         $categorias = [
             '1' => 'Sexo Biológico', '2' => 'Comunidade', '3' => 'Cor/Raça', '4' => 'Identidade de Gênero', '5' => 'Orientação Sexual', '6' => 'Deficiente', '7' => 'Estado Civil'
         ];
@@ -51,43 +55,86 @@ class DashboardController extends Controller
             }
             $anospesquisa = array_reverse($anos);
         }
-        ///
+        
         // Obtendo os todais de entidades do sistema
-        $totRegionais       =  Dashboard::totalRegionais();
-        $totMunicipios      =  Dashboard::totalMunicipios();
-        $totTipounidades    =  Dashboard::totalTipounidades();
-        $totUnidades        =  Dashboard::totalUnidades();
-        $totTipodocumentos  =  Dashboard::totalTipodocumentos();
-        $totRequerentes     =  Dashboard::totalRequerentes();
-        $totProcessos       =  Dashboard::totalProcessos();
-        $totUsuarios        =  Dashboard::totalUsuarios();
+        $totRegionais               =  Dashboard::totalRegionais();
+        $totMunicipios              =  Dashboard::totalMunicipios();
+        $totTipounidades            =  Dashboard::totalTipounidades();
+        $totUnidades                =  Dashboard::totalUnidades();
+        $totTipodocumentos          =  Dashboard::totalTipodocumentos();
+        $totRequerentes             =  Dashboard::totalRequerentes();
+        $totProcessos               =  Dashboard::totalProcessos();
+        $totProcessosMesAnoCorrente =  Dashboard::totalProcessosMesAnoCorrente();     // Total de processos do Mês e Ano correntes
+        $totUsuarios                =  Dashboard::totalUsuarios();
+
+
 
         // Recuperando todos os processos para a tabela de PROCESSOS
         // $processos = Processo::orderBy('nomecompleto')->paginate(10);
         $processos =  Dashboard::processos();
 
-        //Dados SexoBiológico para gráfico de Pizza padrão, ou seja, logo que a Dashboard é carregada
-        //$records = DB::select("SELECT COUNT(id) as quantidade, sexobiologico as sexo FROM requerentes WHERE MONTH(created_at) = $mes_corrente  AND YEAR(created_at) = $ano_corrente GROUP BY sexobiologico ORDER BY COUNT(id) DESC");
-        $records = DB::select("SELECT COUNT(id) as quantidade, sexobiologico as sexo FROM processos WHERE YEAR(created_at) = $ano_corrente GROUP BY sexobiologico ORDER BY COUNT(id) DESC");
 
-
+        //Dados StatusRequerente para gráfico de Linha padrão, ou seja, logo que a Dashboard é carregada
+        $recordsstatusrequerente = ['Andamento' => 0, 'Análise' => 0, 'Pendente' => 0, 'Corrigido' => 0, 'Concluído' => 0];
         
-        //Ignite
-        $dataRecords = [];
-
-        if(count($records) > 0){
-            foreach($records as $value) {
-                $dataRecords[Str::upper($value->sexo)] =  $value->quantidade;
+        $recordsSituacoes = DB::select("SELECT COUNT(id) as quantidade, status as situacao FROM requerentes WHERE YEAR(created_at) = $ano_corrente AND MONTH(created_at) = $mes_corrente  GROUP BY status ORDER BY COUNT(id) DESC");
+        
+        if($recordsSituacoes > 0){
+            foreach($recordsSituacoes as $key => $value){
+                if($value->situacao == 1){
+                    $recordsstatusrequerente['Andamento'] = $value->quantidade;
+                }
+                if($value->situacao == 2){
+                    $recordsstatusrequerente['Análise'] = $value->quantidade;
+                }
+                if($value->situacao == 3){
+                    $recordsstatusrequerente['Pendente'] = $value->quantidade;
+                }
+                if($value->situacao == 4){
+                    $recordsstatusrequerente['Corrigido'] = $value->quantidade;
+                }
+                if($value->situacao == 5){
+                    $recordsstatusrequerente['Concluído'] = $value->quantidade;
+                }
             }
         }else{
-            $dataRecords[''] =  0;
+            $recordsstatusrequerente = ['Andamento' => 0, 'Análise' => 0, 'Pendente' => 0, 'Corrigido' => 0, 'Concluído' => 0];
         }
+
+
+        //Dados SexoBiológico para gráfico de Pizza padrão, ou seja, logo que a Dashboard é carregada
+        //$records = DB::select("SELECT COUNT(id) as quantidade, sexobiologico as sexo FROM requerentes WHERE MONTH(created_at) = $mes_corrente  AND YEAR(created_at) = $ano_corrente GROUP BY sexobiologico ORDER BY COUNT(id) DESC");
+        $recordsCategorias = DB::select("SELECT COUNT(id) as quantidade, sexobiologico as sexo FROM processos WHERE YEAR(created_at) = $ano_corrente AND MONTH(created_at) = $mes_corrente GROUP BY sexobiologico ORDER BY COUNT(id) DESC");
+        
+
+        // Início - Ignite
+            // Situacao Requerente
+            $dataRecordsSituacoes = [];
+            if(count($recordsSituacoes) > 0){
+                foreach($recordsSituacoes as $value) {
+                    $dataRecordsSituacoes[$value->situacao] =  $value->quantidade;
+                }
+            }else{
+                $dataRecordsSituacoes[''] =  0;
+            }
+            
+            // Categoria Requerente
+            $dataRecordsCategorias = [];
+            if(count($recordsCategorias) > 0){
+                foreach($recordsCategorias as $value) {
+                    $dataRecordsCategorias[Str::upper($value->sexo)] =  $value->quantidade;
+                }
+            }else{
+                $dataRecordsCategorias[''] =  0;
+            }
+        // Fim - Ignite
+       
 
         return view('admin.dashboard.index', compact(
             'categorias',
             'mes_corrente','ano_corrente','mesespesquisa', 'anospesquisa',
-            'totRegionais', 'totMunicipios', 'totTipounidades', 'totUnidades', 'totTipodocumentos', 'totUsuarios', 'totRequerentes', 'totProcessos', 
-            'dataRecords',
+            'totRegionais', 'totMunicipios', 'totTipounidades', 'totUnidades', 'totTipodocumentos', 'totUsuarios', 'totRequerentes', 'totProcessos', 'totProcessosMesAnoCorrente',
+            'dataRecordsSituacoes', 'recordsstatusrequerente' ,'dataRecordsCategorias',
             'processos',
         ));
     }
@@ -97,44 +144,45 @@ class DashboardController extends Controller
     {
         // Obtendo os dados vindo na requisição ajax/json
         $cat_corrente = $request->categoria;
-        $mes_corrente = $request->mescorrente;
-        $ano_corrente = $request->anocorrente;
+        $mes_especifico = $request->mescorrente;
+        $ano_especifico = $request->anocorrente;
 
         $data = [];
-        $dataRecords = [];
+        $dataRecordsCategorias = [];
         $records = "";
 
         // Número total de registros de processos no banco de dados
-        $totalRecordsProcessos = Processo::all()->count();
+        //$totalRecordsProcessos = Processo::all()->count();
+        $totalRecordsProcessos = Dashboard::totalProcessosMesAnoEspecifico($mes_especifico, $ano_especifico);
 
         switch($cat_corrente){
             // Sexo Biolgócigo
             case 1:
-                $records = DB::select("SELECT COUNT(id) as quantidade, sexobiologico as labelcategoria FROM processos WHERE YEAR(created_at) = $ano_corrente GROUP BY sexobiologico ORDER BY COUNT(id) DESC");
+                $records = DB::select("SELECT COUNT(id) as quantidade, sexobiologico as labelcategoria FROM processos WHERE YEAR(created_at) = $ano_especifico AND MONTH(created_at) = $mes_especifico GROUP BY sexobiologico ORDER BY COUNT(id) DESC");
             break;
             // Comunidade
             case 2:
-                $records = DB::select("SELECT COUNT(id) as quantidade, comunidade as labelcategoria FROM processos WHERE YEAR(created_at) = $ano_corrente GROUP BY comunidade ORDER BY COUNT(id) DESC");
+                $records = DB::select("SELECT COUNT(id) as quantidade, comunidade as labelcategoria FROM processos WHERE YEAR(created_at) = $ano_especifico AND MONTH(created_at) = $mes_especifico GROUP BY comunidade ORDER BY COUNT(id) DESC");
             break;
             // Cor/raca
             case 3:
-                $records = DB::select("SELECT COUNT(id) as quantidade, racacor as labelcategoria FROM processos WHERE YEAR(created_at) = $ano_corrente GROUP BY racacor ORDER BY COUNT(id) DESC");
+                $records = DB::select("SELECT COUNT(id) as quantidade, racacor as labelcategoria FROM processos WHERE YEAR(created_at) = $ano_especifico AND MONTH(created_at) = $mes_especifico GROUP BY racacor ORDER BY COUNT(id) DESC");
             break;
             // Identidade de Gênero
             case 4:
-                $records = DB::select("SELECT COUNT(id) as quantidade, identidadegenero as labelcategoria FROM processos WHERE YEAR(created_at) = $ano_corrente GROUP BY identidadegenero ORDER BY COUNT(id) DESC");
+                $records = DB::select("SELECT COUNT(id) as quantidade, identidadegenero as labelcategoria FROM processos WHERE YEAR(created_at) = $ano_especifico AND MONTH(created_at) = $mes_especifico GROUP BY identidadegenero ORDER BY COUNT(id) DESC");
             break;
             // Orientação Sexual
             case 5:
-                $records = DB::select("SELECT COUNT(id) as quantidade, orientacaosexual as labelcategoria FROM processos WHERE YEAR(created_at) = $ano_corrente GROUP BY orientacaosexual ORDER BY COUNT(id) DESC");
+                $records = DB::select("SELECT COUNT(id) as quantidade, orientacaosexual as labelcategoria FROM processos WHERE YEAR(created_at) = $ano_especifico AND MONTH(created_at) = $mes_especifico GROUP BY orientacaosexual ORDER BY COUNT(id) DESC");
             break;
             // Deficiente
             case 6:
-                $records = DB::select("SELECT COUNT(id) as quantidade, deficiente as labelcategoria FROM processos WHERE YEAR(created_at) = $ano_corrente GROUP BY deficiente ORDER BY COUNT(id) DESC");
+                $records = DB::select("SELECT COUNT(id) as quantidade, deficiente as labelcategoria FROM processos WHERE YEAR(created_at) = $ano_especifico AND MONTH(created_at) = $mes_especifico GROUP BY deficiente ORDER BY COUNT(id) DESC");
             break;
             // Estado Civil
             case 7:
-                $records = DB::select("SELECT COUNT(id) as quantidade, estadocivil as labelcategoria FROM processos WHERE YEAR(created_at) = $ano_corrente GROUP BY estadocivil ORDER BY COUNT(id) DESC");
+                $records = DB::select("SELECT COUNT(id) as quantidade, estadocivil as labelcategoria FROM processos WHERE YEAR(created_at) = $ano_especifico AND MONTH(created_at) = $mes_especifico GROUP BY estadocivil ORDER BY COUNT(id) DESC");
             break;
         }
 
@@ -142,14 +190,14 @@ class DashboardController extends Controller
 
         if(count($records) > 0){
             foreach($records as $value) {
-                $dataRecords[Str::upper($value->labelcategoria)] =  $value->quantidade;
+                $dataRecordsCategorias[Str::upper($value->labelcategoria)] =  $value->quantidade;
             }
         }else{
-            $dataRecords[''] =  0;
+            $dataRecordsCategorias[''] =  0;
         }
 
         $data['totalrecords'] = $totalRecordsProcessos;
-        $data['dados'] =  $dataRecords;
+        $data['dados'] =  $dataRecordsCategorias;
 
         return response()->json($data);
     }

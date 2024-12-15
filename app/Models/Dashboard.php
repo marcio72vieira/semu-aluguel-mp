@@ -47,8 +47,21 @@ class Dashboard extends Model
 
     public static function totalProcessos()
     {
-        return Requerente::where('status', '=', 5)->count();
+        //return Requerente::where('status', '=', 5)->count();
+        return Processo::all()->count();
     }
+
+    public static function totalProcessosMesAnoCorrente()
+    {
+        return DB::table('processos')->whereMonth('created_at', date('n'))->count();
+    }
+
+    // SEMPRE HAVERÁ UM MÊS E UM ANO DEFINIDO
+    public static function totalProcessosMesAnoEspecifico($mes, $ano)
+    {
+        return DB::table('processos')->whereMonth('created_at', date($mes))->whereYear('created_at', date($ano))->count();
+    }
+
 
     public static function processos()
     {
