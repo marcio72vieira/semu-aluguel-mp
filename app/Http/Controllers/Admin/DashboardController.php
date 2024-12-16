@@ -63,6 +63,11 @@ class DashboardController extends Controller
         $totUnidades                =  Dashboard::totalUnidades();
         $totTipodocumentos          =  Dashboard::totalTipodocumentos();
         $totRequerentes             =  Dashboard::totalRequerentes();
+            $totEstatusAndamento    =  Dashboard::totalRequerentesAndamento();
+            $totEstatusAnalise      =  Dashboard::totalRequerentesAnalise();
+            $totEstatusPendente     =  Dashboard::totalRequerentesPendente();
+            $totEstatusCorrigido    =  Dashboard::totalRequerentesCorrigido();
+            $totEstatusConcluido    =  Dashboard::totalRequerentesConcluido();
         $totProcessos               =  Dashboard::totalProcessos();
         $totProcessosMesAnoCorrente =  Dashboard::totalProcessosMesAnoCorrente();     // Total de processos do Mês e Ano correntes
         $totUsuarios                =  Dashboard::totalUsuarios();
@@ -101,6 +106,28 @@ class DashboardController extends Controller
             $recordsstatusrequerente = ['Andamento' => 0, 'Análise' => 0, 'Pendente' => 0, 'Corrigido' => 0, 'Concluído' => 0];
         }
 
+        //----------Trecho de código referente ao gráfico de colunas
+        // 
+        // Configurando totais de requerimentos Mês a Mês (Independente de qualquer cirtério de pesquisa, apenas ANO)
+        $recordsrequerimentosmesames  = ['1' => 0,'2' => 0,'3' => 0,'4' => 0,'5' => 0,'6' => 0,'7' => 0,'8' => 0,'9' => 0,'10' => 0,'11' => 0,'12' => 0];
+
+        //Recuperando todos os requerimentos concluidos (ou seja, tornaram-se processos) independente de regional, município, unidade de atendimento etc...
+        $recordsmesames = DB::select("SELECT MONTH(created_at) as mes, COUNT(id) as quantidade FROM processos WHERE YEAR(created_at) = $ano_corrente GROUP BY MONTH(created_at) ORDER BY MONTH(created_at) ASC");
+
+        $numregsretorno = count($recordsmesames);
+
+        if($numregsretorno > 0){
+            foreach($recordsmesames as $value){
+                // Atribui ao mês o respectivo valor referente a quantidade de requerimentos
+                $recordsrequerimentosmesames[$value->mes] = $value->quantidade;
+            }
+        }else{
+            // Se nada for retornado, todos os valores (correspondnte aos meses) serão 0 (zero)
+            $recordsrequerimentosmesames  = ['1' => 0,'2' => 0,'3' => 0,'4' => 0,'5' => 0,'6' => 0,'7' => 0,'8' => 0,'9' => 0,'10' => 0,'11' => 0,'12' => 0];
+        }
+
+        //----------Trecho de código referente ao gráfico de colunas
+
 
         //Dados SexoBiológico para gráfico de Pizza padrão, ou seja, logo que a Dashboard é carregada
         //$records = DB::select("SELECT COUNT(id) as quantidade, sexobiologico as sexo FROM requerentes WHERE MONTH(created_at) = $mes_corrente  AND YEAR(created_at) = $ano_corrente GROUP BY sexobiologico ORDER BY COUNT(id) DESC");
@@ -129,12 +156,13 @@ class DashboardController extends Controller
             }
         // Fim - Ignite
        
-
         return view('admin.dashboard.index', compact(
             'categorias',
             'mes_corrente','ano_corrente','mesespesquisa', 'anospesquisa',
-            'totRegionais', 'totMunicipios', 'totTipounidades', 'totUnidades', 'totTipodocumentos', 'totUsuarios', 'totRequerentes', 'totProcessos', 'totProcessosMesAnoCorrente',
-            'dataRecordsSituacoes', 'recordsstatusrequerente' ,'dataRecordsCategorias',
+            'totRegionais', 'totMunicipios', 'totTipounidades', 'totUnidades', 'totTipodocumentos', 'totUsuarios', 
+            'totRequerentes', 'totEstatusAndamento', 'totEstatusAnalise', 'totEstatusPendente', 'totEstatusCorrigido', 'totEstatusConcluido',
+            'totProcessos', 'totProcessosMesAnoCorrente',
+            'dataRecordsSituacoes', 'recordsstatusrequerente' ,'dataRecordsCategorias', 'recordsrequerimentosmesames',
             'processos',
         ));
     }

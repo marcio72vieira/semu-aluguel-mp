@@ -60,12 +60,12 @@
             <div class="col-xl-3 col-md-6">
                 <div class="mb-4 text-white card bg-primary">
                     <div class="card-body">
-                        <strong>{{ $totRequerentes }} Requerentes</strong>
-                        &nbsp;&nbsp;&nbsp;<strong>100 <i class="fa-solid fa-shoe-prints" title="andamento"></i></strong>
-                        &nbsp;&nbsp;&nbsp;<strong>100 <i class="fa-solid fa-user-check" title="análise"></i></strong>
-                        &nbsp;&nbsp;&nbsp;<strong>100 <i class="fa-solid fa-clock-rotate-left" title="pendente"></i></strong>
-                        &nbsp;&nbsp;&nbsp;<strong>100 <i class="fa-solid fa-check-double" title="corrigidos"></i></strong>
-                        &nbsp;&nbsp;&nbsp;<strong>100 <i class="fa-regular fa-circle-check" title="concluídos"></i></strong>
+                        <strong>{{ $totRequerentes }} Requerimentos</strong>
+                        &nbsp;&nbsp;&nbsp;<strong>{{ $totEstatusAndamento }} <i class="fa-solid fa-shoe-prints" title="andamento"></i></strong>
+                        &nbsp;&nbsp;&nbsp;<strong>{{ $totEstatusAnalise }} <i class="fa-solid fa-user-check" title="análise"></i></strong>
+                        &nbsp;&nbsp;&nbsp;<strong>{{ $totEstatusPendente }} <i class="fa-solid fa-clock-rotate-left" title="pendente"></i></strong>
+                        &nbsp;&nbsp;&nbsp;<strong>{{ $totEstatusCorrigido }} <i class="fa-solid fa-check-double" title="corrigidos"></i></strong>
+                        &nbsp;&nbsp;&nbsp;<strong>{{ $totEstatusConcluido }} <i class="fa-regular fa-circle-check" title="concluídos"></i></strong>
                     </div>
                 </div>
             </div>
@@ -74,13 +74,13 @@
         <div class="row">
             <div class="col-xl-8">
                 <div class="mb-4 card">
-                    <div class="card-header">
-                        <i class="fas fa-chart-area me-1"></i>
-                        Area Chart Example
+                    <div class="card-header" style="padding-top: 10px; padding-bottom: 20px;">
+                        <i class="fa-solid fa-chart-line"></i>
+                        Status dos Requerimentos
                     </div>
                     <div class="card-body">
                         <div>
-                            <canvas id="myAreaChart" width="100%" height="50"></canvas>
+                            <canvas id="myAreaChart" width="100%" height="48"></canvas>
                         </div>
                     </div>
                 </div>
@@ -103,7 +103,17 @@
                     <div class="card-header">
                         {{-- --}}
                         <div id="mesesanoscategoriaparapesquisa" class="col-md-12 d-sm-flex justify-content-between">
-                            <span id="selecionames" class="text-primary" style="margin: 5px;">Mês:</span>
+                            <span style="margin: 5px;"><i class="fa-solid fa-chart-pie"></i></span>
+                            <span id="selecionacategoria" style="margin: 5px;">Categorias:</span>
+                            <select id="selectCategoriaPesquisa_id" class="form-control col-form-label-sm selectsgraficopizzarosaca">
+                                {{-- Se a "option" Categoria está desabilitada, então ele seleciona o primeiro da lista, no caso "Sexo Biológico", por default --}}
+                                <option value="" disabled>Categoria</option>
+                                @foreach($categorias as $key => $value)
+                                    <option value="{{ $key }}"> {{ $value }}</option>
+                                @endforeach
+                            </select>
+                            &nbsp;&nbsp;
+                            {{-- <span id="selecionames" class="text-primary" style="margin: 5px;">Mês:</span> --}}
                             <select id="selectMesPesquisa_id" class="form-control col-form-label-sm selectsgraficopizzarosaca">
                                 <option value="" selected disabled>Mês...</option>
                                 @foreach($mesespesquisa as $key => $value)
@@ -113,22 +123,14 @@
                                 @endforeach
                             </select>
                             &nbsp;&nbsp;
-                            <span id="selecionaano" class="text-primary" style="margin: 5px;">Ano:</span>
+                            {{-- <span id="selecionaano" class="text-primary" style="margin: 5px;">Ano:</span> --}}
                             <select id="selectAnoPesquisa_id" class="form-control col-form-label-sm selectsgraficopizzarosaca">
                                 <option value="" selected disabled>Ano...</option>
                                 @foreach($anospesquisa as $value)
                                     <option value="{{ $value }}" {{date('Y') == $value ? 'selected' : ''}} data-anopesquisa="{{$value}}" class="optionAnoPesquisa"> {{ $value }} </option>
                                 @endforeach
                             </select>
-                            &nbsp;&nbsp;
-                            <span id="selecionacategoria" class="text-primary" style="margin: 5px;">Categoria:</span>
-                            <select id="selectCategoriaPesquisa_id" class="form-control col-form-label-sm selectsgraficopizzarosaca">
-                                {{-- Se a "option" Categoria está desabilitada, então ele seleciona o primeiro da lista, no caso "Sexo Biológico", por default --}}
-                                <option value="" disabled>Categoria</option>
-                                @foreach($categorias as $key => $value)
-                                    <option value="{{ $key }}"> {{ $value }}</option>
-                                @endforeach
-                            </select>
+                            
                             &nbsp;&nbsp;&nbsp;&nbsp;
                             <select id="tipografico" class="form-control col-form-label-sm selectsgraficopizzarosaca">
                                 <option value="pie">Pizza</option>
@@ -151,7 +153,7 @@
             <div class="col-xl-12">
                 <div class="mb-4 card">
                     <div class="card-header">
-                        <i class="fas fa-chart-bar me-1"></i>
+                        <i class="fa-solid fa-chart-column"></i>
                         Bar Chart Example
                     </div>
                     <div class="card-body">
@@ -210,7 +212,7 @@
 
 @section('scripts')
     @php
-    //Configurando os labels para o gráfico de Linha
+    //CONFIGURANDO OS LABELS PARA O GRÁFICO DE LINHA
     if(count($recordsstatusrequerente)){
         //Recuperando só as chaves do array, que será o label dos registros
         $labelRecordsSituacoes = array_keys($recordsstatusrequerente);
@@ -229,7 +231,7 @@
     } 
 
 
-
+    // CONFIGURANDO OS LABELS PARA O GRÁFICO DE PIZZA OU ROSCA
     /*
     //@dd($dataRecordsCategorias)
     //Configurando os labels para os gráficos de Pizza
@@ -285,6 +287,10 @@
             $arrLabel[] = "'".$porcentagem."% ".$key."'";   // Exibe valores em porcentagem
         }
     }
+
+
+    //CONFIGURANDO OS LABELS PARA O GRÁFICO DE COLUNA MÊS A MÊS
+    //OBS: Não há a necessidade de configurar os Labels, visto que os label são fixos, ou seja, Janeiro, Fevereiro, Março, etc...
     @endphp
 
 
@@ -320,7 +326,7 @@
                 datasets: [{
                     label: "status",
                     lineTension: 0.1,
-                    backgroundColor: "rgba(247,10,226,0.4)",
+                    backgroundColor: "rgba(54, 162, 235,0.3)",
                     borderColor: "rgba(2,117,216,1)",
                     pointRadius: 5,
                     pointBackgroundColor: "rgba(2,117,216,1)",
@@ -333,6 +339,7 @@
                     fill: true,
                 }],
             },
+            plugins: [ChartDataLabels], // Exibe rótulo dos valores dentro dos gráficos..É necessário importar o plugin na página "admin.blade.php"
             options: {
                 /* 
                 // Comentar essas propriedades, por algum motivo evita o erro: Invalid scale configuration for scale: xAxes  e yAxes
@@ -341,10 +348,18 @@
                     yAxes: [{ ticks: { min: 0, max: 40000, maxTicksLimit: 5 }, gridLines: { color: "rgba(0, 0, 0, .125)", } }],
                 }, 
                 */
-                scales: {y: {min: 0, max: 10 }},
+                scales: {y: {min: 0, max: 20 }},
                 legend: {
                     display: false
                 },
+                plugins: {
+                    datalabels: {
+                            color: '#0000ff',   // Cor dos valores das colunas
+                            anchor: 'end',      // Determina a posição dos valoresa serem exibidos : Default meio(não é necessário informar), end(no final da coluna de baixo para cima)
+                            align: 'top',       // posição dos valores (top, left, right, bottom) em relação ao anchor:end
+                            offset: 5           // distância em pixel do valores a serem apresentados
+                        }
+                }
             }
         });
 
@@ -378,28 +393,37 @@
 
         // Gráfico de Barras
         const ctx = document.getElementById('myBarChart');
-    
+
         new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'Ojunho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'],
+                labels: ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'],
                 datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3, 8, 11, 9, 2, 5, 1],
-                backgroundColor: "rgb(181,66,162)",
+                label: 'REQUERIMENTOS',
+                data: [ {{ implode(',', $recordsrequerimentosmesames) }} ],
+                backgroundColor: "rgb(54, 162, 235)",
                 borderWidth: 1
                 }]
             },
+            plugins: [ChartDataLabels], // Exibe rótulo dos valores dentro dos gráficos..É necessário importar o plugin na página "admin.blade.php"
             options: {
                 scales: {
                     y: {
-                        beginAtZero: true
+                        beginAtZero: true,
+                        min:0,
+                        max: 20
                     }
+                },
+                plugins: {
+                    datalabels: {
+                            color: '#0000ff',   // Cor dos valores das colunas
+                            anchor: 'end',      // Determina a posição dos valoresa serem exibidos : Default meio(não é necessário informar), end(no final da coluna de baixo para cima)
+                            align: 'top',       // posição dos valores (top, left, right, bottom) em relação ao anchor:end
+                            offset: 5           // distância em pixel do valores a serem apresentados
+                        }
                 }
-            }
+            },
         });
-
-
 
 
         ///////////////////////////////////////

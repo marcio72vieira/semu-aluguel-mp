@@ -40,6 +40,32 @@ class Dashboard extends Model
         return Requerente::all()->count();
     }
 
+    public static function totalRequerentesAndamento()
+    {
+        return Requerente::where('status', '=', '1')->count();
+    }
+
+    public static function totalRequerentesAnalise()
+    {
+        return Requerente::where('status', '=', '2')->count();
+    }
+
+    public static function totalRequerentesPendente()
+    {
+        return Requerente::where('status', '=', '3')->count();
+    }
+
+    public static function totalRequerentesCorrigido()
+    {
+        return Requerente::where('status', '=', '4')->count();
+    }
+
+    public static function totalRequerentesConcluido()
+    {
+        return Requerente::where('status', '=', '5')->count();
+    }
+
+
     public static function totalUsuarios()
     {
         return User::all()->count();
@@ -61,7 +87,6 @@ class Dashboard extends Model
     {
         return DB::table('processos')->whereMonth('created_at', date($mes))->whereYear('created_at', date($ano))->count();
     }
-
 
     public static function processos()
     {
