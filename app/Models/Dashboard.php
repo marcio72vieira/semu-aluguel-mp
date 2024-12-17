@@ -65,7 +65,6 @@ class Dashboard extends Model
         return Requerente::where('status', '=', '5')->count();
     }
 
-
     public static function totalUsuarios()
     {
         return User::all()->count();
@@ -90,6 +89,7 @@ class Dashboard extends Model
 
     public static function processos()
     {
+        // $processos = Processo::orderBy('nomecompleto')->paginate(10);
         return Processo::orderBy('nomecompleto')->paginate(10);
     }
     

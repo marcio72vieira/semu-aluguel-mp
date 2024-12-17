@@ -85,11 +85,11 @@ class LoginController extends Controller
 
             // Redireciona o usuário conforme seu perfil
             if($user->perfil == "adm"){
-                return redirect()->route('regional.index')->with('success', Auth::user()->nome .', Bem vindo!');
+                return redirect()->route('dashboard.index')->with('success', Auth::user()->nome .', Bem vindo!');
             }
 
             if($user->perfil == "srv"){
-                return redirect()->route('checklist.index')->with('success', Auth::user()->nome .', Bem vindo!');
+                return redirect()->route('dashboard.index')->with('success', Auth::user()->nome .', Bem vindo!');
             }
 
             if($user->perfil == "ass"){

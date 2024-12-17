@@ -213,9 +213,9 @@
 @section('scripts')
     @php
     //CONFIGURANDO OS LABELS PARA O GRÁFICO DE LINHA
-    if(count($recordsstatusrequerente)){
+    if(count($recordsestatusrequerente)){
         //Recuperando só as chaves do array, que será o label dos registros
-        $labelRecordsSituacoes = array_keys($recordsstatusrequerente);
+        $labelRecordsSituacoes = array_keys($recordsestatusrequerente);
         
         $arrLabelSituacao = [];
         
@@ -335,11 +335,11 @@
                     pointHoverBackgroundColor: "rgba(2,117,216,1)",
                     pointHitRadius: 50,
                     pointBorderWidth: 2,
-                    data: [ {{ implode(',', $recordsstatusrequerente) }} ],     // Valor vindo diretamente da view, pelo método compact
+                    data: [ {{ implode(',', $recordsestatusrequerente) }} ],     // Valor vindo diretamente da view, pelo método compact
                     fill: true,
                 }],
             },
-            plugins: [ChartDataLabels], // Exibe rótulo dos valores dentro dos gráficos..É necessário importar o plugin na página "admin.blade.php"
+            plugins: [ChartDataLabels], // Exibe rótulo dos valores dentro dos gráficos..É necessário importar o plugin em: "view.layout.admin.blade.php"
             options: {
                 /* 
                 // Comentar essas propriedades, por algum motivo evita o erro: Invalid scale configuration for scale: xAxes  e yAxes
@@ -400,12 +400,12 @@
                 labels: ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'],
                 datasets: [{
                 label: 'REQUERIMENTOS',
-                data: [ {{ implode(',', $recordsrequerimentosmesames) }} ],
+                data: [ {{ implode(',', $recordsprocessosmesames) }} ],
                 backgroundColor: "rgb(54, 162, 235)",
                 borderWidth: 1
                 }]
             },
-            plugins: [ChartDataLabels], // Exibe rótulo dos valores dentro dos gráficos..É necessário importar o plugin na página "admin.blade.php"
+            plugins: [ChartDataLabels], // Exibe rótulo dos valores dentro dos gráficos..É necessário importar o plugin em: "view.layout.admin.blade.php"
             options: {
                 scales: {
                     y: {

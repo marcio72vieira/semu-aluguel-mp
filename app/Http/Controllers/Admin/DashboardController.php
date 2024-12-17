@@ -34,8 +34,9 @@ class DashboardController extends Controller
         $mes_corrente = date('n');      // número do mês no formato 1, 2, 3, 4 ..., 9, 10, 11, 12
         $ano_corrente = date('Y');
 
-        ///
-        // Meses e anos para popular campos selects. Obs: os índices do array não pode ser: 01, 02, 03, etc... por isso a configuração acima: $mes_corrente = date('n');
+        // Meses e anos para popular campos selects. 
+        // Obs: os índices do array não pode ser: 01, 02, 03, etc... por isso a configuração acima: $mes_corrente = date('n');
+        //      caso os índices pudesser ser: 01, 02, 03, etc..., seria nno formato: $mes_corrente = date('m');
         $mesespesquisa = [
             '1' => 'janeiro', '2' => 'fevereiro', '3' => 'março', '4' => 'abril', '5' => 'maio', '6' => 'junho',
             '7' => 'julho', '8' => 'agosto', '9' => 'setembro', '10' => 'outubro', '11' => 'novembro', '12' => 'dezembro'
@@ -56,90 +57,91 @@ class DashboardController extends Controller
             $anospesquisa = array_reverse($anos);
         }
         
-        // Obtendo os todais de entidades do sistema
+        // Obtendo os todais de entidades do sistema para os Cards
         $totRegionais               =  Dashboard::totalRegionais();
         $totMunicipios              =  Dashboard::totalMunicipios();
         $totTipounidades            =  Dashboard::totalTipounidades();
         $totUnidades                =  Dashboard::totalUnidades();
         $totTipodocumentos          =  Dashboard::totalTipodocumentos();
         $totRequerentes             =  Dashboard::totalRequerentes();
-            $totEstatusAndamento    =  Dashboard::totalRequerentesAndamento();
-            $totEstatusAnalise      =  Dashboard::totalRequerentesAnalise();
-            $totEstatusPendente     =  Dashboard::totalRequerentesPendente();
-            $totEstatusCorrigido    =  Dashboard::totalRequerentesCorrigido();
-            $totEstatusConcluido    =  Dashboard::totalRequerentesConcluido();
+        $totEstatusAndamento        =  Dashboard::totalRequerentesAndamento();
+        $totEstatusAnalise          =  Dashboard::totalRequerentesAnalise();
+        $totEstatusPendente         =  Dashboard::totalRequerentesPendente();
+        $totEstatusCorrigido        =  Dashboard::totalRequerentesCorrigido();
+        $totEstatusConcluido        =  Dashboard::totalRequerentesConcluido();
         $totProcessos               =  Dashboard::totalProcessos();
         $totProcessosMesAnoCorrente =  Dashboard::totalProcessosMesAnoCorrente();     // Total de processos do Mês e Ano correntes
         $totUsuarios                =  Dashboard::totalUsuarios();
 
 
-
-        // Recuperando todos os processos para a tabela de PROCESSOS
-        // $processos = Processo::orderBy('nomecompleto')->paginate(10);
-        $processos =  Dashboard::processos();
-
-
+        //----------Trecho de código referente ao gráfico de Linha ou Área
         //Dados StatusRequerente para gráfico de Linha padrão, ou seja, logo que a Dashboard é carregada
-        $recordsstatusrequerente = ['Andamento' => 0, 'Análise' => 0, 'Pendente' => 0, 'Corrigido' => 0, 'Concluído' => 0];
+        $recordsestatusrequerente = ['Andamento' => 0, 'Análise' => 0, 'Pendente' => 0, 'Corrigido' => 0, 'Concluído' => 0];
         
-        $recordsSituacoes = DB::select("SELECT COUNT(id) as quantidade, status as situacao FROM requerentes WHERE YEAR(created_at) = $ano_corrente AND MONTH(created_at) = $mes_corrente  GROUP BY status ORDER BY COUNT(id) DESC");
+        // Desconsidera o ano e o mẽs corrente
+        // $recordsEstatus = DB::select("SELECT COUNT(id) as quantidade, status as estatus FROM requerentes GROUP BY status ORDER BY COUNT(id) DESC");
+        // Leva em consideração o ano e o mês corrente
+        // $recordsEstatus = DB::select("SELECT COUNT(id) as quantidade, status as estatus FROM requerentes WHERE YEAR(created_at) = $ano_corrente AND MONTH(created_at) = $mes_corrente  GROUP BY status ORDER BY COUNT(id) DESC");
+        // Leva em consideração apenas o ano corrente
+        $recordsEstatus = DB::select("SELECT COUNT(id) as quantidade, status as estatus FROM requerentes WHERE YEAR(created_at) = $ano_corrente GROUP BY status ORDER BY COUNT(id) DESC");
         
-        if($recordsSituacoes > 0){
-            foreach($recordsSituacoes as $key => $value){
-                if($value->situacao == 1){
-                    $recordsstatusrequerente['Andamento'] = $value->quantidade;
+        if($recordsEstatus > 0){
+            foreach($recordsEstatus as $key => $value){
+                if($value->estatus == 1){
+                    $recordsestatusrequerente['Andamento'] = $value->quantidade;
                 }
-                if($value->situacao == 2){
-                    $recordsstatusrequerente['Análise'] = $value->quantidade;
+                if($value->estatus == 2){
+                    $recordsestatusrequerente['Análise'] = $value->quantidade;
                 }
-                if($value->situacao == 3){
-                    $recordsstatusrequerente['Pendente'] = $value->quantidade;
+                if($value->estatus == 3){
+                    $recordsestatusrequerente['Pendente'] = $value->quantidade;
                 }
-                if($value->situacao == 4){
-                    $recordsstatusrequerente['Corrigido'] = $value->quantidade;
+                if($value->estatus == 4){
+                    $recordsestatusrequerente['Corrigido'] = $value->quantidade;
                 }
-                if($value->situacao == 5){
-                    $recordsstatusrequerente['Concluído'] = $value->quantidade;
+                if($value->estatus == 5){
+                    $recordsestatusrequerente['Concluído'] = $value->quantidade;
                 }
             }
         }else{
-            $recordsstatusrequerente = ['Andamento' => 0, 'Análise' => 0, 'Pendente' => 0, 'Corrigido' => 0, 'Concluído' => 0];
+            $recordsestatusrequerente = ['Andamento' => 0, 'Análise' => 0, 'Pendente' => 0, 'Corrigido' => 0, 'Concluído' => 0];
         }
 
-        //----------Trecho de código referente ao gráfico de colunas
-        // 
-        // Configurando totais de requerimentos Mês a Mês (Independente de qualquer cirtério de pesquisa, apenas ANO)
-        $recordsrequerimentosmesames  = ['1' => 0,'2' => 0,'3' => 0,'4' => 0,'5' => 0,'6' => 0,'7' => 0,'8' => 0,'9' => 0,'10' => 0,'11' => 0,'12' => 0];
 
-        //Recuperando todos os requerimentos concluidos (ou seja, tornaram-se processos) independente de regional, município, unidade de atendimento etc...
-        $recordsmesames = DB::select("SELECT MONTH(created_at) as mes, COUNT(id) as quantidade FROM processos WHERE YEAR(created_at) = $ano_corrente GROUP BY MONTH(created_at) ORDER BY MONTH(created_at) ASC");
-
-        $numregsretorno = count($recordsmesames);
-
-        if($numregsretorno > 0){
-            foreach($recordsmesames as $value){
-                // Atribui ao mês o respectivo valor referente a quantidade de requerimentos
-                $recordsrequerimentosmesames[$value->mes] = $value->quantidade;
-            }
-        }else{
-            // Se nada for retornado, todos os valores (correspondnte aos meses) serão 0 (zero)
-            $recordsrequerimentosmesames  = ['1' => 0,'2' => 0,'3' => 0,'4' => 0,'5' => 0,'6' => 0,'7' => 0,'8' => 0,'9' => 0,'10' => 0,'11' => 0,'12' => 0];
-        }
-
-        //----------Trecho de código referente ao gráfico de colunas
-
-
-        //Dados SexoBiológico para gráfico de Pizza padrão, ou seja, logo que a Dashboard é carregada
-        //$records = DB::select("SELECT COUNT(id) as quantidade, sexobiologico as sexo FROM requerentes WHERE MONTH(created_at) = $mes_corrente  AND YEAR(created_at) = $ano_corrente GROUP BY sexobiologico ORDER BY COUNT(id) DESC");
+        //----------Trecho de código referente ao gráfico de Pizza ou Rosca
+        // Leva em consideração o ano e o mês corrente (tabela requerentes)
+        // $recordsCategorias = DB::select("SELECT COUNT(id) as quantidade, sexobiologico as sexo FROM requerentes WHERE MONTH(created_at) = $mes_corrente  AND YEAR(created_at) = $ano_corrente GROUP BY sexobiologico ORDER BY COUNT(id) DESC");
+        // Leva em consideração apenas o ano corrente (tabela processos)
+        // $recordsCategorias = DB::select("SELECT COUNT(id) as quantidade, sexobiologico as sexo FROM processos WHERE YEAR(created_at) = $ano_corrente GROUP BY sexobiologico ORDER BY COUNT(id) DESC");
+        // Leva em consideração o ano e o mês corrente (tabela processos)
         $recordsCategorias = DB::select("SELECT COUNT(id) as quantidade, sexobiologico as sexo FROM processos WHERE YEAR(created_at) = $ano_corrente AND MONTH(created_at) = $mes_corrente GROUP BY sexobiologico ORDER BY COUNT(id) DESC");
-        
+
+
+        //----------Trecho de código referente ao gráfico de colunas
+        // Definindo os totais iniciais dos requerimentos mês a mês
+        $recordsprocessosmesames  = ['1' => 0,'2' => 0,'3' => 0,'4' => 0,'5' => 0,'6' => 0,'7' => 0,'8' => 0,'9' => 0,'10' => 0,'11' => 0,'12' => 0];
+
+        //Recuperando todos os requerimentos concluidos (ou seja, que tornaram-se processos) independente de Regional, Município, Unidade de Atendimento etc...
+        $recordsProcessosmeses = DB::select("SELECT MONTH(created_at) as mes, COUNT(id) as quantidade FROM processos WHERE YEAR(created_at) = $ano_corrente GROUP BY MONTH(created_at) ORDER BY MONTH(created_at) ASC");
+
+        if($recordsProcessosmeses > 0){
+            foreach($recordsProcessosmeses as $value){
+                // Atribui/Substitui no índice [1, 2, 3, 4...] referente ao mês,  o respectivo valor referente a quantidade de requerimentos do mês
+                $recordsprocessosmesames[$value->mes] = $value->quantidade;
+            }
+        }else{
+            // Se nada for retornado, todos os valores (correspondente aos índices dos mêses) serão 0 (zero)
+            $recordsprocessosmesames  = ['1' => 0,'2' => 0,'3' => 0,'4' => 0,'5' => 0,'6' => 0,'7' => 0,'8' => 0,'9' => 0,'10' => 0,'11' => 0,'12' => 0];
+        }
+
+
 
         // Início - Ignite
-            // Situacao Requerente
+            // estatus Requerente
             $dataRecordsSituacoes = [];
-            if(count($recordsSituacoes) > 0){
-                foreach($recordsSituacoes as $value) {
-                    $dataRecordsSituacoes[$value->situacao] =  $value->quantidade;
+            if(count($recordsEstatus) > 0){
+                foreach($recordsEstatus as $value) {
+                    $dataRecordsSituacoes[$value->estatus] =  $value->quantidade;
                 }
             }else{
                 $dataRecordsSituacoes[''] =  0;
@@ -156,13 +158,16 @@ class DashboardController extends Controller
             }
         // Fim - Ignite
        
+        // Recuperando todos os processos para a tabela de PROCESSOS
+        $processos =  Dashboard::processos();
+
         return view('admin.dashboard.index', compact(
             'categorias',
             'mes_corrente','ano_corrente','mesespesquisa', 'anospesquisa',
             'totRegionais', 'totMunicipios', 'totTipounidades', 'totUnidades', 'totTipodocumentos', 'totUsuarios', 
             'totRequerentes', 'totEstatusAndamento', 'totEstatusAnalise', 'totEstatusPendente', 'totEstatusCorrigido', 'totEstatusConcluido',
             'totProcessos', 'totProcessosMesAnoCorrente',
-            'dataRecordsSituacoes', 'recordsstatusrequerente' ,'dataRecordsCategorias', 'recordsrequerimentosmesames',
+            'dataRecordsSituacoes', 'recordsestatusrequerente' ,'dataRecordsCategorias', 'recordsprocessosmesames',
             'processos',
         ));
     }
