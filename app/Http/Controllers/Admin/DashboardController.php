@@ -15,7 +15,7 @@ use App\Models\Processo;
 use App\Models\Dashboard;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-
+use Spatie\SimpleExcel\SimpleExcelWriter;
 
 class DashboardController extends Controller
 {
@@ -137,26 +137,16 @@ class DashboardController extends Controller
 
 
         // Início - Ignite
-            // estatus Requerente
-            $dataRecordsSituacoes = [];
-            if(count($recordsEstatus) > 0){
-                foreach($recordsEstatus as $value) {
-                    $dataRecordsSituacoes[$value->estatus] =  $value->quantidade;
-                }
-            }else{
-                $dataRecordsSituacoes[''] =  0;
+        // Obs: Os dados para os demais gráficos, já são zerados por "natureza', caso nenhum dado seja retornado.
+        // Categoria Requerente
+        $dataRecordsCategorias = [];
+        if(count($recordsCategorias) > 0){
+            foreach($recordsCategorias as $value) {
+                $dataRecordsCategorias[Str::upper($value->sexo)] =  $value->quantidade;
             }
-            
-            // Categoria Requerente
-            $dataRecordsCategorias = [];
-            if(count($recordsCategorias) > 0){
-                foreach($recordsCategorias as $value) {
-                    $dataRecordsCategorias[Str::upper($value->sexo)] =  $value->quantidade;
-                }
-            }else{
-                $dataRecordsCategorias[''] =  0;
-            }
-        // Fim - Ignite
+        }else{
+            $dataRecordsCategorias[''] =  0;
+        }
        
         // Recuperando todos os processos para a tabela de PROCESSOS
         $processos =  Dashboard::processos();
@@ -167,7 +157,7 @@ class DashboardController extends Controller
             'totRegionais', 'totMunicipios', 'totTipounidades', 'totUnidades', 'totTipodocumentos', 'totUsuarios', 
             'totRequerentes', 'totEstatusAndamento', 'totEstatusAnalise', 'totEstatusPendente', 'totEstatusCorrigido', 'totEstatusConcluido',
             'totProcessos', 'totProcessosMesAnoCorrente',
-            'dataRecordsSituacoes', 'recordsestatusrequerente' ,'dataRecordsCategorias', 'recordsprocessosmesames',
+            'recordsestatusrequerente' ,'dataRecordsCategorias', 'recordsprocessosmesames',
             'processos',
         ));
     }
@@ -234,4 +224,64 @@ class DashboardController extends Controller
 
         return response()->json($data);
     }
+
+
+    // Método utilizado com Biblioteca Spatie-Simple-Excel
+    public function gerarexcel(Request $request)
+    {
+
+        $mes = $request->mesexcel;
+        $ano = $request->anoexcel;
+        $tipo = $request->tipoexcelcsv;
+
+
+        // Testa se todos os parâmetros são válidos
+        if($mes != 0 && $ano != 0 && $tipo != 0){
+
+            // Adiciona um 0 (zero) na frente do mês de 01 a 09
+            $mes = ($mes < 10) ? "0".$mes : $mes;
+
+            // Define o nome do arquivo(formado por mês e ano)
+            $referencia = $mes."_".$ano;
+
+            // Define o tipo de arquivo a ser gerado
+            $tipoextensao = ($tipo == 1) ? 'xlsx' : 'csv';
+
+            // Definindo a query
+            $records = DB::table('processos')->selectRaw('id, nomecompleto')->whereMonth('created_at', $mes)->whereYear('created_at', $ano)->get();
+
+            //dd($records); //dd($records[0]->precototal);
+
+            $writer = SimpleExcelWriter::streamDownload("semuleimariadapenha.xlsx")->addHeader(['Registro', 'Nome']);
+
+            // Contador para esvaziar buffer com flush()
+            $countbuffer = 1;
+
+            foreach ($records as $record ) {
+                $writer->addRow([
+                    'id' => $record->id,
+                    'nomecompleto' => $record->nomecompleto,
+                ]);
+
+                // Limpa o buffer a cada mil linhas
+                $countbuffer++;
+
+                if($countbuffer % 1000 === 0){
+                    flush();
+                }
+            }
+
+            $writer->toBrowser();
+
+        } else {
+            return redirect()->route('dashboard.index')->with('error', 'Escolha o tipo de arquivo Excel ou CSV, para ser gerado!');;
+        }
+
+
+    }    
+
+
+
+
+
 }

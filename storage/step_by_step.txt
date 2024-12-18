@@ -324,3 +324,15 @@ echo (explode(" ",$str)[0]);
 SELECT COUNT(id) as quantidade, sexobiologico FROM requerentes WHERE MONTH(created_at) = 12 GROUP BY sexobiologico  ORDER BY COUNT(id) DESC;
 // No Laravel (FACADES DB)
 $records = DB::select("SELECT COUNT(id) as quantidade, sexobiologico as sexo FROM requerentes WHERE MONTH(created_at) = $mes_corrente  AND YEAR(created_at) = $ano_corrente GROUP BY sexobiologico ORDER BY COUNT(id) DESC");
+
+
+// Instalando e utilizando o Spatie Simple Excel
+1- Instalando
+marcio@vaio:~/projetosdocker/semu-aluguel-mp$ ./vendor/bin/sail composer require spatie/simple-excel
+
+2- Utilizando:
+    no Controller inportar:
+    use Spatie\SimpleExcel\SimpleExcelWriter;
+
+    No método,  utilizar conforme consta no método:  public function gerarexcel(Request $request)
+    

@@ -116,6 +116,7 @@ Route::group(['middleware' => 'auth'], function(){
         // DASHBOARD
         Route::get('/index-dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
         Route::get('/index-dashboard/ajaxgetcategoriachartpie', [DashboardController::class, 'ajaxgetcategoriachartpie'])->name('dashboard.index.ajaxgetcategoriachartpie');
+        Route::get('/index-dashboard/gerarexcel', [DashboardController::class, 'gerarexcel'])->name('dashboard.gerarexcel');
 
     }); // Final das rotas restritas referente a ser administrador e Servidor(onlyAdmSrv)
 
