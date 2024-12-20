@@ -107,10 +107,13 @@ class RequerenteController extends Controller
             $requerente = Requerente::create([
 
                 'nomecompleto'              => Str::upper($request->nomecompleto),
+                'sexobiologico'             => $request->sexobiologico,
+                'nascimento'                => $request->nascimento,
+                'naturalidade'              => $request->naturalidade,
+                'nacionalidade'             => $request->nacionalidade,
                 'rg'                        => $request->rg,
                 'orgaoexpedidor'            => $request->orgaoexpedidor,
                 'cpf'                       => $request->cpf,
-                'sexobiologico'             => $request->sexobiologico,
                 'banco'                     => $request->banco,
                 'agencia'                   => $request->agencia,
                 'conta'                     => $request->conta,
@@ -125,7 +128,7 @@ class RequerenteController extends Controller
                 'outraorientacaosexual'     => $request->outraorientacaosexual,
                 'deficiente'                => $request->deficiente,
                 'deficiencia'               => $request->deficiencia,
-                'nacionalidade'             => $request->nacionalidade,
+                'escolaridade'              => $request->escolaridade,
                 'profissao'                 => $request->profissao,
                 'estadocivil'               => $request->estadocivil,
                 'endereco'                  => $request->endereco,
@@ -141,7 +144,7 @@ class RequerenteController extends Controller
                 'tipounidade_id'            => $idTipoUnidadeRequerente,
                 'unidadeatendimento_id'     => $idUnidadeatendimentoRequerente,
                 'user_id'                   => $idUsuarioRequerente,
-                'status'                    => 1
+                'estatus'                   => 1    // Situação do requerimento: 1 - Andamento 2 - Análise 3 - Pendente 4 - Corrigido 5 - Concluído
             ]);
 
 

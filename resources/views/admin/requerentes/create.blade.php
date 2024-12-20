@@ -53,11 +53,11 @@
                                 <div style="margin-top: 10px">
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="sexobiologico" id="sexobiologicomas" value="masculino" {{old('sexobiologico') == 'masculino' ? 'checked' : ''}}>
-                                        <label class="form-check-label" for="sexobiologicomas">Mas</label>
+                                        <label class="form-check-label" for="sexobiologicomas">Masculino</label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="sexobiologico" id="sexobiologicofem" value="feminino" {{old('sexobiologico') == 'feminino' ? 'checked' : ''}} required>
-                                        <label class="form-check-label" for="sexobiologicofem">Fem</label>
+                                        <label class="form-check-label" for="sexobiologicofem">Feminino</label>
                                     </div>
                                     <br>
                                     @error('sexobiologico')
@@ -67,6 +67,42 @@
                             </div>
                         </div>
 
+                        {{-- nascimento --}}
+                        <div class="col-2">
+                            <div class="form-group focused">
+                                <label class="form-control-label" for="nascimento">Data de Nascimento <span class="small text-danger">*</span></label>
+                                <input type="date" class="form-control" id="nascimento" name="nascimento" value="{{old('nascimento')}}" required>
+                                @error('nascimento')
+                                    <small style="color: red">{{$message}}</small>
+                                @enderror
+                            </div>
+                        </div>
+
+                        {{-- naturalidade --}}
+                        <div class="col-2">
+                            <div class="form-group focused">
+                                <label class="form-control-label" for="naturalidade">Naturalidade / UF<span class="small text-danger">*</span></label>
+                                <input type="text" class="form-control" id="naturalidade" name="naturalidade" value="{{old('naturalidade')}}" required>
+                                @error('naturalidade')
+                                    <small style="color: red">{{$message}}</small>
+                                @enderror
+                            </div>
+                        </div>
+
+                        {{-- nacionalidade --}}
+                        <div class="col-2">
+                            <div class="form-group focused">
+                                <label class="form-control-label" for="nacionalidade">Nacionalidade <span class="small text-danger">*</span></label>
+                                <input type="text" class="form-control" id="nacionalidade" name="nacionalidade" value="{{old('nacionalidade')}}" required>
+                                @error('nacionalidade')
+                                    <small style="color: red">{{$message}}</small>
+                                @enderror
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="mb-3 row">
                         {{-- rg --}}
                         <div class="col-2">
                             <div class="form-group focused">
@@ -100,13 +136,8 @@
                             </div>
                         </div>
 
-                    </div>
-
-
-
-                    <div class="mb-3 row">
                         {{-- banco --}}
-                        <div class="col-6">
+                        <div class="col-2">
                             <div class="form-group focused">
                                 <label class="form-control-label" for="banco">Banco <span class="small text-danger">*</span></label>
                                 <input type="text" class="form-control" id="banco" name="banco" value="{{old('banco')}}" required>
@@ -117,7 +148,7 @@
                         </div>
 
                         {{-- agencia --}}
-                        <div class="col-2">
+                        <div class="col-1">
                             <div class="form-group focused">
                                 <label class="form-control-label" for="agencia">Agência<span class="small text-danger">*</span></label>
                                 <input type="text" class="form-control" id="agencia" name="agencia" value="{{old('agencia')}}" required>
@@ -128,9 +159,9 @@
                         </div>
 
                         {{-- conta --}}
-                        <div class="col-2">
+                        <div class="col-1">
                             <div class="form-group focused">
-                                <label class="form-control-label" for="conta">Conta<span class="small text-danger">*</span></label>
+                                <label class="form-control-label" for="conta">Conta Corrente<span class="small text-danger">*</span></label>
                                 <input type="text" class="form-control" id="conta" name="conta" value="{{old('conta')}}" required>
                                 @error('conta')
                                     <small style="color: red">{{$message}}</small>
@@ -161,6 +192,63 @@
                         </div>
                     </div>
 
+                    {{--                
+                    <div class="mb-3 row">
+                        
+                        <div class="col-6">
+                            <div class="form-group focused">
+                                <label class="form-control-label" for="banco">Banco <span class="small text-danger">*</span></label>
+                                <input type="text" class="form-control" id="banco" name="banco" value="{{old('banco')}}" required>
+                                @error('banco')
+                                    <small style="color: red">{{$message}}</small>
+                                @enderror
+                            </div>
+                        </div>
+
+                        
+                        <div class="col-2">
+                            <div class="form-group focused">
+                                <label class="form-control-label" for="agencia">Agência<span class="small text-danger">*</span></label>
+                                <input type="text" class="form-control" id="agencia" name="agencia" value="{{old('agencia')}}" required>
+                                @error('agencia')
+                                    <small style="color: red">{{$message}}</small>
+                                @enderror
+                            </div>
+                        </div>
+
+                        
+                        <div class="col-2">
+                            <div class="form-group focused">
+                                <label class="form-control-label" for="conta">Conta<span class="small text-danger">*</span></label>
+                                <input type="text" class="form-control" id="conta" name="conta" value="{{old('conta')}}" required>
+                                @error('conta')
+                                    <small style="color: red">{{$message}}</small>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-2">
+                            <div class="form-group focused">
+                                <label class="form-control-label" for="contaespecificasim">Conta específica (com movimento)<span class="small text-danger">*</span></label>
+                                <div style="margin-top: 10px">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="contaespecifica" id="contaespecificasim" value="1" {{old('contaespecifica') == '1' ? 'checked' : ''}} required>
+                                        <label class="form-check-label" for="contaespecificasim">Sim</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="contaespecifica" id="contaespecificanao" value="0" {{old('contaespecifica') == '0' ? 'checked' : ''}}>
+                                        <label class="form-check-label" for="contaespecificanao">Não</label>
+                                    </div>
+                                    <br>
+                                    @error('contaespecifica')
+                                        <small style="color: red">{{$message}}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                    --}}
+
 
 
                     <div class="mb-3 row">
@@ -189,7 +277,7 @@
                         {{-- racacor --}}
                         <div class="col-3">
                             <div class="form-group focused">
-                                <label class="form-control-label" for="racacor">Cor / Raça<span class="small text-danger">*</span></label>
+                                <label class="form-control-label" for="racacor">Cor / Raça / Etnia<span class="small text-danger">*</span></label>
                                 <select name="racacor" id="racacor" class="form-control"  required>
                                     <option value="" selected disabled>Escolha ...</option>
                                     <option value="1" {{old('racacor') == '1' ? 'selected' : ''}}>Branca</option>
@@ -380,12 +468,22 @@
                             </div>
                         </div>
 
-                        {{-- nacionalidade --}}
+                        {{-- escolaridade --}}
                         <div class="col-2">
                             <div class="form-group focused">
-                                <label class="form-control-label" for="nacionalidade">Nacionalidade <span class="small text-danger">*</span></label>
-                                <input type="text" class="form-control" id="nacionalidade" name="nacionalidade" value="{{old('nacionalidade')}}" required>
-                                @error('nacionalidade')
+                                <label class="form-control-label" for="escolaridade">Escolaridade<span class="small text-danger">*</span></label>
+                                <select name="escolaridade" id="escolaridade" class="form-control"  required>
+                                    <option value="" selected disabled>Escolha ...</option>
+                                    <option value="1" {{old('escolaridade') == '1' ? 'selected' : ''}}>Fundamental incompleto</option>
+                                    <option value="2" {{old('escolaridade') == '2' ? 'selected' : ''}}>Fundamental completo</option>
+                                    <option value="3" {{old('escolaridade') == '3' ? 'selected' : ''}}>Médio incompleto</option>
+                                    <option value="4" {{old('escolaridade') == '4' ? 'selected' : ''}}>Médio completo</option>
+                                    <option value="5" {{old('escolaridade') == '5' ? 'selected' : ''}}>Superior incompleto</option>
+                                    <option value="6" {{old('escolaridade') == '6' ? 'selected' : ''}}>Superior completo</option>
+                                    <option value="7" {{old('escolaridade') == '7' ? 'selected' : ''}}>Pós-graduação incompleto</option>
+                                    <option value="8" {{old('escolaridade') == '8' ? 'selected' : ''}}>Pós-graduação completo</option>
+                                </select>
+                                @error('escolaridade')
                                     <small style="color: red">{{$message}}</small>
                                 @enderror
                             </div>

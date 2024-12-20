@@ -236,23 +236,26 @@ class DashboardController extends Controller
 
 
         // Testa se todos os parâmetros são válidos
-        if($mes != 0 && $ano != 0 && $tipo != 0){
+        // if($mes != 0 && $ano != 0 && $tipo != 0){
+        if($tipo != 0){
 
             // Adiciona um 0 (zero) na frente do mês de 01 a 09
             $mes = ($mes < 10) ? "0".$mes : $mes;
 
-            // Define o nome do arquivo(formado por mês e ano)
-            $referencia = $mes."_".$ano;
+            // Define o nome do arquivo(formado por mês e ano ou apenas o ano)
+            $referencia = ($mes == "00") ? $ano : $mes."_".$ano;
 
             // Define o tipo de arquivo a ser gerado
             $tipoextensao = ($tipo == 1) ? 'xlsx' : 'csv';
 
             // Definindo a query
-            $records = DB::table('processos')->selectRaw('id, nomecompleto')->whereMonth('created_at', $mes)->whereYear('created_at', $ano)->get();
+            if($mes == 0){
+                $records = DB::table('processos')->selectRaw('id, nomecompleto')->whereYear('created_at', $ano)->get();
+            }else{
+                $records = DB::table('processos')->selectRaw('id, nomecompleto')->whereMonth('created_at', $mes)->whereYear('created_at', $ano)->get();
+            }
 
-            //dd($records); //dd($records[0]->precototal);
-
-            $writer = SimpleExcelWriter::streamDownload("semuleimariadapenha.xlsx")->addHeader(['Registro', 'Nome']);
+            $writer = SimpleExcelWriter::streamDownload("semualuguelmp_$referencia.$tipoextensao")->addHeader(['Registro', 'Nome']);
 
             // Contador para esvaziar buffer com flush()
             $countbuffer = 1;
@@ -274,7 +277,7 @@ class DashboardController extends Controller
             $writer->toBrowser();
 
         } else {
-            return redirect()->route('dashboard.index')->with('error', 'Escolha o tipo de arquivo Excel ou CSV, para ser gerado!');;
+            return redirect()->route('dashboard.index')->with('error', 'Escolha um tipo de arquivo: Excel ou CSV, para ser gerado!');;
         }
 
 

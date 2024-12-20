@@ -14,6 +14,10 @@ return new class extends Migration
         Schema::create('requerentes', function (Blueprint $table) {
             $table->id();
             $table->string('nomecompleto');
+            $table->string('sexobiologico');
+            $table->date('nascimento');
+            $table->string('naturalidade');
+            $table->string('nacionalidade');
             $table->string('rg');
             $table->string('orgaoexpedidor');
             $table->string('cpf');
@@ -27,12 +31,11 @@ return new class extends Migration
             $table->string('outraracacor')->nullable();
             $table->string('identidadegenero');
             $table->string('outraidentidadegenero')->nullable();
-            $table->string('sexobiologico');
             $table->string('orientacaosexual');
             $table->string('outraorientacaosexual')->nullable();
             $table->string('deficiente');
             $table->string('deficiencia')->nullable();
-            $table->string('nacionalidade');
+            $table->string('escolaridade');
             $table->string('profissao')->nullable();
             $table->string('estadocivil');
             $table->string('endereco');
@@ -48,7 +51,7 @@ return new class extends Migration
             $table->foreignId('tipounidade_id')->constrained('tipounidades')->onDelete('cascade');
             $table->foreignId('unidadeatendimento_id')->constrained('unidadesatendimentos')->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->boolean('status');
+            $table->boolean('estatus'); // Situação do requerimento: 1 - Andamento 2 - Análise 3 - Pendente 4 - Corrigido 5 - Concluído
             $table->timestamps();
         });
     }

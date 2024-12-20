@@ -182,7 +182,7 @@
                             <div class="row">
                                 <div class="col-md-3" style="margin-left: 150px;">
                                     <select id="selectMesExcel" name="mesexcel"  class="form-control col-form-label-sm">
-                                        <option value="0" selected disabled>Mês...</option>
+                                        <option value="0">Mês...</option>
                                         @foreach($mesespesquisa as $key => $value)
                                             {{-- Obs: Os índices dos mêses são 1, 2, 3 ... 12 (sem zeros à esquerda) que corresponde exatamente aos seus índices, vindo do controller e seus valores são: Janeiro, Fevereiro, Março ... Dezembro, por isso a necessidade usarmos o parâmetro $key --}}
                                             {{-- <option value="{{ $value}}" {{date('n') == $key ? 'selected' : ''}} data-mespesquisa="{{$key}}" class="optionMesPesquisa"> {{ $value }} </option>  OU --}}

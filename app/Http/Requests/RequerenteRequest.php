@@ -28,10 +28,13 @@ class RequerenteRequest extends FormRequest
         return [
             // INFORMAÇÕES DA REQUERENTE
             'nomecompleto'          => 'required',
+            'sexobiologico'         => 'required',
+            'nascimento'            => 'required',
+            'naturalidade'          => 'required',
+            'nacionalidade'         => 'required',
             'rg'                    => 'required',
             'orgaoexpedidor'        => 'required',
             'cpf'                   => ['required', 'unique:requerentes,cpf,'. ($requerenteId ? $requerenteId->id : null), new CpfValidateRule()],
-            'sexobiologico'         => 'required',
             'banco'                 => 'required',
             'agencia'               => 'required',
             'conta'                 => 'required',
@@ -46,7 +49,7 @@ class RequerenteRequest extends FormRequest
             'outraorientacaosexual' => 'required_if:orientacaosexual,==,"20"',
             'deficiente'            => 'required',
             'deficiencia'           => 'required_if:deficiente,==,"1"',
-            'nacionalidade'         => 'required',
+            'escolaridade'          => 'required',
             'profissao'             => '',
             'estadocivil'           => 'required',
             'endereco'              => 'required',
@@ -62,7 +65,7 @@ class RequerenteRequest extends FormRequest
             //'tipounidade_id'        => '',
             //'unidadeatendimento_id' => '',
             //'user_id'               => '',
-            //'status'                => '',
+            //'estatus'               => '',
 
             // DETALHAMENTO DO REQUERIMENTO
             'requerente_id'                             => '',
@@ -127,11 +130,14 @@ class RequerenteRequest extends FormRequest
         return[
             // INFORMAÇÕES DA REQUERENTE
             'nomecompleto.required'             => 'Campo nome é obrigatório!',
+            'sexobiologico.required'            => 'Escolha masculino ou feminino!',
+            'nascimento.required'               => 'Campo data de nascimento é obrigatório!',
+            'naturalidade.required'             => 'Campo naturalidade é obrigatório',
+            'nacionalidade.required'            => 'Campo nacionalidade é obrigatório',
             'rg.required'                       => 'Campo rg é obrigatório',
             'orgaoexpedidor.required'           => 'Campo órgão expedidor é obrigatório',
             'cpf.required'                      => 'Campo cpf é obrigatório!',
             'cpf.unique'                        => 'Este cpf já está cadastrado!',
-            'sexobiologico.required'            => 'Escolha mas ou fem!',
             'banco.required'                    => 'Campo banco é obrigatório!',
             'agencia.required'                  => 'Campo agência é obrigatório!',
             'conta.required'                    => 'Campo conta é obrigatório!',
@@ -146,7 +152,7 @@ class RequerenteRequest extends FormRequest
             'outraorientacaosexual.required_if' => 'Especifique a outra orientacao sexual!',
             'deficiente.required'               => 'Escolha sim ou não!',
             'deficiencia.required_if'           => 'Especifique a deficiência!',
-            'nacionalidade.required'            => 'Campo nacionalidade é obrigatório',
+            'escolaridade'                      => 'Campo escolaridade é obrigatório',
             'estadocivil.required'              => 'Campo estadocivil é obrigatório',
             'endereco.required'                 => 'Campo endereço é obrigatório!',
             'numero.required'                   => 'Campo número é obrigatório (digie s/n, se não houver)!',

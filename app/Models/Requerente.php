@@ -14,10 +14,13 @@ class Requerente extends Model
 
     protected $fillable = [
         'nomecompleto',
+        'sexobiologico',
+        'nascimento',
+        'naturalidade',
+        'nacionalidade',
         'rg',
         'orgaoexpedidor',
         'cpf',
-        'sexobiologico',
         'banco',
         'agencia',
         'conta',
@@ -32,7 +35,7 @@ class Requerente extends Model
         'outraorientacaosexual',
         'deficiente',
         'deficiencia',
-        'nacionalidade',
+        'escolaridade',
         'profissao',
         'estadocivil',
         'endereco',
@@ -48,7 +51,7 @@ class Requerente extends Model
         'tipounidade_id',
         'unidadeatendimento_id',
         'user_id',
-        'status'
+        'estatus'   // Situação do requerimento: 1 - Andamento 2 - Análise 3 - Pendente 4 - Corrigido 5 - Concluído
     ];
 
 
