@@ -18,7 +18,7 @@
 
             <div class="card-body">
 
-                <x-alert />
+                {{-- <x-alert /> --}}
 
                 {{-- Este componente será acionado sempre que houver uma erro de exceção em: store, update ou delete --}}
                 <x-errorexception />
@@ -670,7 +670,7 @@
                         <div class="col-4">
                             <div class="form-group focused">
                                 <label class="form-control-label" for="prazomedidaprotetiva">Prazo da medida protetiva <span class="small text-danger">*</span></label>
-                                <input type="date" class="form-control" id="prazomedidaprotetiva" name="prazomedidaprotetiva" value="{{old('prazomedidaprotetiva')}}" required>
+                                <input type="number" min="1" class="form-control" id="prazomedidaprotetiva" name="prazomedidaprotetiva" value="{{old('prazomedidaprotetiva')}}" required>
                                 @error('prazomedidaprotetiva')
                                     <small style="color: red">{{$message}}</small>
                                 @enderror
@@ -878,7 +878,8 @@
                     {{-- item 2.6.8--}}
                     <div class="mb-2 row">
                         <label for="paiavofilhonetomaiormesmomunicipresid" class="col-sm-8 col-form-label">
-                            A requerente não possui pais, avós, filhos ou netos maiores de idade, no mesmo município de sua residência? *
+                            {{-- A requerente não possui pais, avós, filhos ou netos maiores de idade, no mesmo município de sua residência? * --}}
+                            A requerente possui parentes em linha reta no município, porém não é viável o compartilhamento de domicílio nos termos do art 1º, VI, do Decreto 37.341, de 23 de dezembro de 2021.
                         </label>
                         <div class="col-sm-2">
                             <div style="margin-top: 10px;">
@@ -992,6 +993,15 @@
                                 @enderror
                             </div>
                         </div>
+                        {{-- valortemcadunico --}}
+                        <div class="col-2">
+                            <div class="form-group focused">
+                                <input type="text" class="form-control"  style="visibility:hidden" id="valortemcadunico" name="valortemcadunico" value="{{old('valortemcadunico')}}" placeholder="Valor">
+                                @error('valortemcadunico')
+                                    <small style="color: red" id="msg_error_valortemcadunico">{{$message}}</small>
+                                @enderror
+                            </div>
+                        </div>
                     </div>
 
 
@@ -1050,7 +1060,7 @@
                     {{-- item 2.6.14--}}
                     <div class="mb-2 row">
                         <label for="cumprerequisitositensnecessarios" class="col-sm-8 col-form-label">
-                            A requerente cumpre os requisitos previstos nos itens marcados com (*), necessários para concessão do benefício?
+                            <strong>A requerente cumpre os requisitos previstos nos itens marcados com (*), necessários para concessão do benefício?</strong>
                         </label>
                         <div class="col-sm-2">
                             <div style="margin-top: 10px;">
@@ -1628,6 +1638,58 @@
             });
         }
 
+
+        /// Iníco valor CADUNICO
+        
+        // Torna visível o campo "valortemcadunico", caso o valor escolhido do radio(temcadunico) seja 1.
+        if($("input[name='temcadunico']:checked").val() == "1"){
+            $("#valortemcadunico").css("visibility","visible");
+        }
+
+
+        $("input[name='temcadunico']").on("click", function() {
+            var temcadunico = $("input[name='temcadunico']:checked").val();
+            if(temcadunico == "1"){
+                $("#valortemcadunico").css("visibility","visible");
+                $("#valortemcadunico").focus();
+                $("#valortemcadunico").attr("required");
+            }else{
+                $("#valortemcadunico").css("visibility","hidden");
+                $("#valortemcadunico").val("");
+                $("#valortemcadunico").removeAttr("required");
+                $("#msg_error_valortemcadunico").css("visibility","hidden");
+            }
+        });
+
+
+        // Recebe o seletor do campo valortemcadunico
+        let inputValorTemCadunico = document.getElementById('valortemcadunico');
+
+        // Verifique se existe o seletor no HTML. Obs: Dependendo da página que você esteja, é possível que este seletor não exista, por isso a necessidade de testar sua existência
+        if(inputValorTemCadunico){
+
+            // Aguardar o usuário digitar o valo no campo
+            inputValorTemCadunico.addEventListener('input', function(){
+
+                // Obter o valor atual removendo qualquer caracter que não seja número
+                let valueTemCadunico = this.value.replace(/[^\d]/g, '');
+
+                // Adicionar os separadores de milhares
+                var formattedValorTemCadunico = (valueTemCadunico.slice(0, -2).replace(/\B(?=(\d{3})+(?!\d))/g, '.')) + '' + valueTemCadunico.slice(-2);
+
+                // Adicionar a vírgula e até dois dígitos se houver centavos
+                if(formattedValorTemCadunico.length > 2){
+                    formattedValorTemCadunico = formattedValorTemCadunico.slice(0, -2) + "," + formattedValorTemCadunico.slice(-2);
+                }
+
+
+                // Atualizar o valor do campo
+                this.value = formattedValorTemCadunico;
+
+            });
+        }        
+
+        /// Fim valor CADUNICO
 
         // Recebe o seletor do campo ValorLocacao
         let inputValorLocacao = document.getElementById('valorlocacao');

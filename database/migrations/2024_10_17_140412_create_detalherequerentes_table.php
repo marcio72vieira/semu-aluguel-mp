@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('processojudicial');
             $table->string('orgaojudicial');
             $table->string('comarca');
-            $table->date('prazomedidaprotetiva');
+            $table->integer('prazomedidaprotetiva');
             $table->date('dataconcessaomedidaprotetiva');
             $table->boolean('medproturgcaminhaprogoficial');
             $table->boolean('medproturgafastamentolar');
@@ -32,6 +32,7 @@ return new class extends Migration
             $table->boolean('trabalhaougerarenda');
             $table->decimal('valortrabalhorenda',12, 2)->default(0)->nullable();
             $table->boolean('temcadunico');
+            $table->decimal('valortemcadunico',12, 2)->default(0)->nullable();
             $table->boolean('teminteresformprofisdesenvolvhabilid');
             $table->boolean('apresentoudocumentoidentificacao');
             $table->boolean('cumprerequisitositensnecessarios');

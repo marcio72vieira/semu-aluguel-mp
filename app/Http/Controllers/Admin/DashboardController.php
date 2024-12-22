@@ -83,7 +83,7 @@ class DashboardController extends Controller
         // Leva em consideração o ano e o mês corrente
         // $recordsEstatus = DB::select("SELECT COUNT(id) as quantidade, status as estatus FROM requerentes WHERE YEAR(created_at) = $ano_corrente AND MONTH(created_at) = $mes_corrente  GROUP BY status ORDER BY COUNT(id) DESC");
         // Leva em consideração apenas o ano corrente
-        $recordsEstatus = DB::select("SELECT COUNT(id) as quantidade, status as estatus FROM requerentes WHERE YEAR(created_at) = $ano_corrente GROUP BY status ORDER BY COUNT(id) DESC");
+        $recordsEstatus = DB::select("SELECT COUNT(id) as quantidade, estatus FROM requerentes WHERE YEAR(created_at) = $ano_corrente GROUP BY estatus ORDER BY COUNT(id) DESC");
         
         if($recordsEstatus > 0){
             foreach($recordsEstatus as $key => $value){

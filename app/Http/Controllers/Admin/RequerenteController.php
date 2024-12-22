@@ -95,6 +95,13 @@ class RequerenteController extends Controller
                 $valorTtrabalhoRendaTransformando = 0.00;
             }
 
+            // Tansforma o valor do ValorCadunico para o formato adequado aceito pelo banco de dados
+            if($request->valortemcadunico != null){
+                $valorTemCadunicoTransformando = str_replace(',', '.', str_replace('.', '', $request->valortemcadunico));
+            } else {
+                $valorTemCadunicoTransformando = 0.00;
+            }
+
             // Tansforma o valor da Locacao para o formato adequado aceito pelo banco de dados
             if($request->valorlocacao != null){
                 $valorLocacaoTransformando = str_replace(',', '.', str_replace('.', '', $request->valorlocacao));
@@ -168,7 +175,8 @@ class RequerenteController extends Controller
                 'filhosmenoresidade'                        => $request->filhosmenoresidade,
                 'trabalhaougerarenda'                       => $request->trabalhaougerarenda,
                 'valortrabalhorenda'                        => $valorTtrabalhoRendaTransformando,    // $request->valortrabalhorenda,
-                'temcadunico'                               => $request->temcadunico,
+                'temcadunico'                               => $request->temcadunico, 
+                'valortemcadunico'                          => $valorTemCadunicoTransformando,       // $request->valortemcadunico,
                 'teminteresformprofisdesenvolvhabilid'      => $request->teminteresformprofisdesenvolvhabilid,
                 'apresentoudocumentoidentificacao'          => $request->apresentoudocumentoidentificacao,
                 'cumprerequisitositensnecessarios'          => $request->cumprerequisitositensnecessarios

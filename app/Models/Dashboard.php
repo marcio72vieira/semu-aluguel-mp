@@ -42,27 +42,27 @@ class Dashboard extends Model
 
     public static function totalRequerentesAndamento()
     {
-        return Requerente::where('status', '=', '1')->count();
+        return Requerente::where('estatus', '=', '1')->count();
     }
 
     public static function totalRequerentesAnalise()
     {
-        return Requerente::where('status', '=', '2')->count();
+        return Requerente::where('estatus', '=', '2')->count();
     }
 
     public static function totalRequerentesPendente()
     {
-        return Requerente::where('status', '=', '3')->count();
+        return Requerente::where('estatus', '=', '3')->count();
     }
 
     public static function totalRequerentesCorrigido()
     {
-        return Requerente::where('status', '=', '4')->count();
+        return Requerente::where('estatus', '=', '4')->count();
     }
 
     public static function totalRequerentesConcluido()
     {
-        return Requerente::where('status', '=', '5')->count();
+        return Requerente::where('estatus', '=', '5')->count();
     }
 
     public static function totalUsuarios()

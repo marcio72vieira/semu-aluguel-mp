@@ -31,6 +31,7 @@ class Detalherequerente extends Model
         'trabalhaougerarenda',
         'valortrabalhorenda',
         'temcadunico',
+        'valortemcadunico',
         'teminteresformprofisdesenvolvhabilid',
         'apresentoudocumentoidentificacao',
         'cumprerequisitositensnecessarios',
