@@ -246,6 +246,7 @@ class RequerenteController extends Controller
         $arr_identidadegenero = ['1' => 'Feminino', '2' => 'Transexual', '3' => 'Travesti', '4' => 'Transgênero', '20' => 'Outra'];
         $arr_orientacaosexual = ['1' => 'Homossexual', '2' => 'Heterossexual', '3' => 'Bissexual', '20' => 'Outra'];
         $arr_estadocivil = ['1' => 'Solteira', '2' => 'Casada', '3' => 'Divorciada', '4' => 'Viúva', '20' => 'Outro'];
+        $arr_escolaridade = ['1' => 'Fundamental incompleto', '2' => 'Fundamental completo', '3' => 'Médio incompleto', '4' => 'Médio completo', '5' => 'Superior incompleto', '6' => 'Superior completo', '7' => 'Pós-graduação incompleto', '8' => 'Pós-graduação completo'];
         $arr_estadocivilloc = ['1' => 'Solteiro(a)', '2' => 'Casado(a)', '3' => 'Divorciado(a)', '4' => 'Viúvo(a)', '20' => 'Outro'];
 
         // Exibe os detalhes do requerente
@@ -256,6 +257,7 @@ class RequerenteController extends Controller
             'arr_identidadegenero' => $arr_identidadegenero,
             'arr_orientacaosexual' => $arr_orientacaosexual,
             'arr_estadocivil' => $arr_estadocivil,
+            'arr_escolaridade' => $arr_escolaridade,
             'arr_estadocivilloc' => $arr_estadocivilloc
         ]);
 
@@ -311,6 +313,13 @@ class RequerenteController extends Controller
                 $valorTtrabalhoRendaTransformando = 0.00;
             }
 
+            // Tansforma o valor do ValorCadunico para o formato adequado aceito pelo banco de dados
+            if($request->valortemcadunico != null){
+                $valorTemCadunicoTransformando = str_replace(',', '.', str_replace('.', '', $request->valortemcadunico));
+            } else {
+                $valorTemCadunicoTransformando = 0.00;
+            }
+
             // Tansforma o valor do ValorLocacao a para o formato adequado aceito pelo banco de dados
             if($request->valorlocacao != null){
                 $valorValorLocacaoTransformado = str_replace(',', '.', str_replace('.', '', $request->valorlocacao));
@@ -321,10 +330,13 @@ class RequerenteController extends Controller
 
             $requerente->update([
                 'nomecompleto'              => Str::upper($request->nomecompleto),
+                'sexobiologico'             => $request->sexobiologico,
+                'nascimento'                => $request->nascimento,
+                'naturalidade'              => $request->naturalidade,
+                'nacionalidade'             => $request->nacionalidade,
                 'rg'                        => $request->rg,
                 'orgaoexpedidor'            => $request->orgaoexpedidor,
                 'cpf'                       => $request->cpf,
-                'sexobiologico'             => $request->sexobiologico,
                 'banco'                     => $request->banco,
                 'agencia'                   => $request->agencia,
                 'conta'                     => $request->conta,
@@ -339,7 +351,7 @@ class RequerenteController extends Controller
                 'outraorientacaosexual'     => $request->outraorientacaosexual,
                 'deficiente'                => $request->deficiente,
                 'deficiencia'               => $request->deficiencia,
-                'nacionalidade'             => $request->nacionalidade,
+                'escolaridade'              => $request->escolaridade,
                 'profissao'                 => $request->profissao,
                 'estadocivil'               => $request->estadocivil,
                 'endereco'                  => $request->endereco,
@@ -355,14 +367,14 @@ class RequerenteController extends Controller
                 'tipounidade_id'            => $idTipoUnidadeRequerente,
                 'unidadeatendimento_id'     => $idUnidadeatendimentoRequerente,
                 'user_id'                   => $idUsuarioRequerente,
-                'status'                    => 1
+                'estatus'                    => 1   // Situação do requerimento: 1 - Andamento 2 - Análise 3 - Pendente 4 - Corrigido 5 - Concluído  
             ]);
 
             $requerente->detalhe()->update([
                 'requerente_id'                             => $requerente->id,
                 'processojudicial'                          => $request->processojudicial,
-                'orgaojudicial'                             => $request->orgaojudicial,
-                'comarca'                                   => $request->comarca,
+                'orgaojudicial'                             => Str::upper($request->orgaojudicial),
+                'comarca'                                   => Str::upper($request->comarca),
                 'prazomedidaprotetiva'                      => $request->prazomedidaprotetiva,
                 'dataconcessaomedidaprotetiva'              => $request->dataconcessaomedidaprotetiva,
                 'medproturgcaminhaprogoficial'              => $request->medproturgcaminhaprogoficial,
@@ -378,6 +390,7 @@ class RequerenteController extends Controller
                 'trabalhaougerarenda'                       => $request->trabalhaougerarenda,
                 'valortrabalhorenda'                        => $valorTtrabalhoRendaTransformando,    // $request->valortrabalhorenda,
                 'temcadunico'                               => $request->temcadunico,
+                'valortemcadunico'                          => $valorTemCadunicoTransformando,       // $request->valortemcadunico,
                 'teminteresformprofisdesenvolvhabilid'      => $request->teminteresformprofisdesenvolvhabilid,
                 'apresentoudocumentoidentificacao'          => $request->apresentoudocumentoidentificacao,
                 'cumprerequisitositensnecessarios'          => $request->cumprerequisitositensnecessarios
@@ -465,6 +478,7 @@ class RequerenteController extends Controller
         $arr_identidadegenero = ['1' => 'Feminino', '2' => 'Transexual', '3' => 'Travesti', '4' => 'Transgênero', '20' => 'Outra'];
         $arr_orientacaosexual = ['1' => 'Homossexual', '2' => 'Heterossexual', '3' => 'Bissexual', '20' => 'Outra'];
         $arr_estadocivil = ['1' => 'Solteira', '2' => 'Casada', '3' => 'Divorciada', '4' => 'Viúva', '20' => 'Outro'];
+        $arr_escolaridade = ['1' => 'Fundamental incompleto', '2' => 'Fundamental completo', '3' => 'Médio incompleto', '4' => 'Médio completo', '5' => 'Superior incompleto', '6' => 'Superior completo', '7' => 'Pós-graduação incompleto', '8' => 'Pós-graduação completo'];
         $arr_estadocivilloc = ['1' => 'Solteiro(a)', '2' => 'Casado(a)', '3' => 'Divorciado(a)', '4' => 'Viúvo(a)', '20' => 'Outro'];
 
         // Saneando o cpf para compor o nom do arquivo
@@ -513,7 +527,7 @@ class RequerenteController extends Controller
 
 
         // Definindo a view que deverá ser renderizada como arquivo .pdf e passando os dados da pesquisa
-        $html = \View::make('admin.requerentes.pdfs.pdf_requerimento', compact('requerente','arr_comunidade', 'arr_racacor', 'arr_identidadegenero', 'arr_orientacaosexual', 'arr_estadocivil', 'arr_estadocivilloc', 'mpdf'));
+        $html = \View::make('admin.requerentes.pdfs.pdf_requerimento', compact('requerente','arr_comunidade', 'arr_racacor', 'arr_identidadegenero', 'arr_orientacaosexual', 'arr_escolaridade', 'arr_estadocivil', 'arr_estadocivilloc', 'mpdf'));
         $html = $html->render();
 
         // Definindo o arquivo .css que estilizará o arquivo blade na view ('admin.empresa.pdf.pdfempresa')

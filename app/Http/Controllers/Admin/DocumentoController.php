@@ -110,9 +110,9 @@ class DocumentoController extends Controller
 
     public function submeteranalise(Request $request, Requerente $requerente)
     {
-        // Atualiza o campo status conforme a necessidade
+        // Atualiza o campo estatus conforme a necessidade
         $requerente->update([
-            'status' => $request->status_hidden
+            'estatus' => $request->estatus_hidden
         ]);
 
         // Redirecionar o usuário(Assistente Social), enviar a mensagem de sucesso
@@ -233,15 +233,22 @@ class DocumentoController extends Controller
                 $arr_identidadegenero = ['1' => 'Feminino', '2' => 'Transexual', '3' => 'Travesti', '4' => 'Transgênero', '20' => 'Outra'];
                 $arr_orientacaosexual = ['1'=>'Homossexual', '2'=>'Heterossexual', '3'=>'Bissexual', '20'=>'Outra'];
                 $arr_deficiente = ['0' => 'não', '1' => 'sim'];
+                $arr_escolaridade = ['1' => 'Fundamental incompleto', '2' => 'Fundamental completo', '3' => 'Médio incompleto', '4' => 'Médio completo', '5' => 'Superior incompleto', '6' => 'Superior completo', '7' => 'Pós-graduação incompleto', '8' => 'Pós-graduação completo'];
                 $arr_estadocivil = ['1' => 'Solteira', '2' => 'Casada', '3' => 'Divorciada', '4' => 'Viúva', '20' => 'Outro'];
+                $arr_padraosimnao = ['0' => 'não', '1' => 'sim'];
 
                 //Armazenando o caminho do arquivo mesclado (processo gerado) no Banco de Dados na tabela "processos"
                 $processo = new Processo();
+                    // CAMPOS REFERENTE AS INFORMAÇÕES PESSOAIS DA REQUERENTE
                     //$processo->url = 'documentos/requerente_'.$requerenteId.'/arquivos_mesclados.pdf';
                     $processo->url = 'processos/processo_'.$requerenteId.'.pdf';
-
                     $processo->requerente_id = $requerente->id;
                     $processo->nomecompleto = $requerente->nomecompleto;
+                    $processo->sexobiologico = $requerente->sexobiologico;
+                    $processo->nascimento = $requerente->nascimento;
+                    $processo->nacionalidade = $requerente->nacionalidade;
+
+
                     $processo->rg = $requerente->rg;
                     $processo->orgaoexpedidor = $requerente->orgaoexpedidor;
                     $processo->cpf = $requerente->cpf;
@@ -249,6 +256,8 @@ class DocumentoController extends Controller
                     $processo->agencia = $requerente->agencia;
                     $processo->conta = $requerente->conta;
                     $processo->contaespecifica = $requerente->contaespecifica;
+
+
                     $processo->comunidade_id = $requerente->comunidade;
                     $processo->comunidade = $arr_comunidade[$requerente->comunidade];
                     $processo->outracomunidade = $requerente->outracomunidade;
@@ -262,21 +271,17 @@ class DocumentoController extends Controller
                     $processo->orientacaosexual = $arr_orientacaosexual[$requerente->orientacaosexual];
                     $processo->outraorientacaosexual = $requerente->outraorientacaosexual;
                     $processo->deficiente_id = $requerente->deficiente;
-                    $processo->deficiente = $arr_deficiente[$requerente->deficiente];
+                    $processo->deficiente = $arr_padraosimnao[$requerente->deficiente];     //$arr_deficiente[$requerente->deficiente];
                     $processo->deficiencia = $requerente->deficiencia;
-                    $processo->sexobiologico = $requerente->sexobiologico;
-                    $processo->nacionalidade = $requerente->nacionalidade;
+                    
+                   
+                    $processo->escolaridade_id = $requerente->escolaridade;
+                    $processo->escolaridade = $arr_escolaridade[$requerente->escolaridade];
                     $processo->profissao = $requerente->profissao;
                     $processo->estadocivil_id = $requerente->estadocivil;
                     $processo->estadocivil = $arr_estadocivil[$requerente->estadocivil];
-                    $processo->endereco = $requerente->endereco;
-                    $processo->numero = $requerente->numero;
-                    $processo->complemento = $requerente->complemento;
-                    $processo->bairro = $requerente->bairro;
-                    $processo->cep = $requerente->cep;
-                    $processo->foneresidencial = $requerente->foneresidencial;
-                    $processo->fonecelular = $requerente->fonecelular;
-                    $processo->email = $requerente->email;
+                    
+                    
                     $processo->regional_id = $requerente->regional_id;
                     $processo->regional = $requerente->regional->nome;
                     $processo->municipio_id = $requerente->municipio_id;
@@ -285,30 +290,69 @@ class DocumentoController extends Controller
                     $processo->tipounidade = $requerente->tipounidade->nome;
                     $processo->unidadeatendimento_id = $requerente->unidadeatendimento_id;
                     $processo->unidadeatendimento = $requerente->unidadeatendimento->nome;
+                    $processo->endereco = $requerente->endereco;
+                    $processo->numero = $requerente->numero;
+                    $processo->complemento = $requerente->complemento;
+                    $processo->bairro = $requerente->bairro;
+                    $processo->cep = $requerente->cep;
+                    $processo->foneresidencial = $requerente->foneresidencial;
+                    $processo->fonecelular = $requerente->fonecelular;
+                    $processo->email = $requerente->email;
                     $processo->datacadastro = $requerente->created_at;                          // data em que a Requerente foi cadastrada no Sistema
 
-                    // campos referene ao processo judicial e ao questionário
+
+                    // CAMPOS REFERENTE AO PROCESSO JUDICIAL E AO QUESTIONÁRIO
                     $processo->processojudicial = $requerente->detalhe->processojudicial;
                     $processo->orgaojudicial = $requerente->detalhe->orgaojudicial;
                     $processo->comarca = $requerente->detalhe->comarca;
                     $processo->prazomedidaprotetiva = $requerente->detalhe->prazomedidaprotetiva;
                     $processo->dataconcessaomedidaprotetiva = $requerente->detalhe->dataconcessaomedidaprotetiva;
-                    $processo->medproturgcaminhaprogoficial = $requerente->detalhe->medproturgcaminhaprogoficial;
-                    $processo->medproturgafastamentolar = $requerente->detalhe->medproturgafastamentolar;
-                    $processo->riscmortvioldomesmoradprotegsigilosa = $requerente->detalhe->riscmortvioldomesmoradprotegsigilosa;
-                    $processo->riscvidaaguardmedproturg = $requerente->detalhe->riscvidaaguardmedproturg;
-                    $processo->relatodescomprmedproturgagressor = $requerente->detalhe->relatodescomprmedproturgagressor;
-                    $processo->sitvulnerabnaoconsegarcardespmoradia = $requerente->detalhe->sitvulnerabnaoconsegarcardespmoradia;
-                    $processo->temrendfamiliardoissalconvivagressor = $requerente->detalhe->temrendfamiliardoissalconvivagressor;
-                    $processo->paiavofilhonetomaiormesmomunicipresid = $requerente->detalhe->paiavofilhonetomaiormesmomunicipresid;
+                    
+                    $processo->medproturgcaminhaprogoficial_id = $requerente->detalhe->medproturgcaminhaprogoficial;
+                    $processo->medproturgcaminhaprogoficial = $arr_padraosimnao[$requerente->detalhe->medproturgcaminhaprogoficial];
+
+                    $processo->medproturgafastamentolar_id = $requerente->detalhe->medproturgafastamentolar;
+                    $processo->medproturgafastamentolar = $arr_padraosimnao[$requerente->detalhe->medproturgafastamentolar];
+
+                    $processo->riscmortvioldomesmoradprotegsigilosa_id = $requerente->detalhe->riscmortvioldomesmoradprotegsigilosa;
+                    $processo->riscmortvioldomesmoradprotegsigilosa = $arr_padraosimnao[$requerente->detalhe->riscmortvioldomesmoradprotegsigilosa];
+
+                    $processo->riscvidaaguardmedproturg_id = $requerente->detalhe->riscvidaaguardmedproturg;
+                    $processo->riscvidaaguardmedproturg = $arr_padraosimnao[$requerente->detalhe->riscvidaaguardmedproturg];
+                    
+                    $processo->relatodescomprmedproturgagressor_id = $requerente->detalhe->relatodescomprmedproturgagressor;
+                    $processo->relatodescomprmedproturgagressor = $arr_padraosimnao[$requerente->detalhe->relatodescomprmedproturgagressor];
+
+                    $processo->sitvulnerabnaoconsegarcardespmoradia_id = $requerente->detalhe->sitvulnerabnaoconsegarcardespmoradia;
+                    $processo->sitvulnerabnaoconsegarcardespmoradia = $arr_padraosimnao[$requerente->detalhe->sitvulnerabnaoconsegarcardespmoradia];
+
+                    $processo->temrendfamiliardoissalconvivagressor_id = $requerente->detalhe->temrendfamiliardoissalconvivagressor;
+                    $processo->temrendfamiliardoissalconvivagressor = $arr_padraosimnao[$requerente->detalhe->temrendfamiliardoissalconvivagressor];
+
+
+                    $processo->paiavofilhonetomaiormesmomunicipresid_id = $requerente->detalhe->paiavofilhonetomaiormesmomunicipresid;
+                    $processo->paiavofilhonetomaiormesmomunicipresid = $arr_padraosimnao[$requerente->detalhe->paiavofilhonetomaiormesmomunicipresid];
                     $processo->parentesmesmomunicipioresidencia = $requerente->detalhe->parentesmesmomunicipioresidencia;
-                    $processo->filhosmenoresidade = $requerente->detalhe->filhosmenoresidade;
-                    $processo->trabalhaougerarenda = $requerente->detalhe->trabalhaougerarenda;
+                    
+                    $processo->filhosmenoresidade_id = $requerente->detalhe->filhosmenoresidade;
+                    $processo->filhosmenoresidade = $arr_padraosimnao[$requerente->detalhe->filhosmenoresidade];
+
+                    $processo->trabalhaougerarenda_id = $requerente->detalhe->trabalhaougerarenda;
+                    $processo->trabalhaougerarenda = $arr_padraosimnao[$requerente->detalhe->trabalhaougerarenda];
                     $processo->valortrabalhorenda = $requerente->detalhe->valortrabalhorenda;
-                    $processo->temcadunico = $requerente->detalhe->temcadunico;
-                    $processo->teminteresformprofisdesenvolvhabilid = $requerente->detalhe->teminteresformprofisdesenvolvhabilid;
-                    $processo->apresentoudocumentoidentificacao = $requerente->detalhe->apresentoudocumentoidentificacao;
-                    $processo->cumprerequisitositensnecessarios = $requerente->detalhe->cumprerequisitositensnecessarios;
+
+                    $processo->temcadunico_id = $requerente->detalhe->temcadunico;
+                    $processo->temcadunico = $arr_padraosimnao[$requerente->detalhe->temcadunico];
+                    $processo->valortemcadunico = $requerente->detalhe->valortemcadunico;
+
+                    $processo->teminteresformprofisdesenvolvhabilid_id = $requerente->detalhe->teminteresformprofisdesenvolvhabilid;
+                    $processo->teminteresformprofisdesenvolvhabilid = $arr_padraosimnao[$requerente->detalhe->teminteresformprofisdesenvolvhabilid];
+
+                    $processo->apresentoudocumentoidentificacao_id = $requerente->detalhe->apresentoudocumentoidentificacao;
+                    $processo->apresentoudocumentoidentificacao = $arr_padraosimnao[$requerente->detalhe->apresentoudocumentoidentificacao];
+
+                    $processo->cumprerequisitositensnecessarios_id = $requerente->detalhe->cumprerequisitositensnecessarios;
+                    $processo->cumprerequisitositensnecessarios = $arr_padraosimnao[$requerente->detalhe->cumprerequisitositensnecessarios];
 
                     // Campos referente ao Assisente Social, responsável pelo cadastro e ao Servidor da SEMU, responsavel pelo checklist
                     $processo->assistente_id = $requerente->user->id;
@@ -318,10 +362,10 @@ class DocumentoController extends Controller
 
                 $processo->save();
 
-                // Atualiza o status da situação do requerente (1-andamento; 2-análise; 3-pendnete; 4-corrigido; 5-concluido )
+                // Atualiza o estatus da situação do requerente (1-andamento; 2-análise; 3-pendnete; 4-corrigido; 5-concluido )
                 $requerente = Requerente::find($request->requerente_id_hidden);
                 $requerente->update([
-                    'status' => 5   // Concluído
+                    'estatus' => 5   // Concluído
                 ]);
 
                 // Redirecionar o usuário, enviar a mensagem de sucesso
@@ -334,7 +378,7 @@ class DocumentoController extends Controller
 
         }else{
 
-            // Define o campo status (na tabela requerente) para 3 (pendente), e atualiza na tabela documentos os demais campos referente a análise
+            // Define o campo estatus (na tabela requerente) para 3 (pendente), e atualiza na tabela documentos os demais campos referente a análise
 
             // Validar o formulário
             $request->validated();
@@ -365,10 +409,10 @@ class DocumentoController extends Controller
                     ]);
                 }
 
-                // Atualiza o status da situação do requerente (1-andamento; 2-análise; 3-pendente; 4-Corrigido, 5-concluído )
+                // Atualiza o estatus da situação do requerente (1-andamento; 2-análise; 3-pendente; 4-Corrigido, 5-concluído )
                 $requerente = Requerente::find($request->requerente_id_hidden);
                 $requerente->update([
-                    'status' => 3   // Pendente
+                    'estatus' => 3   // Pendente
                 ]);
 
                 // Operação concluída com êxito
@@ -517,12 +561,12 @@ class DocumentoController extends Controller
         }
 
 
-        // Modifica o status dependendo da quantidade de documentos exigidos e que foram apagados
+        // Modifica o estatus dependendo da quantidade de documentos exigidos e que foram apagados
         if(Documento::documentosexigidos($requerenteId)){
-            // Atualiza o status da situação do requerente (1-andamento; 2-análise; 3-pendente; 4-Corrigido, 5-concluído )
+            // Atualiza o estatus da situação do requerente (1-andamento; 2-análise; 3-pendente; 4-Corrigido, 5-concluído )
             $requerente = Requerente::find($requerenteId);
             $requerente->update([
-                'status' => 1   // Andamento
+                'estatus' => 1   // Andamento
             ]);
         }
 

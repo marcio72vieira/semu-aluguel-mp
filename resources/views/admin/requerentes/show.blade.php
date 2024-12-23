@@ -37,6 +37,15 @@
                             <dt class="col-sm-4">Sexo Biológico</dt>
                             <dd class="col-sm-8">{{ $requerente->sexobiologico }}</dd>
 
+                            <dt class="col-sm-4">Data de nascimento</dt>
+                            <dd class="col-sm-8">{{ mrc_turn_data($requerente->nascimento) }}</dd>
+                            
+                            <dt class="col-sm-4">Naturalidade</dt>
+                            <dd class="col-sm-8">{{ $requerente->naturalidade }}</dd>
+                            
+                            <dt class="col-sm-4" style="margin-bottom:30px;">Nacionalidade</dt>
+                            <dd class="col-sm-8">{{ $requerente->nacionalidade }}</dd>
+
                             <dt class="col-sm-4">RG</dt>
                             <dd class="col-sm-8">{{ $requerente->rg }}</dd>
 
@@ -45,6 +54,43 @@
 
                             <dt class="col-sm-4">CPF</dt>
                             <dd class="col-sm-8">{{ $requerente->cpf }}</dd>
+
+                            <dt class="col-sm-4">Banco</dt>
+                            <dd class="col-sm-8">{{ $requerente->banco }}</dd>
+
+                            <dt class="col-sm-4">Agência</dt>
+                            <dd class="col-sm-8">{{ $requerente->agencia }}</dd>
+
+                            <dt class="col-sm-4">Conta Corrente</dt>
+                            <dd class="col-sm-8">{{ $requerente->conta }}</dd>
+
+                            <dt class="col-sm-4" style="margin-bottom:30px;">Conta espcífica</dt>
+                            <dd class="col-sm-8">{{ $requerente->contaespecifica == "1" ? "Com movimento" : "Sem movimento" }}</dd>
+
+                            <dt class="col-sm-4">Comunidade</dt>
+                            {{--  <dd class="col-sm-8">{{ $comunidades[$requerente->comunidade] }} {{ $requerente->comunidade == '8' ? $requerente->outracomunidade : '' }}</dd> --}}
+                            <dd class="col-sm-8">{{ $requerente->comunidade == '20' ? $requerente->outracomunidade : $arr_comunidade[$requerente->comunidade] }}</dd>
+
+                            <dt class="col-sm-4">Cor/Raça/Etnia</dt>
+                            <dd class="col-sm-8">{{ $requerente->racacor == '20' ? $requerente->outraracacor : $arr_racacor[$requerente->racacor] }}</dd>
+
+                            <dt class="col-sm-4">Identidade de Gênero</dt>
+                            <dd class="col-sm-8">{{ $requerente->identidadegenero == '20' ? $requerente->outraidentidadegenero : $arr_identidadegenero[$requerente->identidadegenero] }}</dd>
+
+                            <dt class="col-sm-4">Orientação Sexual</dt>
+                            <dd class="col-sm-8">{{ $requerente->orientacaosexual == '20' ? $requerente->outraorientacaosexual : $arr_orientacaosexual[$requerente->orientacaosexual] }}</dd>
+                          
+                            <dt class="col-sm-4" style="margin-bottom:30px;">Pessoa com deficiência</dt>
+                            <dd class="col-sm-8">{{ $requerente->deficiente == '0' ? "Não" : $requerente->deficiencia }}</dd>
+
+                            <dt class="col-sm-4">Escolaridade</dt>
+                            <dd class="col-sm-8">{{ $arr_escolaridade[$requerente->escolaridade] }}</dd>
+
+                            <dt class="col-sm-4">Profissão</dt>
+                            <dd class="col-sm-8">{{ $requerente->profissao }}</dd>
+
+                            <dt class="col-sm-4" style="margin-bottom:30px;">Estado Civil</dt>
+                            <dd class="col-sm-8">{{ $arr_estadocivil[$requerente->estadocivil] }}</dd>
 
                             <dt class="col-sm-4">Regional</dt>
                             <dd class="col-sm-8">{{ $requerente->municipio->regional->nome }}</dd>
@@ -59,45 +105,7 @@
                             <dd class="col-sm-8">{{ $requerente->unidadeatendimento->nome }}</dd>
 
                             <dt class="col-sm-4">Responsável</dt>
-                            <dd class="col-sm-8">{{ $requerente->user->nomecompleto }}</dd>
-
-                            <dt class="col-sm-4">Banco</dt>
-                            <dd class="col-sm-8">{{ $requerente->banco }}</dd>
-
-                            <dt class="col-sm-4">Agência</dt>
-                            <dd class="col-sm-8">{{ $requerente->agencia }}</dd>
-
-                            <dt class="col-sm-4">Conta Corrente</dt>
-                            <dd class="col-sm-8">{{ $requerente->conta }}</dd>
-
-                            <dt class="col-sm-4">Conta espcífica</dt>
-                            <dd class="col-sm-8">{{ $requerente->contaespecifica == "1" ? "Com movimento" : "Sem movimento" }}</dd>
-
-                            <dt class="col-sm-4">Comunidade</dt>
-                            {{--  <dd class="col-sm-8">{{ $comunidades[$requerente->comunidade] }} {{ $requerente->comunidade == '8' ? $requerente->outracomunidade : '' }}</dd> --}}
-                            <dd class="col-sm-8">{{ $requerente->comunidade == '20' ? $requerente->outracomunidade : $arr_comunidade[$requerente->comunidade] }}</dd>
-
-                            <dt class="col-sm-4">Cor/Raça</dt>
-                            <dd class="col-sm-8">{{ $requerente->racacor == '20' ? $requerente->outraracacor : $arr_racacor[$requerente->racacor] }}</dd>
-
-                            <dt class="col-sm-4">Identidade de Gênero</dt>
-                            <dd class="col-sm-8">{{ $requerente->identidadegenero == '20' ? $requerente->outraidentidadegenero : $arr_identidadegenero[$requerente->identidadegenero] }}</dd>
-
-                            <dt class="col-sm-4">Orientação Sexual</dt>
-                            <dd class="col-sm-8">{{ $requerente->orientacaosexual == '20' ? $requerente->outraorientacaosexual : $arr_orientacaosexual[$requerente->orientacaosexual] }}</dd>
-
-                            <dt class="col-sm-4">Pessoa com deficiência</dt>
-                            <dd class="col-sm-8">{{ $requerente->deficiente == '0' ? "Não" : $requerente->deficiencia }}</dd>
-
-                            <dt class="col-sm-4">Nacionalidade</dt>
-                            <dd class="col-sm-8">{{ $requerente->nacionalidade }}</dd>
-
-                            <dt class="col-sm-4">Profissão</dt>
-                            <dd class="col-sm-8">{{ $requerente->profissao }}</dd>
-
-                            <dt class="col-sm-4">Estado Civil</dt>
-                            <dd class="col-sm-8">{{ $arr_estadocivil[$requerente->estadocivil] }}</dd>
-
+                            <dd class="col-sm-8">{{ $requerente->user->nomecompleto }}</dd>                            
                             <dt class="col-sm-4">Endereço</dt>
                             <dd class="col-sm-8">{{ $requerente->endereco }}</dd>
 
@@ -153,7 +161,7 @@
                             <dt class="col-sm-4">Órgao Judicial</dt>
                             <dd class="col-sm-8">{{ $requerente->detalhe->orgaojudicial }}</dd>
 
-                            <dt class="col-sm-4">Comarca</dt>
+                            <dt class="col-sm-4" style="margin-bottom:30px;">Comarca</dt>
                             <dd class="col-sm-8">{{ $requerente->detalhe->comarca }}</dd>
 
                             <dt class="col-sm-4">Prazo da medida protetiva</dt>
@@ -192,10 +200,12 @@
                             <dd class="col-sm-1">{{ $requerente->detalhe->temrendfamiliardoissalconvivagressor == "1" ? "sim" : "não"  }}</dd>
 
                              {{-- item 2.6.8--}}
-                             <dt class="col-sm-11" style="margin-bottom:15px;">A requerente não possui pais, avós, filhos ou netos maiores de idade, no mesmo município de sua residência? Se sim, quais*
+                             <dt class="col-sm-11" style="margin-bottom:15px;">
+                                {{-- A requerente não possui pais, avós, filhos ou netos maiores de idade, no mesmo município de sua residência? Se sim, quais* --}}
+                                A requerente possui parentes em linha reta no município, porém não é viável o compartilhamento de domicílio nos termos do art 1º, VI, do Decreto 37.341, de 23 de dezembro de 2021 ? *
                                 @if ($requerente->detalhe->paiavofilhonetomaiormesmomunicipresid == "1")
                                     <br>
-                                    - {{ $requerente->detalhe->parentesmesmomunicipioresidencia }}
+                                    <label style="color: green; font-size: 20px;">- {{ $requerente->detalhe->parentesmesmomunicipioresidencia }}</label>
                                 @endif
                              </dt>
                             <dd class="col-sm-1" style="text-align: left">{{ $requerente->detalhe->paiavofilhonetomaiormesmomunicipresid == "1" ? "sim" : "não" }}</dd>
@@ -210,14 +220,19 @@
                             <dt class="col-sm-11" style="margin-bottom:15px;">A requerente está trabalhando ou possui alguma forma de gerar renda no momento? Se sim, valor
                                 @if ($requerente->detalhe->trabalhaougerarenda == "1")
                                     <br>
-                                    - R$ {{ mrc_turn_value($requerente->detalhe->valortrabalhorenda) }}
+                                    <label style="color: green; font-size: 20px;">- R$ {{ mrc_turn_value($requerente->detalhe->valortrabalhorenda) }}</label>
                                 @endif
                             </dt>
                             <dd class="col-sm-1">{{ $requerente->detalhe->trabalhaougerarenda == "1" ? "sim" : "não"  }}</dd>
 
 
                             {{-- item 2.6.11--}}
-                            <dt class="col-sm-11" style="margin-bottom:15px;">A requerente está cadastrada no Cadastro Único (CADÚNICO)? *</dt>
+                            <dt class="col-sm-11" style="margin-bottom:15px;">A requerente está cadastrada no Cadastro Único (CADUNICO)? *
+                                @if ($requerente->detalhe->temcadunico == "1")
+                                    <br>
+                                    <label style="color: green; font-size: 20px;">- R$ {{ mrc_turn_value($requerente->detalhe->valortemcadunico) }}</label>
+                                @endif
+                            </dt>
                             <dd class="col-sm-1">{{ $requerente->detalhe->temcadunico == "1" ? "sim" : "não"  }}</dd>
 
                             {{-- item 2.6.12--}}
@@ -225,7 +240,7 @@
                             <dd class="col-sm-1">{{ $requerente->detalhe->teminteresformprofisdesenvolvhabilid == "1" ? "sim" : "não"  }}</dd>
 
                             {{-- item 2.6.13--}}
-                            <dt class="col-sm-11" style="margin-bottom:15px;">A requerente apresentou documento de identificação?</dt>
+                            <dt class="col-sm-11" style="margin-bottom:50px;">A requerente apresentou documento de identificação?</dt>
                             <dd class="col-sm-1">{{ $requerente->detalhe->apresentoudocumentoidentificacao == "1" ? "sim" : "não"  }}</dd>
 
                             {{-- item 2.6.14--}}

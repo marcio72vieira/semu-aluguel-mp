@@ -33,9 +33,9 @@
                         <th>Município</th>
                         <th>Tipo</th>
                         <th>Unidade Atendimento</th>
-                        <th>Assitente Social</th>
+                        <th>Cadastrado por</th>
                         <th>Telefones</th>
-                        <th>Servidor SEMU</th>
+                        <th>Analisado por</th>
                         <th>Status</th>
                         <th width="200px">Ação</th>
                     </tr>
@@ -80,14 +80,14 @@
                                 @endforeach
                             </td>
                             <td>
-                                @if($requerente->status == 1) <span style="font-size: 14px;"> <i class="fa-solid fa-shoe-prints"></i> em andamento </span> @endif  {{-- falta anexar todos os documentos --}}
-                                @if($requerente->status == 2) <span style="font-size: 14px;"> <i class="fa-solid fa-user-check"></i> para análise  </span> @endif    {{-- os documentos foram enviados para análise depois de anexar os documentos --}}
-                                @if($requerente->status == 3) <span style="font-size: 14px;"> <i class="fa-solid fa-clock-rotate-left"></i> pendente  </span> @endif {{-- falta anexar documents --}}
-                                @if($requerente->status == 4) <span style="font-size: 14px;"> <i class="fa-solid fa-check-double"></i> corrigido  </span> @endif {{-- Os documentos inconsistentes foram substituidos --}}
-                                @if($requerente->status == 5) <span style="font-size: 14px;"> <i class="fa-regular fa-circle-check"></i> concluído  </span> @endif {{-- O check list foi feito e o processo foi gerado --}}
+                                @if($requerente->estatus == 1) <span style="font-size: 14px;"> <i class="fa-solid fa-shoe-prints"></i> em andamento </span> @endif  {{-- falta anexar todos os documentos --}}
+                                @if($requerente->estatus == 2) <span style="font-size: 14px;"> <i class="fa-solid fa-user-check"></i> para análise  </span> @endif    {{-- os documentos foram enviados para análise depois de anexar os documentos --}}
+                                @if($requerente->estatus == 3) <span style="font-size: 14px;"> <i class="fa-solid fa-clock-rotate-left"></i> pendente  </span> @endif {{-- falta anexar documents --}}
+                                @if($requerente->estatus == 4) <span style="font-size: 14px;"> <i class="fa-solid fa-check-double"></i> corrigido  </span> @endif {{-- Os documentos inconsistentes foram substituidos --}}
+                                @if($requerente->estatus == 5) <span style="font-size: 14px;"> <i class="fa-regular fa-circle-check"></i> concluído  </span> @endif {{-- O check list foi feito e o processo foi gerado --}}
                             </td>
                             <td class="flex-row flex-wrap d-md-flex justify-content-start align-content-stretch">
-                                @if($requerente->status != 1 && $requerente->status != 3 && $requerente->status != 5)
+                                @if($requerente->estatus != 1 && $requerente->estatus != 3 && $requerente->estatus != 5)
                                     <a href="{{ route('documento.index', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-warning btn-sm me-1">
                                         <i class="fa-solid fa-list-check"></i> Analisar documentos
                                     </a>

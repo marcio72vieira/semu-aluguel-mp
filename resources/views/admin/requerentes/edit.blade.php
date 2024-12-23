@@ -51,11 +51,11 @@
                                 <div style="margin-top: 10px">
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="sexobiologico" id="sexobiologicomas" value="masculino" {{ old('sexobiologico', $requerente->sexobiologico) == 'masculino' ? 'checked' : ''}}>
-                                        <label class="form-check-label" for="sexobiologicomas">Mas</label>
+                                        <label class="form-check-label" for="sexobiologicomas">Masculino</label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="sexobiologico" id="sexobiologicofem" value="feminino" {{ old('sexobiologico', $requerente->sexobiologico) == 'feminino' ? 'checked' : ''}} required>
-                                        <label class="form-check-label" for="sexobiologicofem">Fem</label>
+                                        <label class="form-check-label" for="sexobiologicofem">Feminino</label>
                                     </div>
                                     <br>
                                     @error('sexobiologico')
@@ -65,6 +65,43 @@
                             </div>
                         </div>
 
+
+                        {{-- nascimento --}}
+                        <div class="col-2">
+                            <div class="form-group focused">
+                                <label class="form-control-label" for="nascimento">Data de Nascimento <span class="small text-danger">*</span></label>
+                                <input type="date" class="form-control" id="nascimento" name="nascimento" value="{{old('nascimento', $requerente->nascimento)}}" required>
+                                @error('nascimento')
+                                    <small style="color: red">{{$message}}</small>
+                                @enderror
+                            </div>
+                        </div>
+
+                        {{-- naturalidade --}}
+                        <div class="col-2">
+                            <div class="form-group focused">
+                                <label class="form-control-label" for="naturalidade">Naturalidade / UF<span class="small text-danger">*</span></label>
+                                <input type="text" class="form-control" id="naturalidade" name="naturalidade" value="{{old('naturalidade', $requerente->naturalidade)}}" required>
+                                @error('naturalidade')
+                                    <small style="color: red">{{$message}}</small>
+                                @enderror
+                            </div>
+                        </div>
+
+                        {{-- nacionalidade --}}
+                        <div class="col-2">
+                            <div class="form-group focused">
+                                <label class="form-control-label" for="nacionalidade">Nacionalidade <span class="small text-danger">*</span></label>
+                                <input type="text" class="form-control" id="nacionalidade" name="nacionalidade" value="{{old('nacionalidade', $requerente->nacionalidade)}}" required>
+                                @error('nacionalidade')
+                                    <small style="color: red">{{$message}}</small>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="mb-3 row">
                         {{-- rg --}}
                         <div class="col-2">
                             <div class="form-group focused">
@@ -98,13 +135,8 @@
                             </div>
                         </div>
 
-                    </div>
-
-
-
-                    <div class="mb-3 row">
                         {{-- banco --}}
-                        <div class="col-6">
+                        <div class="col-2">
                             <div class="form-group focused">
                                 <label class="form-control-label" for="banco">Banco <span class="small text-danger">*</span></label>
                                 <input type="text" class="form-control" id="banco" name="banco" value="{{ old('banco', $requerente->banco) }}" required>
@@ -115,7 +147,7 @@
                         </div>
 
                         {{-- agencia --}}
-                        <div class="col-2">
+                        <div class="col-1">
                             <div class="form-group focused">
                                 <label class="form-control-label" for="agencia">Agência<span class="small text-danger">*</span></label>
                                 <input type="text" class="form-control" id="agencia" name="agencia" value="{{ old('agencia', $requerente->agencia) }}" required>
@@ -126,9 +158,9 @@
                         </div>
 
                         {{-- conta --}}
-                        <div class="col-2">
+                        <div class="col-1">
                             <div class="form-group focused">
-                                <label class="form-control-label" for="conta">Conta<span class="small text-danger">*</span></label>
+                                <label class="form-control-label" for="conta">Conta Corrente<span class="small text-danger">*</span></label>
                                 <input type="text" class="form-control" id="conta" name="conta" value="{{ old('conta', $requerente->conta) }}" required>
                                 @error('conta')
                                     <small style="color: red">{{$message}}</small>
@@ -159,6 +191,61 @@
                         </div>
                     </div>
 
+
+                    {{--
+                    <div class="mb-3 row">
+                        
+                        <div class="col-6">
+                            <div class="form-group focused">
+                                <label class="form-control-label" for="banco">Banco <span class="small text-danger">*</span></label>
+                                <input type="text" class="form-control" id="banco" name="banco" value="{{ old('banco', $requerente->banco) }}" required>
+                                @error('banco')
+                                    <small style="color: red">{{$message}}</small>
+                                @enderror
+                            </div>
+                        </div>
+                        
+                        <div class="col-2">
+                            <div class="form-group focused">
+                                <label class="form-control-label" for="agencia">Agência<span class="small text-danger">*</span></label>
+                                <input type="text" class="form-control" id="agencia" name="agencia" value="{{ old('agencia', $requerente->agencia) }}" required>
+                                @error('agencia')
+                                    <small style="color: red">{{$message}}</small>
+                                @enderror
+                            </div>
+                        </div>
+                        
+                        <div class="col-2">
+                            <div class="form-group focused">
+                                <label class="form-control-label" for="conta">Conta<span class="small text-danger">*</span></label>
+                                <input type="text" class="form-control" id="conta" name="conta" value="{{ old('conta', $requerente->conta) }}" required>
+                                @error('conta')
+                                    <small style="color: red">{{$message}}</small>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-2">
+                            <div class="form-group focused">
+                                <label class="form-control-label" for="contaespecificasim">Conta específica (com movimento)<span class="small text-danger">*</span></label>
+                                <div style="margin-top: 10px">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="contaespecifica" id="contaespecificasim" value="1" {{ old('contaespecifica', $requerente->contaespecifica) == '1' ? 'checked' : '' }} required>
+                                        <label class="form-check-label" for="contaespecificasim">Sim</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="contaespecifica" id="contaespecificanao" value="0" {{ old('contaespecifica', $requerente->contaespecifica) == '0' ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="contaespecificanao">Não</label>
+                                    </div>
+                                    <br>
+                                    @error('contaespecifica')
+                                        <small style="color: red">{{$message}}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    --}}
 
 
                     <div class="mb-3 row">
@@ -348,12 +435,22 @@
                             </div>
                         </div>
 
-                        {{-- nacionalidade --}}
+                        {{-- escolaridade --}}
                         <div class="col-2">
                             <div class="form-group focused">
-                                <label class="form-control-label" for="nacionalidade">Nacionalidade <span class="small text-danger">*</span></label>
-                                <input type="text" class="form-control" id="nacionalidade" name="nacionalidade" value="{{ old('nacionalidade', $requerente->nacionalidade) }}" required>
-                                @error('nacionalidade')
+                                <label class="form-control-label" for="escolaridade">Escolaridade<span class="small text-danger">*</span></label>
+                                <select name="escolaridade" id="escolaridade" class="form-control"  required>
+                                    <option value="" selected disabled>Escolha ...</option>
+                                    <option value="1" {{old('escolaridade', $requerente->escolaridade) == '1' ? 'selected' : ''}}>Fundamental incompleto</option>
+                                    <option value="2" {{old('escolaridade', $requerente->escolaridade) == '2' ? 'selected' : ''}}>Fundamental completo</option>
+                                    <option value="3" {{old('escolaridade', $requerente->escolaridade) == '3' ? 'selected' : ''}}>Médio incompleto</option>
+                                    <option value="4" {{old('escolaridade', $requerente->escolaridade) == '4' ? 'selected' : ''}}>Médio completo</option>
+                                    <option value="5" {{old('escolaridade', $requerente->escolaridade) == '5' ? 'selected' : ''}}>Superior incompleto</option>
+                                    <option value="6" {{old('escolaridade', $requerente->escolaridade) == '6' ? 'selected' : ''}}>Superior completo</option>
+                                    <option value="7" {{old('escolaridade', $requerente->escolaridade) == '7' ? 'selected' : ''}}>Pós-graduação incompleto</option>
+                                    <option value="8" {{old('escolaridade', $requerente->escolaridade) == '8' ? 'selected' : ''}}>Pós-graduação completo</option>
+                                </select>
+                                @error('escolaridade')
                                     <small style="color: red">{{$message}}</small>
                                 @enderror
                             </div>
@@ -537,7 +634,7 @@
                         <div class="col-4">
                             <div class="form-group focused">
                                 <label class="form-control-label" for="prazomedidaprotetiva">Prazo da medida protetiva <span class="small text-danger">*</span></label>
-                                <input type="date" class="form-control" id="prazomedidaprotetiva" name="prazomedidaprotetiva" value="{{ old('prazomedidaprotetiva', $requerente->detalhe->prazomedidaprotetiva) }}" required>
+                                <input type="number" min="1" class="form-control" id="prazomedidaprotetiva" name="prazomedidaprotetiva" value="{{ old('prazomedidaprotetiva', $requerente->detalhe->prazomedidaprotetiva) }}" required>
                                 @error('prazomedidaprotetiva')
                                     <small style="color: red">{{ $message }}</small>
                                 @enderror
@@ -745,7 +842,8 @@
                     {{-- item 2.6.8--}}
                     <div class="mb-2 row">
                         <label for="paiavofilhonetomaiormesmomunicipresid" class="col-sm-8 col-form-label">
-                            A requerente não possui pais, avós, filhos ou netos maiores de idade, no mesmo município de sua residência? *
+                            {{-- A requerente não possui pais, avós, filhos ou netos maiores de idade, no mesmo município de sua residência? * --}}
+                            A requerente possui parentes em linha reta no município, porém não é viável o compartilhamento de domicílio nos termos do art 1º, VI, do Decreto 37.341, de 23 de dezembro de 2021 ? *
                         </label>
                         <div class="col-sm-2">
                             <div style="margin-top: 10px;">
@@ -859,8 +957,16 @@
                                 @enderror
                             </div>
                         </div>
+                        {{-- valortemcadunico --}}
+                        <div class="col-2">
+                            <div class="form-group focused">
+                                <input type="text" class="form-control"  style="visibility:hidden" id="valortemcadunico" name="valortemcadunico" value="{{ old('valortemcadunico', isset($requerente->detalhe->valortemcadunico) ? number_format($requerente->detalhe->valortemcadunico, '2',',','.') : '') }}" placeholder="Valor">
+                                @error('valortemcadunico')
+                                    <small style="color: red" id="msg_error_valortemcadunico">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
                     </div>
-
 
 
                     {{-- item 2.6.12--}}
@@ -1473,6 +1579,59 @@
 
             });
         }
+
+
+        /// Iníco valor CADUNICO
+        
+        // Torna visível o campo "valortemcadunico", caso o valor escolhido do radio(temcadunico) seja 1.
+        if($("input[name='temcadunico']:checked").val() == "1"){
+            $("#valortemcadunico").css("visibility","visible");
+        }
+
+
+        $("input[name='temcadunico']").on("click", function() {
+            var temcadunico = $("input[name='temcadunico']:checked").val();
+            if(temcadunico == "1"){
+                $("#valortemcadunico").css("visibility","visible");
+                $("#valortemcadunico").focus();
+                $("#valortemcadunico").attr("required");
+            }else{
+                $("#valortemcadunico").css("visibility","hidden");
+                $("#valortemcadunico").val("");
+                $("#valortemcadunico").removeAttr("required");
+                $("#msg_error_valortemcadunico").css("visibility","hidden");
+            }
+        });
+
+
+        // Recebe o seletor do campo valortemcadunico
+        let inputValorTemCadunico = document.getElementById('valortemcadunico');
+
+        // Verifique se existe o seletor no HTML. Obs: Dependendo da página que você esteja, é possível que este seletor não exista, por isso a necessidade de testar sua existência
+        if(inputValorTemCadunico){
+
+            // Aguardar o usuário digitar o valo no campo
+            inputValorTemCadunico.addEventListener('input', function(){
+
+                // Obter o valor atual removendo qualquer caracter que não seja número
+                let valueTemCadunico = this.value.replace(/[^\d]/g, '');
+
+                // Adicionar os separadores de milhares
+                var formattedValorTemCadunico = (valueTemCadunico.slice(0, -2).replace(/\B(?=(\d{3})+(?!\d))/g, '.')) + '' + valueTemCadunico.slice(-2);
+
+                // Adicionar a vírgula e até dois dígitos se houver centavos
+                if(formattedValorTemCadunico.length > 2){
+                    formattedValorTemCadunico = formattedValorTemCadunico.slice(0, -2) + "," + formattedValorTemCadunico.slice(-2);
+                }
+
+
+                // Atualizar o valor do campo
+                this.value = formattedValorTemCadunico;
+
+            });
+        }        
+
+        /// Fim valor CADUNICO
 
 
         // Recebe o seletor do campo ValorLocacao

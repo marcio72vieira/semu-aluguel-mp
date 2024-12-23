@@ -24,36 +24,42 @@
     {{-- IFNROMAÇÕES DA REQUERENTE --}}
     <table style="width: 717px; border-collapse: collapse;">
         <tr>
-            <td colspan="4" style="width: 717px; font-size: 10px; font-family: Arial, Helvetica, sans-serif; font-style: italic; font-weight: bold;">
+            <td colspan="5" style="width: 717px; font-size: 10px; font-family: Arial, Helvetica, sans-serif; font-style: italic; font-weight: bold;">
                 INFORMAÇÕES DA REQUERENTE
                 <br>
             </td>
         </tr>
         <tr>
             <td style="width: 317px;" class="label-ficha">Nome Completo</td>
-            <td style="width: 100px;" class="label-ficha">Sexo Biológico</td>
-            <td style="width: 200px;" class="label-ficha">RG - Órgão Expedidor</td>
-            <td style="width: 100px;" class="label-ficha">CPF</td>
+            <td style="width: 80px;" class="label-ficha">Sexo Biológico</td>
+            <td style="width: 80px;" class="label-ficha">Data de Nascimento</td>
+            <td style="width: 140px;" class="label-ficha">Naturalidade</td>
+            <td style="width: 100px;" class="label-ficha">Nacionalidade</td>
         </tr>
         <tr>
             <td style="width: 317px;" class="dados-ficha">{{ $requerente->nomecompleto }}</td>
-            <td style="width: 100px;" class="dados-ficha">{{ $requerente->sexobiologico }}</td>
-            <td style="width: 200px;" class="dados-ficha">{{ $requerente->rg }} {{ $requerente->orgaoexpedidor }}</td>
-            <td style="width: 100px;" class="dados-ficha">{{ $requerente->cpf }}</td>
+            <td style="width: 80px;" class="dados-ficha">{{ $requerente->sexobiologico }}</td>
+            <td style="width: 80px;" class="dados-ficha">{{ mrc_turn_data($requerente->nascimento) }}</td>
+            <td style="width: 140px;" class="dados-ficha">{{ $requerente->naturalidade }}</td>
+            <td style="width: 100px;" class="dados-ficha">{{ $requerente->nacionalidade }}</td>
         </tr>
     </table>
 
     <table  style="width: 717px; border-collapse: collapse;">
         <tr>
-            <td style="width: 317px;" class="label-ficha">Banco</td>
-            <td style="width: 100px;" class="label-ficha">Agência</td>
-            <td style="width: 200px;" class="label-ficha">Conta</td>
+            <td style="width: 159px;" class="label-ficha">RG - Órgão Expedidor</td>
+            <td style="width: 158px;" class="label-ficha">CPF</td>
+            <td style="width: 160px;" class="label-ficha">Banco</td>
+            <td style="width: 70px;" class="label-ficha">Agência</td>
+            <td style="width: 70px;" class="label-ficha">Conta Corrente</td>
             <td style="width: 100px;" class="label-ficha">OBS:</td>
         </tr>
         <tr>
-            <td style="width: 317px;" class="dados-ficha">{{ $requerente->banco }}</td>
-            <td style="width: 100px;" class="dados-ficha">{{ $requerente->agencia }}</td>
-            <td style="width: 200px;" class="dados-ficha">{{ $requerente->conta }}</td>
+            <td style="width: 159px;" class="dados-ficha">{{ $requerente->rg }} {{ $requerente->orgaoexpedidor }}</td>
+            <td style="width: 158px;" class="dados-ficha">{{ $requerente->cpf }}</td>
+            <td style="width: 160px;" class="dados-ficha">{{ $requerente->banco }}</td>
+            <td style="width: 70px;" class="dados-ficha">{{ $requerente->agencia }}</td>
+            <td style="width: 70px;" class="dados-ficha">{{ $requerente->conta }}</td>
             <td style="width: 100px;" class="dados-ficha">{{ $requerente->contaespecifica == "1" ? "conta específica" : "sem movimentação" }}</td>
         </tr>
     </table>
@@ -76,14 +82,14 @@
     <table  style="width: 717px; border-collapse: collapse;">
         <tr>
             <td style="width: 317px;" class="label-ficha">Pessoa com deficiência?</td>
-            <td style="width: 100px;" class="label-ficha">Nacionalidade</td>
-            <td style="width: 200px;" class="label-ficha">Profissão</td>
+            <td style="width: 140px;" class="label-ficha">Escolaridade</td>
+            <td style="width: 160px;" class="label-ficha">Profissão</td>
             <td style="width: 100px;" class="label-ficha">Estado Civil</td>
         </tr>
         <tr>
             <td style="width: 317px;" class="dados-ficha">{{ $requerente->deficiente == "1" ? $requerente->deficiencia : "Não" }}</td>
-            <td style="width: 100x;" class="dados-ficha">{{ $requerente->nacionalidade }}</td>
-            <td style="width: 200px;" class="dados-ficha">{{ $requerente->profissao }}</td>
+            <td style="width: 140x;" class="dados-ficha">{{ $arr_escolaridade[$requerente->escolaridade] }}</td>
+            <td style="width: 160px;" class="dados-ficha">{{ $requerente->profissao }}</td>
             <td style="width: 100px;" class="dados-ficha">{{ $arr_estadocivil[$requerente->estadocivil] }}</td>
         </tr>
     </table>
@@ -202,7 +208,9 @@
             <td style="width: 30px;" class="dados-normal">{{ $requerente->detalhe->temrendfamiliardoissalconvivagressor == "1" ? "sim" : "não" }}</td>
         </tr>
         <tr>
-            <td style="width: 687px;" class="dados-normal">A requerente não possui pais, avós, filhos ou netos maiores de idade, no mesmo município de sua residência?* Se sim, quais
+            <td style="width: 687px;" class="dados-normal">
+                {{-- A requerente não possui pais, avós, filhos ou netos maiores de idade, no mesmo município de sua residência?* Se sim, quais --}}
+                A requerente possui parentes em linha reta no município, porém não é viável o compartilhamento de domicílio nos termos do art 1º, VI, do Decreto 37.341, de 23 de dezembro de 2021 ? *
                 @if ($requerente->detalhe->paiavofilhonetomaiormesmomunicipresid == "1")
                     <br>
                     <strong>{{ $requerente->detalhe->parentesmesmomunicipioresidencia }}</strong>
@@ -225,7 +233,13 @@
             <td style="width: 30px;" class="dados-normal">{{ $requerente->detalhe->trabalhaougerarenda == "1" ? "sim" : "não" }}</td>
         </tr>
         <tr>
-            <td style="width: 687px;" class="dados-normal">A requerente está cadastrada no Cadastro Único (CADÚNICO)?*</td>
+            <td style="width: 687px;" class="dados-normal">A requerente está cadastrada no Cadastro Único (CADUNICO)?*
+            
+                @if ($requerente->detalhe->temcadunico == "1")
+                    <br>
+                    <strong>R$ {{ mrc_turn_value($requerente->detalhe->valortemcadunico) }}</strong>
+                @endif
+            </td>
             <td style="width: 30px;" class="dados-normal">{{ $requerente->detalhe->temcadunico == "1" ? "sim" : "não" }}</td>
         </tr>
         <tr>
@@ -263,7 +277,7 @@
                 <br>
                 <br>
                 A requerente declara ter ciência de que o benefício será concedido no valor de R$ 600,00 (seiscentos reais) pelo que perdurar a medida
-                protetiva, limitado a ATÉ 12 (doze) meses, podendo ser suspenso a qualquer tempo acaso volte a conviver com o agressor, cesse a medida
+                protetiva, limitado a ATÉ 12 (doze) mêses, podendo ser suspenso a qualquer tempo acaso volte a conviver com o agressor, cesse a medida
                 protetiva de urgência, cesse a situação de vulnerabilidade, ou perceba renda superior a 02 (dois) salários mínimos, conforme art. 8º, do
                 Decreto Estadual nº 36.340, de 03 de novembro de 2020.
 
@@ -421,6 +435,8 @@
                 de 02 de outubro de 2020.
                 <br>
                 <br>
+
+                {{-- 
                 <span style="color: white">.................</span>Segue em anexo:
                 <br><br>
                 <span style="color: white">.................</span>Comprovante de residência de: {{ str_repeat("_", 70) }}
@@ -428,6 +444,8 @@
                 <span style="color: white">.................</span>Certidão de óbito de: {{ str_repeat("_", 80) }}
                 <br><br>
                 <span style="color: white">.................</span>Outros: {{ str_repeat("_", 94) }}
+                --}}
+                
                 <br>
                 <br>
                 <br>

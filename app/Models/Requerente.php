@@ -122,7 +122,7 @@ class Requerente extends Model
 
     public static function totalprocessos()
     {
-        return $totprocessos = Requerente::where('status', '=', '5')->count();
+        return $totprocessos = Requerente::where('estatus', '=', '5')->count();
     } 
 
 

@@ -53,7 +53,7 @@
                     <div class="mb-4 row">
                         <label for="cpf" class="col-sm-2 col-form-label">CPF <span class="small text-danger">*</span></label>
                         <div class="col-sm-10">
-                          <input type="text" name="cpf" value="{{ old('cpf') }}" class="form-control" id="cpf" placeholder="CPF (só números)" >
+                          <input type="text" name="cpf" value="{{ old('cpf') }}" class="form-control cpf" id="cpf" placeholder="CPF (só números)" >
                           @error('cpf')
                               <small style="color: red">{{$message}}</small>
                           @enderror

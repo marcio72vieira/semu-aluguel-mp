@@ -879,7 +879,7 @@
                     <div class="mb-2 row">
                         <label for="paiavofilhonetomaiormesmomunicipresid" class="col-sm-8 col-form-label">
                             {{-- A requerente não possui pais, avós, filhos ou netos maiores de idade, no mesmo município de sua residência? * --}}
-                            A requerente possui parentes em linha reta no município, porém não é viável o compartilhamento de domicílio nos termos do art 1º, VI, do Decreto 37.341, de 23 de dezembro de 2021.
+                            A requerente possui parentes em linha reta no município, porém não é viável o compartilhamento de domicílio nos termos do art 1º, VI, do Decreto 37.341, de 23 de dezembro de 2021 ? *
                         </label>
                         <div class="col-sm-2">
                             <div style="margin-top: 10px;">
@@ -996,9 +996,9 @@
                         {{-- valortemcadunico --}}
                         <div class="col-2">
                             <div class="form-group focused">
-                                <input type="text" class="form-control"  style="visibility:hidden" id="valortemcadunico" name="valortemcadunico" value="{{old('valortemcadunico')}}" placeholder="Valor">
+                                <input type="text" class="form-control"  style="visibility:hidden" id="valortemcadunico" name="valortemcadunico" value="{{ old('valortemcadunico') }}" placeholder="Valor">
                                 @error('valortemcadunico')
-                                    <small style="color: red" id="msg_error_valortemcadunico">{{$message}}</small>
+                                    <small style="color: red" id="msg_error_valortemcadunico">{{ $message }}</small>
                                 @enderror
                             </div>
                         </div>

@@ -111,7 +111,7 @@
                             @csrf
                             @method('PUT')
                             {{-- status = 4, significa que os documetos foram corrigidos --}}
-                            <input type="hidden" name="status_hidden" value="4">
+                            <input type="hidden" name="estatus_hidden" value="4">
                             <button type="submit" class="btn btn-success me-2" style="margin-bottom: 15px;"><i class="fa-solid fa-user-check" style="margin-right: 5px;"></i> Submeter a Reanálise</button>
                         </form>
                     @endif

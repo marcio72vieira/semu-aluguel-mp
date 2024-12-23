@@ -15,6 +15,11 @@ class Processo extends Model
         'url',
         'requerente_id',
         'nomecompleto',
+        'sexobiologico',
+        'nascimento',
+        'naturalidade',
+        'nacionalidade',
+
         'rg',
         'orgaoexpedidor',
         'cpf',
@@ -22,6 +27,7 @@ class Processo extends Model
         'agencia',
         'conta',
         'contaespecifica',
+        
         'comunidade_id',
         'comunidade',
         'outracomunidade',
@@ -37,19 +43,13 @@ class Processo extends Model
         'deficiente_id',
         'deficiente',
         'deficiencia',
-        'sexobiologico',
-        'nacionalidade',
+
+        'escolaridade_id',
+        'escolaridade',
         'profissao',
         'estadocivil_id',
         'estadocivil',
-        'endereco',
-        'numero',
-        'complemento',
-        'bairro',
-        'cep',
-        'foneresidencial',
-        'fonecelular',
-        'email',
+
         'regional_id',
         'regional',
         'municipio_id',
@@ -58,32 +58,71 @@ class Processo extends Model
         'tipounidade',
         'unidadeatendimento_id',
         'unidadeatendimento',
+        'endereco',
+        'numero',
+        'complemento',
+        'bairro',
+        'cep',
+        'foneresidencial',
+        'fonecelular',
+        'email',
         'datacadastro',
+
         'processojudicial',
         'orgaojudicial',
         'comarca',
         'prazomedidaprotetiva',
         'dataconcessaomedidaprotetiva',
+
+        'medproturgcaminhaprogoficial_id',
         'medproturgcaminhaprogoficial',
+
+        'medproturgafastamentolar_id',
         'medproturgafastamentolar',
+
+        'riscmortvioldomesmoradprotegsigilosa_id',
         'riscmortvioldomesmoradprotegsigilosa',
+
+        'riscvidaaguardmedproturg_id',
         'riscvidaaguardmedproturg',
+
+        'relatodescomprmedproturgagressor_id',
         'relatodescomprmedproturgagressor',
+
+        'sitvulnerabnaoconsegarcardespmoradia_id',
         'sitvulnerabnaoconsegarcardespmoradia',
+
+        'temrendfamiliardoissalconvivagressor_id',
         'temrendfamiliardoissalconvivagressor',
+
+        'paiavofilhonetomaiormesmomunicipresid_id',
         'paiavofilhonetomaiormesmomunicipresid',
         'parentesmesmomunicipioresidencia',
+
+        'filhosmenoresidade_id',
         'filhosmenoresidade',
+
+        'trabalhaougerarenda_id',
         'trabalhaougerarenda',
         'valortrabalhorenda',
+
+        'temcadunico_id',
         'temcadunico',
+        'valortemcadunico',
+
+        'teminteresformprofisdesenvolvhabilid_id',
         'teminteresformprofisdesenvolvhabilid',
+
+        'apresentoudocumentoidentificacao_id',
         'apresentoudocumentoidentificacao',
+
+        'cumprerequisitositensnecessarios_id',
         'cumprerequisitositensnecessarios',
+
         'assistente_id',
         'assistente',
         'funcionariosemu_id',
-        'funcionario',
+        'funcionario',  //91 campos
     ];
 
 }

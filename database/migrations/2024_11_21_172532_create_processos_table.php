@@ -21,6 +21,11 @@ return new class extends Migration
             // Campos referente ao cadastro da Requerente
             $table->integer('requerente_id')->nullable();
             $table->string('nomecompleto')->nullable();
+            $table->string('sexobiologico')->nullable();
+            $table->date('nascimento')->nullable();
+            $table->string('naturalidade')->nullable();
+            $table->string('nacionalidade')->nullable();
+            
             $table->string('rg')->nullable();
             $table->string('orgaoexpedidor')->nullable();
             $table->string('cpf')->nullable();
@@ -32,31 +37,33 @@ return new class extends Migration
             $table->integer('comunidade_id')->nullable();
             $table->string('comunidade')->nullable();
             $table->string('outracomunidade')->nullable();
-
             $table->integer('racacor_id')->nullable();
             $table->string('racacor')->nullable();
             $table->string('outraracacor')->nullable();
-
             $table->integer('identidadegenero_id')->nullable();
             $table->string('identidadegenero')->nullable();
             $table->string('outraidentidadegenero')->nullable();
-            
             $table->integer('orientacaosexual_id')->nullable();
             $table->string('orientacaosexual')->nullable();
             $table->string('outraorientacaosexual')->nullable();
-
-            
             $table->integer('deficiente_id')->nullable();
             $table->string('deficiente')->nullable();
             $table->string('deficiencia')->nullable();
             
-            $table->string('sexobiologico')->nullable();
-            
-            $table->string('nacionalidade')->nullable();
+            $table->integer('escolaridade_id')->nullable();
+            $table->string('escolaridade')->nullable();
             $table->string('profissao')->nullable();
-
             $table->integer('estadocivil_id')->nullable();
             $table->string('estadocivil')->nullable();
+
+            $table->integer('regional_id')->nullable();
+            $table->string('regional')->nullable();
+            $table->integer('municipio_id')->nullable();
+            $table->string('municipio')->nullable();
+            $table->integer('tipounidade_id')->nullable();
+            $table->string('tipounidade')->nullable();
+            $table->integer('unidadeatendimento_id')->nullable();
+            $table->string('unidadeatendimento')->nullable();
             $table->string('endereco')->nullable();
             $table->string('numero')->nullable();
             $table->string('complemento')->nullable();
@@ -65,49 +72,65 @@ return new class extends Migration
             $table->string('foneresidencial')->nullable();
             $table->string('fonecelular')->nullable();
             $table->string('email')->nullable();
-
-            $table->integer('regional_id')->nullable();
-            $table->string('regional')->nullable();
-
-            $table->integer('municipio_id')->nullable();
-            $table->string('municipio')->nullable();
-
-            $table->integer('tipounidade_id')->nullable();
-            $table->string('tipounidade')->nullable();
-
-            $table->integer('unidadeatendimento_id')->nullable();
-            $table->string('unidadeatendimento')->nullable();
-
             $table->date('datacadastro')->nullable();           //data de cadastro da requerente $requetente->created_at
 
             // campos referente aos detalhes do requerimento
             $table->string('processojudicial')->nullable();
             $table->string('orgaojudicial')->nullable();
             $table->string('comarca')->nullable();
-            $table->date('prazomedidaprotetiva')->nullable();
+            $table->integer('prazomedidaprotetiva')->nullable();
             $table->date('dataconcessaomedidaprotetiva')->nullable();
-            $table->boolean('medproturgcaminhaprogoficial')->nullable();
-            $table->boolean('medproturgafastamentolar')->nullable();
-            $table->boolean('riscmortvioldomesmoradprotegsigilosa')->nullable();
-            $table->boolean('riscvidaaguardmedproturg')->nullable();
-            $table->boolean('relatodescomprmedproturgagressor')->nullable();
-            $table->boolean('sitvulnerabnaoconsegarcardespmoradia')->nullable();
-            $table->boolean('temrendfamiliardoissalconvivagressor')->nullable();
-            $table->boolean('paiavofilhonetomaiormesmomunicipresid')->nullable();
+
+            $table->tinyInteger('medproturgcaminhaprogoficial_id')->nullable();
+            $table->tinyText('medproturgcaminhaprogoficial')->nullable();
+
+            $table->tinyInteger('medproturgafastamentolar_id')->nullable();
+            $table->tinyText('medproturgafastamentolar')->nullable();
+
+            $table->tinyInteger('riscmortvioldomesmoradprotegsigilosa_id')->nullable();
+            $table->tinyText('riscmortvioldomesmoradprotegsigilosa')->nullable();
+
+            $table->tinyInteger('riscvidaaguardmedproturg_id')->nullable();
+            $table->tinyText('riscvidaaguardmedproturg')->nullable();
+
+            $table->tinyInteger('relatodescomprmedproturgagressor_id')->nullable();
+            $table->tinyText('relatodescomprmedproturgagressor')->nullable();
+
+            $table->tinyInteger('sitvulnerabnaoconsegarcardespmoradia_id')->nullable();
+            $table->tinyText('sitvulnerabnaoconsegarcardespmoradia')->nullable();
+
+            $table->tinyInteger('temrendfamiliardoissalconvivagressor_id')->nullable();
+            $table->tinyText('temrendfamiliardoissalconvivagressor')->nullable();
+
+            $table->tinyInteger('paiavofilhonetomaiormesmomunicipresid_id')->nullable();
+            $table->tinyText('paiavofilhonetomaiormesmomunicipresid')->nullable();
             $table->string('parentesmesmomunicipioresidencia')->nullable();
-            $table->boolean('filhosmenoresidade')->nullable();
-            $table->boolean('trabalhaougerarenda')->nullable();
+
+            $table->tinyInteger('filhosmenoresidade_id')->nullable();
+            $table->tinyText('filhosmenoresidade')->nullable();
+
+            $table->tinyInteger('trabalhaougerarenda_id')->nullable();
+            $table->tinyText('trabalhaougerarenda')->nullable();
             $table->decimal('valortrabalhorenda',12, 2)->default(0)->nullable();
-            $table->boolean('temcadunico')->nullable();
-            $table->boolean('teminteresformprofisdesenvolvhabilid')->nullable();
-            $table->boolean('apresentoudocumentoidentificacao')->nullable();
-            $table->boolean('cumprerequisitositensnecessarios')->nullable();
+
+            $table->tinyInteger('temcadunico_id')->nullable();
+            $table->tinyText('temcadunico')->nullable();
+            $table->decimal('valortemcadunico',12,2)->nullable();
+
+            $table->tinyInteger('teminteresformprofisdesenvolvhabilid_id')->nullable();
+            $table->tinyText('teminteresformprofisdesenvolvhabilid')->nullable();
+
+            $table->tinyInteger('apresentoudocumentoidentificacao_id')->nullable();
+            $table->tinyText('apresentoudocumentoidentificacao')->nullable();
+
+            $table->tinyInteger('cumprerequisitositensnecessarios_id')->nullable();
+            $table->tinyText('cumprerequisitositensnecessarios')->nullable();
 
             // campos referene o Assistente Social e ao Servidor da SEMU
             $table->integer('assistente_id')->nullable();       // $requerente->user->id funcionario da semu
             $table->string('assistente')->nullable();           // $requerente->user->nomecompleto
             $table->integer('funcionariosemu_id')->nullable();  //$documento->user->id
-            $table->string('funcionario')->nullable();          //$documento->user->nomecompleto
+            $table->string('funcionario')->nullable();          //$documento->user->nomecompleto .91 camppos
 
             $table->timestamps();
         });

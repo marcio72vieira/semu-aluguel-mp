@@ -48,19 +48,19 @@
                             <td>{{ $requerente->municipio->nome }}</td>
                             <td>{{ $requerente->foneresidencial }} <br> {{ $requerente->fonecelular }} </td>
                             <td>{{ $requerente->cpf }} <br> {{ $requerente->rg }} {{ $requerente->orgaoexpedidor }}</td>
-                            {{-- <td>{{ ($requerente->status == 1 ? "...andamento" : ($requerente->status == 2 ? "...análise" : "pendente")) }}</td> --}}
-                            {{-- <td>{{ ($requerente->status == 1 ? "...andamento" : ($requerente->status == 2 ? "...análise" : ($requerente->status == 3 ? "pendente" : "concluído" ))) }}</td> --}}
+                            {{-- <td>{{ ($requerente->estatus == 1 ? "...andamento" : ($requerente->estatus == 2 ? "...análise" : "pendente")) }}</td> --}}
+                            {{-- <td>{{ ($requerente->estatus == 1 ? "...andamento" : ($requerente->estatus == 2 ? "...análise" : ($requerente->estatus == 3 ? "pendente" : "concluído" ))) }}</td> --}}
                             <td>
                                 {{-- 1 - Andamento -  O Assistente Social cadastrou a requernete, mas falta cadastrar todos os documentos. Deixou de cadastrar alguns documentos por alguma razão --}}
                                 {{-- 2 - Análise - O assistene Social anexou os documentos exigidos e clicou no botão "Submeter Análise" --}}
                                 {{-- 3 - Pendente - O Servidor da SEMU, detectou alguma inconsistência no processo de análise dos documentos anexados --}}
                                 {{-- 4 - Corrigido - Os documentos com pendênica foram substituidos e submetidos para análise novamenteada --}}
                                 {{-- 5 - Concluído - A análise foi realizada com sucesso, nenhuma inconsistência foi encontrad e o processo foi gerado com êxito --}}
-                                @if($requerente->status == 1) <span style="font-size: 14px" title="Falta enviar os documentos exigidos para análise!"> <i class="fa-solid fa-shoe-prints"></i> em andamento </span> @endif
-                                @if($requerente->status == 2) <span style="font-size: 14px" title="Aguardando ser analisado!"> <i class="fa-solid fa-user-check"></i> em análise  </span> @endif
-                                @if($requerente->status == 3) <span style="font-size: 14px" title="Foram detectadas inconsistências nos documentos enviados!"> <i class="fa-solid fa-clock-rotate-left"></i> com pendência  </span> @endif
-                                @if($requerente->status == 4) <span style="font-size: 14px" title="Os documentos inconsistentes foram substituidos!"> <i class="fa-solid fa-check-double"></i> corrigidos para reanálise </span> @endif
-                                @if($requerente->status == 5) <span style="font-size: 14px" title="Processo gerado com sucesso!"> <i class="fa-regular fa-circle-check"></i> concluído  </span> @endif
+                                @if($requerente->estatus == 1) <span style="font-size: 14px" title="Falta enviar os documentos exigidos para análise!"> <i class="fa-solid fa-shoe-prints"></i> em andamento </span> @endif
+                                @if($requerente->estatus == 2) <span style="font-size: 14px" title="Aguardando ser analisado!"> <i class="fa-solid fa-user-check"></i> em análise  </span> @endif
+                                @if($requerente->estatus == 3) <span style="font-size: 14px" title="Foram detectadas inconsistências nos documentos enviados!"> <i class="fa-solid fa-clock-rotate-left"></i> com pendência  </span> @endif
+                                @if($requerente->estatus == 4) <span style="font-size: 14px" title="Os documentos inconsistentes foram substituidos!"> <i class="fa-solid fa-check-double"></i> corrigidos para reanálise </span> @endif
+                                @if($requerente->estatus == 5) <span style="font-size: 14px" title="Processo gerado com sucesso!"> <i class="fa-regular fa-circle-check"></i> concluído  </span> @endif
                             </td>
                             <td class="flex-row flex-wrap d-md-flex justify-content-start align-content-stretch">
 
@@ -70,7 +70,7 @@
                                     <i class="fa-regular fa-eye"></i> Visualizar
                                 </a>
 
-                                @if ($requerente->status != 2 && $requerente->status != 4 && $requerente->status != 5)
+                                @if ($requerente->estatus != 2 && $requerente->estatus != 4 && $requerente->estatus != 5)
                                     <a href="{{ route('requerente.edit', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-warning btn-sm me-1" title="Editar os dados cadastrados">
                                         <i class="fa-solid fa-pen-to-square"></i> Editar
                                     </a>
@@ -78,7 +78,7 @@
                                     <button type="button" class="mb-3 btn btn-outline-secondary btn-sm me-1"> <i class="fa-solid fa-ban"></i> Editar </button>
                                 @endif
 
-                                @if ($requerente->status != 2 && $requerente->status != 4 && $requerente->status != 5)
+                                @if ($requerente->estatus != 2 && $requerente->estatus != 4 && $requerente->estatus != 5)
                                     <a href="{{ route('requerente.relpdfrequerente', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-danger btn-sm me-1" target="_blank" title="Emitir anexos para assinatura">
                                         <i class="fa-solid fa-file-pdf"></i> Anexos
                                     </a>
@@ -86,20 +86,20 @@
                                     <button type="button" class="mb-3 btn btn-outline-secondary btn-sm me-1"> <i class="fa-solid fa-ban"></i> Anexos </button>
                                 @endif
 
-                                @if ($requerente->status == 1)
+                                @if ($requerente->estatus == 1)
                                     <a href="{{ route('documento.create', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-info btn-sm me-1" title="Enviar documentos para análise">
                                         <i class="fas fa-upload"></i> Documentos
                                     </a>
                                 @else
-                                    @if ($requerente->status == 2)
+                                    @if ($requerente->estatus == 2)
                                         <button type="button" class="mb-3 btn btn-outline-secondary btn-sm me-1"> <i class="fa-solid fa-ban"></i> Documentos </button>
                                     @else
-                                        @if ($requerente->status == 3)
+                                        @if ($requerente->estatus == 3)
                                             <a href="{{ route('documento.pendentes', ['requerente' => $requerente->id]) }}" class="mb-3 btn btn-warning btn-sm me-1" title="Substituir documentos com pendências">
                                                 <i class="fa-solid fa-clock-rotate-left"></i> Pendências
                                             </a>
                                         @else
-                                            @if ($requerente->status == 4)
+                                            @if ($requerente->estatus == 4)
                                                 <button type="button" class="mb-3 btn btn-outline-secondary btn-sm me-1"> <i class="fa-solid fa-ban"></i> Pendências </button>
                                             @else
                                                 <button type="button" class="mb-3 btn btn-outline-secondary btn-sm me-1"> <i class="fa-solid fa-ban"></i> Documentos </button>
