@@ -23,6 +23,12 @@
             background-size: cover; 
             background-size: 100% 100%;
         }
+
+        .card-header{
+            background: url('{{ asset("images/logo_semu.png") }}') no-repeat center center;
+            background-color: #8d0376;
+            height: 160px;
+        }
     </style>
 </head>
 
@@ -31,7 +37,7 @@
         <div id="layoutAuthentication_content">
             <main>
                 <div class="container">
-                    <div class="row justify-content-center" style="margin-top: 22%">
+                    <div class="row justify-content-center" style="margin-top: 15%">
 
                         @yield('content')
 
