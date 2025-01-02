@@ -47,9 +47,9 @@
                     <strong>{{ Auth::user()->nome }}</strong> &nbsp;&nbsp; <i class="fas fa-user fa-fw"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#!">Perfil</a></li>
+                    {{-- <li><a class="dropdown-item" href="#!">Perfil</a></li> --}}
                     {{-- <li><a class="dropdown-item" href="#!">Atividades</a></li> --}}
-                    <li><hr class="dropdown-divider" /></li>
+                    {{-- <li><hr class="dropdown-divider" /></li> --}}
                     <li><a class="dropdown-item" href="{{ route('login.logout') }}">Sair</a></li>
                 </ul>
             </li>
@@ -62,7 +62,7 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Operação</div>
-                        
+
                         {{-- Garante a visualização/acesso apenas de quem é Administrador ou Servidor --}}
                         @can("onlyAdmSrv")
                             <a class="nav-link" href="{{ route('dashboard.index') }}">
@@ -90,7 +90,7 @@
                                     Processos
                                 </a>
                         @endcan
-                            
+
 
                         {{-- Garante o acesso apenas de quem é Administrador --}}
                         @can("onlyAdm")

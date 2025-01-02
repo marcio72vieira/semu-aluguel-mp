@@ -1,7 +1,7 @@
 @extends('layout.admin')
 
 @section('content')
-    
+
     <div class="px-4 container-fluid">
         <h2 class="mt-4">Dashboard</h2>
 
@@ -33,7 +33,7 @@
                     <div class="card-body"><strong>{{ $totProcessos }} Processos</strong></div>
                 </div>
             </div>
-            
+
             {{-- Usuários --}}
             <div class="col-xl-1 col-md-6">
                 <div class="mb-4 text-white card bg-primary">
@@ -45,8 +45,8 @@
             <div class="col-xl-2 col-md-6">
                 <div class="mb-4 text-white card bg-primary">
                     <div class="card-body"><strong>{{ $totMunicipios }} Tipos de Unidades</strong></div>
-                </div>    
-            </div>                
+                </div>
+            </div>
 
             {{-- Tipos de Documentos --}}
             <div class="col-xl-2 col-md-6">
@@ -71,7 +71,7 @@
             </div>
 
         </div>
-        
+
         {{-- Mensagem de error a ser exibida na geração do arquivo Excel ou CSV --}}
         <x-alert />
 
@@ -134,14 +134,14 @@
                                     <option value="{{ $value }}" {{date('Y') == $value ? 'selected' : ''}} data-anopesquisa="{{$value}}" class="optionAnoPesquisa"> {{ $value }} </option>
                                 @endforeach
                             </select>
-                            
+
                             &nbsp;&nbsp;&nbsp;&nbsp;
                             <select id="tipografico" class="form-control col-form-label-sm selectsgraficopizzarosaca">
                                 <option value="pie">Pizza</option>
                                 <option value="doughnut">Rosca</option>
                             </select>
                         </div>
-    
+
                         {{-- --}}
                     </div>
                     <div class="card-body">
@@ -176,7 +176,7 @@
                         <i class="fas fa-table me-1"></i>
                         PROCESSOS
                     </div>
-                    <div class="col-md-4"> 
+                    <div class="col-md-4">
                         <form action="{{ route('dashboard.gerarexcel') }}"  method="GET" class="form-inline" style="height: 35px;">
                             {{-- <span><strong>&nbsp;&nbsp;Gerar arquivo:</strong> &nbsp;&nbsp;</span> --}}
                             <div class="row">
@@ -190,7 +190,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                
+
                                 <div class="col-md-2">
                                     <select id="selectAnoExcel"  name="anoexcel" class="form-control col-form-label-sm">
                                         <option value="0" selected disabled>Ano...</option>
@@ -271,9 +271,9 @@
     if(count($recordsestatusrequerente)){
         //Recuperando só as chaves do array, que será o label dos registros
         $labelRecordsSituacoes = array_keys($recordsestatusrequerente);
-        
+
         $arrLabelSituacao = [];
-        
+
         foreach($labelRecordsSituacoes as $labelRecordSituacao){
             // Substitui caracteres especiais (' " / . ,) em uma string por espaço vazio. Evita erro. Ex: farinha D'agua = faria Dagua
             $arrbusca = ["'","/","."];
@@ -281,9 +281,9 @@
             $labelRecordSituacao = str_replace($arrbusca, $arrtroca, $labelRecordSituacao);
 
             // Faz uma concatenação do tipo: 'labelX', 'labelY', 'labelZ', 'labelW', etc... para compor as Labels do Gráfico de Pizza
-            $arrLabelSituacao[] = "'".$labelRecordSituacao."'";            
+            $arrLabelSituacao[] = "'".$labelRecordSituacao."'";
         }
-    } 
+    }
 
 
     // CONFIGURANDO OS LABELS PARA O GRÁFICO DE PIZZA OU ROSCA
@@ -293,9 +293,9 @@
      if(count($dataRecordsCategorias)){
         //Recuperando só as chaves do array, que será o label dos registros
         $labelRecords = array_keys($dataRecordsCategorias);
-        
+
         $arrLabel = [];
-        
+
         foreach($labelRecords as $labelRecord){
             // Substitui caracteres especiais (' " / . ,) em uma string por espaço vazio. Evita erro. Ex: farinha D'agua = faria Dagua
             $arrbusca = ["'","/","."];
@@ -303,14 +303,14 @@
             $labelRecord = str_replace($arrbusca, $arrtroca, $labelRecord);
 
             // Faz uma concatenação do tipo: 'labelX', 'labelY', 'labelZ', 'labelW', etc... para compor as Labels do Gráfico de Pizza
-            $arrLabel[] = "'".$labelRecord."'";            
+            $arrLabel[] = "'".$labelRecord."'";
         }
-    } 
+    }
 
     // Versão resumida do script acima. Exibe também no label do gráfico, seu respectivo valor.
     if(count($dataRecordsCategorias)){
         $arrLabel = [];
-        
+
         foreach($dataRecordsCategorias as $key => $value){
             // Substitui caracteres especiais (' " / . ,) em uma string por espaço vazio. Evita erro. Ex: farinha D'agua = faria Dagua
             $arrbusca = ["'","/","."];
@@ -318,14 +318,14 @@
             $key = str_replace($arrbusca, $arrtroca, $key);
 
             // Faz uma concatenação do tipo: 'labelX', 'labelY', 'labelZ', 'labelW', etc... para compor as Labels do Gráfico de Pizza
-            $arrLabel[] = "'".$value." ".$key."'";            
+            $arrLabel[] = "'".$value." ".$key."'";
         }
     */
 
     // Versão resumida do script acima. Exibe também no label do gráfico, seu respectivo valor em %.
     if(count($dataRecordsCategorias)){
         $arrLabel = [];
-        
+
         foreach($dataRecordsCategorias as $key => $value){
 
             // Substitui caracteres especiais (' " / . ,) em uma string por espaço vazio. Evita erro. Ex: farinha D'agua = faria Dagua
@@ -357,7 +357,7 @@
 
         var valmespesquisa = "{{ $mesespesquisa[$mes_corrente] }} ";   // valor padão vindo da view
         var valanopesquisa = "{{ $ano_corrente }}";                    // valor padão vindo da view
-                
+
         // var titulomesanoatual = "{{ $mesespesquisa[$mes_corrente] }} " + " - " + "{{ $ano_corrente }}"; // Valores vindo da "view" através do "compac()"
         var valcategoria = 0;
         var textcategoria = ""
@@ -396,12 +396,12 @@
             },
             plugins: [ChartDataLabels], // Exibe rótulo dos valores dentro dos gráficos..É necessário importar o plugin em: "view.layout.admin.blade.php"
             options: {
-                /* 
+                /*
                 // Comentar essas propriedades, por algum motivo evita o erro: Invalid scale configuration for scale: xAxes  e yAxes
                 scales: {
                     xAxes: [{ time: { unit: 'date' }, gridLines: { display: false }, ticks: { maxTicksLimit: 7 } }],
                     yAxes: [{ ticks: { min: 0, max: 40000, maxTicksLimit: 5 }, gridLines: { color: "rgba(0, 0, 0, .125)", } }],
-                }, 
+                },
                 */
                 scales: {y: {min: 0, max: 20 }},
                 legend: {
@@ -421,7 +421,7 @@
 
         // Gráfico de Pizza ou Dounougth
         const ctx_piedoughnut = document.getElementById('myPieDoughnutChart');
-        
+
         const graficopizzarosca = new Chart(ctx_piedoughnut, {
             type: 'pie', // ou doughnut
             data: {
@@ -454,7 +454,7 @@
             data: {
                 labels: ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'],
                 datasets: [{
-                label: 'REQUERIMENTOS',
+                label:  '',          // conteúdo original: 'REQUERIMENTOS',
                 data: [ {{ implode(',', $recordsprocessosmesames) }} ],
                 backgroundColor: "rgb(54, 162, 235)",
                 borderWidth: 1
@@ -470,12 +470,26 @@
                     }
                 },
                 plugins: {
+                    title: {
+                        display: true,
+                        text: "REQUERIMENTOS",
+                        align: 'center',        //Nova configuração (start, center, end)
+                        padding: {
+                            top: 3,
+                            bottom: 3
+                        }
+                    },
+                    subtitle: {
+                        display: true,
+                        text: valanopesquisa,   // ano corrente
+                        align: 'center',        //Nova configuração (start, center, end)
+                    },
                     datalabels: {
                             color: '#0000ff',   // Cor dos valores das colunas
                             anchor: 'end',      // Determina a posição dos valoresa serem exibidos : Default meio(não é necessário informar), end(no final da coluna de baixo para cima)
                             align: 'top',       // posição dos valores (top, left, right, bottom) em relação ao anchor:end
                             offset: 5           // distância em pixel do valores a serem apresentados
-                        }
+                    },
                 }
             },
         });
@@ -484,17 +498,17 @@
         ///////////////////////////////////////
         //  ÁREA DE DEFINIÇÃO DOS SCRIPTS    //
         ///////////////////////////////////////
-        
+
         // Alterna o estilo do gráfico de Pizza para Rosca
         $(document).ready(function() {
             $("#tipografico").on("change", function(){
-                
+
                 if(graficopizzarosca.config.type == 'pie'){
                     graficopizzarosca.config.type = 'doughnut';
                 }else{
                     graficopizzarosca.config.type = 'pie';
                 }
-                
+
                 graficopizzarosca.update();
             });
         });
@@ -503,20 +517,20 @@
         //Escolha de outro tipo de categoria além do tipo padrão: "Sexo Biológico" ou escolha do mẽs, ano ou tipo de gráfico
         //$("#selectCategoriaPesquisa_id").on("change", function(){
         $(".selectsgraficopizzarosaca").on("change", function(){
-            
+
             //Capturando o valor do mês, ano e da categoria de pesquisa para enviar para a requisição ajax
             valcategoria = $("#selectCategoriaPesquisa_id").val();
             valmespesquisa = $("#selectMesPesquisa_id").val();
             valanopesquisa = $("#selectAnoPesquisa_id").val();
-            
+
             //Capturando o texto do mês, ano e da categoria de pesquisa para compor o título e o subtitulo do gráfico
             textcategoria = $("#selectCategoriaPesquisa_id").find('option:selected').text().toUpperCase();
             textmes = $("#selectMesPesquisa_id").find('option:selected').text();
             textano = $("#selectAnoPesquisa_id").find('option:selected').text();
-            
+
             // Capturando o tipo de gráfico desejado (pizza ou rosca)
             estilografico = $("#tipografico").val();
-            
+
             // Definindo o título e o subtitulo do gráfico
             titulo = textcategoria;
             subtitulo = textmes + " - " + textano;
@@ -541,9 +555,9 @@
 
                     var totalregistros = result['totalrecords'];
                     var percent = 0;
-                    // Definindo os array que conterão os novos valores de label e data a cada nova pesquisa. 
+                    // Definindo os array que conterão os novos valores de label e data a cada nova pesquisa.
                     // OBS: São definidos aqui e não na área de definição de variáveis, para que não acumulem os valores anteriores,
-                    //      como foi observado em teste. 
+                    //      como foi observado em teste.
                     var arr_rotuloscategoria = [];
                     var arr_valorescategoria = [];
                     var arr_cores = [];
@@ -570,7 +584,7 @@
                     // Gráfico de Pizza ou Dounougth
                     const ctx_piedoughnut = document.getElementById('myPieDoughnutChart');
                     const graficopizzarosca = new Chart(ctx_piedoughnut, {
-                        type: estilografico, 
+                        type: estilografico,
                         data: {
                             labels: arr_rotuloscategoria,
                             datasets: [{
@@ -602,7 +616,7 @@
                     alert("Error ao retornar dados!");
                 }
             });
-            
+
         });
 
         //******************************

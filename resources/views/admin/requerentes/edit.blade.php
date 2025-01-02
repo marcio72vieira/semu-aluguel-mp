@@ -194,7 +194,7 @@
 
                     {{--
                     <div class="mb-3 row">
-                        
+
                         <div class="col-6">
                             <div class="form-group focused">
                                 <label class="form-control-label" for="banco">Banco <span class="small text-danger">*</span></label>
@@ -204,7 +204,7 @@
                                 @enderror
                             </div>
                         </div>
-                        
+
                         <div class="col-2">
                             <div class="form-group focused">
                                 <label class="form-control-label" for="agencia">Agência<span class="small text-danger">*</span></label>
@@ -214,7 +214,7 @@
                                 @enderror
                             </div>
                         </div>
-                        
+
                         <div class="col-2">
                             <div class="form-group focused">
                                 <label class="form-control-label" for="conta">Conta<span class="small text-danger">*</span></label>
@@ -633,7 +633,7 @@
                         {{-- prazomedidaprotetiva --}}
                         <div class="col-4">
                             <div class="form-group focused">
-                                <label class="form-control-label" for="prazomedidaprotetiva">Prazo da medida protetiva <span class="small text-danger">*</span></label>
+                                <label class="form-control-label" for="prazomedidaprotetiva">Prazo da medida protetiva (em dias) <span class="small text-danger">*</span></label>
                                 <input type="number" min="1" class="form-control" id="prazomedidaprotetiva" name="prazomedidaprotetiva" value="{{ old('prazomedidaprotetiva', $requerente->detalhe->prazomedidaprotetiva) }}" required>
                                 @error('prazomedidaprotetiva')
                                     <small style="color: red">{{ $message }}</small>
@@ -1582,7 +1582,7 @@
 
 
         /// Iníco valor CADUNICO
-        
+
         // Torna visível o campo "valortemcadunico", caso o valor escolhido do radio(temcadunico) seja 1.
         if($("input[name='temcadunico']:checked").val() == "1"){
             $("#valortemcadunico").css("visibility","visible");
@@ -1629,7 +1629,7 @@
                 this.value = formattedValorTemCadunico;
 
             });
-        }        
+        }
 
         /// Fim valor CADUNICO
 

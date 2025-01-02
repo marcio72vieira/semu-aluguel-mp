@@ -50,9 +50,9 @@ class LoginController extends Controller
             return back()->withInput()->with('error', 'Você está inativo!');
         }
 
-        
+
         if($user->primeiroacesso == 1){
-        
+
             // Redireciona o usuário para a página para alterar senha fornecida pelo administrador
             // Obs: Neste ponto, o usuário já estará autenticado no sistema mesmo que o mesmo seja direcionado para a página de
             // redefinir nova senha. Neste caso, deve-se, validar os dados do usuário buscando o email e nome do usuário e o id
@@ -61,9 +61,9 @@ class LoginController extends Controller
             // a senha definida pelo administrador (uma número aleatório de fácil entendimento) e um link direcionando o usuário
             // diretamente para a página de redefinir a senha recebida para uma nova senha.
             return redirect()->route('login.create-primeiroacesso', ['user' => Auth::user()->id])->with('warning', 'Olá '. Auth::user()->nome .', é necessário que você redefina sua senha!');
-        
+
         } else {
-        
+
             /* // Verifica se o usuário possui o papel "Super Admin"
             if($user->hasRole('Super Admin')){
                 // Recupera no banco TODAS as permissões, apenas o nome(pluck) em forma de array(toArray)
@@ -73,13 +73,13 @@ class LoginController extends Controller
                 // Obs: o usuário possui um papel, o papel possui permissões, portando obtém as permissões do usuári via papel
                 $permissions = $user->getPermissionsViaRoles()->pluck('name')->toArray();
             }
-    
+
             // Ao usuário é atribuída só as permissões que o mesmo possui.
             // Obs: o método "syscPermissions", recebe um array. "$permissions" é um array(... toArray())
             $user->syncPermissions($permissions);
             */
-    
-            // Redirecionar o usuário para o Dashboard, caso o mesmo seja autenticado 
+
+            // Redirecionar o usuário para o Dashboard, caso o mesmo seja autenticado
             // return redirect()->route('dashboard.index')->with('success', 'Seja bem vindo!');
             // Redireciona o usuário para a página dashboard e lá são exibidas os menus o que mesmo tem acesso
 
@@ -121,7 +121,7 @@ class LoginController extends Controller
             $passwordDb = $user->password;
             // Checa se a senha atual digitada e a senha cadastrada no banco coincidem
             $passwordChecked = Hash::check($request->passwordatual, $passwordDb);
-            
+
         } else {
             // Redirecionar o usuário, enviar a mensagem de erro
             return back()->withInput()->with('error', 'E-mail ou Senha atual não existente!');
@@ -137,8 +137,13 @@ class LoginController extends Controller
 
                 // Verifica se o usuário já está autenticado no sistema.
                 if (Auth::check()) {
+
+                    // Deslogar o usuário
+                    Auth::logout();
+
                     // Redirecionar o usuário, enviar a mensagem de sucesso
-                    return redirect()->route('login.logout')->with('success', 'Senha atualizada com sucesso!');
+                    // return redirect()->route('login.logout')->with('success', 'Senha atualizada com sucesso!');
+                    return redirect()->route('login.index')->with('success', 'Senha atualizada com sucesso!');
                 }
 
             } catch (Exception $e) {
@@ -168,5 +173,5 @@ class LoginController extends Controller
         return redirect()->route('login.index')->with('success', 'Deslogado com sucesso!');
 
     }
-    
+
 }
