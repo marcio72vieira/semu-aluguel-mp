@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="px-4 container-fluid">
-        <h2 class="mt-4">Dashboard</h2>
+        <h2 class="mt-4">Dashboard (obs: alterar nome do campo cujo texto do questionario foi alrerado)</h2>
 
         <div class="row">
             {{-- Regionais --}}
