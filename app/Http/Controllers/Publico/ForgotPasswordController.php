@@ -75,7 +75,7 @@ class ForgotPasswordController extends Controller
     public function showResetPassword(Request $request)
     {
         // Carregar a view
-        return view('login.resetPassword', ['token' => $request->token]);
+        return view('publico.login.resetPassword', ['token' => $request->token]);
         
     }
 

@@ -3,11 +3,12 @@
     <div class="col-lg-5">
         <div class="mt-5 border-0 rounded-lg shadow-lg card">
             <div class="card-header">
-                <h3 class="my-4 text-center font-weight-light">Recuperar Senha</h3>
+                {{-- <h3 class="my-4 text-center font-weight-light">Recuperar Senha</h3> --}}
             </div>
             <div class="card-body">
 
                 <x-alert />
+                <h3 style="margin-left: 140px; color:  #8d0376; ">Recuperar Senha</h3>
 
                 <form action="{{ route('forgot-password.submit') }}" method="POST">
                     @csrf
