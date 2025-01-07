@@ -17,9 +17,9 @@ class Acesso extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(array $data)
+    public function __construct(public readonly array $data)
     {
-        //
+        //dd($data);
     }
 
     /**

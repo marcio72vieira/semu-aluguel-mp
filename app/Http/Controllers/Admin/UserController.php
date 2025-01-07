@@ -99,6 +99,7 @@ class UserController extends Controller
                 'fromEmail' => 'semu@email.ma.gov.br',
                 'subject' => 'Credencias de Acesso ao Sistema de Aluguel Maria da Penha',
                 'message' => "Olá $request->nomecompleto, suas credencias para acesso ao sistema Aluguel Maria da Penha é: email $request->email, senha: $request->password"
+                //'message' => ['nomeUsuario' => $request->nomecompleto, 'emailUsuario' => $request->email, 'senhaUsuario' => $request->password ],
             ]));
 
             if($envioEmail){
@@ -115,7 +116,7 @@ class UserController extends Controller
         } catch (Exception $e) {
 
             // Mantém o usuário na mesma página(back), juntamente com os dados digitados(withInput) e enviando a mensagem correspondente.
-            return back()->withInput()->with('error-exception', 'Usuário não cadastrado. Tente mais tarde!');
+            return back()->withInput()->with('error-exception', 'Usuário não cadastrado. Tente mais tarde!'. $e->getMessage());
         }
     }
 
