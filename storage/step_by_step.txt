@@ -308,19 +308,19 @@ echo (explode(" ",$str)[0]);
 
 /// Exibe o nome do Assistente social e o nome do Servidor da SEMU que realizou a analise dos documentos se analisou. Se não, não mosta nada
  {{-- Se os documentos já foram analisados por alguém exibe seu nome, caso contrário, não exibe nada --}}
-@foreach ($requerente->documentos as $documento) 
+@foreach ($requerente->documentos as $documento)
     {{-- $documento->user->nomecompleto --}}
     @if ($documento->user->nomecompleto == $requerente->user->nomecompleto)
 
     @else
         {{ $documento->user->nomecompleto }}
     @endif
-    @if ($loop->first) @break @endif 
+    @if ($loop->first) @break @endif
 @endforeach
 
 // QUERYS
 // Obtendo a quantidade de requerente por sexobiologico no mês e ano corrente
-// No MySQL original 
+// No MySQL original
 SELECT COUNT(id) as quantidade, sexobiologico FROM requerentes WHERE MONTH(created_at) = 12 GROUP BY sexobiologico  ORDER BY COUNT(id) DESC;
 // No Laravel (FACADES DB)
 $records = DB::select("SELECT COUNT(id) as quantidade, sexobiologico as sexo FROM requerentes WHERE MONTH(created_at) = $mes_corrente  AND YEAR(created_at) = $ano_corrente GROUP BY sexobiologico ORDER BY COUNT(id) DESC");
@@ -335,10 +335,10 @@ marcio@vaio:~/projetosdocker/semu-aluguel-mp$ ./vendor/bin/sail composer require
     use Spatie\SimpleExcel\SimpleExcelWriter;
 
     No método,  utilizar conforme consta no método:  public function gerarexcel(Request $request)
-    
 
 
-/// MIGRATE ANTIGA TABELA PROCESSO 
+
+/// MIGRATE ANTIGA TABELA PROCESSO
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -366,7 +366,7 @@ return new class extends Migration
             $table->date('nascimento')->nullable();
             $table->string('naturalidade')->nullable();
             $table->string('nacionalidade')->nullable();
-            
+
             $table->string('rg')->nullable();
             $table->string('orgaoexpedidor')->nullable();
             $table->string('cpf')->nullable();
@@ -390,7 +390,7 @@ return new class extends Migration
             $table->integer('deficiente_id')->nullable();
             $table->string('deficiente')->nullable();
             $table->string('deficiencia')->nullable();
-            
+
             $table->integer('escolaridade_id')->nullable();
             $table->string('escolaridade')->nullable();
             $table->string('profissao')->nullable();
@@ -470,3 +470,25 @@ return new class extends Migration
         Schema::dropIfExists('processos');
     }
 };
+
+
+// Configurações de email
+Explicações Gerais:
+Requisição Rest
+Para envio de e-mails, deve ser enviada uma requisição POST para o endereço https://ext.api.email.seati.ma.gov.br/api/mensagens/enviar
+com o token_do_sistema no cabeçalho da requisição, Authorization:Basic token_do_sistema, com os dados no corpo da requisição utilizando
+o seguinte modelo de JSON:
+{
+  "destinatarios": ["email.destino@provedor.com.br"],
+  "assunto": "Insira aqui o Assunto do E-mail.",
+  "corpo": "Aqui vai o corpo da mesangem que pode utilizar <b>HTML</b>."
+}
+
+Para envio de e-mails com anexo, deve-se acrescentar ao modelo de JSON o seguinte objeto:
+{
+  ...
+  "anexo": [{
+    "nome": "Insira o nome do arquivo ou imagem aqui, com a extensão do arquivo.",
+    "conteudo": "Aqui vai o conteúdo do arquivo em <b>Base64</b>."
+  }]
+}

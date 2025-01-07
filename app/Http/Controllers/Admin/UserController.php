@@ -98,8 +98,7 @@ class UserController extends Controller
                 'fromName' => 'SEMU',
                 'fromEmail' => 'semu@email.ma.gov.br',
                 'subject' => 'Credencias de Acesso ao Sistema de Aluguel Maria da Penha',
-                'message' => "Olá $request->nomecompleto, suas credencias para acesso ao sistema Aluguel Maria da Penha é: email $request->email, senha: $request->password"
-                //'message' => ['nomeUsuario' => $request->nomecompleto, 'emailUsuario' => $request->email, 'senhaUsuario' => $request->password ],
+                'message' => "E-mail: $request->email Senha: $request->password"
             ]));
 
             if($envioEmail){
@@ -107,7 +106,7 @@ class UserController extends Controller
                 return redirect()->route('user.index')->with('success', 'Usuário cadastrado com sucesso!');
             } else {
                 // Redirecionar o usuário, enviar a mensagem de sucesso
-                return redirect()->route('user.index')->with('success', 'Usuário cadastrado com sucesso!');
+                return redirect()->route('user.index')->with('success', 'Usuário cadastrado com sucesso, mas houve falha no envio do E-mail!');
             }
 
             // Redirecionar o usuário, enviar a mensagem de sucesso
