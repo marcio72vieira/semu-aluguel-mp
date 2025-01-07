@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
+use App\Mail\Acesso;
 use App\Models\Municipio;
 use App\Models\Tipounidade;
 use App\Models\User;
@@ -12,6 +13,7 @@ use App\Models\Unidadeatendimento;
 use Exception;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -92,10 +94,23 @@ class UserController extends Controller
             /********************/
             // ENVIAR E-EMAIL   //
             /********************/
+            $envioEmail = Mail::to($request->email, $request->nomecompleto)->send(new Acesso([
+                'fromName' => 'SEMU',
+                'fromEmail' => 'semu@email.ma.gov.br',
+                'subject' => 'Credencias de Acesso ao Sistema de Aluguel Maria da Penha',
+                'message' => "Olá $request->nomecompleto, suas credencias para acesso ao sistema Aluguel Maria da Penha é: email $request->email, senha: $request->password"
+            ]));
 
+            if($envioEmail){
+                // Redirecionar o usuário, enviar a mensagem de sucesso
+                return redirect()->route('user.index')->with('success', 'Usuário cadastrado e E-mail enviado com sucesso!');
+            } else {
+                // Redirecionar o usuário, enviar a mensagem de sucesso
+                return redirect()->route('user.index')->with('success', 'Usuário cadastrado com sucesso!');
+            }
 
             // Redirecionar o usuário, enviar a mensagem de sucesso
-            return redirect()->route('user.index')->with('success', 'Usuário cadastrado com sucesso!');
+            // return redirect()->route('user.index')->with('success', 'Usuário cadastrado com sucesso!');
 
         } catch (Exception $e) {
 
