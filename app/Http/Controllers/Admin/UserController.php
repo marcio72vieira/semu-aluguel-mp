@@ -103,7 +103,7 @@ class UserController extends Controller
 
             if($envioEmail){
                 // Redirecionar o usuário, enviar a mensagem de sucesso
-                return redirect()->route('user.index')->with('success', 'Usuário cadastrado e E-mail enviado com sucesso!');
+                return redirect()->route('user.index')->with('success', 'Usuário cadastrado com sucesso!');
             } else {
                 // Redirecionar o usuário, enviar a mensagem de sucesso
                 return redirect()->route('user.index')->with('success', 'Usuário cadastrado com sucesso!');

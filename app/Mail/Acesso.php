@@ -5,6 +5,7 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
@@ -16,7 +17,7 @@ class Acesso extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(public readonly array $data)
+    public function __construct(array $data)
     {
         //
     }
@@ -27,8 +28,10 @@ class Acesso extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Acesso',
+            from: new Address('semu@email.ma.gov.br', 'SEMU'),
+            subject: 'Acesso ao Sistema Aluguel Maria da Penha',
         );
+        
     }
 
     /**
@@ -37,7 +40,7 @@ class Acesso extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            view: 'admin.users.mailacesso',
         );
     }
 
