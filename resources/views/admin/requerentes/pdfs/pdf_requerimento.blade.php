@@ -158,7 +158,7 @@
 
     <table  style="width: 717px; border-collapse: collapse;">
         <tr>
-            <td style="width: 317px;" class="label-ficha">Prazo da medida protetiva</td>
+            <td style="width: 317px;" class="label-ficha">Prazo da medida protetiva (em dias)</td>
             <td style="width: 400px;" class="label-ficha">Data em que concedida</td>
         </tr>
         <tr>
@@ -211,12 +211,12 @@
             <td style="width: 687px;" class="dados-normal">
                 {{-- A requerente não possui pais, avós, filhos ou netos maiores de idade, no mesmo município de sua residência?* Se sim, quais --}}
                 A requerente possui parentes em linha reta no município, porém não é viável o compartilhamento de domicílio nos termos do art 1º, VI, do Decreto 37.341, de 23 de dezembro de 2021 ? *
-                @if ($requerente->detalhe->paiavofilhonetomaiormesmomunicipresid == "1")
+                @if ($requerente->detalhe->possuiparenteporeminviavelcompartilhardomicilio == "1")
                     <br>
-                    <strong>{{ $requerente->detalhe->parentesmesmomunicipioresidencia }}</strong>
+                    <strong>{{ $requerente->detalhe->parentesinviavelcompartilhardomicilio }}</strong>
                 @endif
             </td>
-            <td style="width: 30px;" class="dados-normal">{{ $requerente->detalhe->paiavofilhonetomaiormesmomunicipresid == "1" ? "sim" : "não" }}</td>
+            <td style="width: 30px;" class="dados-normal">{{ $requerente->detalhe->possuiparenteporeminviavelcompartilhardomicilio == "1" ? "sim" : "não" }}</td>
         </tr>
         <tr>
             <td style="width: 687px;" class="dados-normal">A requerente possui filhos menores de idade?</td>
@@ -234,7 +234,7 @@
         </tr>
         <tr>
             <td style="width: 687px;" class="dados-normal">A requerente está cadastrada no Cadastro Único (CADUNICO)?*
-            
+
                 @if ($requerente->detalhe->temcadunico == "1")
                     <br>
                     <strong>R$ {{ mrc_turn_value($requerente->detalhe->valortemcadunico) }}</strong>
@@ -436,7 +436,7 @@
                 <br>
                 <br>
 
-                {{-- 
+                {{--
                 <span style="color: white">.................</span>Segue em anexo:
                 <br><br>
                 <span style="color: white">.................</span>Comprovante de residência de: {{ str_repeat("_", 70) }}
@@ -445,7 +445,7 @@
                 <br><br>
                 <span style="color: white">.................</span>Outros: {{ str_repeat("_", 94) }}
                 --}}
-                
+
                 <br>
                 <br>
                 <br>

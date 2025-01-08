@@ -16,7 +16,7 @@
 
             {{-- Este componente será acionado sempre que houver uma erro de exceção em: store, update ou delete --}}
             <x-errorexception />
-            
+
             <div class="col-5">
                 <div class="mb-4 shadow card border-light">
                     <div class="gap-2 card-header hstack">
@@ -24,7 +24,7 @@
                     </div>
 
                     <div class="card-body" style ="background-image: url('{{ asset("images/background_06_opct5.png")}}'); background-repeat: no-repeat; background-attachment: fixed; background-size: cover; background-size: 100% 100%;">
-                        
+
 
                         <dl class="row">
 
@@ -39,10 +39,10 @@
 
                             <dt class="col-sm-4">Data de nascimento</dt>
                             <dd class="col-sm-8">{{ mrc_turn_data($requerente->nascimento) }}</dd>
-                            
+
                             <dt class="col-sm-4">Naturalidade</dt>
                             <dd class="col-sm-8">{{ $requerente->naturalidade }}</dd>
-                            
+
                             <dt class="col-sm-4" style="margin-bottom:30px;">Nacionalidade</dt>
                             <dd class="col-sm-8">{{ $requerente->nacionalidade }}</dd>
 
@@ -79,7 +79,7 @@
 
                             <dt class="col-sm-4">Orientação Sexual</dt>
                             <dd class="col-sm-8">{{ $requerente->orientacaosexual == '20' ? $requerente->outraorientacaosexual : $arr_orientacaosexual[$requerente->orientacaosexual] }}</dd>
-                          
+
                             <dt class="col-sm-4" style="margin-bottom:30px;">Pessoa com deficiência</dt>
                             <dd class="col-sm-8">{{ $requerente->deficiente == '0' ? "Não" : $requerente->deficiencia }}</dd>
 
@@ -105,7 +105,7 @@
                             <dd class="col-sm-8">{{ $requerente->unidadeatendimento->nome }}</dd>
 
                             <dt class="col-sm-4">Responsável</dt>
-                            <dd class="col-sm-8">{{ $requerente->user->nomecompleto }}</dd>                            
+                            <dd class="col-sm-8">{{ $requerente->user->nomecompleto }}</dd>
                             <dt class="col-sm-4">Endereço</dt>
                             <dd class="col-sm-8">{{ $requerente->endereco }}</dd>
 
@@ -164,7 +164,7 @@
                             <dt class="col-sm-4" style="margin-bottom:30px;">Comarca</dt>
                             <dd class="col-sm-8">{{ $requerente->detalhe->comarca }}</dd>
 
-                            <dt class="col-sm-4">Prazo da medida protetiva</dt>
+                            <dt class="col-sm-4">Prazo da medida protetiva (em dias)</dt>
                             <dd class="col-sm-8">{{ mrc_turn_data($requerente->detalhe->prazomedidaprotetiva) }}</dd>
 
                             <dt class="col-sm-4" style="margin-bottom:100px;">Data em que foi concedida</dt>
@@ -203,12 +203,12 @@
                              <dt class="col-sm-11" style="margin-bottom:15px;">
                                 {{-- A requerente não possui pais, avós, filhos ou netos maiores de idade, no mesmo município de sua residência? Se sim, quais* --}}
                                 A requerente possui parentes em linha reta no município, porém não é viável o compartilhamento de domicílio nos termos do art 1º, VI, do Decreto 37.341, de 23 de dezembro de 2021 ? *
-                                @if ($requerente->detalhe->paiavofilhonetomaiormesmomunicipresid == "1")
+                                @if ($requerente->detalhe->possuiparenteporeminviavelcompartilhardomicilio == "1")
                                     <br>
-                                    <label style="color: green; font-size: 20px;">- {{ $requerente->detalhe->parentesmesmomunicipioresidencia }}</label>
+                                    <label style="color: green; font-size: 20px;">- {{ $requerente->detalhe->parentesinviavelcompartilhardomicilio }}</label>
                                 @endif
                              </dt>
-                            <dd class="col-sm-1" style="text-align: left">{{ $requerente->detalhe->paiavofilhonetomaiormesmomunicipresid == "1" ? "sim" : "não" }}</dd>
+                            <dd class="col-sm-1" style="text-align: left">{{ $requerente->detalhe->possuiparenteporeminviavelcompartilhardomicilio == "1" ? "sim" : "não" }}</dd>
 
 
                             {{-- item 2.6.9--}}

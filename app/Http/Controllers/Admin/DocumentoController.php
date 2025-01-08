@@ -275,15 +275,15 @@ class DocumentoController extends Controller
                     $processo->deficiente_id = $requerente->deficiente;
                     $processo->deficiente = $arr_padraosimnao[$requerente->deficiente];     //$arr_deficiente[$requerente->deficiente];
                     $processo->deficiencia = $requerente->deficiencia;
-                    
-                   
+
+
                     $processo->escolaridade_id = $requerente->escolaridade;
                     $processo->escolaridade = $arr_escolaridade[$requerente->escolaridade];
                     $processo->profissao = $requerente->profissao;
                     $processo->estadocivil_id = $requerente->estadocivil;
                     $processo->estadocivil = $arr_estadocivil[$requerente->estadocivil];
-                    
-                    
+
+
                     $processo->regional_id = $requerente->regional_id;
                     $processo->regional = $requerente->regional->nome;
                     $processo->municipio_id = $requerente->municipio_id;
@@ -309,7 +309,7 @@ class DocumentoController extends Controller
                     $processo->comarca = $requerente->detalhe->comarca;
                     $processo->prazomedidaprotetiva = $requerente->detalhe->prazomedidaprotetiva;
                     $processo->dataconcessaomedidaprotetiva = $requerente->detalhe->dataconcessaomedidaprotetiva;
-                    
+
                     $processo->medproturgcaminhaprogoficial_id = $requerente->detalhe->medproturgcaminhaprogoficial;
                     $processo->medproturgcaminhaprogoficial = $arr_padraosimnao[$requerente->detalhe->medproturgcaminhaprogoficial];
 
@@ -321,7 +321,7 @@ class DocumentoController extends Controller
 
                     $processo->riscvidaaguardmedproturg_id = $requerente->detalhe->riscvidaaguardmedproturg;
                     $processo->riscvidaaguardmedproturg = $arr_padraosimnao[$requerente->detalhe->riscvidaaguardmedproturg];
-                    
+
                     $processo->relatodescomprmedproturgagressor_id = $requerente->detalhe->relatodescomprmedproturgagressor;
                     $processo->relatodescomprmedproturgagressor = $arr_padraosimnao[$requerente->detalhe->relatodescomprmedproturgagressor];
 
@@ -332,10 +332,10 @@ class DocumentoController extends Controller
                     $processo->temrendfamiliardoissalconvivagressor = $arr_padraosimnao[$requerente->detalhe->temrendfamiliardoissalconvivagressor];
 
 
-                    $processo->paiavofilhonetomaiormesmomunicipresid_id = $requerente->detalhe->paiavofilhonetomaiormesmomunicipresid;
-                    $processo->paiavofilhonetomaiormesmomunicipresid = $arr_padraosimnao[$requerente->detalhe->paiavofilhonetomaiormesmomunicipresid];
-                    $processo->parentesmesmomunicipioresidencia = $requerente->detalhe->parentesmesmomunicipioresidencia;
-                    
+                    $processo->possuiparenteporeminviavelcompartilhardomicilio_id = $requerente->detalhe->possuiparenteporeminviavelcompartilhardomicilio;
+                    $processo->possuiparenteporeminviavelcompartilhardomicilio = $arr_padraosimnao[$requerente->detalhe->possuiparenteporeminviavelcompartilhardomicilio];
+                    $processo->parentesinviavelcompartilhardomicilio = $requerente->detalhe->parentesinviavelcompartilhardomicilio;
+
                     $processo->filhosmenoresidade_id = $requerente->detalhe->filhosmenoresidade;
                     $processo->filhosmenoresidade = $arr_padraosimnao[$requerente->detalhe->filhosmenoresidade];
 

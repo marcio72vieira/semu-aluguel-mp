@@ -184,12 +184,12 @@
 
                              {{-- item 2.6.8--}}
                              <dt class="col-sm-11" style="margin-bottom:15px;">A requerente não possui pais, avós, filhos ou netos maiores de idade, no mesmo município de sua residência? *
-                                @if ($requerente->detalhe->paiavofilhonetomaiormesmomunicipresid == "1")
+                                @if ($requerente->detalhe->possuiparenteporeminviavelcompartilhardomicilio == "1")
                                     <br>
-                                    - {{ $requerente->detalhe->parentesmesmomunicipioresidencia }}
+                                    - {{ $requerente->detalhe->parentesinviavelcompartilhardomicilio }}
                                 @endif
                              </dt>
-                            <dd class="col-sm-1" style="text-align: left">{{ $requerente->detalhe->paiavofilhonetomaiormesmomunicipresid == "1" ? "sim" : "não" }}</dd>
+                            <dd class="col-sm-1" style="text-align: left">{{ $requerente->detalhe->possuiparenteporeminviavelcompartilhardomicilio == "1" ? "sim" : "não" }}</dd>
 
 
                             {{-- item 2.6.9--}}

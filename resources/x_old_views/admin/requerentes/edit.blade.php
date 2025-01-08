@@ -287,7 +287,7 @@
 
                     {{-- FORMA ANTIGA
                     <div class="mb-3 row" style="margin-top:30px">
-                        
+
                         <label for="deficientenao" class="col-3 col-form-label">Pessoa com deficiência ? <span class="small text-danger">*</span></label>
                         <div class="col-3">
                             <div style="margin-top:5px">
@@ -747,31 +747,31 @@
 
                     {{-- item 2.6.8--}}
                     <div class="mb-2 row">
-                        <label for="paiavofilhonetomaiormesmomunicipresid" class="col-sm-8 col-form-label">
+                        <label for="possuiparenteporeminviavelcompartilhardomicilio" class="col-sm-8 col-form-label">
                             A requerente não possui pais, avós, filhos ou netos maiores de idade, no mesmo município de sua residência? *
                         </label>
                         <div class="col-sm-2">
                             <div style="margin-top: 10px;">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="paiavofilhonetomaiormesmomunicipresid" id="paiavofilhonetomaiormesmomunicipresidsim" value="1" {{old('paiavofilhonetomaiormesmomunicipresid', $requerente->detalhe->paiavofilhonetomaiormesmomunicipresid) == '1' ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="paiavofilhonetomaiormesmomunicipresidsim">Sim</label>
+                                    <input class="form-check-input" type="radio" name="possuiparenteporeminviavelcompartilhardomicilio" id="possuiparenteporeminviavelcompartilhardomiciliosim" value="1" {{old('possuiparenteporeminviavelcompartilhardomicilio', $requerente->detalhe->possuiparenteporeminviavelcompartilhardomicilio) == '1' ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="possuiparenteporeminviavelcompartilhardomiciliosim">Sim</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="paiavofilhonetomaiormesmomunicipresid" id="paiavofilhonetomaiormesmomunicipresidnao" value="0" {{old('paiavofilhonetomaiormesmomunicipresid', $requerente->detalhe->paiavofilhonetomaiormesmomunicipresid) == '0' ? 'checked' : '' }} >
-                                    <label class="form-check-label" for="paiavofilhonetomaiormesmomunicipresidnao">Não</label>
+                                    <input class="form-check-input" type="radio" name="possuiparenteporeminviavelcompartilhardomicilio" id="possuiparenteporeminviavelcompartilhardomicilionao" value="0" {{old('possuiparenteporeminviavelcompartilhardomicilio', $requerente->detalhe->possuiparenteporeminviavelcompartilhardomicilio) == '0' ? 'checked' : '' }} >
+                                    <label class="form-check-label" for="possuiparenteporeminviavelcompartilhardomicilionao">Não</label>
                                 </div>
                                 <br>
-                                @error('paiavofilhonetomaiormesmomunicipresid')
+                                @error('possuiparenteporeminviavelcompartilhardomicilio')
                                     <small style="color: red">{{ $message }}</small>
                                 @enderror
                             </div>
                         </div>
-                        {{-- parentesmesmomunicipioresidencia --}}
+                        {{-- parentesinviavelcompartilhardomicilio --}}
                         <div class="col-2">
                             <div class="form-group focused">
-                                <input type="text" class="form-control" style="visibility:hidden" id="parentesmesmomunicipioresidencia" name="parentesmesmomunicipioresidencia" value="{{ old('parentesmesmomunicipioresidencia', $requerente->detalhe->parentesmesmomunicipioresidencia) }}" placeholder="Quais">
-                                @error('parentesmesmomunicipioresidencia')
-                                    <small style="color: red"  id="msg_error_parentesmesmomunicipioresidencia">{{ $message }}</small>
+                                <input type="text" class="form-control" style="visibility:hidden" id="parentesinviavelcompartilhardomicilio" name="parentesinviavelcompartilhardomicilio" value="{{ old('parentesinviavelcompartilhardomicilio', $requerente->detalhe->parentesinviavelcompartilhardomicilio) }}" placeholder="Quais">
+                                @error('parentesinviavelcompartilhardomicilio')
+                                    <small style="color: red"  id="msg_error_parentesinviavelcompartilhardomicilio">{{ $message }}</small>
                                 @enderror
                             </div>
                         </div>
@@ -1065,23 +1065,23 @@
         });
 
 
-        // Torna visível o campo "parentesmesmomunicipioresidencia", caso o valor escolhido do radio(paiavofilhonetomaiormesmomunicipresid) seja 1.
-        if($("input[name='paiavofilhonetomaiormesmomunicipresid']:checked").val() == "1"){
-            $("#parentesmesmomunicipioresidencia").css("visibility","visible");
+        // Torna visível o campo "parentesinviavelcompartilhardomicilio", caso o valor escolhido do radio(possuiparenteporeminviavelcompartilhardomicilio) seja 1.
+        if($("input[name='possuiparenteporeminviavelcompartilhardomicilio']:checked").val() == "1"){
+            $("#parentesinviavelcompartilhardomicilio").css("visibility","visible");
         }
 
 
-        $("input[name='paiavofilhonetomaiormesmomunicipresid']").on("click", function() {
-            var paiavofilhonetomaiormesmomunicipresid = $("input[name='paiavofilhonetomaiormesmomunicipresid']:checked").val();
-            if(paiavofilhonetomaiormesmomunicipresid == "1"){
-                $("#parentesmesmomunicipioresidencia").css("visibility","visible");
-                $("#parentesmesmomunicipioresidencia").focus();
-                $("#parentesmesmomunicipioresidencia").attr("required");
+        $("input[name='possuiparenteporeminviavelcompartilhardomicilio']").on("click", function() {
+            var possuiparenteporeminviavelcompartilhardomicilio = $("input[name='possuiparenteporeminviavelcompartilhardomicilio']:checked").val();
+            if(possuiparenteporeminviavelcompartilhardomicilio == "1"){
+                $("#parentesinviavelcompartilhardomicilio").css("visibility","visible");
+                $("#parentesinviavelcompartilhardomicilio").focus();
+                $("#parentesinviavelcompartilhardomicilio").attr("required");
             }else{
-                $("#parentesmesmomunicipioresidencia").css("visibility","hidden");
-                $("#parentesmesmomunicipioresidencia").val("");
-                $("#parentesmesmomunicipioresidencia").removeAttr("required");
-                $("#msg_error_parentesmesmomunicipioresidencia").css("visibility","hidden");
+                $("#parentesinviavelcompartilhardomicilio").css("visibility","hidden");
+                $("#parentesinviavelcompartilhardomicilio").val("");
+                $("#parentesinviavelcompartilhardomicilio").removeAttr("required");
+                $("#msg_error_parentesinviavelcompartilhardomicilio").css("visibility","hidden");
             }
         });
 

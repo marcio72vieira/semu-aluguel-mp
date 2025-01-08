@@ -435,9 +435,9 @@ return new class extends Migration
             $table->boolean('sitvulnerabnaoconsegarcardespmoradia')->nullable();
             $table->integer('temrendfamiliardoissalconvivagressor_id')->nullable();
             $table->boolean('temrendfamiliardoissalconvivagressor')->nullable();
-            $table->integer('paiavofilhonetomaiormesmomunicipresid_id')->nullable();
-            $table->boolean('paiavofilhonetomaiormesmomunicipresid')->nullable();
-            $table->string('parentesmesmomunicipioresidencia')->nullable();
+            $table->integer('possuiparenteporeminviavelcompartilhardomicilio_id')->nullable();
+            $table->boolean('possuiparenteporeminviavelcompartilhardomicilio')->nullable();
+            $table->string('parentesinviavelcompartilhardomicilio')->nullable();
             $table->boolean('filhosmenoresidade')->nullable();
             $table->integer('trabalhaougerarenda_id')->nullable();
             $table->boolean('trabalhaougerarenda')->nullable();

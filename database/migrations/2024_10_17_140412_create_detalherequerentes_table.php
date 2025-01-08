@@ -26,8 +26,8 @@ return new class extends Migration
             $table->boolean('relatodescomprmedproturgagressor');
             $table->boolean('sitvulnerabnaoconsegarcardespmoradia');
             $table->boolean('temrendfamiliardoissalconvivagressor');
-            $table->boolean('paiavofilhonetomaiormesmomunicipresid');
-            $table->string('parentesmesmomunicipioresidencia')->nullable();
+            $table->boolean('possuiparenteporeminviavelcompartilhardomicilio');
+            $table->string('parentesinviavelcompartilhardomicilio')->nullable();
             $table->boolean('filhosmenoresidade');
             $table->boolean('trabalhaougerarenda');
             $table->decimal('valortrabalhorenda',12, 2)->default(0)->nullable();

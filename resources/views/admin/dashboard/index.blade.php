@@ -56,7 +56,7 @@
                 </form>
             </div>
             {{--    fim formulario baixar arquivo excel csv--}}
-            
+
         </div>
 
         <div class="row">
@@ -98,7 +98,7 @@
             {{-- Tipos de Unidades --}}
             <div class="col-xl-2 col-md-6">
                 <div class="mb-4 text-white card bg-primary">
-                    <div class="card-body"><strong>{{ $totMunicipios }} Tipos de Unidades</strong></div>
+                    <div class="card-body"><strong>{{ $totTipounidades }} Tipos de Unidades</strong></div>
                 </div>
             </div>
 
@@ -232,7 +232,7 @@
                     </div>
                     <div class="col-md-4">
                         {{-- <form action="{{ route('dashboard.gerarexcel') }}"  method="GET" class="form-inline" style="height: 35px;">
-                            
+
                             <div class="row">
                                 <div class="col-md-3" style="margin-left: 150px;">
                                     <select id="selectMesExcel" name="mesexcel"  class="form-control col-form-label-sm">

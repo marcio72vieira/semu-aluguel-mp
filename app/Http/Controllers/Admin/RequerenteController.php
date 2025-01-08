@@ -18,7 +18,7 @@ use Illuminate\Support\Str;
 
 class RequerenteController extends Controller
 {
-    
+
     public function index()
     {
         // Recuperando o Usuario authenticado
@@ -170,12 +170,12 @@ class RequerenteController extends Controller
                 'relatodescomprmedproturgagressor'          => $request->relatodescomprmedproturgagressor,
                 'sitvulnerabnaoconsegarcardespmoradia'      => $request->sitvulnerabnaoconsegarcardespmoradia,
                 'temrendfamiliardoissalconvivagressor'      => $request->temrendfamiliardoissalconvivagressor,
-                'paiavofilhonetomaiormesmomunicipresid'     => $request->paiavofilhonetomaiormesmomunicipresid,
-                'parentesmesmomunicipioresidencia'          => $request->parentesmesmomunicipioresidencia,
+                'possuiparenteporeminviavelcompartilhardomicilio'     => $request->possuiparenteporeminviavelcompartilhardomicilio,
+                'parentesinviavelcompartilhardomicilio'          => $request->parentesinviavelcompartilhardomicilio,
                 'filhosmenoresidade'                        => $request->filhosmenoresidade,
                 'trabalhaougerarenda'                       => $request->trabalhaougerarenda,
                 'valortrabalhorenda'                        => $valorTtrabalhoRendaTransformando,    // $request->valortrabalhorenda,
-                'temcadunico'                               => $request->temcadunico, 
+                'temcadunico'                               => $request->temcadunico,
                 'valortemcadunico'                          => $valorTemCadunicoTransformando,       // $request->valortemcadunico,
                 'teminteresformprofisdesenvolvhabilid'      => $request->teminteresformprofisdesenvolvhabilid,
                 'apresentoudocumentoidentificacao'          => $request->apresentoudocumentoidentificacao,
@@ -238,7 +238,7 @@ class RequerenteController extends Controller
 
     public function show(Requerente $requerente)
     {
-        
+
         $requerente =  Requerente::with(['detalhe','locacao'])->find($requerente->id);
 
         $arr_comunidade = ['1' => 'Cigano', '2' => 'Quilombola', '3' => 'Matriz Africana', '4' => 'Indígena', '5' => 'Assentado / acampado', '6' => 'Pessoa do campo / floresta', '7'  => 'Pessoa em situação de rua', '20' => 'Outra'];
@@ -367,7 +367,7 @@ class RequerenteController extends Controller
                 'tipounidade_id'            => $idTipoUnidadeRequerente,
                 'unidadeatendimento_id'     => $idUnidadeatendimentoRequerente,
                 'user_id'                   => $idUsuarioRequerente,
-                'estatus'                    => 1   // Situação do requerimento: 1 - Andamento 2 - Análise 3 - Pendente 4 - Corrigido 5 - Concluído  
+                'estatus'                    => 1   // Situação do requerimento: 1 - Andamento 2 - Análise 3 - Pendente 4 - Corrigido 5 - Concluído
             ]);
 
             $requerente->detalhe()->update([
@@ -384,8 +384,8 @@ class RequerenteController extends Controller
                 'relatodescomprmedproturgagressor'          => $request->relatodescomprmedproturgagressor,
                 'sitvulnerabnaoconsegarcardespmoradia'      => $request->sitvulnerabnaoconsegarcardespmoradia,
                 'temrendfamiliardoissalconvivagressor'      => $request->temrendfamiliardoissalconvivagressor,
-                'paiavofilhonetomaiormesmomunicipresid'     => $request->paiavofilhonetomaiormesmomunicipresid,
-                'parentesmesmomunicipioresidencia'          => $request->parentesmesmomunicipioresidencia,
+                'possuiparenteporeminviavelcompartilhardomicilio'     => $request->possuiparenteporeminviavelcompartilhardomicilio,
+                'parentesinviavelcompartilhardomicilio'          => $request->parentesinviavelcompartilhardomicilio,
                 'filhosmenoresidade'                        => $request->filhosmenoresidade,
                 'trabalhaougerarenda'                       => $request->trabalhaougerarenda,
                 'valortrabalhorenda'                        => $valorTtrabalhoRendaTransformando,    // $request->valortrabalhorenda,

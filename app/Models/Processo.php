@@ -28,7 +28,7 @@ class Processo extends Model
         'conta',
         'contaespecifica_id',   // recebe 0 ou 1
         'contaespecifica',      // recebe "não ou sim"
-        
+
         'comunidade_id',        // recebe o valor numérico da comunidade
         'comunidade',           // recebe o valor string da comunidade
         'outracomunidade',      // recebe o valor string da outracomunidade
@@ -96,9 +96,9 @@ class Processo extends Model
         'temrendfamiliardoissalconvivagressor_id',
         'temrendfamiliardoissalconvivagressor',
 
-        'paiavofilhonetomaiormesmomunicipresid_id',
-        'paiavofilhonetomaiormesmomunicipresid',
-        'parentesmesmomunicipioresidencia',
+        'possuiparenteporeminviavelcompartilhardomicilio_id',
+        'possuiparenteporeminviavelcompartilhardomicilio',
+        'parentesinviavelcompartilhardomicilio',
 
         'filhosmenoresidade_id',
         'filhosmenoresidade',

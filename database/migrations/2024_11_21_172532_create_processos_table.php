@@ -25,7 +25,7 @@ return new class extends Migration
             $table->date('nascimento')->nullable();
             $table->string('naturalidade')->nullable();
             $table->string('nacionalidade')->nullable();
-            
+
             $table->string('rg')->nullable();
             $table->string('orgaoexpedidor')->nullable();
             $table->string('cpf')->nullable();
@@ -50,7 +50,7 @@ return new class extends Migration
             $table->integer('deficiente_id')->nullable();
             $table->string('deficiente')->nullable();
             $table->string('deficiencia')->nullable();
-            
+
             $table->integer('escolaridade_id')->nullable();
             $table->string('escolaridade')->nullable();
             $table->string('profissao')->nullable();
@@ -103,9 +103,9 @@ return new class extends Migration
             $table->tinyInteger('temrendfamiliardoissalconvivagressor_id')->nullable();
             $table->tinyText('temrendfamiliardoissalconvivagressor')->nullable();
 
-            $table->tinyInteger('paiavofilhonetomaiormesmomunicipresid_id')->nullable();
-            $table->tinyText('paiavofilhonetomaiormesmomunicipresid')->nullable();
-            $table->string('parentesmesmomunicipioresidencia')->nullable();
+            $table->tinyInteger('possuiparenteporeminviavelcompartilhardomicilio_id')->nullable();
+            $table->tinyText('possuiparenteporeminviavelcompartilhardomicilio')->nullable();
+            $table->string('parentesinviavelcompartilhardomicilio')->nullable();
 
             $table->tinyInteger('filhosmenoresidade_id')->nullable();
             $table->tinyText('filhosmenoresidade')->nullable();

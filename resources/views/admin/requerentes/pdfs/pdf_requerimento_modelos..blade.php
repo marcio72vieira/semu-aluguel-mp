@@ -203,12 +203,12 @@
         </tr>
         <tr>
             <td style="width: 687px;" class="dados-normal">A requerente não possui pais, avós, filhos ou netos maiores de idade, no mesmo município de sua residência?* Se sim, quais
-                @if ($requerente->detalhe->paiavofilhonetomaiormesmomunicipresid == "1")
+                @if ($requerente->detalhe->possuiparenteporeminviavelcompartilhardomicilio == "1")
                     <br>
-                    <strong>{{ $requerente->detalhe->parentesmesmomunicipioresidencia }}</strong>
+                    <strong>{{ $requerente->detalhe->parentesinviavelcompartilhardomicilio }}</strong>
                 @endif
             </td>
-            <td style="width: 30px;" class="dados-normal">{{ $requerente->detalhe->paiavofilhonetomaiormesmomunicipresid == "1" ? "sim" : "não" }}</td>
+            <td style="width: 30px;" class="dados-normal">{{ $requerente->detalhe->possuiparenteporeminviavelcompartilhardomicilio == "1" ? "sim" : "não" }}</td>
         </tr>
         <tr>
             <td style="width: 687px;" class="dados-normal">A requerente possui filhos menores de idade?</td>
@@ -306,7 +306,7 @@
             </td>
         </tr>
     </table>
-    
+
     <table style="width: 717px; border-collapse: collapse;">
         <tr>
             <td colspan="4" style="width: 717px; font-size: 10px; font-family: Arial, Helvetica, sans-serif; font-style: italic; font-weight: bold;">
@@ -408,26 +408,26 @@
                 <br>
                 <br>
                 <span style="color: white">.................</span>
-                Eu <strong>{{ $requerente->nomecompleto}}</strong>, 
+                Eu <strong>{{ $requerente->nomecompleto}}</strong>,
                 portadora do  RG nº <strong>{{ $requerente->rg }} {{ $requerente->orgaoexpedidor }}</strong> e do
-                CPF nº <strong>{{ $requerente->cpf }}</strong>, declaro para todos os fins de direito e sob as penas da lei, que não possuo parentes 
-                até o segundo grau, em linha reta, ascendente ou descendente (pais, avós, filhos ou netos), no mesmo Município de minha residência, 
+                CPF nº <strong>{{ $requerente->cpf }}</strong>, declaro para todos os fins de direito e sob as penas da lei, que não possuo parentes
+                até o segundo grau, em linha reta, ascendente ou descendente (pais, avós, filhos ou netos), no mesmo Município de minha residência,
                 nos termos do art. 2º, IV, da Lei Estadual nº 11.350, de 02 de outubro de 2020.
                 <br>
                 <br>
                 <span style="color: white">.................</span>
-                Declaro, ainda, ter conhecimento de que a falsidade da afirmação supracitada ensejará as penalidades previstas no art. 299 do Código Penal, 
-                como também implicará na suspensão do benefício concedido, intitulado “Aluguel Maria da Penha”, instituído pela Lei Estadual nº 11.350, 
+                Declaro, ainda, ter conhecimento de que a falsidade da afirmação supracitada ensejará as penalidades previstas no art. 299 do Código Penal,
+                como também implicará na suspensão do benefício concedido, intitulado “Aluguel Maria da Penha”, instituído pela Lei Estadual nº 11.350,
                 de 02 de outubro de 2020.
                 <br>
                 <br>
                 <span style="color: white">.................</span>Segue em anexo:
                 <br><br>
-                <span style="color: white">.................</span>Comprovante de residência de: {{ str_repeat("_", 70) }} 
+                <span style="color: white">.................</span>Comprovante de residência de: {{ str_repeat("_", 70) }}
                 <br><br>
-                <span style="color: white">.................</span>Certidão de óbito de: {{ str_repeat("_", 80) }} 
+                <span style="color: white">.................</span>Certidão de óbito de: {{ str_repeat("_", 80) }}
                 <br><br>
-                <span style="color: white">.................</span>Outros: {{ str_repeat("_", 94) }} 
+                <span style="color: white">.................</span>Outros: {{ str_repeat("_", 94) }}
                 <br>
                 <br>
                 <br>
@@ -451,7 +451,7 @@
             </td>
         </tr>
     </table>
-    
+
 
     <pagebreak />
 
@@ -471,8 +471,8 @@
         <tr>
             <td style="width: 717px; text-align:justify" class="dados-declaracao">
                 <br>
-                O(A) LOCADOR(A) {{ str_repeat("_", 70) }} e a LOCATÁRIA <strong>{{ $requerente->nomecompleto }}</strong> 
-                qualificados(as) abaixo, celebram o presente “Instrumento Particular de Contrato de Locação”, o qual será 
+                O(A) LOCADOR(A) {{ str_repeat("_", 70) }} e a LOCATÁRIA <strong>{{ $requerente->nomecompleto }}</strong>
+                qualificados(as) abaixo, celebram o presente “Instrumento Particular de Contrato de Locação”, o qual será
                 regido pelo disposto nas Leis Federais nº 8.245/1991 e 10.406/2002, comprometendo-se a cumprir as cláusulas e condições seguintes:
             </td>
         </tr>
@@ -482,11 +482,11 @@
                 <strong>CLÁUSULA PRIMEIRA - DA QUALIFICAÇÃO DAS PARTES</strong>
                 <br>
                 <strong>LOCADOR(A):</strong>
-                {{ str_repeat("_", 105) }} 
+                {{ str_repeat("_", 105) }}
                 portador do RG nº {{ str_repeat("_", 30) }} e CPF/MF nº {{ str_repeat("_", 30) }}, residente e domiciliado(a) na (Rua), (número), (bairro), (Cidade), (Estado);
                 <br>
                 <strong>LOCATÁRIA:</strong>
-                {{ str_repeat("_", 105) }} 
+                {{ str_repeat("_", 105) }}
                 portador do RG nº {{ str_repeat("_", 30) }} e CPF/MF nº {{ str_repeat("_", 30) }}, residente e domiciliado(a) na (Rua), (número), (bairro), (Cidade), (Estado);
             </td>
         </tr>
@@ -496,12 +496,12 @@
                 <strong>CLÁUSULA SEGUNDA - OBJETO</strong>
                 <br>
                 Por meio do presente contrato de locação, o(a) LOCADOR(A) entrega à LOCATÁRIA a posse e o uso do imóvel situado na {{ str_repeat("_", 105) }}, fazendo jus, em contrapartida, ao pagamento dos valores de aluguel.
-        
+
                 <br><br><br>
                 <strong>CLÁUSULA TERCEIRA - PRAZO DE LOCAÇÃO</strong>
                 <br>
-                O contrato vigorará pelo prazo de _______ ({{ str_repeat("_", 20) }}) meses, tendo início em ______/______/___________ e término previsto 
-                para o dia _______/______/___________  após o que deverá esta restituir o imóvel ao (à) <strong>LOCADOR(A)</strong>, no estado em que recebeu, salvo as 
+                O contrato vigorará pelo prazo de _______ ({{ str_repeat("_", 20) }}) meses, tendo início em ______/______/___________ e término previsto
+                para o dia _______/______/___________  após o que deverá esta restituir o imóvel ao (à) <strong>LOCADOR(A)</strong>, no estado em que recebeu, salvo as
                 deteriorações decorrentes do uso normal.
             </td>
         </tr>
@@ -515,16 +515,16 @@
         <tr>
             <td style="width: 717px; text-align:justify" class="dados-declaracao">
                 <br>
-                <strong>CLÁUSULA QUARTA – DO VALOR</strong> 
+                <strong>CLÁUSULA QUARTA – DO VALOR</strong>
                 <br>
-                Pagará a LOCATÁRIA ao(à) LOCADOR(A) o valor mensal, fixo e irreajustável, de R$ ________________________ 
-                (____________________________________________________), a título de aluguel.            
+                Pagará a LOCATÁRIA ao(à) LOCADOR(A) o valor mensal, fixo e irreajustável, de R$ ________________________
+                (____________________________________________________), a título de aluguel.
             </td>
         </tr>
         <tr>
             <td style="width: 717px; text-align:justify" class="dados-declaracao">
                 <br>
-                <strong>CLÁUSULA QUINTA - USO E DESTINAÇÃO DA LOCAÇÃO</strong> 
+                <strong>CLÁUSULA QUINTA - USO E DESTINAÇÃO DA LOCAÇÃO</strong>
                 <br>
                 Poderão ser de responsabilidade da <strong>LOCATÁRIA</strong> os encargos da locação abaixo:<br>
                 a) conta/taxa de luz;<br>
@@ -538,8 +538,8 @@
                 <br>
                 <strong>CLÁUSULA SEXTA - USO E DESTINAÇÃO DA LOCAÇÃO</strong>
                 <br>
-                A <strong>LOCATÁRIA</strong> obriga-se a manter o imóvel locado em boas condições de higiene, limpeza e conservação, 
-                bem como em perfeito estado as suas instalações elétricas e hidráulicas, a fim de restituí-lo no estado em que o recebeu, 
+                A <strong>LOCATÁRIA</strong> obriga-se a manter o imóvel locado em boas condições de higiene, limpeza e conservação,
+                bem como em perfeito estado as suas instalações elétricas e hidráulicas, a fim de restituí-lo no estado em que o recebeu,
                 salvo as deteriorações decorrentes do uso normal.
             </td>
         </tr>
@@ -547,7 +547,7 @@
             <td style="width: 717px; text-align:justify" class="dados-declaracao">
                 <br>
                 <strong>PARÁGRAFO ÚNICO</strong>
-                A <strong>LOCATÁRIA</strong> só poderá realizar melhorias necessárias no imóvel, mediante autorização prévia e expressa do LOCADOR, 
+                A <strong>LOCATÁRIA</strong> só poderá realizar melhorias necessárias no imóvel, mediante autorização prévia e expressa do LOCADOR,
                 devendo ser reembolsada pelos gastos que incorrer.
             </td>
         </tr>
@@ -556,7 +556,7 @@
                 <br>
                 <strong>CLÁUSULA	SÉTIMA - RESCISÃO	POR	INADIMPLEMENTO	E	OU DESOCUPAÇÃO ANTECIPADA</strong>
                 <br>
-                A LOCATÁRIA poderá devolver o Imóvel ao LOCADOR antecipadamente, desde que comunique a este a sua intenção, por escrito, 
+                A LOCATÁRIA poderá devolver o Imóvel ao LOCADOR antecipadamente, desde que comunique a este a sua intenção, por escrito,
                 com, no mínimo, 30 (trinta) dias de antecedência da data da pretendida devolução.
             </td>
         </tr>
@@ -564,8 +564,8 @@
             <td style="width: 717px; text-align:justify" class="dados-declaracao">
                 <br>
                 <strong>PARÁGRAFO ÚNICO</strong>
-                Este Contrato poderá ser resolvido na hipótese de inadimplemento culposo de obrigação legal ou contratual, desde que a parte inocente 
-                notifique à infratora, concedendo-lhe o prazo de 15 (quinze) dias para sanar o inadimplemento, que, após o seu transcurso, ensejará a 
+                Este Contrato poderá ser resolvido na hipótese de inadimplemento culposo de obrigação legal ou contratual, desde que a parte inocente
+                notifique à infratora, concedendo-lhe o prazo de 15 (quinze) dias para sanar o inadimplemento, que, após o seu transcurso, ensejará a
                 resolução do Contrato de pleno direito.
             </td>
         </tr>
@@ -574,36 +574,36 @@
                 <br>
                 <strong>CLÁUSULA OITAVA - DAS DISPOSIÇÕES GERAIS</strong>
                 <br>
-                Este  Contrato  obriga  as  partes,  seus  herdeiros  e  sucessores,  sendo  vedado  à <strong>LOCATÁRIA</strong> transferir, sublocar, 
+                Este  Contrato  obriga  as  partes,  seus  herdeiros  e  sucessores,  sendo  vedado  à <strong>LOCATÁRIA</strong> transferir, sublocar,
                 ceder ou emprestar o imóvel, objeto da locação.
             </td>
         </tr>
         <tr>
             <td style="width: 717px; text-align:justify" class="dados-declaracao">
                 <br>
-                <strong>PARÁGRAFO PRIMEIRO</strong> - O LOCADOR tem direito de vistoriar e visitar o imóvel a qualquer tempo, mediante prévia combinação 
+                <strong>PARÁGRAFO PRIMEIRO</strong> - O LOCADOR tem direito de vistoriar e visitar o imóvel a qualquer tempo, mediante prévia combinação
                 do dia e hora com a <strong>LOCATÁRIA.</strong>
             </td>
         </tr>
         <tr>
             <td style="width: 717px; text-align:justify" class="dados-declaracao">
                 <br>
-                <strong>PARÁGRAFO SEGUNDO</strong> - O Estado do Maranhão não integrará, a qualquer título, a relação contratual entre a LOCATÁRIA e o LOCADOR, 
+                <strong>PARÁGRAFO SEGUNDO</strong> - O Estado do Maranhão não integrará, a qualquer título, a relação contratual entre a LOCATÁRIA e o LOCADOR,
                 não gerando qualquer responsabilidade solidária ou subsidiária do Poder Público perante estes.
             </td>
         </tr>
         <tr>
             <td style="width: 717px; text-align:justify" class="dados-declaracao">
                 <br>
-                <strong>PARÁGRAFO TERCEIRO</strong> - As partes elegem o foro da comarca de (Cidade)/MA, para dirimir quaisquer controvérsias oriundas 
-                do presente instrumento.    
+                <strong>PARÁGRAFO TERCEIRO</strong> - As partes elegem o foro da comarca de (Cidade)/MA, para dirimir quaisquer controvérsias oriundas
+                do presente instrumento.
             </td>
         </tr>
         <tr>
             <td style="width: 717px; text-align:justify" class="dados-declaracao">
                 <br>
-                Por estarem assim justos e contratados, firmam as partes o presente instrumento, em duas vias de igual teor e forma, na presença das 02 (duas) 
-                testemunhas abaixo.            
+                Por estarem assim justos e contratados, firmam as partes o presente instrumento, em duas vias de igual teor e forma, na presença das 02 (duas)
+                testemunhas abaixo.
             </td>
         </tr>
         <tr>
@@ -613,7 +613,7 @@
                 <br><br>
                 Cidade                   dia/mês/ano
                 <br><br><br><br>
-    
+
                 ________________________________________________________
                 <br>
                 Assinatura do Locador
@@ -668,10 +668,10 @@
                 <span style="color: white">.................</span>
                 Eu, {{ str_repeat("_", 80) }} portador(a) do RG nº {{ str_repeat("_", 30) }} e do CPF nº {{ str_repeat("_", 30) }}, responsável legal pela
                 empresa (se possuir) {{ str_repeat("_", 70) }}, CNPJ nº {{ str_repeat("_", 30) }}, declaro para todos os fins de direito e sob as penas da
-                lei, que HOSPEDO a Srª <strong>{{ $requerente->nomecompleto}}</strong>, portadora do  RG nº <strong>{{ $requerente->rg }} 
+                lei, que HOSPEDO a Srª <strong>{{ $requerente->nomecompleto}}</strong>, portadora do  RG nº <strong>{{ $requerente->rg }}
                 {{ $requerente->orgaoexpedidor }}</strong> e do CPF nº <strong>{{ $requerente->cpf }}</strong>, no endereço situado na Rua
-                {{ str_repeat("_", 70) }} nº {{ str_repeat("_", 10) }}, Bairro {{ str_repeat("_", 35) }} na Cidade de {{ str_repeat("_", 30) }}, 
-                CEP: {{ str_repeat("_", 12) }}, no Estado  do  Maranhão, desde _____/_____/________, até _____/_____/________, com pagamento da hospedagem 
+                {{ str_repeat("_", 70) }} nº {{ str_repeat("_", 10) }}, Bairro {{ str_repeat("_", 35) }} na Cidade de {{ str_repeat("_", 30) }},
+                CEP: {{ str_repeat("_", 12) }}, no Estado  do  Maranhão, desde _____/_____/________, até _____/_____/________, com pagamento da hospedagem
                 no valor mensal de R$ {{ str_repeat("_", 25) }} ({{ str_repeat("_", 27) }}<br>{{ str_repeat("_", 80) }}).
                 <br><br>
             </td>
@@ -679,8 +679,8 @@
         <tr>
             <td style="width: 717px; text-align:justify" class="dados-declaracao">
                 <span style="color: white">.................</span>
-                Assim, por ser esta a fiel expressão da verdade, assino a presente declaração, ciente de que que a falsidade das informações acima sujeitará 
-                às penalidades legais previstas no art. 299, do Código Penal, como também implicará na suspensão do benefício concedido à Locatária, 
+                Assim, por ser esta a fiel expressão da verdade, assino a presente declaração, ciente de que que a falsidade das informações acima sujeitará
+                às penalidades legais previstas no art. 299, do Código Penal, como também implicará na suspensão do benefício concedido à Locatária,
                 intitulado “Aluguel Maria da Penha”, instituído pela Lei nº 11.350, de 02 de outubro de 2020.
                 <br>
                 <br>
@@ -708,7 +708,7 @@
             <td>
         </tr>
     </table>
-    
+
 </body>
 </html>
 
