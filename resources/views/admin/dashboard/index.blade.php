@@ -3,7 +3,61 @@
 @section('content')
 
     <div class="px-4 container-fluid">
-        <h2 class="mt-4">Dashboard (obs: alterar nome do campo cujo texto do questionario foi alrerado)</h2>
+        <div class="mb-1 hstack gap-5 justify-content-between">
+            {{-- (obs: alterar nome do campo cujo texto do questionario foi alrerado) --}}
+            <h2 class="mt-4">Dashboard </h2>
+
+            {{-- inicio formulario baixar arquivo excel csv--}}
+            <div class="col-md-4">
+                <form action="{{ route('dashboard.gerarexcel') }}"  method="GET" class="form-inline" style="margin-top: 10px;">
+                    {{-- <span><strong>&nbsp;&nbsp;Gerar arquivo:</strong> &nbsp;&nbsp;</span> --}}
+                    <div class="row">
+                        <div class="col-md-2" style="margin-left: 165px;">
+                            <select id="selectMesExcel" name="mesexcel"  class="form-control col-form-label-sm" style="margin-left: 5px;">
+                                <option value="0">Mês...</option>
+                                @foreach($mesespesquisa as $key => $value)
+                                    {{-- Obs: Os índices dos mêses são 1, 2, 3 ... 12 (sem zeros à esquerda) que corresponde exatamente aos seus índices, vindo do controller e seus valores são: Janeiro, Fevereiro, Março ... Dezembro, por isso a necessidade usarmos o parâmetro $key --}}
+                                    {{-- <option value="{{ $value}}" {{date('n') == $key ? 'selected' : ''}} data-mespesquisa="{{$key}}" class="optionMesPesquisa"> {{ $value }} </option>  OU --}}
+                                    <option value="{{ $key }}" {{date('n') == $key ? 'selected' : ''}} class="optionMesPesquisa"> {{ $value }} </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="col-md-2">
+                            <select id="selectAnoExcel"  name="anoexcel" class="form-control col-form-label-sm" style="margin-left: 5px;">
+                                <option value="0" selected disabled>Ano...</option>
+                                @foreach($anospesquisa as $value)
+                                    <option value="{{ $value }}" {{date('Y') == $value ? 'selected' : ''}} class="optionAnoPesquisa"> {{ $value }} </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="col-md-2">
+                            <select id="selectTipoExcelCsv"  name="tipoexcelcsv" class="form-control" style="margin-left: 5px;">
+                                <option value="0" selected>Tipo...</option>
+                                <option value="1" class="optionAnoPesquisa"><b>EXCEL</b> </option>
+                                <option value="2" class="optionAnoPesquisa"><b>CSV</b> </option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-3">
+                            <button type="submit" class="mb-2 btn btn-success btn-sm form-control col-form-label-sm" style="margin-top: 3px;">
+                                <i class="fas fa-download"></i>
+                                <b>Gerar arquivo</b>
+                            </button>
+                        </div>
+                        {{--
+                        <a class="btn btn-primary btn-success form-control col-form-label-sm" href="{{route('admin.dashboard.gerarexcel')}}" role="button"   title="gerar excel">
+                            <i class="far fa-file-excel"></i>
+                            <b>Gerar Excel</b>
+                        </a>
+                        --}}
+                    </div>
+                </form>
+            </div>
+            {{--    fim formulario baixar arquivo excel csv--}}
+            
+        </div>
 
         <div class="row">
             {{-- Regionais --}}
@@ -177,15 +231,13 @@
                         PROCESSOS
                     </div>
                     <div class="col-md-4">
-                        <form action="{{ route('dashboard.gerarexcel') }}"  method="GET" class="form-inline" style="height: 35px;">
-                            {{-- <span><strong>&nbsp;&nbsp;Gerar arquivo:</strong> &nbsp;&nbsp;</span> --}}
+                        {{-- <form action="{{ route('dashboard.gerarexcel') }}"  method="GET" class="form-inline" style="height: 35px;">
+                            
                             <div class="row">
                                 <div class="col-md-3" style="margin-left: 150px;">
                                     <select id="selectMesExcel" name="mesexcel"  class="form-control col-form-label-sm">
                                         <option value="0">Mês...</option>
                                         @foreach($mesespesquisa as $key => $value)
-                                            {{-- Obs: Os índices dos mêses são 1, 2, 3 ... 12 (sem zeros à esquerda) que corresponde exatamente aos seus índices, vindo do controller e seus valores são: Janeiro, Fevereiro, Março ... Dezembro, por isso a necessidade usarmos o parâmetro $key --}}
-                                            {{-- <option value="{{ $value}}" {{date('n') == $key ? 'selected' : ''}} data-mespesquisa="{{$key}}" class="optionMesPesquisa"> {{ $value }} </option>  OU --}}
                                             <option value="{{ $key }}" {{date('n') == $key ? 'selected' : ''}} class="optionMesPesquisa"> {{ $value }} </option>
                                         @endforeach
                                     </select>
@@ -214,14 +266,8 @@
                                         <b>Baixar</b>
                                     </button>
                                 </div>
-                                {{--
-                                <a class="btn btn-primary btn-success form-control col-form-label-sm" href="{{route('admin.dashboard.gerarexcel')}}" role="button"   title="gerar excel">
-                                    <i class="far fa-file-excel"></i>
-                                    <b>Gerar Excel</b>
-                                </a>
-                                --}}
                             </div>
-                        </form>
+                        </form> --}}
                     </div>
                 </div>
             </div>
