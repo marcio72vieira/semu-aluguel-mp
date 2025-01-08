@@ -256,12 +256,24 @@ class DashboardController extends Controller
 
             // Definindo a query
             if($mes == 0){
-                $records = DB::table('processos')->selectRaw('id, nomecompleto')->whereYear('created_at', $ano)->get();
+                $records = DB::table('processos')->selectRaw(
+                    'id, nomecompleto, sexobiologico, DATE_FORMAT(nascimento,"%d/%m/%Y") AS nascimento, naturalidade, nacionalidade, 
+                    rg, orgaoexpedidor, cpf, banco, agencia, conta, contaespecifica_id, contaespecifica')
+                    ->whereYear('created_at', $ano)
+                    ->get();
             }else{
-                $records = DB::table('processos')->selectRaw('id, nomecompleto')->whereMonth('created_at', $mes)->whereYear('created_at', $ano)->get();
+                $records = DB::table('processos')->selectRaw(
+                    'id, nomecompleto, sexobiologico, DATE_FORMAT(nascimento,"%d/%m/%Y") AS nascimento, naturalidade, nacionalidade, 
+                    rg, orgaoexpedidor, cpf, banco, agencia, conta, contaespecifica_id, contaespecifica')
+                ->whereMonth('created_at', $mes)
+                ->whereYear('created_at', $ano)
+                ->get();
             }
 
-            $writer = SimpleExcelWriter::streamDownload("semualuguelmp_$referencia.$tipoextensao")->addHeader(['Registro', 'Nome']);
+            $writer = SimpleExcelWriter::streamDownload("semualuguelmp_$referencia.$tipoextensao")->addHeader([
+                'Registro', 'Nome', 'Sexo Biológico', 'Data Nascimento', 'Naturalidade', 'Nacionalidade',
+                'RG', 'Órgão Expedidor', 'CPF', 'Banco', 'Ag.', 'C/C', 'ContaEspecifica ID', 'Conta Específica'
+            ]);
 
             // Contador para esvaziar buffer com flush()
             $countbuffer = 1;
@@ -270,6 +282,19 @@ class DashboardController extends Controller
                 $writer->addRow([
                     'id' => $record->id,
                     'nomecompleto' => $record->nomecompleto,
+                    'sexobiologico' => $record->sexobiologico,
+                    'nascimento' => $record->nascimento,
+                    'naturalidade' => $record->naturalidade,
+                    'nacionalidade' => $record->nacionalidade,
+
+                    'rg' => $record->rg,
+                    'orgaoexpedidor' => $record->orgaoexpedidor,
+                    'cpf' => $record->cpf,
+                    'banco' => $record->banco,
+                    'agencia' => $record->agencia,
+                    'conta' => $record->conta,
+                    'contaespecifica_id' => $record->contaespecifica_id,
+                    'contaespecifica' => $record->contaespecifica,
                 ]);
 
                 // Limpa o buffer a cada mil linhas

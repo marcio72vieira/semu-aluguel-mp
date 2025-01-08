@@ -32,7 +32,8 @@ return new class extends Migration
             $table->string('banco')->nullable();
             $table->string('agencia')->nullable();
             $table->string('conta')->nullable();
-            $table->boolean('contaespecifica')->nullable();
+            $table->integer('contaespecifica_id')->nullable();
+            $table->string('contaespecifica')->nullable();
 
             $table->integer('comunidade_id')->nullable();
             $table->string('comunidade')->nullable();

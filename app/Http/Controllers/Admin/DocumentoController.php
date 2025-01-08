@@ -246,6 +246,7 @@ class DocumentoController extends Controller
                     $processo->nomecompleto = $requerente->nomecompleto;
                     $processo->sexobiologico = $requerente->sexobiologico;
                     $processo->nascimento = $requerente->nascimento;
+                    $processo->naturalidade = $requerente->naturalidade;
                     $processo->nacionalidade = $requerente->nacionalidade;
 
 
@@ -255,7 +256,8 @@ class DocumentoController extends Controller
                     $processo->banco = $requerente->banco;
                     $processo->agencia = $requerente->agencia;
                     $processo->conta = $requerente->conta;
-                    $processo->contaespecifica = $requerente->contaespecifica;
+                    $processo->contaespecifica_id = $requerente->contaespecifica;
+                    $processo->contaespecifica = $arr_padraosimnao[$requerente->contaespecifica];
 
 
                     $processo->comunidade_id = $requerente->comunidade;
