@@ -120,10 +120,10 @@ class Processo extends Model
         'cumprerequisitositensnecessarios_id',
         'cumprerequisitositensnecessarios',
 
-        'assistente_id',
+        'assistente_id',        // Assistente social responsável pelo cadastro
         'assistente',
-        'funcionariosemu_id',
-        'funcionario',  //91 campos
+        'funcionariosemu_id',   // Funcionario da SEMU responsavel pela análise e consequente geração do processo
+        'funcionario',          //91 campos
     ];
 
 }

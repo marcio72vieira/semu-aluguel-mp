@@ -34,7 +34,7 @@ class DashboardController extends Controller
         $mes_corrente = date('n');      // número do mês no formato 1, 2, 3, 4 ..., 9, 10, 11, 12
         $ano_corrente = date('Y');
 
-        // Meses e anos para popular campos selects. 
+        // Meses e anos para popular campos selects.
         // Obs: os índices do array não pode ser: 01, 02, 03, etc... por isso a configuração acima: $mes_corrente = date('n');
         //      caso os índices pudesser ser: 01, 02, 03, etc..., seria nno formato: $mes_corrente = date('m');
         $mesespesquisa = [
@@ -56,7 +56,7 @@ class DashboardController extends Controller
             }
             $anospesquisa = array_reverse($anos);
         }
-        
+
         // Obtendo os todais de entidades do sistema para os Cards
         $totRegionais               =  Dashboard::totalRegionais();
         $totMunicipios              =  Dashboard::totalMunicipios();
@@ -77,16 +77,16 @@ class DashboardController extends Controller
         //----------Trecho de código referente ao gráfico de Linha ou Área
         //Dados StatusRequerente para gráfico de Linha padrão, ou seja, logo que a Dashboard é carregada
         $recordsestatusrequerente = ['Andamento' => 0, 'Análise' => 0, 'Pendente' => 0, 'Corrigido' => 0, 'Concluído' => 0];
-        
+
         // Desconsidera o ano e o mẽs corrente
         $recordsEstatus = DB::select("SELECT COUNT(id) as quantidade, estatus as estatus FROM requerentes GROUP BY estatus ORDER BY COUNT(id) DESC");
-        
+
         // Leva em consideração o ano e o mês corrente
         // $recordsEstatus = DB::select("SELECT COUNT(id) as quantidade, estatus as estatus FROM requerentes WHERE YEAR(created_at) = $ano_corrente AND MONTH(created_at) = $mes_corrente  GROUP BY estatus ORDER BY COUNT(id) DESC");
-        
+
         // Leva em consideração apenas o ano corrente
         // $recordsEstatus = DB::select("SELECT COUNT(id) as quantidade, estatus FROM requerentes WHERE YEAR(created_at) = $ano_corrente GROUP BY estatus ORDER BY COUNT(id) DESC");
-        
+
         if($recordsEstatus > 0){
             foreach($recordsEstatus as $key => $value){
                 if($value->estatus == 1){
@@ -149,14 +149,14 @@ class DashboardController extends Controller
         }else{
             $dataRecordsCategorias[''] =  0;
         }
-       
+
         // Recuperando todos os processos para a tabela de PROCESSOS
         $processos =  Dashboard::processos();
 
         return view('admin.dashboard.index', compact(
             'categorias',
             'mes_corrente','ano_corrente','mesespesquisa', 'anospesquisa',
-            'totRegionais', 'totMunicipios', 'totTipounidades', 'totUnidades', 'totTipodocumentos', 'totUsuarios', 
+            'totRegionais', 'totMunicipios', 'totTipounidades', 'totUnidades', 'totTipodocumentos', 'totUsuarios',
             'totRequerentes', 'totEstatusAndamento', 'totEstatusAnalise', 'totEstatusPendente', 'totEstatusCorrigido', 'totEstatusConcluido',
             'totProcessos', 'totProcessosMesAnoCorrente',
             'recordsestatusrequerente' ,'dataRecordsCategorias', 'recordsprocessosmesames',
@@ -257,23 +257,66 @@ class DashboardController extends Controller
             // Definindo a query
             if($mes == 0){
                 $records = DB::table('processos')->selectRaw(
-                    'id, nomecompleto, sexobiologico, DATE_FORMAT(nascimento,"%d/%m/%Y") AS nascimento, naturalidade, nacionalidade, 
-                    rg, orgaoexpedidor, cpf, banco, agencia, conta, contaespecifica_id, contaespecifica')
-                    ->whereYear('created_at', $ano)
-                    ->get();
+                    'id, nomecompleto, sexobiologico, DATE_FORMAT(nascimento,"%d/%m/%Y") AS nascimento, naturalidade, nacionalidade,
+                    rg, orgaoexpedidor, cpf, banco, agencia, conta, contaespecifica_id, contaespecifica,
+                    comunidade_id, comunidade, outracomunidade, racacor_id, racacor, outraracacor, identidadegenero_id, identidadegenero, outraidentidadegenero, orientacaosexual_id, orientacaosexual, outraorientacaosexual, deficiente_id, deficiente, deficiencia,
+                    escolaridade_id, escolaridade, profissao, estadocivil_id, estadocivil,
+                    regional_id, regional, municipio_id, municipio, tipounidade_id, tipounidade, unidadeatendimento_id, unidadeatendimento, endereco, numero, complemento, bairro, cep, foneresidencial, fonecelular, email, DATE_FORMAT(datacadastro,"%d/%m/%Y") AS datacadastro,
+                    processojudicial, orgaojudicial, comarca, prazomedidaprotetiva, DATE_FORMAT(dataconcessaomedidaprotetiva,"%d/%m/%Y") AS dataconcessaomedidaprotetiva,
+                    medproturgcaminhaprogoficial, medproturgafastamentolar, riscmortvioldomesmoradprotegsigilosa, riscvidaaguardmedproturg, relatodescomprmedproturgagressor, sitvulnerabnaoconsegarcardespmoradia, temrendfamiliardoissalconvivagressor,
+                    possuiparenteporeminviavelcompartilhardomicilio, parentesinviavelcompartilhardomicilio, filhosmenoresidade, trabalhaougerarenda, valortrabalhorenda, temcadunico, valortemcadunico, teminteresformprofisdesenvolvhabilid, apresentoudocumentoidentificacao, cumprerequisitositensnecessarios,
+                    assistente_id, assistente, funcionariosemu_id, funcionario')
+                ->whereYear('created_at', $ano)
+                ->get();
+
             }else{
+
                 $records = DB::table('processos')->selectRaw(
-                    'id, nomecompleto, sexobiologico, DATE_FORMAT(nascimento,"%d/%m/%Y") AS nascimento, naturalidade, nacionalidade, 
-                    rg, orgaoexpedidor, cpf, banco, agencia, conta, contaespecifica_id, contaespecifica')
+                    'id, nomecompleto, sexobiologico, DATE_FORMAT(nascimento,"%d/%m/%Y") AS nascimento, naturalidade, nacionalidade,
+                    rg, orgaoexpedidor, cpf, banco, agencia, conta, contaespecifica_id, contaespecifica,
+                    comunidade_id, comunidade, outracomunidade, racacor_id, racacor, outraracacor, identidadegenero_id, identidadegenero, outraidentidadegenero, orientacaosexual_id, orientacaosexual, outraorientacaosexual, deficiente_id, deficiente, deficiencia,
+                    escolaridade_id, escolaridade, profissao, estadocivil_id, estadocivil,
+                    regional_id, regional, municipio_id, municipio, tipounidade_id, tipounidade, unidadeatendimento_id, unidadeatendimento, endereco, numero, complemento, bairro, cep, foneresidencial, fonecelular, email, DATE_FORMAT(datacadastro,"%d/%m/%Y") AS datacadastro,
+                    processojudicial, orgaojudicial, comarca, prazomedidaprotetiva, DATE_FORMAT(dataconcessaomedidaprotetiva,"%d/%m/%Y") AS dataconcessaomedidaprotetiva,
+                    medproturgcaminhaprogoficial, medproturgafastamentolar, riscmortvioldomesmoradprotegsigilosa, riscvidaaguardmedproturg, relatodescomprmedproturgagressor, sitvulnerabnaoconsegarcardespmoradia, temrendfamiliardoissalconvivagressor,
+                    possuiparenteporeminviavelcompartilhardomicilio, parentesinviavelcompartilhardomicilio, filhosmenoresidade, trabalhaougerarenda, valortrabalhorenda, temcadunico, valortemcadunico, teminteresformprofisdesenvolvhabilid, apresentoudocumentoidentificacao, cumprerequisitositensnecessarios,
+                    assistente_id, assistente, funcionariosemu_id, funcionario')
                 ->whereMonth('created_at', $mes)
                 ->whereYear('created_at', $ano)
                 ->get();
             }
 
+
             $writer = SimpleExcelWriter::streamDownload("semualuguelmp_$referencia.$tipoextensao")->addHeader([
                 'Registro', 'Nome', 'Sexo Biológico', 'Data Nascimento', 'Naturalidade', 'Nacionalidade',
-                'RG', 'Órgão Expedidor', 'CPF', 'Banco', 'Ag.', 'C/C', 'ContaEspecifica ID', 'Conta Específica'
+                'RG', 'Órgão Expedidor', 'CPF', 'Banco', 'Agência', 'Conta Corrente', 'Cod. Conta Específica', 'Conta Específica',
+                'Cod. Comunidade', 'Comunidade', 'Outra Comunidade', 'Cod. Raça Cor Etnia', 'Raça Cor','Outra Raça', 'Cod. Identidade Gênero', 'Identidade Gênero', 'Outra Identidade Gênero', 'Cod. Orientação Sexual', 'Orientação Sexual', 'Outra Orientação Sexual', 'Deficiente ID', 'Deficiente', 'Deficiência',
+                'Cod. Escolaridade', 'Escolaridade', 'Profissão', 'Cod. Estado Civil', 'Estado Civil',
+                'Cod. Regional', 'Regional', 'Cod. Município', 'Município', 'Cod. Tipo Unidade', 'Tipo Unidade', 'Cod. Unid. Atendimento', 'Unidade de Atendiemnto', 'Endereço', 'Número', 'Complemento', 'Bairro', 'CEP', 'Fone Residencial', 'Fone Celular', 'E-mail', 'Cadastrado Em',
+                'Processo Judicial', 'Órgão Judicial', 'Comarca', 'Prazo da Medida Protetiva (dias)', 'Data da Concessão Med. Protetiva',
+                'Medida protetiva de urgência de encaminhamento a programa oficial ou comunitário de proteção ou atendimento',
+                'A requerente foi atendida com a medida protetiva de urgência de afastamento do lar',
+                'A requerente encontra-se em situação de risco de vida iminente em razão de violência doméstica, carecendo de moradia protegida em caráter sigiloso',
+                'A requerente encontra-se em situação de risco de morte, aguardando medida protetiva de urgência',
+                'A requerente encontra-se em situação de risco de morte e relata descumprimento de medida protetiva de urgência pelo agressor, necessitando de proteção até que se efetive a prisão deste',
+                'A requerente está em situação de vulnerabilidade, de forma a não conseguir arcar com as despesas de moradia',
+                'A requerente tem renda familiar de no máximo 02 salários, mesmo durante o convívio com o agressor',
+                'A requerente possui parentes em linha reta no município, porém não é viável o compartilhamento de domicílio',
+                'Parentes com inviável compartilhamento de domicílio',
+                'A requerente possui filhos menores de idade',
+                'A requerente está trabalhando ou possui alguma forma de gerar renda no momento',
+                'Valor trabalho ou renda',
+                'A requerente está cadastrada no Cadastro Único (CADUNICO)',
+                'Valor CADUNICO',
+                'A requerente tem interesse de participar de formações para qualificação profissional e de desenvolvimento de habilidades',
+                'A requerente apresentou documento de identificação',
+                'A requerente cumpre os requisitos previstos nos itens marcados com (*), necessários para concessão do benefício',
+                'Cod. Assistente',
+                'Assistente',
+                'Cod. Funcionário',
+                'Funcionário'
             ]);
+
 
             // Contador para esvaziar buffer com flush()
             $countbuffer = 1;
@@ -295,6 +338,75 @@ class DashboardController extends Controller
                     'conta' => $record->conta,
                     'contaespecifica_id' => $record->contaespecifica_id,
                     'contaespecifica' => $record->contaespecifica,
+
+                    'comunidade_id' => $record->comunidade_id,
+                    'comunidade' => $record->comunidade,
+                    'outracomunidade' => $record->outracomunidade,
+                    'racacor_id' => $record->racacor_id,
+                    'racacor' => $record->racacor,
+                    'outraracacor' => $record->outraracacor,
+                    'identidadegenero_id' => $record->identidadegenero_id,
+                    'identidadegenero' => $record->identidadegenero,
+                    'outraidentidadegenero' => $record->outraidentidadegenero,
+                    'orientacaosexual_id' => $record->orientacaosexual_id,
+                    'orientacaosexual' => $record->orientacaosexual,
+                    'outraorientacaosexual' => $record->outraorientacaosexual,
+                    'deficiente_id' => $record->deficiente_id,
+                    'deficiente' => $record->deficiente,
+                    'deficiencia' => $record->deficiencia,
+
+                    'escolaridade_id' => $record->escolaridade_id,
+                    'escolaridade' => $record->escolaridade,
+                    'profissao' => $record->profissao,
+                    'estadocivil_id' => $record->estadocivil_id,
+                    'estadocivil' => $record->estadocivil,
+
+                    'regional_id' => $record->regional_id,
+                    'regional' => $record->regional,
+                    'municipio_id' => $record->municipio_id,
+                    'municipio' => $record->municipio,
+                    'tipounidade_id' => $record->tipounidade_id,
+                    'tipounidade' => $record->tipounidade,
+                    'unidadeatendimento_id' => $record->unidadeatendimento_id,
+                    'unidadeatendimento' => $record->unidadeatendimento,
+                    'endereco' => $record->endereco,
+                    'numero' => $record->numero,
+                    'complemento' => $record->complemento,
+                    'bairro' => $record->bairro,
+                    'cep' => $record->cep,
+                    'foneresidencial' => $record->foneresidencial,
+                    'fonecelular' => $record->fonecelular,
+                    'email' => $record->email,
+                    'datacadastro' => $record->datacadastro,
+
+                    'processojudicial' => $record->processojudicial,
+                    'orgaojudicial' => $record->orgaojudicial,
+                    'comarca' => $record->comarca,
+                    'prazomedidaprotetiva' => $record->prazomedidaprotetiva,
+                    'dataconcessaomedidaprotetiva' => $record->dataconcessaomedidaprotetiva,
+
+                    'medproturgcaminhaprogoficial' => $record->medproturgcaminhaprogoficial,
+                    'medproturgafastamentolar'  => $record->medproturgafastamentolar,
+                    'riscmortvioldomesmoradprotegsigilosa' => $record->riscmortvioldomesmoradprotegsigilosa,
+                    'riscvidaaguardmedproturg'=> $record->riscvidaaguardmedproturg,
+                    'relatodescomprmedproturgagressor' => $record->relatodescomprmedproturgagressor,
+                    'sitvulnerabnaoconsegarcardespmoradia' => $record->sitvulnerabnaoconsegarcardespmoradia,
+                    'temrendfamiliardoissalconvivagressor' => $record->temrendfamiliardoissalconvivagressor,
+                    'possuiparenteporeminviavelcompartilhardomicilio' => $record->possuiparenteporeminviavelcompartilhardomicilio,
+                    'parentesinviavelcompartilhardomicilio' => $record->parentesinviavelcompartilhardomicilio,
+                    'filhosmenoresidade' => $record->filhosmenoresidade,
+                    'trabalhaougerarenda' => $record->trabalhaougerarenda,
+                    'valortrabalhorenda' => ($record->valortrabalhorenda != null ? (float)$record->valortrabalhorenda : (float)0),      // converte para float
+                    'temcadunico' => $record->temcadunico,
+                    'valortemcadunico' => ($record->valortemcadunico != null ? (float)$record->valortemcadunico : (float)0),            // converte para float
+                    'teminteresformprofisdesenvolvhabilid' => $record->teminteresformprofisdesenvolvhabilid,
+                    'apresentoudocumentoidentificacao' => $record->apresentoudocumentoidentificacao,
+                    'cumprerequisitositensnecessarios' => $record->cumprerequisitositensnecessarios,
+
+                    'assistente_id' => $record->assistente_id,
+                    'assistente' => $record->assistente,
+                    'funcionariosemu_id' => $record->funcionariosemu_id,
+                    'funcionario' => $record->funcionario
                 ]);
 
                 // Limpa o buffer a cada mil linhas
@@ -312,7 +424,7 @@ class DashboardController extends Controller
         }
 
 
-    }    
+    }
 
 
 

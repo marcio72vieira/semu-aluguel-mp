@@ -492,3 +492,26 @@ Para envio de e-mails com anexo, deve-se acrescentar ao modelo de JSON o seguint
     "conteudo": "Aqui vai o conteúdo do arquivo em <b>Base64</b>."
   }]
 }
+
+
+regional_id, regional, municipio_id, municipio, tipounidade_id, tipounidade, unidadeatendimento_id, unidadeatendimento, endereco, numero, complemento, bairro, cep, foneresidencial, fonecelular, email, datacadastro,
+
+'regional_id' => $record->regional_id,
+'regional' => $record->regional,
+'municipio_id' => $record->municipio_id,
+'municipio' => $record->municipio,
+'tipounidade_id' => $record->tipounidade_id,
+'tipounidade' => $record->tipounidade,
+'unidadeatendimento_id' => $record->unidadeatendimento_id,
+'unidadeatendimento' => $record->unidadeatendimento,
+'endereco' => $record->endereco,
+'numero' => $record->numero,
+'complemento' => $record->complemento,
+'bairro' => $record->bairro,
+'cep' => $record->cep,
+'foneresidencial' => $record->foneresidencial,
+'fonecelular' => $record->fonecelular,
+'email' => $record->email,
+'datacadastro' => $record->datacadastro,
+
+

@@ -852,7 +852,7 @@
                     {{-- item 2.6.7--}}
                     <div class="mb-2 row">
                         <label for="temrendfamiliardoissalconvivagressor" class="col-sm-8 col-form-label">
-                            requerente tem renda familiar de no máximo 02 salários, mesmo durante o convívio com o agressor? *
+                            A requerente tem renda familiar de no máximo 02 salários, mesmo durante o convívio com o agressor? *
                         </label>
                         <div class="col-sm-2">
                             <div style="margin-top: 10px;">
@@ -974,7 +974,7 @@
                     {{-- item 2.6.11--}}
                     <div class="mb-2 row">
                         <label for="temcadunico" class="col-sm-8 col-form-label">
-                            A requerente está cadastrada no Cadastro Único (CADÚNICO)? *
+                            A requerente está cadastrada no Cadastro Único (CADUNICO)? *
                         </label>
                         <div class="col-sm-2">
                             <div style="margin-top: 10px;">
