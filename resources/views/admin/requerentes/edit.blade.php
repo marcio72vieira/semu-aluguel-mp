@@ -274,7 +274,7 @@
                         {{-- racacor --}}
                         <div class="col-3">
                             <div class="form-group focused">
-                                <label class="form-control-label" for="racacor">Cor / Raça<span class="small text-danger">*</span></label>
+                                <label class="form-control-label" for="racacor">Cor / Raça / Etnia<span class="small text-danger">*</span></label>
                                 <select name="racacor" id="racacor" class="form-control"  required>
                                     <option value="" selected disabled>Escolha ...</option>
                                     <option value="1" {{ old('racacor', $requerente->racacor) == '1' ? 'selected' : '' }}>Branca</option>

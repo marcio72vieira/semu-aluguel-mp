@@ -1,19 +1,19 @@
 @extends('layout.admin')
 
 @section('content')
-    <div class="container-fluid px-4">
-        <div class="mb-1 hstack gap-2">
+    <div class="px-4 container-fluid">
+        <div class="gap-2 mb-1 hstack">
             <h2 class="mt-3">UNIDADE DE ATENDIMENTO -  visualizar</h2>
-            <ol class="breadcrumb mb-3 mt-3 ms-auto">
+            {{-- <ol class="mt-3 mb-3 breadcrumb ms-auto">
                 <li class="breadcrumb-item"><a href="">Dashboard</a></li>
                 <li class="breadcrumb-item"><a class="text-decoration-none" href="">Unidades de Atendimentos</a></li>
                 <li class="breadcrumb-item active">Unidade de Atendimento</li>
-            </ol>
+            </ol> --}}
         </div>
 
-        <div class="card mb-4 border-light shadow">
-            <div class="card-header hstack gap-2">
-                <span class="small p-2"><strong> Detalhes </strong></span>
+        <div class="mb-4 shadow card border-light">
+            <div class="gap-2 card-header hstack">
+                <span class="p-2 small"><strong> Detalhes </strong></span>
             </div>
 
             <div class="card-body">
@@ -54,7 +54,7 @@
                     <dd class="col-sm-10">{{ $unidadeatendimento->municipio->nome }}</dd>
 
                     <dt class="col-sm-2">Ativo</dt>
-                    <dd class="col-sm-10">{{ $unidadeatendimento->tipo == 1 ? 'Sim' : 'Não' }}</dd>
+                    <dd class="col-sm-10">{{ $unidadeatendimento->ativo == 1 ? 'Sim' : 'Não' }}</dd>
 
                 </dl>
 

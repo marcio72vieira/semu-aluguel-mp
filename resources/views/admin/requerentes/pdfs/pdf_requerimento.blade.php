@@ -67,8 +67,8 @@
     <table  style="width: 717px; border-collapse: collapse;">
         <tr>
             <td style="width: 158px;" class="label-ficha">Comunidade específica/tradicional</td>
-            <td style="width: 159px;" class="label-ficha">Cor/raça</td>
-            <td style="width: 200px;" class="label-ficha">dentidade de Gênero</td>
+            <td style="width: 159px;" class="label-ficha">Cor / Raça / Etnia</td>
+            <td style="width: 200px;" class="label-ficha">Identidade de Gênero</td>
             <td style="width: 200px;" class="label-ficha">Orientação Sexual</td>
         </tr>
         <tr>
@@ -340,7 +340,7 @@
             <td style="width: 217px;" class="label-ficha">Data do encaminhamento</td>
         </tr>
         <tr>
-            <td style="width: 500px;" class="dados-ficha">{{ $requerente->unidadeatendimento->nome }}</td>
+            <td style="width: 500px;" class="dados-ficha">{{ $requerente->unidadeatendimento->nome }} / {{ $requerente->unidadeatendimento->municipio->nome }}</td>
             <td style="width: 217px;" class="dados-ficha">{{  \Carbon\Carbon::now()->format('d/m/Y') }}</td>
         </tr>
         <tr>

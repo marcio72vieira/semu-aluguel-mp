@@ -13,7 +13,7 @@ class TipodocumentoController extends Controller
 {
     public function index()
     {
-        $tipodocumentos = Tipodocumento::orderByDesc('created_at')->paginate(10);
+        $tipodocumentos = Tipodocumento::orderBy('ordem')->paginate(10);
         return view('admin.tipodocumentos.index', ['tipodocumentos' => $tipodocumentos]);
 
     }

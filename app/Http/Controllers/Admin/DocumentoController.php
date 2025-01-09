@@ -42,6 +42,7 @@ class DocumentoController extends Controller
 
     public function store(DocumentoRequest $request)
     {
+        // dd($request->all());
 
         // Validar o formulário
         $request->validated();
@@ -104,7 +105,7 @@ class DocumentoController extends Controller
 
          // Redirecionar o usuário, enviar a mensagem de sucesso
          // return redirect()->route('documento.index', ['requerente' => $request->requerente_id_hidden])->with('success', 'Documento anexado com sucesso!');
-         return redirect()->route('documento.create', ['requerente' => $request->requerente_id_hidden])->with('success', 'Documento anexado com sucesso!');
+         return redirect()->route('documento.create', ['requerente' => $request->requerente_id_hidden])->with('success', 'Documento: '.$request->tipodocumento_nome_hidden.', anexado com sucesso!');
     }
 
 

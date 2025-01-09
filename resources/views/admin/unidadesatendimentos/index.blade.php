@@ -2,17 +2,17 @@
 
 @section('content')
 <div class="px-4 container-fluid">
-    <div class="mb-1 hstack gap-2">
+    <div class="gap-2 mb-1 hstack">
         <h2 class="mt-3">UNIDADE DE ATENDIMENTO - lista</h2>
-        <ol class="breadcrumb mb-3 mt-3 ms-auto">
+        {{-- <ol class="mt-3 mb-3 breadcrumb ms-auto">
             <li class="breadcrumb-item"><a href="">Dashboard</a></li>
             <li class="breadcrumb-item"><a class="text-decoration-none" href="">Unidade de Atendimento</a></li>
-        </ol>
+        </ol> --}}
     </div>
 
     <div class="mb-4 shadow card border-light">
-        <div class="card-header hstack gap-2">
-            <span class="ms-auto d-sm-flex flex-row mt-1 mb-1"> <a href="{{ route('unidadeatendimento.create') }}" class="btn btn-success btn-sm me-1"><i class="fa-regular fa-square-plus"></i> Cadastrar </a></span>
+        <div class="gap-2 card-header hstack">
+            <span class="flex-row mt-1 mb-1 ms-auto d-sm-flex"> <a href="{{ route('unidadeatendimento.create') }}" class="btn btn-success btn-sm me-1"><i class="fa-regular fa-square-plus"></i> Cadastrar </a></span>
         </div>
 
         <div class="card-body">
@@ -66,7 +66,7 @@
                                         </button>
                                     </form>
                                 @else
-                                    <button type="button" class="btn btn-outline-secondary btn-sm me-1 mb-1"  title="há usuários vinculados!"> <i class="fa-solid fa-ban"></i> Apagar </button>
+                                    <button type="button" class="mb-1 btn btn-outline-secondary btn-sm me-1"  title="há usuários vinculados!"> <i class="fa-solid fa-ban"></i> Apagar </button>
                                 @endif
                             </td>
                         </tr>

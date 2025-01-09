@@ -143,7 +143,7 @@ class LoginController extends Controller
 
                     // Redirecionar o usuário, enviar a mensagem de sucesso
                     // return redirect()->route('login.logout')->with('success', 'Senha atualizada com sucesso!');
-                    return redirect()->route('login.index')->with('success', 'Senha atualizada com sucesso!');
+                    return redirect()->route('login.index')->with('success', 'Senha atualizada com sucesso! Efetue o login com a nova senha.');
                 }
 
             } catch (Exception $e) {

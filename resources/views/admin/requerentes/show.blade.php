@@ -71,7 +71,7 @@
                             {{--  <dd class="col-sm-8">{{ $comunidades[$requerente->comunidade] }} {{ $requerente->comunidade == '8' ? $requerente->outracomunidade : '' }}</dd> --}}
                             <dd class="col-sm-8">{{ $requerente->comunidade == '20' ? $requerente->outracomunidade : $arr_comunidade[$requerente->comunidade] }}</dd>
 
-                            <dt class="col-sm-4">Cor/Raça/Etnia</dt>
+                            <dt class="col-sm-4">Cor / Raça / Etnia</dt>
                             <dd class="col-sm-8">{{ $requerente->racacor == '20' ? $requerente->outraracacor : $arr_racacor[$requerente->racacor] }}</dd>
 
                             <dt class="col-sm-4">Identidade de Gênero</dt>

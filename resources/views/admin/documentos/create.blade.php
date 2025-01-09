@@ -59,7 +59,7 @@
                                 <select name="tipodocumento_id" id="tipodocumento_id" class="form-control select2" required>
                                     <option value="" selected disabled>Escolha...</option>
                                     @foreach($tiposdocumentos  as $tipodocumento)
-                                        <option value="{{$tipodocumento->id}}" {{ old('tipodocumento_id') == $tipodocumento->id ? 'selected' : '' }} data-tipodocumento_ordem = "{{ $tipodocumento->ordem }}" style="font-color: red">
+                                        <option value="{{$tipodocumento->id}}" {{ old('tipodocumento_id') == $tipodocumento->id ? 'selected' : '' }} data-tipodocumento_ordem = "{{ $tipodocumento->ordem }}" data-tipodocumento_nome = "{{ $tipodocumento->nome }}" style="font-color: red">
                                             {{ $tipodocumento->nome }}
                                         </option>
 
@@ -70,6 +70,7 @@
                                 </select>
 
                                 <input type="hidden" name="tipodocumento_ordem_hidden" id="tipodocumento_ordem_hidden"  value="{{ old('tipodocumento_ordem_hidden')}}">
+                                <input type="hidden" name="tipodocumento_nome_hidden" id="tipodocumento_nome_hidden"  value="{{ old('tipodocumento_nome_hidden')}}">
 
                                 @error('tipodocumento_id')
                                     <small style="color: red">{{$message}}</small>
@@ -220,6 +221,9 @@
 
             let tipodocumentoordem = $(this).find(':selected').data('tipodocumento_ordem')
                 $(this).siblings("#tipodocumento_ordem_hidden").val(tipodocumentoordem);
+            
+            let tipodocumentonome = $(this).find(':selected').data('tipodocumento_nome')
+                $(this).siblings("#tipodocumento_nome_hidden").val(tipodocumentonome);
 
         });
     </script>
