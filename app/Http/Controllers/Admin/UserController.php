@@ -94,12 +94,21 @@ class UserController extends Controller
             /********************/
             // ENVIAR E-EMAIL   //
             /********************/
-            $envioEmail = Mail::to($request->email, $request->nomecompleto)->send(new Acesso([
+            /* $envioEmail = Mail::to($request->email, $request->nomecompleto)->send(new Acesso([
                 'fromName' => 'SEMU',
                 'fromEmail' => 'semu@email.ma.gov.br',
                 'subject' => 'Credencias de Acesso ao Sistema de Aluguel Maria da Penha',
                 'message' => "E-mail: $request->email Senha: $request->password"
-            ]));
+            ])); */
+
+            $dados = [
+                'nome' => $request->nomecompleto,
+                'email' => $request->email,
+                'senha' => $request->password,
+                'perfil' => ($request->perfil == "adm" ? "Administrador" : ($request->perfil == "srv" ? "Analista" : "Operador"))
+            ];
+
+            $envioEmail = Mail::to($request->email, $request->nome)->send(new Acesso($dados));
 
             if($envioEmail){
                 // Redirecionar o usuário, enviar a mensagem de sucesso

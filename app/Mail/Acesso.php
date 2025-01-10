@@ -17,9 +17,12 @@ class Acesso extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(public readonly array $data)
+    public function __construct(public readonly array $dados)
     {
-        //dd($data);
+        //dd($dados); 
+        //Obs: $dados é acessivel na view de email(admin.users.emailacesso), nativamente
+        //     Não há a necessidade de se criar um variavel do tipo private $dados e atribuir seu valor com $this->dados = $dados.
+        //     A nova função "promotion" do Php 8.3 faz isso de forma automática.
     }
 
     /**
@@ -29,7 +32,7 @@ class Acesso extends Mailable
     {
         return new Envelope(
             from: new Address('semu@email.ma.gov.br', 'SEMU'),
-            subject: 'Acesso ao Sistema Aluguel Maria da Penha',
+            subject: 'Credenciais de Acesso ao Sistema Aluguel Maria da Penha',
         );
         
     }
