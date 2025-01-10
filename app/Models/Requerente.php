@@ -89,10 +89,6 @@ class Requerente extends Model
         return $this->hasOne(Detalherequerente::class);
     }
 
-    public function locacao()
-    {
-        return $this->hasOne(Locacao::class);
-    }
 
     public function anexos()
     {
@@ -117,25 +113,11 @@ class Requerente extends Model
         $servidorResponsavel = DB::table('users')->where('id', '=', $id)->select('nomecompleto')->get();
 
         //dd($servidorResponsavel);
-        return $servidorResponsavel; 
+        return $servidorResponsavel;
     }
 
     public static function totalprocessos()
     {
         return $totprocessos = Requerente::where('estatus', '=', '5')->count();
-    } 
-
-
-    /*
-    // Preparado caso as regras mudem e um requerente possa ter mais de um requerimento
-    public function requerimentos()
-    {
-        return $this->hasMany(Requerimento::class);
     }
-    public function locacoes()
-    {
-        return $this->hasMany(Locacao::class);
-    }
-    */
-
 }

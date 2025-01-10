@@ -1,4 +1,4 @@
-{{-- 
+{{--
     <h3>CREDENCIAIS PARA ACESSAR SISTEMA</h3>
 <p>
     Você foi cadastrado(a) para acessar o Sistema Aluguel Maria da Penha da Secretaria de Estado da Mulher / SEMU<br>
@@ -13,7 +13,7 @@
 <p>
     Se o link acima não funcionar, copie e cole o endereço abaixo em seu navegador preferido.<br>
     {{ \Config::get('app.url'); }}
-</p> 
+</p>
 --}}
 
 
@@ -22,7 +22,7 @@
 <br>
 
 Olá {{ $dados['nome']}}!<br>
-Você foi cadastrado(a) para acessar o <strong>Sistema Aluguel Maria da Penha</strong>, da Secretaria de Estado da Mulher / SEMU, com o perfil de <strong>"{{ $dados['perfil']}}"</strong> do Sistema.<br><br>
+Você foi cadastrado(a) para acessar o <strong>Sistema Aluguel Maria da Penha</strong>, da Secretaria de Estado da Mulher / SEMU, com o perfil de <strong>"{{ $dados['perfil']}}"</strong> no Sistema.<br><br>
 <strong>Observações Importantes:</strong><br>
 1 - Efetue seu "login(acesso)" com as credenciais(e-mail e senha) fornecidas aqui. <br>
 2 - Em seu primeiro acesso, por questões de segurança, você será solicitado a substituir a senha atual por uma nova senha.<br>
