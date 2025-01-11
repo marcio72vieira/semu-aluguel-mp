@@ -234,14 +234,14 @@
                             <dd class="col-sm-1">{{ $requerente->detalhe->apresentoudocumentoidentificacao == "1" ? "sim" : "não"  }}</dd>
 
                             {{-- item 2.6.14--}}
-                            <dt class="col-sm-11" style="margin-bottom:78px;">A requerente cumpre os requisitos previstos nos itens marcados com (*), necessários para concessão do benefício?</dt>
+                            <dt class="col-sm-11" style="margin-bottom:40px;">A requerente cumpre os requisitos previstos nos itens marcados com (*), necessários para concessão do benefício?</dt>
                             <dd class="col-sm-1">{{ $requerente->detalhe->cumprerequisitositensnecessarios == "1" ? "sim" : "não"  }}</dd>
 
                         </dl>
 
                         <dl class="row">
                             <dt class="col-sm-11"></dt>
-                            <dd class="col-sm-1">
+                            <dd class="col-sm-1" style="margin-left: 20px;">
                                 <a class="btn btn-outline-secondary" href="{{ route('requerente.index')}}" role="button">Retornar</a>
                             </dd>
                         </dl>

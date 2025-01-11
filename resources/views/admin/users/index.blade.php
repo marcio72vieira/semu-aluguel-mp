@@ -4,10 +4,10 @@
 <div class="px-4 container-fluid">
     <div class="mb-1 hstack gap-2">
         <h2 class="mt-3">USUÁRIOS - lista</h2>
-        <ol class="breadcrumb mb-3 mt-3 ms-auto">
+        {{-- <ol class="breadcrumb mb-3 mt-3 ms-auto">
             <li class="breadcrumb-item"><a href="">Dashboard</a></li>
             <li class="breadcrumb-item"><a class="text-decoration-none" href="">Usuários</a></li>
-        </ol>
+        </ol> --}}
     </div>
 
     <div class="mb-4 shadow card border-light">
@@ -46,7 +46,8 @@
                         <tr>
                             <td>{{ $user->id }}</th>
                             <td>{{ $user->nomecompleto }}</th>
-                            <td>{{ ($user->perfil == "adm" ? "ADMINISTRADOR" : ($user->perfil == "srv" ? "SERVIDOR SEMU" : "ASS. SOCIAL")) }}</th>
+                            {{-- <td>{{ ($user->perfil == "adm" ? "ADMINISTRADOR" : ($user->perfil == "srv" ? "SERVIDOR SEMU" : "ASS. SOCIAL")) }}</th> --}}
+                            <td>{{ ($user->perfil == "adm" ? "ADMINISTRADOR" : ($user->perfil == "srv" ? "ANALISTA" : "OPERADOR")) }}</th>
                             <td>{{ $user->municipio->nome }}</td>
                             <td>{{ $user->unidadeatendimento->nome }}</td>
                             <td>{{ $user->fone }}</td>

@@ -167,7 +167,7 @@
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">
-                    <div class="small">Perfil: {{ (Auth::user()->perfil == "adm" ? "ADMINISTRADOR" : (Auth::user()->perfil == "srv" ? "SERVIDOR" : "ASS.SOCIAL")) }}</div>
+                    <div class="small">Perfil: {{ (Auth::user()->perfil == "adm" ? "ADMINISTRADOR" : (Auth::user()->perfil == "srv" ? "ANALISTA" : "OPERADOR")) }}</div>
                 </div>
             </nav>
         </div>
