@@ -136,8 +136,8 @@
                             <select name="perfil" id="perfil" class="form-control" >
                                 <option value="" selected disabled>Escolha...</option>
                                 <option value="adm" {{old('perfil') == 'adm' ? 'selected' : ''}}>Administrador</option>
-                                <option value="srv" {{old('perfil') == 'srv' ? 'selected' : ''}}>Servidor</option>
-                                <option value="ass" {{old('perfil') == 'ass' ? 'selected' : ''}}>Assistente Social</option>
+                                <option value="srv" {{old('perfil') == 'srv' ? 'selected' : ''}}>Analista</option>
+                                <option value="ass" {{old('perfil') == 'ass' ? 'selected' : ''}}>Operador</option>
                             </select>
                             @error('perfil')
                                 <small style="color: red">{{ $message }}</small>

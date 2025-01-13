@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
 
     {{-- LINKS CSS --}}
     <link href="{{ asset('css/styles_sbadmin.css') }}" rel="stylesheet">
@@ -27,7 +28,7 @@
     <link href="https://cdn.datatables.net/2.1.7/css/dataTables.bootstrap5.css" rel="stylesheet"></link>
 
 
-    <title>Document</title>
+    <title>SEMU - ALUGUEL MP</title>
 </head>
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">

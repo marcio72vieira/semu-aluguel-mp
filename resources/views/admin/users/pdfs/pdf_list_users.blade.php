@@ -19,9 +19,11 @@
                         @if($user->perfil == 'adm') 
                             <b>ADMINISTRADOR</b> 
                         @elseif($user->perfil == 'srv') 
-                            <b>Servidor</b>
+                            {{-- <b>Servidor</b> --}}
+                            <b>Analista</b>
                         @elseif($user->perfil == 'ass') 
-                            <b>Assistente Social</b>
+                            {{-- <b>Assistente Social</b> --}}
+                            <b>Operador</b>
                         @endif 
                         <br> {{ $user->cargo }}
                     </td>

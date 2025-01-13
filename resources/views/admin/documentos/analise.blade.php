@@ -16,7 +16,7 @@
     <div class="mb-4 shadow card border-light">
         <div class="gap-2 card-header hstack">
 
-            <span class="p-2 small"><strong>ASSISTENTE SOCIAL RESPONSÁVEL: {{ $requerente->user->nomecompleto }} <br> REQUERENTE: {{ $requerente->nomecompleto }} / CPF: {{ $requerente->cpf }} </strong></span>
+            <span class="p-2 small"><strong>ASSISTENTE SOCIAL RESPONSÁVEL: {{ $requerente->user->nomecompleto }} / {{ $requerente->unidadeatendimento->nome }} - {{ $requerente->unidadeatendimento->municipio->nome }}<br> REQUERENTE: {{ $requerente->nomecompleto }} / CPF: {{ $requerente->cpf }} </strong></span>
             {{--
             <span class="flex-row mt-1 mb-1 ms-auto d-sm-flex">
                 <a class="btn btn-outline-secondary me-2" href="{{ route('requerente.index')}}" role="button">Cancelar</a>

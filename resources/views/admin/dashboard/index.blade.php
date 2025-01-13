@@ -212,7 +212,7 @@
                 <div class="mb-4 card">
                     <div class="card-header">
                         <i class="fa-solid fa-chart-column"></i>
-                        Bar Chart Example
+                        Indicadores
                     </div>
                     <div class="card-body">
                         <div>

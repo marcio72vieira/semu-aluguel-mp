@@ -48,7 +48,8 @@
                     <dd class="col-sm-10">{{ $user->fone }}</dd>
 
                     <dt class="col-sm-2">Perfil</dt>
-                    <dd class="col-sm-10">{{ ($user->perfil == "adm" ? "Administrador" : ($user->perfil == "srv" ? "Servidor" : "Assistente Social")) }}</dd>
+                    {{-- <dd class="col-sm-10">{{ ($user->perfil == "adm" ? "Administrador" : ($user->perfil == "srv" ? "Servidor" : "Assistente Social")) }}</dd> --}}
+                    <dd class="col-sm-10">{{ ($user->perfil == "adm" ? "Administrador" : ($user->perfil == "srv" ? "Analista" : "Operador")) }}</dd>
 
                     <dt class="col-sm-2">E-mail</dt>
                     <dd class="col-sm-10">{{ $user->email }}</dd>
