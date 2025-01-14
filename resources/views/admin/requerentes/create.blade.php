@@ -580,12 +580,12 @@
                         <div class="col-sm-2">
                             <div style="margin-top: 10px;">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="medproturgcaminhaprogoficial" id="medproturgcaminhaprogoficialsim" value="1" {{old('medproturgcaminhaprogoficial') == '1' ? 'checked' : ''}} required>
+                                    <input class="form-check-input obrigatoria" type="radio" name="medproturgcaminhaprogoficial" id="medproturgcaminhaprogoficialsim" value="1" {{old('medproturgcaminhaprogoficial') == '1' ? 'checked' : ''}} required>
                                     <label class="form-check-label" for="medproturgcaminhaprogoficialsim">Sim</label>
 
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="medproturgcaminhaprogoficial" id="medproturgcaminhaprogoficialnao" value="0" {{old('medproturgcaminhaprogoficial') == '0' ? 'checked' : ''}} >
+                                    <input class="form-check-input obrigatoria" type="radio" name="medproturgcaminhaprogoficial" id="medproturgcaminhaprogoficialnao" value="0" {{old('medproturgcaminhaprogoficial') == '0' ? 'checked' : ''}} >
                                     <label class="form-check-label" for="medproturgcaminhaprogoficialnao">Não</label>
                                 </div>
                                 <br>
@@ -606,12 +606,12 @@
                         <div class="col-sm-2">
                             <div style="margin-top: 10px;">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="medproturgafastamentolar" id="medproturgafastamentolarsim" value="1" {{old('medproturgafastamentolar') == '1' ? 'checked' : ''}} required>
+                                    <input class="form-check-input obrigatoria" type="radio" name="medproturgafastamentolar" id="medproturgafastamentolarsim" value="1" {{old('medproturgafastamentolar') == '1' ? 'checked' : ''}} required>
                                     <label class="form-check-label" for="medproturgafastamentolarsim">Sim</label>
 
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="medproturgafastamentolar" id="medproturgafastamentolarnao" value="0" {{old('medproturgafastamentolar') == '0' ? 'checked' : ''}} >
+                                    <input class="form-check-input obrigatoria" type="radio" name="medproturgafastamentolar" id="medproturgafastamentolarnao" value="0" {{old('medproturgafastamentolar') == '0' ? 'checked' : ''}} >
                                     <label class="form-check-label" for="medproturgafastamentolarnao">Não</label>
                                 </div>
                                 <br>
@@ -710,12 +710,12 @@
                         <div class="col-sm-2">
                             <div style="margin-top: 10px;">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="sitvulnerabnaoconsegarcardespmoradia" id="sitvulnerabnaoconsegarcardespmoradiasim" value="1" {{old('sitvulnerabnaoconsegarcardespmoradia') == '1' ? 'checked' : ''}} required>
+                                    <input class="form-check-input obrigatoria" type="radio" name="sitvulnerabnaoconsegarcardespmoradia" id="sitvulnerabnaoconsegarcardespmoradiasim" value="1" {{old('sitvulnerabnaoconsegarcardespmoradia') == '1' ? 'checked' : ''}} required>
                                     <label class="form-check-label" for="sitvulnerabnaoconsegarcardespmoradiasim">Sim</label>
 
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="sitvulnerabnaoconsegarcardespmoradia" id="sitvulnerabnaoconsegarcardespmoradianao" value="0" {{old('sitvulnerabnaoconsegarcardespmoradia') == '0' ? 'checked' : ''}} >
+                                    <input class="form-check-input obrigatoria" type="radio" name="sitvulnerabnaoconsegarcardespmoradia" id="sitvulnerabnaoconsegarcardespmoradianao" value="0" {{old('sitvulnerabnaoconsegarcardespmoradia') == '0' ? 'checked' : ''}} >
                                     <label class="form-check-label" for="sitvulnerabnaoconsegarcardespmoradianao">Não</label>
                                 </div>
                                 <br>
@@ -736,12 +736,12 @@
                         <div class="col-sm-2">
                             <div style="margin-top: 10px;">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="temrendfamiliardoissalconvivagressor" id="temrendfamiliardoissalconvivagressorsim" value="1" {{old('temrendfamiliardoissalconvivagressor') == '1' ? 'checked' : ''}} required>
+                                    <input class="form-check-input obrigatoria" type="radio" name="temrendfamiliardoissalconvivagressor" id="temrendfamiliardoissalconvivagressorsim" value="1" {{old('temrendfamiliardoissalconvivagressor') == '1' ? 'checked' : ''}} required>
                                     <label class="form-check-label" for="temrendfamiliardoissalconvivagressorsim">Sim</label>
 
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="temrendfamiliardoissalconvivagressor" id="temrendfamiliardoissalconvivagressornao" value="0" {{old('temrendfamiliardoissalconvivagressor') == '0' ? 'checked' : ''}} >
+                                    <input class="form-check-input obrigatoria" type="radio" name="temrendfamiliardoissalconvivagressor" id="temrendfamiliardoissalconvivagressornao" value="0" {{old('temrendfamiliardoissalconvivagressor') == '0' ? 'checked' : ''}} >
                                     <label class="form-check-label" for="temrendfamiliardoissalconvivagressornao">Não</label>
                                 </div>
                                 <br>
@@ -763,11 +763,11 @@
                         <div class="col-sm-2">
                             <div style="margin-top: 10px;">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="possuiparenteporeminviavelcompartilhardomicilio" id="possuiparenteporeminviavelcompartilhardomiciliosim" value="1" {{old('possuiparenteporeminviavelcompartilhardomicilio') == '1' ? 'checked' : ''}} required>
+                                    <input class="form-check-input obrigatoria" type="radio" name="possuiparenteporeminviavelcompartilhardomicilio" id="possuiparenteporeminviavelcompartilhardomiciliosim" value="1" {{old('possuiparenteporeminviavelcompartilhardomicilio') == '1' ? 'checked' : ''}} required>
                                     <label class="form-check-label" for="possuiparenteporeminviavelcompartilhardomiciliosim">Sim</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="possuiparenteporeminviavelcompartilhardomicilio" id="possuiparenteporeminviavelcompartilhardomicilionao" value="0" {{old('possuiparenteporeminviavelcompartilhardomicilio') == '0' ? 'checked' : ''}} >
+                                    <input class="form-check-input obrigatoria" type="radio" name="possuiparenteporeminviavelcompartilhardomicilio" id="possuiparenteporeminviavelcompartilhardomicilionao" value="0" {{old('possuiparenteporeminviavelcompartilhardomicilio') == '0' ? 'checked' : ''}} >
                                     <label class="form-check-label" for="possuiparenteporeminviavelcompartilhardomicilionao">Não</label>
                                 </div>
                                 <br>
@@ -858,12 +858,12 @@
                         <div class="col-sm-2">
                             <div style="margin-top: 10px;">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="temcadunico" id="temcadunicosim" value="1" {{old('temcadunico') == '1' ? 'checked' : ''}} required>
+                                    <input class="form-check-input obrigatoria" type="radio" name="temcadunico" id="temcadunicosim" value="1" {{old('temcadunico') == '1' ? 'checked' : ''}} required>
                                     <label class="form-check-label" for="temcadunicosim">Sim</label>
 
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="temcadunico" id="temcaduniconao" value="0" {{old('temcadunico') == '0' ? 'checked' : ''}} >
+                                    <input class="form-check-input obrigatoria" type="radio" name="temcadunico" id="temcaduniconao" value="0" {{old('temcadunico') == '0' ? 'checked' : ''}} >
                                     <label class="form-check-label" for="temcaduniconao">Não</label>
                                 </div>
                                 <br>
@@ -944,12 +944,12 @@
                         <div class="col-sm-2">
                             <div style="margin-top: 10px;">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="cumprerequisitositensnecessarios" id="cumprerequisitositensnecessariossim" value="1" {{old('cumprerequisitositensnecessarios') == '1' ? 'checked' : ''}} required>
+                                    <input class="form-check-input obrigatoria" type="radio" name="cumprerequisitositensnecessarios" id="cumprerequisitositensnecessariossim" value="1" {{old('cumprerequisitositensnecessarios') == '1' ? 'checked' : ''}} required>
                                     <label class="form-check-label" for="cumprerequisitositensnecessariossim">Sim</label>
 
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="cumprerequisitositensnecessarios" id="cumprerequisitositensnecessariosnao" value="0" {{old('cumprerequisitositensnecessarios') == '0' ? 'checked' : ''}} >
+                                    <input class="form-check-input obrigatoria" type="radio" name="cumprerequisitositensnecessarios" id="cumprerequisitositensnecessariosnao" value="0" {{old('cumprerequisitositensnecessarios') == '0' ? 'checked' : ''}} >
                                     <label class="form-check-label" for="cumprerequisitositensnecessariosnao">Não</label>
                                 </div>
                                 <br>
@@ -974,6 +974,26 @@
             </div>
         </div>
     </div>
+
+    {{-- inicio modal --}}
+    <div class="modal fade opcoesobrigatorias" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel"><img src="{{ asset('images/alerta.png')}}" width="50" style="margin-right: 20px;">Aviso</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ESTA OPÇÃO DESABILITA A CONCESSÃO DO BENEFÍCIO
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- fim modal --}}
+
 @endsection
 
 @section('scripts')
@@ -1203,6 +1223,32 @@
 
             });
         }
+
+        // Disparando Alert de campo obrigatório e desabilitando o botao salvar
+        $(".obrigatoria").on("click", function(){
+            var itemobrigatrio = $(this).val();
+            if(itemobrigatrio == 0){
+                $(".opcoesobrigatorias").modal("show");
+                //alert("Esta opção desabilit a requerente a receber o benefício");
+                $("#btnsalvar").prop("disabled", true);
+            }else{
+                $("#btnsalvar").prop("disabled", false);
+            }
+        });
+
+        /* $(".obrigatoria").on("click", function(){
+            $(".obrigatoria").each(function() {
+                var itemobrigatrio = $(this).val();
+                if(itemobrigatrio == 0){
+                    $(".opcoesobrigatorias").modal("show");
+                    $("#btnsalvar").prop("disabled", true);
+                }else{
+                    $("#btnsalvar").prop("disabled", false);
+                }
+            }
+        }); */
+
+
 
         /// Fim valor CADUNICO
 

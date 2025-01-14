@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Municipio;
 use App\Models\Requerente;
+use App\Models\Documento;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Exception;
@@ -348,8 +349,17 @@ class RequerenteController extends Controller
              DB::commit();
 
 
-             // Redirecionar o usuário, enviar a mensagem de sucesso
-            return  redirect()->route('requerente.index')->with('success', 'Requerente editado com sucesso!');
+            // Redirecionar o usuário, enviar a mensagem de sucesso
+            // return  redirect()->route('requerente.index')->with('success', 'Requerente editado com sucesso!');
+
+            if($requerente->documentos()->count() == 0){
+                // No caso do operador não ter anexado nenhum documento, ou seja, cadastrou e editou normalmente
+                return  redirect()->route('requerente.index')->with('success', 'Requerente editado com sucesso!');
+            }else{
+                // Caso o operador já tenha anexado documentos e estes estejam com as informações erradas (pois o cadastro da requerente foi editao),
+                // é necessário gerar novos anexos  com as informações corrigidas para as devidas assinaturas quando for o caso e enviar para análise novamente.
+                return  redirect()->route('requerente.index')->with('warning', 'Requerente editado com sucesso. VERIFIQUE A NECESSIDADE DE GERAR OS ANEXOS COM AS DEVIDAS MODIFICAÇÕES!');
+            }
 
         } catch(Exception $e) {
 
