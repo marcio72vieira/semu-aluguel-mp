@@ -103,6 +103,17 @@ class RequerenteController extends Controller
                 $valorTemCadunicoTransformando = 0.00;
             }
 
+            // Verifica se as opções tidas como obrigatórias, foram burladas via desabilitação do javascritp e consequente envio do formulário.
+            if(
+                $request->medproturgcaminhaprogoficial == 0 || $request->medproturgafastamentolar == 0 || 
+                $request->sitvulnerabnaoconsegarcardespmoradia == 0 || $request->temrendfamiliardoissalconvivagressor == 0 || 
+                $request->possuiparenteporeminviavelcompartilhardomicilio == 0 || $request->temcadunico == 0 ||
+                $request->cumprerequisitositensnecessarios == 0
+            ){
+                // Redirecionar o usuário, enviar a mensagem de erro
+                return back()->withInput()->with('error', 'A requerente não cumpre os requisitos previstos nos itens marcados com (*), necessários para concessão do benefício!');
+            }
+
             // Salva informações do Requetente e recupera o Id do Requerente salvo no banco na variável $requerente
             $requerente = Requerente::create([
 
@@ -148,7 +159,7 @@ class RequerenteController extends Controller
             ]);
 
 
-            // Salva informações dos Detalhes do Requetente. O Id do requerente é fornecido na variavel $requerente
+            // Salva informações dos Detalhes do Requerente. O Id do requerente é fornecido na variavel $requerente
             $detalhe = Detalherequerente::create([
                 'requerente_id'                             => $requerente->id,
                 'processojudicial'                          => $request->processojudicial,
@@ -275,6 +286,19 @@ class RequerenteController extends Controller
             } else {
                 $valorTemCadunicoTransformando = 0.00;
             }
+
+
+            // Verifica se as opções tidas como obrigatórias, foram burladas via desabilitação do javascritp e consequente envio do formulário.
+            if(
+                $request->medproturgcaminhaprogoficial == 0 || $request->medproturgafastamentolar == 0 || 
+                $request->sitvulnerabnaoconsegarcardespmoradia == 0 || $request->temrendfamiliardoissalconvivagressor == 0 || 
+                $request->possuiparenteporeminviavelcompartilhardomicilio == 0 || $request->temcadunico == 0 ||
+                $request->cumprerequisitositensnecessarios == 0
+            ){
+                // Redirecionar o usuário, enviar a mensagem de erro
+                return back()->withInput()->with('error', 'A requerente não cumpre os requisitos previstos nos itens marcados com (*), necessários para concessão do benefício!');
+            }
+
 
             $requerente->update([
                 'nomecompleto'              => Str::upper($request->nomecompleto),

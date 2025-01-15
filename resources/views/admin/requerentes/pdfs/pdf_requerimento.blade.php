@@ -470,6 +470,204 @@
         </tr>
     </table>
 
+    <pagebreak />
+    {{ $mpdf->showWatermarkText = true; }}
+    {{ $mpdf->WriteHTML('<watermarktext content="DRAFT" alpha="0.4" />'); }}
+    
+    <table style="width: 717px; border-collapse: collapse; margin-bottom: 15px;">
+        <tr>
+            <td style="width: 717px; text-align: center; font-size: 10px; font-family: Arial, Helvetica, sans-serif;">
+                <br>
+                ANEXO IV
+                <br>
+                MODELO DE CONTRATO DE LOCAÇÃO RESIDENCIAL “ALUGUEL MARIA DA PENHA”
+            </td>
+        </tr>
+    </table>
+
+    <table style="width: 717px; border-collapse: collapse;">
+        <tr>
+            <td style="width: 717px; text-align:justify" class="dados-declaracao">
+                <br>
+                O(A) LOCADOR(A) {{ str_repeat("_", 70) }} e a LOCATÁRIA <strong>{{ $requerente->nomecompleto }}</strong>
+                qualificados(as) abaixo, celebram o presente “Instrumento Particular de Contrato de Locação”, o qual será
+                regido pelo disposto nas Leis Federais nº 8.245/1991 e 10.406/2002, comprometendo-se a cumprir as cláusulas e condições seguintes:
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 717px; text-align:justify" class="dados-declaracao">
+                <br>
+                <strong>CLÁUSULA PRIMEIRA - DA QUALIFICAÇÃO DAS PARTES</strong>
+                <br>
+                <strong>LOCADOR(A):</strong>
+                {{ str_repeat("_", 105) }}
+                portador do RG nº {{ str_repeat("_", 30) }} e CPF/MF nº {{ str_repeat("_", 30) }}, residente e domiciliado(a) na (Rua), (número), (bairro), (Cidade), (Estado);
+                <br>
+                <strong>LOCATÁRIA:</strong>
+                {{ str_repeat("_", 105) }}
+                portador do RG nº {{ str_repeat("_", 30) }} e CPF/MF nº {{ str_repeat("_", 30) }}, residente e domiciliado(a) na (Rua), (número), (bairro), (Cidade), (Estado);
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 717px; text-align:justify" class="dados-declaracao">
+                <br>
+                <strong>CLÁUSULA SEGUNDA - OBJETO</strong>
+                <br>
+                Por meio do presente contrato de locação, o(a) LOCADOR(A) entrega à LOCATÁRIA a posse e o uso do imóvel situado na {{ str_repeat("_", 105) }}, fazendo jus, em contrapartida, ao pagamento dos valores de aluguel.
+
+                <br><br><br>
+                <strong>CLÁUSULA TERCEIRA - PRAZO DE LOCAÇÃO</strong>
+                <br>
+                O contrato vigorará pelo prazo de _______ ({{ str_repeat("_", 20) }}) meses, tendo início em ______/______/___________ e término previsto
+                para o dia _______/______/___________  após o que deverá esta restituir o imóvel ao (à) <strong>LOCADOR(A)</strong>, no estado em que recebeu, salvo as
+                deteriorações decorrentes do uso normal.
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 717px; text-align:justify" class="dados-declaracao">
+                <br>
+                <strong>PARÁGRAFO ÚNICO</strong>
+                O prazo estipulado no caput poderá ser prorrogado por iguais períodos, ou a critério das partes, limitado à 12 (doze) meses.
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 717px; text-align:justify" class="dados-declaracao">
+                <br>
+                <strong>CLÁUSULA QUARTA – DO VALOR</strong>
+                <br>
+                Pagará a LOCATÁRIA ao(à) LOCADOR(A) o valor mensal, fixo e irreajustável, de R$ ________________________
+                (____________________________________________________), a título de aluguel.
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 717px; text-align:justify" class="dados-declaracao">
+                <br>
+                <strong>CLÁUSULA QUINTA - USO E DESTINAÇÃO DA LOCAÇÃO</strong>
+                <br>
+                Poderão ser de responsabilidade da <strong>LOCATÁRIA</strong> os encargos da locação abaixo:<br>
+                a) conta/taxa de luz;<br>
+                b) conta/taxa de água e esgoto;<br>
+                c) contribuições para despesas ordinárias de condomínio, caso em que houver;<br>
+                d) ou outras que venham a ser cobradas pelo Município ou Estado e que recaiam sobre o Imóvel.
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 717px; text-align:justify" class="dados-declaracao">
+                <br>
+                <strong>CLÁUSULA SEXTA - USO E DESTINAÇÃO DA LOCAÇÃO</strong>
+                <br>
+                A <strong>LOCATÁRIA</strong> obriga-se a manter o imóvel locado em boas condições de higiene, limpeza e conservação,
+                bem como em perfeito estado as suas instalações elétricas e hidráulicas, a fim de restituí-lo no estado em que o recebeu,
+                salvo as deteriorações decorrentes do uso normal.
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 717px; text-align:justify" class="dados-declaracao">
+                <br>
+                <strong>PARÁGRAFO ÚNICO</strong>
+                A <strong>LOCATÁRIA</strong> só poderá realizar melhorias necessárias no imóvel, mediante autorização prévia e expressa do LOCADOR,
+                devendo ser reembolsada pelos gastos que incorrer.
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 717px; text-align:justify" class="dados-declaracao">
+                <br>
+                <strong>CLÁUSULA	SÉTIMA - RESCISÃO	POR	INADIMPLEMENTO	E	OU DESOCUPAÇÃO ANTECIPADA</strong>
+                <br>
+                A LOCATÁRIA poderá devolver o Imóvel ao LOCADOR antecipadamente, desde que comunique a este a sua intenção, por escrito,
+                com, no mínimo, 30 (trinta) dias de antecedência da data da pretendida devolução.
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 717px; text-align:justify" class="dados-declaracao">
+                <br>
+                <strong>PARÁGRAFO ÚNICO</strong>
+                Este Contrato poderá ser resolvido na hipótese de inadimplemento culposo de obrigação legal ou contratual, desde que a parte inocente
+                notifique à infratora, concedendo-lhe o prazo de 15 (quinze) dias para sanar o inadimplemento, que, após o seu transcurso, ensejará a
+                resolução do Contrato de pleno direito.
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 717px; text-align:justify" class="dados-declaracao">
+                <br>
+                <strong>CLÁUSULA OITAVA - DAS DISPOSIÇÕES GERAIS</strong>
+                <br>
+                Este  Contrato  obriga  as  partes,  seus  herdeiros  e  sucessores,  sendo  vedado  à <strong>LOCATÁRIA</strong> transferir, sublocar,
+                ceder ou emprestar o imóvel, objeto da locação.
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 717px; text-align:justify" class="dados-declaracao">
+                <br>
+                <strong>PARÁGRAFO PRIMEIRO</strong> - O LOCADOR tem direito de vistoriar e visitar o imóvel a qualquer tempo, mediante prévia combinação
+                do dia e hora com a <strong>LOCATÁRIA.</strong>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 717px; text-align:justify" class="dados-declaracao">
+                <br>
+                <strong>PARÁGRAFO SEGUNDO</strong> - O Estado do Maranhão não integrará, a qualquer título, a relação contratual entre a LOCATÁRIA e o LOCADOR,
+                não gerando qualquer responsabilidade solidária ou subsidiária do Poder Público perante estes.
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 717px; text-align:justify" class="dados-declaracao">
+                <br>
+                <strong>PARÁGRAFO TERCEIRO</strong> - As partes elegem o foro da comarca de (Cidade)/MA, para dirimir quaisquer controvérsias oriundas
+                do presente instrumento.
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 717px; text-align:justify" class="dados-declaracao">
+                <br>
+                Por estarem assim justos e contratados, firmam as partes o presente instrumento, em duas vias de igual teor e forma, na presença das 02 (duas)
+                testemunhas abaixo.
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 717px; text-align:center" class="dados-declaracao">
+                <br>
+                ____________________________________,_________ de _________________________ de ____________
+                <br><br>
+                Cidade                   dia/mês/ano
+                <br><br><br><br>
+
+                ________________________________________________________
+                <br>
+                Assinatura do Locador
+                <br><br><br>
+                ________________________________________________________
+                <br>
+                Assinatura da Locatária
+                <br><br><br>
+            </td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <td style="width: 358px; text-align:center" class="dados-declaracao">
+                ________________________________________________________
+                <br>
+                Nome, RG, Testemunha
+            <td>
+
+            <td style="width: 359px; text-align:center" class="dados-declaracao">
+                ________________________________________________________
+                <br>
+                Nome, RG, Testemunha
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 358px;" class="dados-declaracao">
+                <br><strong>Obs: Anexar identidade do locador</strong>
+            <td>
+            <td style="width: 359px; text-align:center" class="dados-declaracao"></td>
+        </tr>
+    </table>
+
+
+
+
 </body>
 </html>
 
