@@ -315,37 +315,6 @@
                         </div>
                     </div>
 
-                    {{-- FORMA ANTIGA
-                    <div class="mb-3 row" style="margin-top:30px">
-
-                        <label for="deficientenao" class="col-3 col-form-label">Pessoa com deficiência ? <span class="small text-danger">*</span></label>
-                        <div class="col-3">
-                            <div style="margin-top:5px">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="deficiente" id="deficientesim" value="1" {{ old('deficiente', $requerente->deficiente) == '1' ? 'checked' : '' }}  required>
-                                    <label class="form-check-label" for="deficientesim">Sim</label>
-
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="deficiente" id="deficientenao" value="0" {{ old('deficiente', $requerente->deficiente) == '0' ? 'checked' : '' }} >
-                                    <label class="form-check-label" for="deficientenao">Não</label>
-                                </div>
-                                <br>
-                                @error('deficiente')
-                                    <small style="color: red">{{$message}}</small>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-group focused">
-                                <input type="text" style="visibility:hidden" class="form-control" id="deficiencia" name="deficiencia" value="{{ old('deficiencia', $requerente->deficiencia) }}" placeholder="especifique...">
-                                @error('deficiencia')
-                                    <small style="color: red" id="msg_error_deficiencia">{{ $message }}</small>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-                    --}}
 
                     <div class="mb-4 row" style="margin-top:30px">
                         {{-- deficiente --}}
@@ -613,7 +582,7 @@
 
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="medproturgcaminhaprogoficial" id="medproturgcaminhaprogoficialnao" value="0" {{ old('medproturgcaminhaprogoficial', $requerente->detalhe->medproturgcaminhaprogoficial) == '0' ? 'checked' : '' }} >
+                                    <input class="form-check-input desabilitaconcessaobeneficio" type="radio" name="medproturgcaminhaprogoficial" id="medproturgcaminhaprogoficialnao" value="0" {{ old('medproturgcaminhaprogoficial', $requerente->detalhe->medproturgcaminhaprogoficial) == '0' ? 'checked' : '' }} >
                                     <label class="form-check-label" for="medproturgcaminhaprogoficialnao">Não</label>
                                 </div>
                                 <br>
@@ -639,7 +608,7 @@
 
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="medproturgafastamentolar" id="medproturgafastamentolarnao" value="0" {{ old('medproturgafastamentolar', $requerente->detalhe->medproturgafastamentolar) == '0' ? 'checked' : '' }} >
+                                    <input class="form-check-input desabilitaconcessaobeneficio" type="radio" name="medproturgafastamentolar" id="medproturgafastamentolarnao" value="0" {{ old('medproturgafastamentolar', $requerente->detalhe->medproturgafastamentolar) == '0' ? 'checked' : '' }} >
                                     <label class="form-check-label" for="medproturgafastamentolarnao">Não</label>
                                 </div>
                                 <br>
@@ -743,7 +712,7 @@
 
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="sitvulnerabnaoconsegarcardespmoradia" id="sitvulnerabnaoconsegarcardespmoradianao" value="0" {{ old('sitvulnerabnaoconsegarcardespmoradia', $requerente->detalhe->sitvulnerabnaoconsegarcardespmoradia) == '0' ? 'checked' : '' }} >
+                                    <input class="form-check-input desabilitaconcessaobeneficio" type="radio" name="sitvulnerabnaoconsegarcardespmoradia" id="sitvulnerabnaoconsegarcardespmoradianao" value="0" {{ old('sitvulnerabnaoconsegarcardespmoradia', $requerente->detalhe->sitvulnerabnaoconsegarcardespmoradia) == '0' ? 'checked' : '' }} >
                                     <label class="form-check-label" for="sitvulnerabnaoconsegarcardespmoradianao">Não</label>
                                 </div>
                                 <br>
@@ -769,7 +738,7 @@
 
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="temrendfamiliardoissalconvivagressor" id="temrendfamiliardoissalconvivagressornao" value="0" {{ old('temrendfamiliardoissalconvivagressor', $requerente->detalhe->temrendfamiliardoissalconvivagressor) == '0' ? 'checked' : '' }} >
+                                    <input class="form-check-input desabilitaconcessaobeneficio" type="radio" name="temrendfamiliardoissalconvivagressor" id="temrendfamiliardoissalconvivagressornao" value="0" {{ old('temrendfamiliardoissalconvivagressor', $requerente->detalhe->temrendfamiliardoissalconvivagressor) == '0' ? 'checked' : '' }} >
                                     <label class="form-check-label" for="temrendfamiliardoissalconvivagressornao">Não</label>
                                 </div>
                                 <br>
@@ -795,7 +764,7 @@
                                     <label class="form-check-label" for="possuiparenteporeminviavelcompartilhardomiciliosim">Sim</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="possuiparenteporeminviavelcompartilhardomicilio" id="possuiparenteporeminviavelcompartilhardomicilionao" value="0" {{old('possuiparenteporeminviavelcompartilhardomicilio', $requerente->detalhe->possuiparenteporeminviavelcompartilhardomicilio) == '0' ? 'checked' : '' }} >
+                                    <input class="form-check-input desabilitaconcessaobeneficio" type="radio" name="possuiparenteporeminviavelcompartilhardomicilio" id="possuiparenteporeminviavelcompartilhardomicilionao" value="0" {{old('possuiparenteporeminviavelcompartilhardomicilio', $requerente->detalhe->possuiparenteporeminviavelcompartilhardomicilio) == '0' ? 'checked' : '' }} >
                                     <label class="form-check-label" for="possuiparenteporeminviavelcompartilhardomicilionao">Não</label>
                                 </div>
                                 <br>
@@ -891,7 +860,7 @@
 
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="temcadunico" id="temcaduniconao" value="0" {{ old('temcadunico', $requerente->detalhe->temcadunico) == '0' ? 'checked' : '' }} >
+                                    <input class="form-check-input desabilitaconcessaobeneficio" type="radio" name="temcadunico" id="temcaduniconao" value="0" {{ old('temcadunico', $requerente->detalhe->temcadunico) == '0' ? 'checked' : '' }} >
                                     <label class="form-check-label" for="temcaduniconao">Não</label>
                                 </div>
                                 <br>
@@ -976,7 +945,7 @@
 
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="cumprerequisitositensnecessarios" id="cumprerequisitositensnecessariosnao" value="0" {{ old('cumprerequisitositensnecessarios', $requerente->detalhe->cumprerequisitositensnecessarios) == '0' ? 'checked' : '' }} >
+                                    <input class="form-check-input desabilitaconcessaobeneficio" type="radio" name="cumprerequisitositensnecessarios" id="cumprerequisitositensnecessariosnao" value="0" {{ old('cumprerequisitositensnecessarios', $requerente->detalhe->cumprerequisitositensnecessarios) == '0' ? 'checked' : '' }} >
                                     <label class="form-check-label" for="cumprerequisitositensnecessariosnao">Não</label>
                                 </div>
                                 <br>
@@ -1001,6 +970,26 @@
             </div>
         </div>
     </div>
+
+    {{-- inicio modal --}}
+    <div class="modal fade avisoperdabeneficio" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel"><img src="{{ asset('images/alerta.png')}}" width="50" style="margin-right: 20px;">Aviso</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ESTA OPÇÃO DESABILITA A CONCESSÃO DO BENEFÍCIO
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- fim modal --}}
+
 @endsection
 
 @section('scripts')
@@ -1182,7 +1171,6 @@
 
 
         /// Iníco valor CADUNICO
-
         // Torna visível o campo "valortemcadunico", caso o valor escolhido do radio(temcadunico) seja 1.
         if($("input[name='temcadunico']:checked").val() == "1"){
             $("#valortemcadunico").css("visibility","visible");
@@ -1230,37 +1218,87 @@
 
             });
         }
-
         /// Fim valor CADUNICO
 
 
-        // Recebe o seletor do campo ValorLocacao
-        //let inputValorLocacao = document.getElementById('valorlocacao');
+        // Disparando MODAL de aviso de PERCA DE CONCESSÃO DE BENEFÍCO
+        $("input[name='medproturgcaminhaprogoficial']").on("click", function() {
+            if($(this).val() == "0"){
+                $(".avisoperdabeneficio").modal("show");
+                $("#btnsalvar").prop("disabled", true);
+            }else{
+                $("#btnsalvar").prop("disabled", false);
+                habilitabotaosalvar();
+            }
+        });
 
-        // Verifique se existe o seletor no HTML. Obs: Dependendo da página que você esteja, é possível que este seletor não exista, por isso a necessidade de testar sua existência
-        //if(inputValorLocacao){
+        $("input[name='medproturgafastamentolar']").on("click", function() {
+            if($(this).val() == "0"){
+                $(".avisoperdabeneficio").modal("show");
+                $("#btnsalvar").prop("disabled", true);
+            }else{
+                $("#btnsalvar").prop("disabled", false);
+                habilitabotaosalvar();
+            }
+        });
 
-            // Aguardar o usuário digitar o valo no campo
-            //inputValorLocacao.addEventListener('input', function(){
+        $("input[name='sitvulnerabnaoconsegarcardespmoradia']").on("click", function() {
+            if($(this).val() == "0"){
+                $(".avisoperdabeneficio").modal("show");
+                $("#btnsalvar").prop("disabled", true);
+            }else{
+                $("#btnsalvar").prop("disabled", false);
+                habilitabotaosalvar();
+            }
+        });
 
-                // Obter o valor atual removendo qualquer caracter que não seja número
-                //let valueValorLocacao = this.value.replace(/[^\d]/g, '');
+        $("input[name='temrendfamiliardoissalconvivagressor']").on("click", function() {
+            if($(this).val() == "0"){
+                $(".avisoperdabeneficio").modal("show");
+                $("#btnsalvar").prop("disabled", true);
+            }else{
+                $("#btnsalvar").prop("disabled", false);
+                habilitabotaosalvar();
+            }
+        });
 
-                // Adicionar os separadores de milhares
-                //var formattedValorLocacao = (valueValorLocacao.slice(0, -2).replace(/\B(?=(\d{3})+(?!\d))/g, '.')) + '' + valueValorLocacao.slice(-2);
+        $("input[name='possuiparenteporeminviavelcompartilhardomicilio']").on("click", function() {
+            if($(this).val() == "0"){
+                $(".avisoperdabeneficio").modal("show");
+                $("#btnsalvar").prop("disabled", true);
+            }else{
+                $("#btnsalvar").prop("disabled", false);
+                habilitabotaosalvar();
+            }
+        });
 
-                // Adicionar a vírgula e até dois dígitos se houver centavos
-                //if(formattedValorLocacao.length > 2){
-                //    formattedValorLocacao = formattedValorLocacao.slice(0, -2) + "," + formattedValorLocacao.slice(-2);
-                //}
+        $("input[name='temcadunico']").on("click", function() {
+            if($(this).val() == "0"){
+                $(".avisoperdabeneficio").modal("show");
+                $("#btnsalvar").prop("disabled", true);
+            }else{
+                $("#btnsalvar").prop("disabled", false);
+                habilitabotaosalvar();
+            }
+        });
 
+        $("input[name='cumprerequisitositensnecessarios']").on("click", function() {
+            if($(this).val() == "0"){
+                $(".avisoperdabeneficio").modal("show");
+                $("#btnsalvar").prop("disabled", true);
+            }else{
+                $("#btnsalvar").prop("disabled", false);
+                habilitabotaosalvar();
+            }
+        });
 
-                // Atualizar o valor do campo
-                //this.value = formattedValorLocacao;
-
-            //});
-        //}
-
+        function habilitabotaosalvar(){
+            $(".desabilitaconcessaobeneficio").each(function(){
+                if($(this).is(':checked')) {
+                    $("#btnsalvar").prop("disabled", true);
+                }
+            });
+        }
 
 
     </script>
