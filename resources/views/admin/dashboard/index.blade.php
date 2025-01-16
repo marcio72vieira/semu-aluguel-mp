@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="px-4 container-fluid">
-        <div class="mb-1 hstack gap-5 justify-content-between">
+        <div class="gap-5 mb-1 hstack justify-content-between">
             {{-- (obs: alterar nome do campo cujo texto do questionario foi alrerado) --}}
             <h2 class="mt-4">Dashboard </h2>
 
@@ -224,7 +224,7 @@
         </div>
 
         <div class="mb-4 card">
-            <div class="card-header mb-4">
+            <div class="mb-4 card-header">
                 <div class="row">
                     <div class="col-md-8">
                         <i class="fas fa-table me-1"></i>
@@ -280,8 +280,8 @@
                             <th>Requerente</th>
                             <th>Município</th>
                             <th>Unidade Atendimento</th>
-                            <th>Assitente Social</th>
-                            <th>Funcionario SEMU</th>
+                            <th>Operador</th>
+                            <th>Analista</th>
                             <th>Processo</th>
                         </tr>
                     </thead>

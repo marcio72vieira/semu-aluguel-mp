@@ -104,6 +104,7 @@
                     <thead>
                         <tr>
                             <th>ID</th>
+                            <th>Ordem</th>
                             <th>Documento</th>
                             <th>Visualizar</th>
                             <th>Excluir</th>
@@ -114,6 +115,7 @@
                         @forelse ($documentos as $documento)
                             <tr>
                                 <td>{{ $documento->id }}</th>
+                                    <td>{{ $documento->ordem }}</th>
                                 <td>{{ $documento->tipodocumento->nome }}</th>
                                 <td> <a href="{{ asset('/storage/'.$documento->url) }}" target="_blank" title="Visualizar este documento"> <img src="{{ asset('images/documentos2.png') }}" width="30" style="margin-left: 25px;"> </a></td>
                                 <td class="flex-row flex-wrap d-md-flex justify-content-start align-content-stretch">

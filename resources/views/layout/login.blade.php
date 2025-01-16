@@ -48,8 +48,8 @@
 
         {{-- footer --}}
         <div id="layoutAuthentication_footer">
-            <footer class="py-4 bg-light mt-auto">
-                <div class="container-fluid px-4">
+            <footer class="py-4 mt-auto bg-light">
+                <div class="px-4 container-fluid">
                     <div class="d-flex align-items-center justify-content-between small">
                         <div class="text-muted">Copyright &copy; ATI {{ date('Y')}}</div>
                         <div>

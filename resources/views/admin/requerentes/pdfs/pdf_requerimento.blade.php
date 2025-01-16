@@ -471,8 +471,6 @@
     </table>
 
     <pagebreak />
-    {{ $mpdf->showWatermarkText = true; }}
-    {{ $mpdf->WriteHTML('<watermarktext content="DRAFT" alpha="0.4" />'); }}
     
     <table style="width: 717px; border-collapse: collapse; margin-bottom: 15px;">
         <tr>
