@@ -104,6 +104,14 @@ class User extends Authenticatable
         return $qtd;
         
     }
+
+
+    // Retorna apenas o nome do Analista (user) como uma string
+    public static function nomeUserAnalista($id)
+    {
+        $nomeanalista = User::where('id', '=', $id)->select('nomecompleto')->pluck('nomecompleto');
+        return $nomeanalista[0];
+    }
     
     /* 
     //Obtendo a quantidade de requerimentos cadastrado pelo usuário com perfil de ASSISTENTE SOCIAL

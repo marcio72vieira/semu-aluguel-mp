@@ -53,7 +53,7 @@
                         </div>
 
                         <div class="pt-3 col-md-2 col-sm-12">
-                            <div style="margin-left: 40%; margin-top:20px;">
+                            <div style="margin-left: 37%; margin-top:20px;">
                                 <button type="submit" name="pesquisar" class="btn btn-info btn-sm"><i class="fa-solid fa-magnifying-glass"></i> Pesquisar</button>
                                 <a href="{{ route('checklist.index')}}" class="btn btn-warning btn-sm"><i class="fa-solid fa-trash"></i> Limpar</a>
                             </div>
@@ -114,7 +114,7 @@
                     {{-- @dd("Acessando um relacionamento de requerentes", $requerentes[0]['documentos']) --}}
                     {{-- @dd("Acessando uma propriedade de um dos relacionamento de requerentes", $requerentes[0]['documentos'][0]['url']) --}}
                     {{-- @dd("Acessando uma propriedade de um dos relacionamento de requerentes", $requerentes[0]['documentos'][0]['user_id']) --}}
-                    {{-- @dd("Acessando a propriedade nome do relacionamento regional de requernete", $requerentes[0]['regional']['nome']) --}}
+                    {{-- @dd("Acessando a propriedade "nome" do relacionamento regional de requernete", $requerentes[0]['regional']['nome']) --}}
 
 
 
@@ -165,7 +165,13 @@
                                     @if ($loop->first) @break @endif
                                 @endforeach
                                 --}}
-                                Nome do Analista
+                                @if($requerente->idOperador == $requerente->idAnalista)
+                                    <i class="fa-solid fa-ellipsis" title="documentos sendo anexados..."></i>
+                                @else
+                                    {{-- Recupera o nome do Analista pelo seu ID através do helper ---}}
+                                    {{ mrc_search_analista($requerente->idAnalista) }}
+                                    {{-- OU invocando um método stático diretamente: {{ App\Models\User::nomeUserAnalista($requerente->idAnalista) }} --}}
+                                @endif
                             </td>
                             <td>
                                 @if($requerente->estatus == 1) <span style="font-size: 14px;"> <i class="fa-solid fa-shoe-prints"></i> em andamento </span> @endif  {{-- falta anexar todos os documentos --}}

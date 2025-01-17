@@ -1,6 +1,7 @@
 <?php
 
 //namespace App\Helpers;
+use App\Models\User;
 
 
 if (!function_exists('mrc_calc_time')) {
@@ -173,4 +174,15 @@ if (!function_exists('mrc_encrypt_decrypt')) {
             return $generoEstadoCivil;
         }
     }
+
+    if (!function_exists('mrc_search_analista')) {
+
+        function mrc_search_analista($id)
+        {
+            $nomeanalista = User::where('id', '=', $id)->pluck('nomecompleto');
+            return $nomeanalista[0];
+            
+        }
+    }
+
 }

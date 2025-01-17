@@ -493,25 +493,51 @@ Para envio de e-mails com anexo, deve-se acrescentar ao modelo de JSON o seguint
   }]
 }
 
+/////////////////////////////////////////////
+// Filtro de consulta do checklist original
+////////////////////////////////////////////
 
-regional_id, regional, municipio_id, municipio, tipounidade_id, tipounidade, unidadeatendimento_id, unidadeatendimento, endereco, numero, complemento, bairro, cep, foneresidencial, fonecelular, email, datacadastro,
+        // Query com filtro
+        $requerentes = DB::table('requerentes')
+        ->join('regionais', 'regionais.id', '=', 'requerentes.regional_id')
+        ->join('municipios', 'municipios.id', '=', 'requerentes.municipio_id')
+        ->join('tipounidades', 'tipounidades.id', '=', 'requerentes.tipounidade_id')
+        ->join('unidadesatendimentos', 'unidadesatendimentos.id', '=', 'requerentes.unidadeatendimento_id')
+        ->join('users', 'users.id', '=', 'requerentes.user_id')
+        //->join('documentos', 'documentos.requerente_id', '=', 'requerentes.id')
 
-'regional_id' => $record->regional_id,
-'regional' => $record->regional,
-'municipio_id' => $record->municipio_id,
-'municipio' => $record->municipio,
-'tipounidade_id' => $record->tipounidade_id,
-'tipounidade' => $record->tipounidade,
-'unidadeatendimento_id' => $record->unidadeatendimento_id,
-'unidadeatendimento' => $record->unidadeatendimento,
-'endereco' => $record->endereco,
-'numero' => $record->numero,
-'complemento' => $record->complemento,
-'bairro' => $record->bairro,
-'cep' => $record->cep,
-'foneresidencial' => $record->foneresidencial,
-'fonecelular' => $record->fonecelular,
-'email' => $record->email,
-'datacadastro' => $record->datacadastro,
+
+        ->select('requerentes.id', 'requerentes.nomecompleto AS nomecompletorequerente', 'requerentes.foneresidencial', 'requerentes.fonecelular', 'requerentes.estatus',
+            'regionais.nome AS nomeregional','municipios.nome AS nomemunicipio',
+            'tipounidades.nome AS nometipounidade', 'unidadesatendimentos.nome AS nomeunidade',
+            'users.nome AS nomeoperador')
+
+
+        ->when($request->has('requerente'), function($query) use($request) {
+                $query->where('requerentes.nomecompleto', 'like', '%'. $request->requerente . '%');
+        })
+        ->when($request->has('municipio'), function($query) use($request) {
+            $query->where('municipios.nome', 'like', '%'. $request->municipio . '%');
+        })
+        ->when($request->has('tipounidade'), function($query) use($request) {
+            $query->where('tipounidades.nome', 'like', '%'. $request->tipounidade . '%');
+        })
+        ->when($request->has('unidade'), function($query) use($request) {
+            $query->where('unidadesatendimentos.nome', 'like', '%'. $request->unidade . '%');
+        })
+
+        //->groupBy('documentos.requerente_id')
+
+
+        ->orderByDesc('nomecompletorequerente')
+        ->paginate(10);
+
+        return view('admin.checklists.index', [
+            'exibirfiltro' => 'nao',
+            'requerentes' => $requerentes,
+            'requerente' => $request->requerente,
+
+        ]);
+
 
 

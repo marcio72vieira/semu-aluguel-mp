@@ -29,13 +29,16 @@ class ChecklistController extends Controller
         ->join('tipounidades', 'tipounidades.id', '=', 'requerentes.tipounidade_id')
         ->join('unidadesatendimentos', 'unidadesatendimentos.id', '=', 'requerentes.unidadeatendimento_id')
         ->join('users', 'users.id', '=', 'requerentes.user_id')
-        //->join('documentos', 'documentos.requerente_id', '=', 'requerentes.id')
+        ->join('documentos', 'documentos.requerente_id', '=', 'requerentes.id')
 
+        // Na tabela documentos, o requerente_id repete-se de acordo com o número documentos anexados, havendo a necessidade
+        // do agrupamento abaixo. Para que "groupBy" funcione, altere 'strict' => false, em "config/database.php"
+        ->groupBy('documentos.requerente_id')   
 
-        ->select('requerentes.id', 'requerentes.nomecompleto AS nomecompletorequerente', 'requerentes.foneresidencial', 'requerentes.fonecelular', 'requerentes.estatus',
+        ->select('requerentes.id', 'requerentes.user_id as idOperador', 'requerentes.nomecompleto AS nomecompletorequerente', 'requerentes.foneresidencial', 'requerentes.fonecelular', 'requerentes.estatus',
             'regionais.nome AS nomeregional','municipios.nome AS nomemunicipio',
             'tipounidades.nome AS nometipounidade', 'unidadesatendimentos.nome AS nomeunidade',
-            'users.nome AS nomeoperador')
+            'users.nome AS nomeoperador', 'documentos.user_id AS idAnalista')
 
 
         ->when($request->has('requerente'), function($query) use($request) {
@@ -51,14 +54,19 @@ class ChecklistController extends Controller
             $query->where('unidadesatendimentos.nome', 'like', '%'. $request->unidade . '%');
         })
 
-        //->groupBy('documentos.requerente_id')
 
 
-        ->orderByDesc('nomecompletorequerente')
+        ->orderBy('nomecompletorequerente')
         ->paginate(10);
 
+        if($request->requerente != '' || $request->municipio != '' || $request->tipounidade != '' || $request->unidade != ''){
+            $flag = 'sim';
+        }else{
+            $flag = 'nao';
+        }
+
         return view('admin.checklists.index', [
-            'exibirfiltro' => 'nao',
+            'exibirfiltro' => $flag,
             'requerentes' => $requerentes,
             'requerente' => $request->requerente,
 
