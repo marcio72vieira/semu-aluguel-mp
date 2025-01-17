@@ -33,29 +33,48 @@
                         </div>
 
                         <div class="col-md-2 col-sm-12">
-                            <label class="form-label" for="municipio">Município</label>
-                            <input type="text" name="municipio" id="municipio" class="form-control" value="" placeholder="Município">
+                            <label class="form-label" for="role">Regional</label>
+                            <input type="text" name="regional" id="regional" class="form-control" value="{{ $regional }}" placeholder="Regional da unidade">
                         </div>
 
                         <div class="col-md-2 col-sm-12">
-                            <label class="form-label" for="role">Tipo</label>
-                            <input type="text" name="tipounidade" id="tipounidade" class="form-control" value="" placeholder="Tipo unidade">
+                            <label class="form-label" for="municipio">Município</label>
+                            <input type="text" name="municipio" id="municipio" class="form-control" value="{{ $municipio }}" placeholder="Município da unidade">
                         </div>
-
                         <div class="col-md-2 col-sm-12">
                             <label class="form-label" for="role">Unidade</label>
-                            <input type="text" name="unidade" id="unidade" class="form-control" value="" placeholder="Unidade de atendimento">
+                            <input type="text" name="unidade" id="unidade" class="form-control" value="{{ $unidade }}" placeholder="Unidade de atendimento">
                         </div>
 
-                        <div class="col-md-2 col-sm-12">
+                        <div class="col-md-1 col-sm-12">
+                            <label class="form-label" for="role">Tipo</label>
+                            <input type="text" name="tipounidade" id="tipounidade" class="form-control" value="{{ $tipounidade }}" placeholder="Tipo unidade">
+                        </div>
+
+                        <div class="col-md-1 col-sm-12">
+                            <div class="form-group focused">
+                                <label class="form-label" for="role">Estatus</label>
+                                <select name="estatus" id="estatus" class="form-control">
+                                    <option value="" selected disabled>Escolha ...</option>
+                                    <option value="1" {{ $estatus == '1' ? 'selected' : '' }}>em andamento</option>
+                                    <option value="2" {{ $estatus == '2' ? 'selected' : '' }}>para análise</option>
+                                    <option value="3" {{ $estatus == '3' ? 'selected' : '' }}>pendente</option>
+                                    <option value="4" {{ $estatus == '4' ? 'selected' : '' }}>corrigido</option>
+                                    <option value="5" {{ $estatus == '5' ? 'selected' : '' }}>concluído</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        {{-- <div class="col-md-2 col-sm-12">
                             <label class="form-label" for="role">Analista</label>
                             <input type="text" name="analista" id="analista" class="form-control" value="" placeholder="Analista">
-                        </div>
+                        </div> --}}
 
                         <div class="pt-3 col-md-2 col-sm-12">
                             <div style="margin-left: 37%; margin-top:20px;">
                                 <button type="submit" name="pesquisar" class="btn btn-info btn-sm"><i class="fa-solid fa-magnifying-glass"></i> Pesquisar</button>
-                                <a href="{{ route('checklist.index')}}" class="btn btn-warning btn-sm"><i class="fa-solid fa-trash"></i> Limpar</a>
+                                <button type="button" class="btn btn-warning btn-sm" id="btnlimpar"><i class="fa-solid fa-trash"></i> Limpar</button>
                             </div>
                         </div>
                     </div>
@@ -96,6 +115,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Requerente</th>
+                        <th>Regional</th>
                         <th>Município</th>
                         <th>Tipo</th>
                         <th>Unidade Atendimento</th>
@@ -122,6 +142,7 @@
                         <tr>
                             <td>{{ $requerente->id }}</td>
                             <td>{{ $requerente->nomecompletorequerente }}</td>
+                            <td>{{ $requerente->nomeregional }}</td>
                             <td>{{ $requerente->nomemunicipio }}</td>
                             <td>{{ $requerente->nometipounidade }}</td>
                             <td>{{ $requerente->nomeunidade }}</td>
@@ -223,6 +244,16 @@
             $("#formularioFiltragem").toggle();
             //$("#iconeVisao", this).toggleClass("fas fa-eye-slash fas fa-eye");
         });
+
+        // "Limpa campos de pesquisa"
+        $("#btnlimpar").on('click', function(){
+            $("#requerente").val("");
+            $("#regional").val("");
+            $("#municipio").val("");
+            $("#unidade").val("");
+            $("#estatus").val("");
+            $("#tipounidade").val("");
+        })
     </script>
 @endsection
 

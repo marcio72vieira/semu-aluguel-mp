@@ -4,11 +4,11 @@
     <div class="px-4 container-fluid">
         <div class="gap-2 mb-1 hstack">
             <h2 class="mt-3">UNIDADE DE ATENDIMENTO -  cadastro</h2>
-            <ol class="mt-3 mb-3 breadcrumb ms-auto">
+            {{-- <ol class="mt-3 mb-3 breadcrumb ms-auto">
                 <li class="breadcrumb-item"><a href="">Dashboard</a></li>
                 <li class="breadcrumb-item"><a class="text-decoration-none" href="">Unidades de Atendimentos</a></li>
                 <li class="breadcrumb-item active">Unidade de Atendimento</li>
-            </ol>
+            </ol> --}}
         </div>
 
         <div class="mb-4 shadow card border-light">
@@ -141,7 +141,7 @@
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="ativo" id="ativosim" value="1" {{old('ativo') == '1' ? 'checked' : ''}} reuired>
                                     <label class="form-check-label" for="ativosim">Sim</label>
-                                    
+
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="ativo" id="ativonao" value="0" {{old('ativo') == '0' ? 'checked' : ''}} >

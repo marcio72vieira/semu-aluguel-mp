@@ -21,6 +21,7 @@ class ChecklistController extends Controller
         return view('admin.checklists.index', [ 'requerentes' => $requerentes ]);
         */
 
+        //dd($request->all());
 
         // Query com filtro
         $requerentes = DB::table('requerentes')
@@ -33,7 +34,7 @@ class ChecklistController extends Controller
 
         // Na tabela documentos, o requerente_id repete-se de acordo com o número documentos anexados, havendo a necessidade
         // do agrupamento abaixo. Para que "groupBy" funcione, altere 'strict' => false, em "config/database.php"
-        ->groupBy('documentos.requerente_id')   
+        ->groupBy('documentos.requerente_id')
 
         ->select('requerentes.id', 'requerentes.user_id as idOperador', 'requerentes.nomecompleto AS nomecompletorequerente', 'requerentes.foneresidencial', 'requerentes.fonecelular', 'requerentes.estatus',
             'regionais.nome AS nomeregional','municipios.nome AS nomemunicipio',
@@ -44,32 +45,42 @@ class ChecklistController extends Controller
         ->when($request->has('requerente'), function($query) use($request) {
                 $query->where('requerentes.nomecompleto', 'like', '%'. $request->requerente . '%');
         })
+        ->when($request->has('regional'), function($query) use($request) {
+            $query->where('regionais.nome', 'like', '%'. $request->regional . '%');
+        })
         ->when($request->has('municipio'), function($query) use($request) {
             $query->where('municipios.nome', 'like', '%'. $request->municipio . '%');
-        })
-        ->when($request->has('tipounidade'), function($query) use($request) {
-            $query->where('tipounidades.nome', 'like', '%'. $request->tipounidade . '%');
         })
         ->when($request->has('unidade'), function($query) use($request) {
             $query->where('unidadesatendimentos.nome', 'like', '%'. $request->unidade . '%');
         })
-
+        ->when($request->has('tipounidade'), function($query) use($request) {
+            $query->where('tipounidades.nome', 'like', '%'. $request->tipounidade . '%');
+        })
+        ->when($request->has('estatus'), function($query) use($request) {
+            $query->where('requerentes.estatus', '=', $request->estatus );
+        })
 
 
         ->orderBy('nomecompletorequerente')
         ->paginate(10);
 
-        if($request->requerente != '' || $request->municipio != '' || $request->tipounidade != '' || $request->unidade != ''){
+        if($request->requerente != '' || $request->regional != '' || $request->municipio != '' || $request->unidade != '' || $request->tipounidade != '' || $request->estatus != '' ){
             $flag = 'sim';
         }else{
             $flag = 'nao';
         }
 
+
         return view('admin.checklists.index', [
             'exibirfiltro' => $flag,
             'requerentes' => $requerentes,
             'requerente' => $request->requerente,
-
+            'regional' => $request->regional,
+            'municipio' => $request->municipio,
+            'unidade' => $request->unidade,
+            'tipounidade' => $request->tipounidade,
+            'estatus' => $request->estatus,
         ]);
 
 

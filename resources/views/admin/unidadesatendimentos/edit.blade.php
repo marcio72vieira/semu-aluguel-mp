@@ -4,11 +4,11 @@
     <div class="container-fluid px-4">
         <div class="mb-1 hstack gap-2">
             <h2 class="mt-3">UNIDADE DE ATENDIMENTO -  edição</h2>
-            <ol class="breadcrumb mb-3 mt-3 ms-auto">
+            {{-- <ol class="breadcrumb mb-3 mt-3 ms-auto">
                 <li class="breadcrumb-item"><a href="">Dashboard</a></li>
                 <li class="breadcrumb-item"><a class="text-decoration-none" href="">Unidades de Atendimentos</a></li>
                 <li class="breadcrumb-item active">Unidade de Atendimento</li>
-            </ol>
+            </ol> --}}
         </div>
 
         <div class="card mb-4 border-light shadow">

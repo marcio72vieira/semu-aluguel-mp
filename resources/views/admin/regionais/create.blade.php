@@ -4,11 +4,11 @@
     <div class="container-fluid px-4">
         <div class="mb-1 hstack gap-2">
             <h2 class="mt-3">Cadastrar Regionais</h2>
-            <ol class="breadcrumb mb-3 mt-3 ms-auto">
+            {{-- <ol class="breadcrumb mb-3 mt-3 ms-auto">
                 <li class="breadcrumb-item"><a href="">Dashboard</a></li>
                 <li class="breadcrumb-item"><a class="text-decoration-none" href="">Regionais</a></li>
                 <li class="breadcrumb-item active">Regional</li>
-            </ol>
+            </ol> --}}
         </div>
 
         <div class="card mb-4 border-light shadow">
