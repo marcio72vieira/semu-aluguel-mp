@@ -20,8 +20,15 @@ class ChecklistController extends Controller
         $requerentes = Requerente::with(['regional', 'municipio', 'tipounidade', 'unidadeatendimento', 'documentos', 'user'])->orderBy('nomecompleto')->paginate(10);
         return view('admin.checklists.index', [ 'requerentes' => $requerentes ]);
         */
-
-        //dd($request->all());
+        
+        
+        // dd($request->all());
+        
+        /* if($request->pesquisar){
+            dd("O formulário foi submetido");
+        }else{
+            dd("O formulário NÃO FOI submetido");
+        } */
 
         // Query com filtro
         $requerentes = DB::table('requerentes')
@@ -65,15 +72,17 @@ class ChecklistController extends Controller
         ->orderBy('nomecompletorequerente')
         ->paginate(10);
 
-        if($request->requerente != '' || $request->regional != '' || $request->municipio != '' || $request->unidade != '' || $request->tipounidade != '' || $request->estatus != '' ){
-            $flag = 'sim';
+
+        // Se a pesquisa foi submetida e seu valor for started, exibe o formulário de pesquisa, caso contrário esconde o formulário.
+        if($request->pesquisar == "started"){
+            $flag = '';
         }else{
-            $flag = 'nao';
+            $flag = 'none';
         }
 
 
         return view('admin.checklists.index', [
-            'exibirfiltro' => $flag,
+            'flag' => $flag,
             'requerentes' => $requerentes,
             'requerente' => $request->requerente,
             'regional' => $request->regional,

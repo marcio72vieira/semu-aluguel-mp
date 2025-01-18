@@ -19,8 +19,8 @@
             </span>
         </div>
 
-        {{-- inicio filtro --}}
-        <div class="mt-1 mb-4 shadow card border-light" id="formularioFiltragem" style="display: {{ $exibirfiltro == 'sim' ? '' : 'none' }}">
+        {{-- inicio painel de filtragem --}}
+        <div class="mt-1 mb-4 shadow card border-light" id="formularioFiltragem" style="display: {{ $flag }}">
             {{-- <div class="gap-2 card-header hstack"> <span>Filtro</span> </div> --}}
 
             <div class="card-body">
@@ -41,14 +41,15 @@
                             <label class="form-label" for="municipio">Município</label>
                             <input type="text" name="municipio" id="municipio" class="form-control" value="{{ $municipio }}" placeholder="Município da unidade">
                         </div>
-                        <div class="col-md-2 col-sm-12">
-                            <label class="form-label" for="role">Unidade</label>
-                            <input type="text" name="unidade" id="unidade" class="form-control" value="{{ $unidade }}" placeholder="Unidade de atendimento">
-                        </div>
 
                         <div class="col-md-1 col-sm-12">
                             <label class="form-label" for="role">Tipo</label>
                             <input type="text" name="tipounidade" id="tipounidade" class="form-control" value="{{ $tipounidade }}" placeholder="Tipo unidade">
+                        </div>
+                        
+                        <div class="col-md-2 col-sm-12">
+                            <label class="form-label" for="role">Unidade</label>
+                            <input type="text" name="unidade" id="unidade" class="form-control" value="{{ $unidade }}" placeholder="Unidade de atendimento">
                         </div>
 
                         <div class="col-md-1 col-sm-12">
@@ -73,7 +74,7 @@
 
                         <div class="pt-3 col-md-2 col-sm-12">
                             <div style="margin-left: 37%; margin-top:20px;">
-                                <button type="submit" name="pesquisar" class="btn btn-info btn-sm"><i class="fa-solid fa-magnifying-glass"></i> Pesquisar</button>
+                                <button type="submit" name="pesquisar" value="stoped" id="btnpesquisar" class="btn btn-info btn-sm"><i class="fa-solid fa-magnifying-glass"></i> Pesquisar</button>
                                 <button type="button" class="btn btn-warning btn-sm" id="btnlimpar"><i class="fa-solid fa-trash"></i> Limpar</button>
                             </div>
                         </div>
@@ -101,7 +102,7 @@
                 </form>
             </div>
         </div>
-        {{-- fim filtro--}}
+        {{-- fim painel de filtragem--}}
 
         <div class="card-body">
 
@@ -236,6 +237,7 @@
             if($(this).text() == "Ocultar"){
                 //$(this).text("Exibir");
                 $("#ocultarExibirPaineldeFiltragem").html("<i id='iconeVisao' class='fa-solid fa-filter' style='margin-right: 5px;'></i>Filtro");
+                limparCampos();
             }else {
                 //$(this).text("Ocultar");
                 $("#ocultarExibirPaineldeFiltragem").html("<i id='iconeVisao' class='fas fa-eye-slash' style='margin-right: 5px;'></i>Ocultar");
@@ -245,15 +247,23 @@
             //$("#iconeVisao", this).toggleClass("fas fa-eye-slash fas fa-eye");
         });
 
+        $("#btnpesquisar").on('click', function(){
+            $(this).attr('value', 'started');
+        });
+
         // "Limpa campos de pesquisa"
         $("#btnlimpar").on('click', function(){
+            limparCampos();
+        })
+
+        function limparCampos(){
             $("#requerente").val("");
             $("#regional").val("");
             $("#municipio").val("");
             $("#unidade").val("");
             $("#estatus").val("");
             $("#tipounidade").val("");
-        })
+        }
     </script>
 @endsection
 
