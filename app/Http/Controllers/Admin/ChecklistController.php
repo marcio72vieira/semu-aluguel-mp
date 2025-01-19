@@ -23,13 +23,6 @@ class ChecklistController extends Controller
         
         
         // dd($request->all());
-        
-        /* if($request->pesquisar){
-            dd("O formulário foi submetido");
-        }else{
-            dd("O formulário NÃO FOI submetido");
-        } */
-
         // Query com filtro
         $requerentes = DB::table('requerentes')
         ->join('regionais', 'regionais.id', '=', 'requerentes.regional_id')

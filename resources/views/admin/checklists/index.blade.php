@@ -13,7 +13,7 @@
     <div class="mb-4 shadow card border-light">
         <div class="gap-2 card-header hstack">
             <span class="flex-row mt-1 mb-1 ms-auto d-sm-flex">
-                <label id="ocultarExibirPaineldeFiltragem" style="cursor: pointer; font-size: 17px;"><i id="iconeVisao" class="fa-solid fa-filter" style=" margin-right: 5px;"></i>Filtro</label>
+                <label id="ocultarExibirPaineldeFiltragem" style="cursor: pointer; font-size: 17px;"><i id="iconeVisao" class="{{ $flag != '' ? 'fa-solid fa-filter' : 'fas fa-eye-slash' }}" style=" margin-right: 5px;"></i>{{ $flag != '' ? "Filtro" : "Ocultar" }}</label>
                 {{-- <a href="{{ route('requerente.create') }}" class="btn btn-success btn-sm me-1"><i class="fa-solid fa-eye-slash"></i> Filtrar </a> --}}
                 {{-- <a href="{{ route('user.pdflistusers') }}" class="btn btn-danger btn-sm me-1" target="_blank"><i class="fa-solid fa-file-pdf"></i> pdf</a> --}}
             </span>
@@ -232,7 +232,7 @@
 
 @section('scripts')
     <script>
-        // Esconde/Exibe os cards para ampliar área de visualização
+        // Esconde/Exibe painel de filtragem
         $("#ocultarExibirPaineldeFiltragem").click(function(){
             if($(this).text() == "Ocultar"){
                 //$(this).text("Exibir");
