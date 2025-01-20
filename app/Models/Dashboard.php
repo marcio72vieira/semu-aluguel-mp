@@ -90,7 +90,8 @@ class Dashboard extends Model
     public static function processos()
     {
         // $processos = Processo::orderBy('nomecompleto')->paginate(10);
-        return Processo::orderBy('nomecompleto')->paginate(10);
+        // return Processo::orderBy('nomecompleto')->paginate(10);
+        return Processo::orderByDesc('created_at')->paginate(10);
     }
     
 

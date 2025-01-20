@@ -52,6 +52,11 @@
                             <input type="text" name="unidade" id="unidade" class="form-control" value="{{ $unidade }}" placeholder="Unidade de atendimento">
                         </div>
 
+                        <div class="col-md-2 col-sm-12">
+                            <label class="form-label" for="role">Analista</label>
+                            <input type="text" name="analista" id="analista" class="form-control" value="{{ $analista }}" placeholder="Analista">
+                        </div>
+
                         <div class="col-md-1 col-sm-12">
                             <div class="form-group focused">
                                 <label class="form-label" for="role">Estatus</label>
@@ -66,14 +71,8 @@
                             </div>
                         </div>
 
-
-                        {{-- <div class="col-md-2 col-sm-12">
-                            <label class="form-label" for="role">Analista</label>
-                            <input type="text" name="analista" id="analista" class="form-control" value="" placeholder="Analista">
-                        </div> --}}
-
                         <div class="pt-3 col-md-2 col-sm-12">
-                            <div style="margin-left: 37%; margin-top:20px;">
+                            <div>
                                 <button type="submit" name="pesquisar" value="stoped" id="btnpesquisar" class="btn btn-info btn-sm"><i class="fa-solid fa-magnifying-glass"></i> Pesquisar</button>
                                 <button type="button" class="btn btn-warning btn-sm" id="btnlimpar"><i class="fa-solid fa-trash"></i> Limpar</button>
                             </div>
@@ -187,13 +186,24 @@
                                     @if ($loop->first) @break @endif
                                 @endforeach
                                 --}}
+
+                                {{-- Utilizado sem pesquisar analista
                                 @if($requerente->idOperador == $requerente->idAnalista)
                                     <i class="fa-solid fa-ellipsis" title="documentos sendo anexados..."></i>
                                 @else
-                                    {{-- Recupera o nome do Analista pelo seu ID através do helper ---}}
+                                    -- Recupera o nome do Analista pelo seu ID através do helper --
                                     {{ mrc_search_analista($requerente->idAnalista) }}
-                                    {{-- OU invocando um método stático diretamente: {{ App\Models\User::nomeUserAnalista($requerente->idAnalista) }} --}}
+                                    -- OU invocando um método stático diretamente: {{ App\Models\User::nomeUserAnalista($requerente->idAnalista) }} --
                                 @endif
+                                --}}
+
+                                @if($requerente->idOperador == $requerente->idAnalista)
+                                    <i class="fa-solid fa-ellipsis" title="documentos sendo anexados..."></i>
+                                @else
+                                    {{ $requerente->nomeanalista }}
+                                @endif
+
+
                             </td>
                             <td>
                                 @if($requerente->estatus == 1) <span style="font-size: 14px;"> <i class="fa-solid fa-shoe-prints"></i> em andamento </span> @endif  {{-- falta anexar todos os documentos --}}
@@ -263,6 +273,7 @@
             $("#unidade").val("");
             $("#estatus").val("");
             $("#tipounidade").val("");
+            $("#analista").val("");
         }
     </script>
 @endsection
