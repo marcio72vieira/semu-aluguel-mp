@@ -69,7 +69,7 @@ Route::group(['middleware' => 'auth'], function(){
 
     // Rotas restritas, além de estarem autenticadas, devem também ter o perfil de administrador ou assistente "onlyAdmAss"
     Route::group(['middleware' => 'can:onlyAdmAss'], function(){
-        
+
         // REQUERENTE
         Route::get('/index-requerente', [RequerenteController::class, 'index'])->name('requerente.index');
         Route::get('/create-requerente', [RequerenteController::class, 'create'])->name('requerente.create');
@@ -93,6 +93,7 @@ Route::group(['middleware' => 'auth'], function(){
         //Route::put('/update-documento/{requerente}', [DocumentoController::class, 'update'])->name('documento.update');
         //Route::put('/efetuaanalisegeraprocesso-documento/{requerente}', [DocumentoController::class, 'efetuaanalisegeraprocesso'])->name('documento.efetuaanalisegeraprocesso');
         Route::delete('/destroy-documento/{documento}', [DocumentoController::class, 'destroy'])->name('documento.destroy');
+        Route::delete('/destroy-documento-inconsistente/{documento}', [DocumentoController::class, 'destroyinconsistente'])->name('documento.destroyinconsistente');
         Route::get('/merge-documento/{requerente}', [DocumentoController::class, 'merge'])->name('documento.merge');
         Route::put('/submeteranalise-documento/{requerente}', [DocumentoController::class, 'submeteranalise'])->name('documento.submeteranalise');
         Route::get('/pendentes-documento/{requerente}', [DocumentoController::class, 'pendentes'])->name('documento.pendentes')->middleware('unidaderestrita');
@@ -100,12 +101,17 @@ Route::group(['middleware' => 'auth'], function(){
 
     });// Final das rotas restritas referente a ser administrador e assistente(onlyAdmAss)
 
-    
+
     // Rotas restritas, além de estarem autenticadas, devem também ter o perfil de administrador ou Servidor "onlyAdmSrv"
     Route::group(['middleware' => 'can:onlyAdmSrv'], function(){
         // DOCUMENTO - Substituir o nome deste rota para index-documentoanalise documentoanalise-index
-        Route::get('/index-documento/{requerente}', [DocumentoController::class, 'index'])->name('documento.index'); 
-        Route::put('/efetuaanalisegeraprocesso-documento/{requerente}', [DocumentoController::class, 'efetuaanalisegeraprocesso'])->name('documento.efetuaanalisegeraprocesso');
+        Route::get('/index-documento/{requerente}', [DocumentoController::class, 'index'])->name('documento.index');
+        //Esta rota do tipo "match" foi necessária, porque dentro da view(resources/views/admin/documentos/analise.blade.php) existem dois formulários, o externo que aponta para esta rota de fato
+        //"efetuaanalisegeraprocesso" e o interno que aponta para a rota "documento.destroyinconsistente". Só que ambos os formulários possuem o botão submit, que independente do formulário, sempre
+        //irá acionar o formulário mais externo "efetuaanalisegeraprocesso" que não aceita o "verbo" delete. Por isso foi colocado esse verbo "match" para aceitar tanto o delete do formulário interno
+        //quato o "put" do formulário externo que é o original, ou seja, que existia antes de ter seido colocado o formulario interno
+        //Route::put('/efetuaanalisegeraprocesso-documento/{requerente}', [DocumentoController::class, 'efetuaanalisegeraprocesso'])->name('documento.efetuaanalisegeraprocesso');
+        Route::match(['put', 'delete'], '/efetuaanalisegeraprocesso-documento/{requerente}', [DocumentoController::class, 'efetuaanalisegeraprocesso'])->name('documento.efetuaanalisegeraprocesso');
 
         // CHECKLIST
         Route::get('/index-checklist', [ChecklistController::class, 'index'])->name('checklist.index');
@@ -176,7 +182,7 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('/edit-tipodocumento/{tipodocumento}', [TipodocumentoController::class, 'edit'])->name('tipodocumento.edit');
         Route::put('/update-tipodocumento/{tipodocumento}', [TipodocumentoController::class, 'update'])->name('tipodocumento.update');
         Route::delete('/destroy-tipodocumento/{tipodocumento}', [TipodocumentoController::class, 'destroy'])->name('tipodocumento.destroy');
-    
+
     }); // Final das rotas restritas referente a ser administrador(onlyAdm)
 
 });// Final das rotas restritas referente a estar autenticado(auth)

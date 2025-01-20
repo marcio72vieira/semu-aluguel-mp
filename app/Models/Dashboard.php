@@ -93,6 +93,6 @@ class Dashboard extends Model
         // return Processo::orderBy('nomecompleto')->paginate(10);
         return Processo::orderByDesc('created_at')->paginate(10);
     }
-    
+
 
 }

@@ -579,6 +579,49 @@ class DocumentoController extends Controller
     }
 
 
+    public function destroyinconsistente(Documento $documento)
+    {
+
+        // Obtendo o ID do requerente a qual pertence o Documento
+        $requerenteId = $documento->requerente->id;
+
+        // Apagando fisicamente o arquivo do disco //Storage::delete($comprovante->url); OU
+        if(Storage::disk('public')->exists($documento->url)){
+
+            Storage::disk('public')->delete($documento->url);
+        }
+
+        // Apagando o registro no banco de dados
+        $documento->delete();
+
+        // APAGANDO O DIRETÓRIO, CASO NÃO EXISTA ARQUIVOS NO MESMO
+        // Retorna um array de trodos os arquivos dentro do diretório
+        $files = Storage::disk('public')->files('documentos/requerente_'.$requerenteId);
+
+        // Se não há arquivos dentro do diretório, deleta o diretório
+        if(count($files) == 0){
+            Storage::disk('public')->deleteDirectory('documentos/requerente_'.$requerenteId);
+        }
+
+
+        // Modifica o estatus dependendo da quantidade de documentos exigidos e que foram apagados. Faz todo o sentido uma vez que o operador pode ter
+        // cadastrado um documento erroneamente como sendo um documento exigido pela aplicação. Neste caso o seu status é modificado para que ele possa
+        // cadastrar o documento que está faltando.
+        if(Documento::documentosexigidos($requerenteId)){
+            // Atualiza o estatus da situação do requerente (1-andamento; 2-análise; 3-pendente; 4-Corrigido, 5-concluído )
+            $requerente = Requerente::find($requerenteId);
+            $requerente->update([
+                'estatus' => 1   // Andamento
+            ]);
+        }
+
+
+        // Redirecionar o usuário analista para a página de análise, pois esta deleção de documentos foi feita a partir da análise dos documentos e envia a mensagem de sucesso
+        // route('documento.index', ['requerente' => $requerente->id]) }}
+        // return redirect()->route('documento.create', ['requerente' => $requerenteId])->with('success', 'Documento excluído com sucesso!');
+        return redirect()->route('documento.index', ['requerente' => $requerenteId])->with('success', 'Documento inconsistente excluído com sucesso!');
+    }
+
     /*
     public function merge(Requerente $requerente)
     {
