@@ -8,6 +8,8 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Support\Facades\Gate;
 
+use Illuminate\Support\Facades\URL;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -38,11 +40,11 @@ class AppServiceProvider extends ServiceProvider
                 ? Response::allow()
                 : Response::deny('Acesso não autorizado!');
         });
-        
-         
+
+
         // Define o acesso apenas de quem é Administrador ou Servidor
         Gate::define('onlyAdmSrv', function($user) {
-            return $user->perfil == 'adm' || $user->perfil == 'srv' 
+            return $user->perfil == 'adm' || $user->perfil == 'srv'
                 ? Response::allow()
                 : Response::deny('Acesso não autorizado!');
         });
@@ -55,7 +57,11 @@ class AppServiceProvider extends ServiceProvider
                 : Response::deny('Acesso não autorizado!');
         });
 
-        
-          
+        if (config('app.env') === 'production') {
+            URL::forceScheme('https');
+        }
+
+
+
     }
 }
