@@ -29,7 +29,7 @@
 
             {{-- @dd($documentos) --}}
 
-            <x-alert />
+            {{-- <x-alert /> --}}
 
             {{-- Este componente será acionado sempre que houver uma erro de exceção em: store, update ou delete --}}
             {{-- <x-errorexception /> --}}
@@ -72,7 +72,7 @@
                                     <form id="formDelete{{ $documento->id }}" method="POST" action="{{ route('documento.destroyinconsistente', ['documento' => $documento->id]) }}">
                                         @csrf
                                         @method('delete')
-                                        <button type="submit" class="btn btn-outline-secondary btn-sm btnDelete" data-delete-entidade="Documento" data-delete-id="{{ $documento->id }}"  data-value-record="{{ $documento->tipodocumento->nome }}"  title="Excluir este documento">
+                                        <button type="submit" class="btn btn-outline-secondary btn-sm btnDelete" data-delete-entidade="Documento" data-delete-id="{{ $documento->id }}"  data-value-record="{{ $documento->tipodocumento->nome }}"  title="CERTIFIQUE-SE de excluir este documento apenas em CASOS EXTREMOS!">
                                             <i class="fa-regular fa-trash-can"></i>
                                         </button>
                                     </form>

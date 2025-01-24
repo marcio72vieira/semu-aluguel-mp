@@ -570,7 +570,7 @@
 
 
                     {{-- item 2.6.1 --}}
-                    <div class="mb-2 row">
+                    <div class="mb-2 row destaque">
                         <label for="medproturgcaminhaprogoficial" class="col-sm-8 col-form-label">
                             A requerente foi atendida com a medida protetiva de urgência de encaminhamento a programa oficial ou comunitário de proteção ou atendimento? (art. 23, I, Lei 11.340/2006) *
                         </label>
@@ -596,7 +596,7 @@
 
 
                     {{-- item 2.6.2 --}}
-                    <div class="mb-2 row">
+                    <div class="mb-2 row destaque">
                         <label for="medproturgafastamentolar" class="col-sm-8 col-form-label">
                             A requerente foi atendida com a medida protetiva de urgência de afastamento do lar?  (art. 23, III, Lei 11.340/2006) *
                         </label>
@@ -622,7 +622,7 @@
 
 
                     {{-- item 2.6.3 --}}
-                    <div class="mb-2 row">
+                    <div class="mb-2 row destaque">
                         <label for="riscmortvioldomesmoradprotegsigilosa" class="col-sm-8 col-form-label">
                             A requerente encontra-se em situação de risco de vida iminente em razão de violência doméstica, carecendo de moradia protegida em caráter sigiloso?
                         </label>
@@ -648,7 +648,7 @@
 
 
                     {{-- item 2.6.4 --}}
-                    <div class="mb-2 row">
+                    <div class="mb-2 row destaque">
                         <label for="riscvidaaguardmedproturg" class="col-sm-8 col-form-label">
                             A requerente encontra-se em situação de risco de morte, aguardando medida protetiva de urgência?
                         </label>
@@ -674,7 +674,7 @@
 
 
                     {{-- item 2.6.5--}}
-                    <div class="mb-2 row">
+                    <div class="mb-2 row destaque">
                         <label for="relatodescomprmedproturgagressor" class="col-sm-8 col-form-label">
                             A requerente encontra-se em situação de risco de morte e relata descumprimento de medida protetiva de urgência pelo agressor, necessitando de proteção até que se efetive a prisão deste?
                         </label>
@@ -700,7 +700,7 @@
 
 
                     {{-- item 2.6.6--}}
-                    <div class="mb-2 row">
+                    <div class="mb-2 row destaque">
                         <label for="sitvulnerabnaoconsegarcardespmoradia" class="col-sm-8 col-form-label">
                             A requerente está em situação de vulnerabilidade, de forma a não conseguir arcar com as despesas de moradia? *
                         </label>
@@ -726,7 +726,7 @@
 
 
                     {{-- item 2.6.7--}}
-                    <div class="mb-2 row">
+                    <div class="mb-2 row destaque">
                         <label for="temrendfamiliardoissalconvivagressor" class="col-sm-8 col-form-label">
                             requerente tem renda familiar de no máximo 02 salários, mesmo durante o convívio com o agressor? *
                         </label>
@@ -752,7 +752,7 @@
 
 
                     {{-- item 2.6.8--}}
-                    <div class="mb-2 row">
+                    <div class="mb-2 row destaque">
                         <label for="possuiparenteporeminviavelcompartilhardomicilio" class="col-sm-8 col-form-label">
                             {{-- A requerente não possui pais, avós, filhos ou netos maiores de idade, no mesmo município de sua residência? * --}}
                             A requerente possui parentes em linha reta no município, porém não é viável o compartilhamento de domicílio nos termos do art 1º, VI, do Decreto 37.341, de 23 de dezembro de 2021 ? *
@@ -787,7 +787,7 @@
 
 
                     {{-- item 2.6.9--}}
-                    <div class="mb-2 row">
+                    <div class="mb-2 row destaque">
                         <label for="filhosmenoresidade" class="col-sm-8 col-form-label">
                             A requerente possui filhos menores de idade?
                         </label>
@@ -814,7 +814,7 @@
 
 
                     {{-- item 2.6.10--}}
-                    <div class="mb-2 row">
+                    <div class="mb-2 row destaque">
                         <label for="trabalhaougerarenda" class="col-sm-8 col-form-label">
                             A requerente está trabalhando ou possui alguma forma de gerar renda no momento?
                         </label>
@@ -848,7 +848,7 @@
 
 
                     {{-- item 2.6.11--}}
-                    <div class="mb-2 row">
+                    <div class="mb-2 row destaque">
                         <label for="temcadunico" class="col-sm-8 col-form-label">
                             A requerente está cadastrada no Cadastro Único (CADÚNICO)? *
                         </label>
@@ -882,7 +882,7 @@
 
 
                     {{-- item 2.6.12--}}
-                    <div class="mb-2 row">
+                    <div class="mb-2 row destaque">
                         <label for="teminteresformprofisdesenvolvhabilid" class="col-sm-8 col-form-label">
                             A requerente tem interesse de participar de formações para qualificação profissional e de desenvolvimento de habilidades (cursos, oficinas, entre outros)?
                         </label>
@@ -908,7 +908,7 @@
 
 
                     {{-- item 2.6.13--}}
-                    <div class="mb-2 row">
+                    <div class="mb-2 row destaque">
                         <label for="apresentoudocumentoidentificacao" class="col-sm-8 col-form-label">
                             A requerente apresentou documento de identificação?
                         </label>
@@ -933,7 +933,7 @@
 
 
                     {{-- item 2.6.14--}}
-                    <div class="mb-2 row">
+                    <div class="mb-2 row destaque">
                         <label for="cumprerequisitositensnecessarios" class="col-sm-8 col-form-label">
                             <strong>A requerente cumpre os requisitos previstos nos itens marcados com (*), necessários para concessão do benefício?</strong>
                         </label>
@@ -1221,12 +1221,20 @@
         /// Fim valor CADUNICO
 
 
+
         // Disparando MODAL de aviso de PERCA DE CONCESSÃO DE BENEFÍCO
         $("input[name='medproturgcaminhaprogoficial']").on("click", function() {
             if($(this).val() == "0"){
+                $("#btnsalvar").removeClass("btn-primary");
+                $("#btnsalvar").addClass("btn-secondary");
+                $("#btnsalvar").html("<i class='fa-solid fa-ban'></i> Salvar");
+
                 $(".avisoperdabeneficio").modal("show");
                 $("#btnsalvar").prop("disabled", true);
             }else{
+                $("#btnsalvar").removeClass("btn-secondary");
+                $("#btnsalvar").addClass("btn-primary");
+                $("#btnsalvar").html("Salvar");
                 $("#btnsalvar").prop("disabled", false);
                 habilitabotaosalvar();
             }
@@ -1234,9 +1242,16 @@
 
         $("input[name='medproturgafastamentolar']").on("click", function() {
             if($(this).val() == "0"){
+                $("#btnsalvar").removeClass("btn-primary");
+                $("#btnsalvar").addClass("btn-secondary");
+                $("#btnsalvar").html("<i class='fa-solid fa-ban'></i> Salvar");
+
                 $(".avisoperdabeneficio").modal("show");
                 $("#btnsalvar").prop("disabled", true);
             }else{
+                $("#btnsalvar").removeClass("btn-secondary");
+                $("#btnsalvar").addClass("btn-primary");
+                $("#btnsalvar").html("Salvar");
                 $("#btnsalvar").prop("disabled", false);
                 habilitabotaosalvar();
             }
@@ -1244,9 +1259,16 @@
 
         $("input[name='sitvulnerabnaoconsegarcardespmoradia']").on("click", function() {
             if($(this).val() == "0"){
+                $("#btnsalvar").removeClass("btn-primary");
+                $("#btnsalvar").addClass("btn-secondary");
+                $("#btnsalvar").html("<i class='fa-solid fa-ban'></i> Salvar");
+
                 $(".avisoperdabeneficio").modal("show");
                 $("#btnsalvar").prop("disabled", true);
             }else{
+                $("#btnsalvar").removeClass("btn-secondary");
+                $("#btnsalvar").addClass("btn-primary");
+                $("#btnsalvar").html("Salvar");
                 $("#btnsalvar").prop("disabled", false);
                 habilitabotaosalvar();
             }
@@ -1254,9 +1276,16 @@
 
         $("input[name='temrendfamiliardoissalconvivagressor']").on("click", function() {
             if($(this).val() == "0"){
+                $("#btnsalvar").removeClass("btn-primary");
+                $("#btnsalvar").addClass("btn-secondary");
+                $("#btnsalvar").html("<i class='fa-solid fa-ban'></i> Salvar");
+
                 $(".avisoperdabeneficio").modal("show");
                 $("#btnsalvar").prop("disabled", true);
             }else{
+                $("#btnsalvar").removeClass("btn-secondary");
+                $("#btnsalvar").addClass("btn-primary");
+                $("#btnsalvar").html("Salvar");
                 $("#btnsalvar").prop("disabled", false);
                 habilitabotaosalvar();
             }
@@ -1264,9 +1293,16 @@
 
         $("input[name='possuiparenteporeminviavelcompartilhardomicilio']").on("click", function() {
             if($(this).val() == "0"){
+                $("#btnsalvar").removeClass("btn-primary");
+                $("#btnsalvar").addClass("btn-secondary");
+                $("#btnsalvar").html("<i class='fa-solid fa-ban'></i> Salvar");
+
                 $(".avisoperdabeneficio").modal("show");
                 $("#btnsalvar").prop("disabled", true);
             }else{
+                $("#btnsalvar").removeClass("btn-secondary");
+                $("#btnsalvar").addClass("btn-primary");
+                $("#btnsalvar").html("Salvar");
                 $("#btnsalvar").prop("disabled", false);
                 habilitabotaosalvar();
             }
@@ -1274,9 +1310,16 @@
 
         $("input[name='temcadunico']").on("click", function() {
             if($(this).val() == "0"){
+                $("#btnsalvar").removeClass("btn-primary");
+                $("#btnsalvar").addClass("btn-secondary");
+                $("#btnsalvar").html("<i class='fa-solid fa-ban'></i> Salvar");
+
                 $(".avisoperdabeneficio").modal("show");
                 $("#btnsalvar").prop("disabled", true);
             }else{
+                $("#btnsalvar").removeClass("btn-secondary");
+                $("#btnsalvar").addClass("btn-primary");
+                $("#btnsalvar").html("Salvar");
                 $("#btnsalvar").prop("disabled", false);
                 habilitabotaosalvar();
             }
@@ -1284,9 +1327,16 @@
 
         $("input[name='cumprerequisitositensnecessarios']").on("click", function() {
             if($(this).val() == "0"){
+                $("#btnsalvar").removeClass("btn-primary");
+                $("#btnsalvar").addClass("btn-secondary");
+                $("#btnsalvar").html("<i class='fa-solid fa-ban'></i> Salvar");
+
                 $(".avisoperdabeneficio").modal("show");
                 $("#btnsalvar").prop("disabled", true);
             }else{
+                $("#btnsalvar").removeClass("btn-secondary");
+                $("#btnsalvar").addClass("btn-primary");
+                $("#btnsalvar").html("Salvar");
                 $("#btnsalvar").prop("disabled", false);
                 habilitabotaosalvar();
             }
@@ -1295,6 +1345,10 @@
         function habilitabotaosalvar(){
             $(".desabilitaconcessaobeneficio").each(function(){
                 if($(this).is(':checked')) {
+                    $("#btnsalvar").removeClass("btn-primary");
+                    $("#btnsalvar").addClass("btn-secondary");
+                    $("#btnsalvar").html("<i class='fa-solid fa-ban'></i> Salvar");
+
                     $("#btnsalvar").prop("disabled", true);
                 }
             });

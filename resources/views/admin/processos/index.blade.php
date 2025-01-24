@@ -39,7 +39,7 @@
                             <label class="form-label" for="role">Tipo</label>
                             <input type="text" name="tipounidade" id="tipounidade" class="form-control" value="{{ $tipounidade }}" placeholder="Tipo unidade">
                         </div>
-                        
+
                         <div class="col-md-2 col-sm-12">
                             <label class="form-label" for="role">Unidade</label>
                             <input type="text" name="unidade" id="unidade" class="form-control" value="{{ $unidade }}" placeholder="Unidade de atendimento">
@@ -162,6 +162,8 @@
             $("#unidade").val("");
             $("#estatus").val("");
             $("#tipounidade").val("");
+            $("#data_cadastro_inicio").val("");
+            $("#data_cadastro_fim").val("");
         }
     </script>
 @endsection
