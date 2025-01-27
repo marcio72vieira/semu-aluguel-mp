@@ -116,6 +116,20 @@
                                     {{-- <a class="nav-link" href="{{ url('index-datatables') }}">DataTable</a> --}}
                                 </nav>
                             </div>
+
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseSuporte" aria-expanded="false" aria-controls="collapseSuporte">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-truck-medical"></i></div>
+                                Suporte
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseSuporte" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="{{ route('requerente.indexmudarestatus') }}">Alterar Status</a>
+                                    <a class="nav-link" href="">Excluir Documento</a>
+                                    <a class="nav-link" href="">Sanitizar</a>
+                                </nav>
+                            </div>
+
                         @endcan
 
                         {{--

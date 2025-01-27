@@ -105,8 +105,8 @@ class RequerenteController extends Controller
 
             // Verifica se as opções tidas como obrigatórias, foram burladas via desabilitação do javascritp e consequente envio do formulário.
             if(
-                $request->medproturgcaminhaprogoficial == 0 || $request->medproturgafastamentolar == 0 || 
-                $request->sitvulnerabnaoconsegarcardespmoradia == 0 || $request->temrendfamiliardoissalconvivagressor == 0 || 
+                $request->medproturgcaminhaprogoficial == 0 || $request->medproturgafastamentolar == 0 ||
+                $request->sitvulnerabnaoconsegarcardespmoradia == 0 || $request->temrendfamiliardoissalconvivagressor == 0 ||
                 $request->possuiparenteporeminviavelcompartilhardomicilio == 0 || $request->temcadunico == 0 ||
                 $request->cumprerequisitositensnecessarios == 0
             ){
@@ -290,8 +290,8 @@ class RequerenteController extends Controller
 
             // Verifica se as opções tidas como obrigatórias, foram burladas via desabilitação do javascritp e consequente envio do formulário.
             if(
-                $request->medproturgcaminhaprogoficial == 0 || $request->medproturgafastamentolar == 0 || 
-                $request->sitvulnerabnaoconsegarcardespmoradia == 0 || $request->temrendfamiliardoissalconvivagressor == 0 || 
+                $request->medproturgcaminhaprogoficial == 0 || $request->medproturgafastamentolar == 0 ||
+                $request->sitvulnerabnaoconsegarcardespmoradia == 0 || $request->temrendfamiliardoissalconvivagressor == 0 ||
                 $request->possuiparenteporeminviavelcompartilhardomicilio == 0 || $request->temcadunico == 0 ||
                 $request->cumprerequisitositensnecessarios == 0
             ){
@@ -393,6 +393,32 @@ class RequerenteController extends Controller
             // Mantém o usuário na mesma página(back), juntamente com os dados digitados(withInput) e enviando a mensagem correspondente.
             return back()->withInput()->with('error-exception', 'Requerente não editado. Tente mais tarde!'. $e->getMessage());
         }
+
+    }
+
+
+    // Exibe a lista de Requerentes cujo estatus seja diferente de "em andamento (1)" e "concluído (5)"
+    public function indexmudarestatus()
+    {
+        $requerentes = Requerente::with(['regional', 'municipio', 'tipounidade', 'unidadeatendimento', 'user'])
+            ->where('estatus', '!=', '1')
+            ->where('estatus', '!=', '5')
+            ->orderBy('nomecompleto')
+            ->paginate(10);
+
+        return view('admin.requerentes.mudarestatus', [
+                'requerentes' => $requerentes,
+        ]);
+    }
+
+
+    public function updatemudarestatus(Request $request, Requerente $requerente)
+    {
+        $requerente->update([
+            'estatus' => $request->novoestatus
+        ]);
+
+        return  redirect()->route('requerente.indexmudarestatus')->with('success', 'Status da Requerente: '.$requerente->nomecompleto.' alterado com sucesso!');
 
     }
 

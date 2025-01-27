@@ -183,6 +183,10 @@ Route::group(['middleware' => 'auth'], function(){
         Route::put('/update-tipodocumento/{tipodocumento}', [TipodocumentoController::class, 'update'])->name('tipodocumento.update');
         Route::delete('/destroy-tipodocumento/{tipodocumento}', [TipodocumentoController::class, 'destroy'])->name('tipodocumento.destroy');
 
+        // MUDAR STATUS REQUERENTE
+        Route::get('/index-mudarestatus', [RequerenteController::class, 'indexmudarestatus'])->name('requerente.indexmudarestatus');
+        Route::put('/update-mudarestatus/{requerente}', [RequerenteController::class, 'updatemudarestatus'])->name('requerente.updatemudarestatus');
+
     }); // Final das rotas restritas referente a ser administrador(onlyAdm)
 
 });// Final das rotas restritas referente a estar autenticado(auth)
