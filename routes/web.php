@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\TipodocumentoController;
 use App\Http\Controllers\Admin\DocumentoController;
 use App\Http\Controllers\Admin\ChecklistController;
 use App\Http\Controllers\Admin\ProcessoController;
+use App\Http\Controllers\Admin\SuporteController;
 use App\Http\Controllers\Admin\RequerimentoController;
 
 
@@ -183,9 +184,16 @@ Route::group(['middleware' => 'auth'], function(){
         Route::put('/update-tipodocumento/{tipodocumento}', [TipodocumentoController::class, 'update'])->name('tipodocumento.update');
         Route::delete('/destroy-tipodocumento/{tipodocumento}', [TipodocumentoController::class, 'destroy'])->name('tipodocumento.destroy');
 
-        // MUDAR STATUS REQUERENTE
-        Route::get('/index-mudarestatus', [RequerenteController::class, 'indexmudarestatus'])->name('requerente.indexmudarestatus');
-        Route::put('/update-mudarestatus/{requerente}', [RequerenteController::class, 'updatemudarestatus'])->name('requerente.updatemudarestatus');
+        // SUPORTE - MUDAR STATUS REQUERENTE
+        Route::get('/index-mudarestatus', [SuporteController::class, 'indexmudarestatus'])->name('suporte.indexmudarestatus');
+        Route::put('/update-mudarestatus/{requerente}', [SuporteController::class, 'updatemudarestatus'])->name('suporte.updatemudarestatus');
+
+        // SUPORTE - EXCLUIR DOCUMENTO
+        Route::get('/index-listarrequerentes', [SuporteController::class, 'listarrequerentes'])->name('suporte.listarrequerentes');
+        Route::get('/index-listardocumentosrequerente/{requerente}', [SuporteController::class, 'listardocumentosrequerente'])->name('suporte.listardocumentosrequerente');
+        Route::delete('/destroy-excluirdocumento/{documento}', [SuporteController::class, 'excluirdocumento'])->name('suporte.excluirdocumento');
+
+
 
     }); // Final das rotas restritas referente a ser administrador(onlyAdm)
 

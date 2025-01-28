@@ -397,32 +397,6 @@ class RequerenteController extends Controller
     }
 
 
-    // Exibe a lista de Requerentes cujo estatus seja diferente de "em andamento (1)" e "concluído (5)"
-    public function indexmudarestatus()
-    {
-        $requerentes = Requerente::with(['regional', 'municipio', 'tipounidade', 'unidadeatendimento', 'user'])
-            ->where('estatus', '!=', '1')
-            ->where('estatus', '!=', '5')
-            ->orderBy('nomecompleto')
-            ->paginate(10);
-
-        return view('admin.requerentes.mudarestatus', [
-                'requerentes' => $requerentes,
-        ]);
-    }
-
-
-    public function updatemudarestatus(Request $request, Requerente $requerente)
-    {
-        $requerente->update([
-            'estatus' => $request->novoestatus
-        ]);
-
-        return  redirect()->route('requerente.indexmudarestatus')->with('success', 'Status da Requerente: '.$requerente->nomecompleto.' alterado com sucesso!');
-
-    }
-
-
     // Excluir o requerente do banco de dados
     public function destroy(Requerente $requerente)
     {

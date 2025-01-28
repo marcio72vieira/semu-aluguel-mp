@@ -124,8 +124,8 @@
                             </a>
                             <div class="collapse" id="collapseSuporte" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="{{ route('requerente.indexmudarestatus') }}">Alterar Status</a>
-                                    <a class="nav-link" href="">Excluir Documento</a>
+                                    <a class="nav-link" href="{{ route('suporte.indexmudarestatus') }}">Alterar Status</a>
+                                    <a class="nav-link" href="{{ route('suporte.listarrequerentes') }}">Excluir Documentos</a>
                                     <a class="nav-link" href="">Sanitizar</a>
                                 </nav>
                             </div>

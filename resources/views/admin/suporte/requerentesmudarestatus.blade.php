@@ -55,7 +55,7 @@
                             </td>
                             <td class="flex-row flex-wrap d-md-flex justify-content-start align-content-stretch">
                                 {{-- Exibe a modal com os documentos que já foram anexados para guiar o assistente social --}}
-                                <a href="{{ route('requerente.show', ['requerente' => $requerente->id]) }}"  data-bs-toggle="modal" data-bs-target="#modalFormMudaEstatus{{ $requerente->id }}"  class="mb-3 btn btn-danger btn-sm me-1" title="Visualizar os dados cadastrados">
+                                <a href=""  data-bs-toggle="modal" data-bs-target="#modalFormMudaEstatus{{ $requerente->id }}"  class="mb-3 btn btn-primary btn-sm me-1" title="Visualizar os dados cadastrados">
                                     <i class="fas fa-retweet mr-2"></i> Alterar
                                 </a>
 
@@ -71,7 +71,7 @@
 
                                             <div class="modal-body">
                                                 <!-- Passando o id da empresa atual($nutricionista->empresa->id) para após o remanejamento ser efetivado, o usuário ser redirecionado para essa mesma página -->
-                                                <form action="{{ route('requerente.updatemudarestatus', ['requerente' => $requerente->id]) }}" method="POST" style="display: inline">
+                                                <form action="{{ route('suporte.updatemudarestatus', ['requerente' => $requerente->id]) }}" method="POST" style="display: inline">
                                                     @csrf
                                                     @method('PUT')
 
