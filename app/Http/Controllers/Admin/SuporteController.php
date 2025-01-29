@@ -16,8 +16,9 @@ class SuporteController extends Controller
     public function indexmudarestatus()
     {
         $requerentes = Requerente::with(['regional', 'municipio', 'tipounidade', 'unidadeatendimento', 'user'])
-            //->where('estatus', '!=', '1')
-            //->where('estatus', '!=', '5')
+            ->where('estatus', '!=', '1')
+            ->where('estatus', '!=', '5')
+            //->where('estatus', '=', '3')
             ->orderBy('nomecompleto')
             ->paginate(10);
 
@@ -107,6 +108,18 @@ class SuporteController extends Controller
     }
 
 
+    // Exibe a lista de Requerentes cujo estatus é igual a 5(concluído) para sanitizar pasta documentos
+    public function requerentessanitizar()
+    {
+        $requerentes = Requerente::select(['id', 'nomecompleto', 'estatus', 'created_at'])
+            ->where('estatus', '=', '5')
+            ->orderBy('created_at')
+            ->paginate(10);
+
+        return view('admin.suporte.requerentessanitizar', [
+                'requerentes' => $requerentes,
+        ]);
+    }
 
 
 }

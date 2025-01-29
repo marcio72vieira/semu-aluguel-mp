@@ -107,12 +107,13 @@ Route::group(['middleware' => 'auth'], function(){
     Route::group(['middleware' => 'can:onlyAdmSrv'], function(){
         // DOCUMENTO - Substituir o nome deste rota para index-documentoanalise documentoanalise-index
         Route::get('/index-documento/{requerente}', [DocumentoController::class, 'index'])->name('documento.index');
+        //  Aqui o analista fica responsável pela exclusão do documento errado
         //Esta rota do tipo "match" foi necessária, porque dentro da view(resources/views/admin/documentos/analise.blade.php) existem dois formulários, o externo que aponta para esta rota de fato
         //"efetuaanalisegeraprocesso" e o interno que aponta para a rota "documento.destroyinconsistente". Só que ambos os formulários possuem o botão submit, que independente do formulário, sempre
         //irá acionar o formulário mais externo "efetuaanalisegeraprocesso" que não aceita o "verbo" delete. Por isso foi colocado esse verbo "match" para aceitar tanto o delete do formulário interno
         //quato o "put" do formulário externo que é o original, ou seja, que existia antes de ter seido colocado o formulario interno
-        //Route::put('/efetuaanalisegeraprocesso-documento/{requerente}', [DocumentoController::class, 'efetuaanalisegeraprocesso'])->name('documento.efetuaanalisegeraprocesso');
-        Route::match(['put', 'delete'], '/efetuaanalisegeraprocesso-documento/{requerente}', [DocumentoController::class, 'efetuaanalisegeraprocesso'])->name('documento.efetuaanalisegeraprocesso');
+        //Route::match(['put', 'delete'], '/efetuaanalisegeraprocesso-documento/{requerente}', [DocumentoController::class, 'efetuaanalisegeraprocesso'])->name('documento.efetuaanalisegeraprocesso');
+        Route::put('/efetuaanalisegeraprocesso-documento/{requerente}', [DocumentoController::class, 'efetuaanalisegeraprocesso'])->name('documento.efetuaanalisegeraprocesso');
 
         // CHECKLIST
         Route::get('/index-checklist', [ChecklistController::class, 'index'])->name('checklist.index');
@@ -192,6 +193,9 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('/index-listarrequerentes', [SuporteController::class, 'listarrequerentes'])->name('suporte.listarrequerentes');
         Route::get('/index-listardocumentosrequerente/{requerente}', [SuporteController::class, 'listardocumentosrequerente'])->name('suporte.listardocumentosrequerente');
         Route::delete('/destroy-excluirdocumento/{documento}', [SuporteController::class, 'excluirdocumento'])->name('suporte.excluirdocumento');
+
+        // SUPORTE - SANITIZAR DOCUMENTOS
+        Route::get('/index-requerentessanitizar', [SuporteController::class, 'requerentessanitizar'])->name('suporte.requerentessanitizar');
 
 
 

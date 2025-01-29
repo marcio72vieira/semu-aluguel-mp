@@ -13,7 +13,7 @@
 
             {{-- Início Lista de documentos anexados --}}
             <div class="card-body">
-                
+
                 <x-alert />
 
                 {{-- Este componente será acionado sempre que houver uma erro de exceção em: store, update ou delete --}}
@@ -25,7 +25,7 @@
                             <th>ID</th>
                             <th>Documento</th>
                             <th>Observação</th>
-                            <th>Visualizar</th>
+                            <th>Pendente</th>
                             <th>Atualizar {{-- Excluir --}}</th>
                             <th>Corrigido</th>
                         </tr>
@@ -42,10 +42,16 @@
                                 <td>{{ $documento->id }}</th>
                                 <td>{{ $documento->tipodocumento->nome }}</th>
                                 <td>{{ $documento->observacao }}</td>
-                                
-                                {{-- Visualizando o documento --}}
-                                <td> <a href="{{ asset('/storage/'.$documento->url) }}" target="_blank" title="Visualizar este documento"> <img src="{{ asset('images/documentos2.png') }}" width="30" style="margin-left: 25px;"> </a></td>
-                                
+
+                                {{-- Visualizando o documento pendente se o mesmo não foi corrigido --}}
+                                <td>
+                                    @if($documento->corrigido == 1)
+                                        <span> </span>
+                                    @else
+                                        <a href="{{ asset('/storage/'.$documento->url) }}" target="_blank" title="Visualizar documento pendente"> <img src="{{ asset('images/documentos2.png') }}" width="30" style="margin-left: 25px;"> </a>
+                                    @endif
+                                </td>
+
                                 {{-- Formulári para atualizar documentos --}}
                                 <td>
                                     <form action="{{ route('documento.replace') }}" method="POST" enctype="multipart/form-data" autocomplete="off">
@@ -69,14 +75,15 @@
                                 </td>
                                 {{-- Indicador de Docuemntos Corrigidos --}}
                                 <td class="flex-row flex-wrap d-md-flex justify-content-start align-content-stretch">
-                                    @if ($documento->corrigido == 1) 
+                                    @if ($documento->corrigido == 1)
                                         {{-- Acrescenta + 1 toda vez que um documento for corrigido --}}
                                         @php $qtd_documentos_corrigidos = $qtd_documentos_corrigidos + 1 @endphp
-                                        <b><i class='mr-2 fas fa-check text-success' style="margin-left: 25px; font-size: 30px;"></i></b> 
+                                        {{-- <b><i class='mr-2 fas fa-check text-success' style="margin-left: 25px; font-size: 30px;"></i></b> --}}
+                                        <a href="{{ asset('/storage/'.$documento->url) }}" target="_blank" title="Visualizar documento corrigido"> <img src="{{ asset('images/documentos2.png') }}" width="30" style="margin-left: 25px;"> </a>
                                     @else
-                                        <b><i class='mr-2 fa-solid fa-xmark text-danger' style="margin-left: 25px; font-size: 30px;"></i></b> 
+                                        <b><i class='mr-2 fa-solid fa-xmark text-danger' style="margin-left: 25px; font-size: 30px;"></i></b>
                                     @endif
-                                    {{-- 
+                                    {{--
                                         Só possibilita a exclusão dos documentos pendentes. Esta exclusão é necessária caso haja algum documento duplicado como foi o caso verificado nos testes
                                     @if ($documento->aprovado == 0)
                                         <form id="formDelete{{ $documento->id }}" method="POST" action="{{ route('documento.destroy', ['documento' => $documento->id]) }}" style="margin-left: 10px;" title="Excluir este documento">

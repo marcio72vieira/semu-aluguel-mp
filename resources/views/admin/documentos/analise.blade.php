@@ -43,7 +43,7 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th><label style="color:darkgrey">Excluir</label></th>
+                            {{-- <th><label style="color:darkgrey">Excluir</label></th> Aqui o analista fica responsável pela exclusão do documento errado --}}
                             <th>Documento</th>
                             <th>Visualizar</th>
                             <th style="padding-left: 40px">Aprovado</th>
@@ -63,12 +63,13 @@
                             @endphp
                             <tr>
                                 <td>{{ $documento->id }}</td>
+                                {{--  Aqui o analista fica responsável pela exclusão do documento errado
                                 <td>
-                                    {{--
+
                                         EXCLUIR DOCUMENTO EM CASO EXTREMO (documento duplicado, documento não exigido e submetido para análise ou por qualquer outro motivo que se deva excluir o arquivo)
                                         Obs: Depois de submetidos os documentos, não tem como serem excluidos ou anexados novos documentos.
                                         Só no caso da alteração do "estatus" do "requerente" para o "estatus 1(em andamento)" é que poder-se-a anexar e excluir documentos)
-                                    --}}
+
                                     <form id="formDelete{{ $documento->id }}" method="POST" action="{{ route('documento.destroyinconsistente', ['documento' => $documento->id]) }}">
                                         @csrf
                                         @method('delete')
@@ -77,6 +78,7 @@
                                         </button>
                                     </form>
                                 </td>
+                                --}}
                                 <td>{{ $documento->tipodocumento->nome }}</td>
                                 <td>
                                     @if ($documento->corrigido != 1)

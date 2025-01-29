@@ -181,7 +181,7 @@ if (!function_exists('mrc_encrypt_decrypt')) {
         {
             $nomeanalista = User::where('id', '=', $id)->pluck('nomecompleto');
             return $nomeanalista[0];
-            
+
         }
     }
 

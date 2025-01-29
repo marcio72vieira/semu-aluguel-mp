@@ -3,7 +3,7 @@
 @section('content')
 <div class="px-4 container-fluid">
     <div class="gap-2 mb-1 hstack">
-        <h2 class="mt-3">ALTERAR STATUS</h2>
+        <h2 class="mt-3">SANITIZAR -  LIMPAR ESPAÇO EM DISCO </h2>
     </div>
 
     <div class="mb-4 shadow card border-light">
@@ -26,11 +26,9 @@
                     <tr>
                         <th>ID</th>
                         <th>Nome</th>
-                        <th class="d-none d-md-table-cell">Unidade Atendimento</th>
-                        <th class="d-none d-md-table-cell">Município</th>
-                        <th>Telefones</th>
-                        <th class="d-none d-md-table-cell">CPF / RG</th>
-                        <th class="d-none d-md-table-cell">Status</th>
+                        <th>Status</th>
+                        <th>Data de Criação</th>
+                        <th><span style="margin-left: 15px">Tempo armazenado</span></th>
                         <th width="8%">Ações</th>
                     </tr>
                 </thead>
@@ -40,12 +38,6 @@
                         <tr>
                             <td>{{ $requerente->id }}</th>
                             <td>{{ $requerente->nomecompleto }}</th>
-                            <td>{{ $requerente->unidadeatendimento->nome }}</td>
-                            <td>{{ $requerente->municipio->nome }}</td>
-                            <td>{{ $requerente->foneresidencial }} <br> {{ $requerente->fonecelular }} </td>
-                            <td>{{ $requerente->cpf }} <br> {{ $requerente->rg }} {{ $requerente->orgaoexpedidor }}</td>
-                            {{-- <td>{{ ($requerente->estatus == 1 ? "...andamento" : ($requerente->estatus == 2 ? "...análise" : "pendente")) }}</td> --}}
-                            {{-- <td>{{ ($requerente->estatus == 1 ? "...andamento" : ($requerente->estatus == 2 ? "...análise" : ($requerente->estatus == 3 ? "pendente" : "concluído" ))) }}</td> --}}
                             <td>
                                 @if($requerente->estatus == 1) <span style="font-size: 14px" title="Falta enviar os documentos exigidos para análise!"> <i class="fa-solid fa-shoe-prints"></i> em andamento </span> @endif
                                 @if($requerente->estatus == 2) <span style="font-size: 14px" title="Aguardando ser analisado!"> <i class="fa-solid fa-user-check"></i> em análise  </span> @endif
@@ -53,10 +45,12 @@
                                 @if($requerente->estatus == 4) <span style="font-size: 14px" title="Os documentos inconsistentes foram substituidos!"> <i class="fa-solid fa-check-double"></i> corrigidos para reanálise </span> @endif
                                 @if($requerente->estatus == 5) <span style="font-size: 14px" title="Processo gerado com sucesso!"> <i class="fa-regular fa-circle-check"></i> concluído  </span> @endif
                             </td>
+                            <td>{{  \Carbon\Carbon::parse($requerente->created_at)->format('d/m/Y') }}</td>
+                            <td>{{  mrc_calc_time(\Carbon\Carbon::parse($requerente->created_at)->format('Y/m/d')) }}</td>
                             <td class="flex-row flex-wrap d-md-flex justify-content-start align-content-stretch">
                                 {{-- Exibe a modal com os documentos que já foram anexados para guiar o assistente social --}}
                                 <a href=""  data-bs-toggle="modal" data-bs-target="#modalFormMudaEstatus{{ $requerente->id }}"  class="mb-3 btn btn-primary btn-sm me-1" title="Visualizar os dados cadastrados">
-                                    <i class="fas fa-retweet mr-2"></i> Alterar
+                                    <i class="fa-solid fa-database"></i> Limpar disco
                                 </a>
 
 
