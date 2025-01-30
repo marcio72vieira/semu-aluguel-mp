@@ -8,6 +8,7 @@ use App\Models\Requerente;
 use App\Models\Documento;
 use App\Models\Tipodocumento;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 
 class SuporteController extends Controller
@@ -16,8 +17,8 @@ class SuporteController extends Controller
     public function indexmudarestatus()
     {
         $requerentes = Requerente::with(['regional', 'municipio', 'tipounidade', 'unidadeatendimento', 'user'])
-            ->where('estatus', '!=', '1')
-            ->where('estatus', '!=', '5')
+            //->where('estatus', '!=', '1')
+            //->where('estatus', '!=', '5')
             //->where('estatus', '=', '3')
             ->orderBy('nomecompleto')
             ->paginate(10);
@@ -30,9 +31,21 @@ class SuporteController extends Controller
 
     public function updatemudarestatus(Request $request, Requerente $requerente)
     {
-        $requerente->update([
-            'estatus' => $request->novoestatus
+        // Implementando a validação dentro do próprio método.
+        $validator = Validator::make($request->all(), [
+            'novoestatus' => 'required'
         ]);
+
+        if ($validator->fails()) {
+            //$request->session()->put('errormudarestatus', true);
+            //dd($request->session()->all());
+            //return back()->withErrors($validator)->withInput();
+            return back()->withErrors(['novoestatus.required' => "Status da requerente: $requerente->nomecompleto não alterado!"])->withInput();
+        }else {
+            $requerente->update([
+                'estatus' => $request->novoestatus
+            ]);
+        }
 
         return  redirect()->route('suporte.indexmudarestatus')->with('success', 'Status da Requerente: '.$requerente->nomecompleto.' alterado com sucesso!');
 
@@ -120,6 +133,32 @@ class SuporteController extends Controller
                 'requerentes' => $requerentes,
         ]);
     }
+
+
+    public function sanitizardocumentos(Requerente $requerente)
+    {
+
+        // Obtendo o ID do requerente a qual pertence o Documento
+        $requerenteId = $requerente->id;
+
+        // Verificando se existe uma pasta com o ID da requerente para poder apagar todos os seus arquivos
+        if(Storage::disk('public')->exists('documentos/requerente_'.$requerenteId)) {
+
+            // Retorna um array de trodos os arquivos dentro do diretório
+            $files = Storage::disk('public')->files('documentos/requerente_'.$requerenteId);
+
+            $num_arq_deletados = count($files);
+
+            // Deleta o diretório com todos os arquivos existentes
+            Storage::disk('public')->deleteDirectory('documentos/requerente_'.$requerenteId);
+
+        }
+
+        // Redirecionar o usuário, enviar a mensagem de sucesso
+        return redirect()->route('suporte.requerentessanitizar')->with('success', $num_arq_deletados. ' - documentos excluído com sucesso!');
+
+    }
+
 
 
 }

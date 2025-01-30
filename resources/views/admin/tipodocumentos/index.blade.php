@@ -56,7 +56,7 @@
                                         </button>
                                     </form>
                                 @else
-                                    <button type="button" class="btn btn-outline-secondary btn-sm me-1 mb-1"  title="há unidades vinculadas!"> <i class="fa-solid fa-ban"></i> Apagar </button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm me-1 mb-1"  title="há documentos vinculados!"> <i class="fa-solid fa-ban"></i> Apagar </button>
                                 @endif
                             </td>
                         </tr>

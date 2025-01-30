@@ -86,7 +86,7 @@
                                                         <br>
                                                         Alterar para Status:
                                                         <div class="form-group focused">
-                                                            <select name="novoestatus" id="novoestatus" class="form-control">
+                                                            <select name="novoestatus" id="novoestatus" class="form-control" required>
                                                                 <option value="" selected disabled>Escolha ...</option>
                                                                 <option value="1">em andamento</option>
                                                                 <option value="2">para análise</option>
@@ -94,6 +94,9 @@
                                                                 <option value="4">corrigido</option>
                                                                 {{-- <option value="5">concluído</option> --}}
                                                             </select>
+                                                            @error('novoestatus')
+                                                                <small style="color: red">{{$message}}</small>
+                                                            @enderror
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
@@ -102,10 +105,6 @@
                                                     </div>
                                                 </form>
                                             </div>
-
-                                            {{-- <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                                            </div> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -128,4 +127,13 @@
 </div>
 
 @endsection
+
+{{-- @section('scripts')
+    <!-- Se os campos da modal do alterar status não estiver preenchido, exibe a mensagem com os respectivos erros -->
+    @if(Session::has('errormudarestatus'))
+    <script>
+        //$(".modal").modal({ show: true });
+    </script>
+    @endif
+@endsection --}}
 

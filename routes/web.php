@@ -196,7 +196,7 @@ Route::group(['middleware' => 'auth'], function(){
 
         // SUPORTE - SANITIZAR DOCUMENTOS
         Route::get('/index-requerentessanitizar', [SuporteController::class, 'requerentessanitizar'])->name('suporte.requerentessanitizar');
-
+        Route::delete('/destroy-sanitizardocumentos/{requerente}', [SuporteController::class, 'sanitizardocumentos'])->name('suporte.sanitizardocumentos');
 
 
     }); // Final das rotas restritas referente a ser administrador(onlyAdm)

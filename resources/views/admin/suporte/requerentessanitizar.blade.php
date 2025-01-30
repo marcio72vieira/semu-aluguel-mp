@@ -60,35 +60,24 @@
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h2 class="modal-title fs-5" id="exampleModalLabel">ALTERAR ESTATUS</h2>
+                                                <h2 class="modal-title fs-5" id="exampleModalLabel"><i class="fa-solid fa-database"></i> LIMPAR DISCO</h2>
                                             </div>
 
                                             <div class="modal-body">
                                                 <!-- Passando o id da empresa atual($nutricionista->empresa->id) para após o remanejamento ser efetivado, o usuário ser redirecionado para essa mesma página -->
-                                                <form action="{{ route('suporte.updatemudarestatus', ['requerente' => $requerente->id]) }}" method="POST" style="display: inline">
+                                                <form action="{{ route('suporte.sanitizardocumentos', ['requerente' => $requerente->id]) }}" method="POST" style="display: inline">
                                                     @csrf
-                                                    @method('PUT')
+                                                    @method('delete')
 
                                                     <div class="modal-body">
                                                         Requerente:
                                                         <h5>{{$requerente->nomecompleto}}</h5>
                                                         <br>
-                                                        Status Atual
-                                                        <h5>
-                                                            {{ ($requerente->estatus == '1' ? "EM ANDAMENTO" : ($requerente->estatus == '2' ? "EM ANÁLISE" : ($requerente->estatus == '3' ? "COM PENDÊNCIA" : ($requerente->estatus == '4' ? "CORRIGIDO" : "CONCLUÍDO")))) }}
-                                                        </h5>
                                                         <br>
-                                                        Alterar para Status:
-                                                        <div class="form-group focused">
-                                                            <select name="novoestatus" id="novoestatus" class="form-control">
-                                                                <option value="" selected disabled>Escolha ...</option>
-                                                                <option value="1">em andamento</option>
-                                                                <option value="2">para análise</option>
-                                                                <option value="3">pendente</option>
-                                                                <option value="4">corrigido</option>
-                                                                {{-- <option value="5">concluído</option> --}}
-                                                            </select>
-                                                        </div>
+                                                        <p style="text-align: justify">
+                                                        Todos os documentos anexados durante o processo de cadastro e análise para a concessão do benefício deste requerente, serão excluídos fisicamente do banco de ddos.<br>
+                                                        Desta forma, não será mais possível acessá-los de forma individual, mas apenas no Processo formado como um todo.
+                                                        </p>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -96,10 +85,6 @@
                                                     </div>
                                                 </form>
                                             </div>
-
-                                            {{-- <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                                            </div> --}}
                                         </div>
                                     </div>
                                 </div>
