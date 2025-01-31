@@ -92,7 +92,7 @@
                                                                 <option value="2">para análise</option>
                                                                 <option value="3">pendente</option>
                                                                 <option value="4">corrigido</option>
-                                                                {{-- <option value="5">concluído</option> --}}
+                                                                <option value="5">concluído</option>
                                                             </select>
                                                             @error('novoestatus')
                                                                 <small style="color: red">{{$message}}</small>

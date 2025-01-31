@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class Requerente extends Model
 {
@@ -120,4 +121,17 @@ class Requerente extends Model
     {
         return $totprocessos = Requerente::where('estatus', '=', '5')->count();
     }
+
+
+    // Verifica se existe arquivos físicos para o requernte em questão
+    public static function quantidadearquivos($idRequerente)
+    {
+        // Retorna um array de todos os arquivos existentes dentro do diretório
+        $files = Storage::disk('public')->files('documentos/requerente_'.$idRequerente);
+
+        $qtd = count($files);
+        // if($qtd == 0){ return true; }else{ return false; }
+        return $qtd;
+    }
+
 }
