@@ -28,6 +28,7 @@ class Detalherequerente extends Model
         'possuiparenteporeminviavelcompartilhardomicilio',
         'parentesinviavelcompartilhardomicilio',
         'filhosmenoresidade',
+        'quantidadefilhosmenores',
         'trabalhaougerarenda',
         'valortrabalhorenda',
         'temcadunico',

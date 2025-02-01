@@ -808,6 +808,15 @@
                                 @enderror
                             </div>
                         </div>
+                        {{-- quantidadefilhosmenores --}}
+                        <div class="col-2">
+                            <div class="form-group focused">
+                                <input type="number" min="1" class="form-control"  style="visibility:hidden" id="quantidadefilhosmenores" name="quantidadefilhosmenores"  value="{{ old('quantidadefilhosmenores', $requerente->detalhe->quantidadefilhosmenores) }}" placeholder="Quantidade">
+                                @error('quantidadefilhosmenores')
+                                    <small style="color: red" id="msg_error_quantidadefilhosmenores">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
                     </div>
 
 
@@ -1116,6 +1125,29 @@
                 $("#parentesinviavelcompartilhardomicilio").val("");
                 $("#parentesinviavelcompartilhardomicilio").removeAttr("required");
                 $("#msg_error_parentesinviavelcompartilhardomicilio").css("visibility","hidden");
+            }
+        });
+
+
+
+        // Iníco valor QUANTIDADE DE FILHOS MENORES
+        // Torna visível o campo "quantidadefilhosmenores", caso o valor escolhido do radio(filhosmenoresidade) seja 1.
+        if($("input[name='filhosmenoresidade']:checked").val() == "1"){
+            $("#quantidadefilhosmenores").css("visibility","visible");
+        }
+
+
+        $("input[name='filhosmenoresidade']").on("click", function() {
+            var filhosmenoresidade = $("input[name='filhosmenoresidade']:checked").val();
+            if(filhosmenoresidade == "1"){
+                $("#quantidadefilhosmenores").css("visibility","visible");
+                $("#quantidadefilhosmenores").focus();
+                $("#quantidadefilhosmenores").attr("required");
+            }else{
+                $("#quantidadefilhosmenores").css("visibility","hidden");
+                $("#quantidadefilhosmenores").val("");
+                $("#quantidadefilhosmenores").removeAttr("required");
+                $("#msg_error_quantidadefilhosmenores").css("visibility","hidden");
             }
         });
 

@@ -29,6 +29,7 @@ return new class extends Migration
             $table->boolean('possuiparenteporeminviavelcompartilhardomicilio');
             $table->string('parentesinviavelcompartilhardomicilio')->nullable();
             $table->boolean('filhosmenoresidade');
+            $table->integer('quantidadefilhosmenores');
             $table->boolean('trabalhaougerarenda');
             $table->decimal('valortrabalhorenda',12, 2)->default(0)->nullable();
             $table->boolean('temcadunico');

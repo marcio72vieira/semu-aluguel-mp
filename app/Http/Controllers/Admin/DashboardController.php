@@ -42,7 +42,7 @@ class DashboardController extends Controller
             '7' => 'julho', '8' => 'agosto', '9' => 'setembro', '10' => 'outubro', '11' => 'novembro', '12' => 'dezembro'
         ];
 
-        $anoimplantacao = 2024;
+        $anoimplantacao = 2025;
         $anoatual = date("Y");
         $anospesquisa = [];
         $anos = [];
@@ -183,35 +183,74 @@ class DashboardController extends Controller
         switch($cat_corrente){
             // Sexo Biolgócigo
             case 1:
-                $records = DB::select("SELECT COUNT(id) as quantidade, sexobiologico as labelcategoria FROM processos WHERE YEAR(created_at) = $ano_especifico AND MONTH(created_at) = $mes_especifico GROUP BY sexobiologico ORDER BY COUNT(id) DESC");
+                if($mes_especifico == 0){
+                    $records = DB::select("SELECT COUNT(id) as quantidade, sexobiologico as labelcategoria FROM processos WHERE YEAR(created_at) = $ano_especifico GROUP BY sexobiologico ORDER BY COUNT(id) DESC");
+                } else {
+                    $records = DB::select("SELECT COUNT(id) as quantidade, sexobiologico as labelcategoria FROM processos WHERE YEAR(created_at) = $ano_especifico AND MONTH(created_at) = $mes_especifico GROUP BY sexobiologico ORDER BY COUNT(id) DESC");
+                }
             break;
+
             // Comunidade
             case 2:
-                $records = DB::select("SELECT COUNT(id) as quantidade, comunidade as labelcategoria FROM processos WHERE YEAR(created_at) = $ano_especifico AND MONTH(created_at) = $mes_especifico GROUP BY comunidade ORDER BY COUNT(id) DESC");
+                if($mes_especifico == 0){
+                    $records = DB::select("SELECT COUNT(id) as quantidade, comunidade as labelcategoria FROM processos WHERE YEAR(created_at) = $ano_especifico GROUP BY comunidade ORDER BY COUNT(id) DESC");
+                } else {
+                    $records = DB::select("SELECT COUNT(id) as quantidade, comunidade as labelcategoria FROM processos WHERE YEAR(created_at) = $ano_especifico AND MONTH(created_at) = $mes_especifico GROUP BY comunidade ORDER BY COUNT(id) DESC");
+                }
             break;
-            // Cor/raca
+
+            // Cor/raca/etinia
             case 3:
-                $records = DB::select("SELECT COUNT(id) as quantidade, racacor as labelcategoria FROM processos WHERE YEAR(created_at) = $ano_especifico AND MONTH(created_at) = $mes_especifico GROUP BY racacor ORDER BY COUNT(id) DESC");
+                if($mes_especifico == 0){
+                    $records = DB::select("SELECT COUNT(id) as quantidade, racacor as labelcategoria FROM processos WHERE YEAR(created_at) = $ano_especifico GROUP BY racacor ORDER BY COUNT(id) DESC");
+                } else {
+                    $records = DB::select("SELECT COUNT(id) as quantidade, racacor as labelcategoria FROM processos WHERE YEAR(created_at) = $ano_especifico AND MONTH(created_at) = $mes_especifico GROUP BY racacor ORDER BY COUNT(id) DESC");
+                }
             break;
+
             // Identidade de Gênero
             case 4:
-                $records = DB::select("SELECT COUNT(id) as quantidade, identidadegenero as labelcategoria FROM processos WHERE YEAR(created_at) = $ano_especifico AND MONTH(created_at) = $mes_especifico GROUP BY identidadegenero ORDER BY COUNT(id) DESC");
+                if($mes_especifico == 0){
+                    $records = DB::select("SELECT COUNT(id) as quantidade, identidadegenero as labelcategoria FROM processos WHERE YEAR(created_at) = $ano_especifico GROUP BY identidadegenero ORDER BY COUNT(id) DESC");
+                } else {
+                    $records = DB::select("SELECT COUNT(id) as quantidade, identidadegenero as labelcategoria FROM processos WHERE YEAR(created_at) = $ano_especifico AND MONTH(created_at) = $mes_especifico GROUP BY identidadegenero ORDER BY COUNT(id) DESC");
+                }
             break;
+
             // Orientação Sexual
             case 5:
-                $records = DB::select("SELECT COUNT(id) as quantidade, orientacaosexual as labelcategoria FROM processos WHERE YEAR(created_at) = $ano_especifico AND MONTH(created_at) = $mes_especifico GROUP BY orientacaosexual ORDER BY COUNT(id) DESC");
+                if($mes_especifico == 0){
+                    $records = DB::select("SELECT COUNT(id) as quantidade, orientacaosexual as labelcategoria FROM processos WHERE YEAR(created_at) = $ano_especifico GROUP BY orientacaosexual ORDER BY COUNT(id) DESC");
+                } else {
+                    $records = DB::select("SELECT COUNT(id) as quantidade, orientacaosexual as labelcategoria FROM processos WHERE YEAR(created_at) = $ano_especifico AND MONTH(created_at) = $mes_especifico GROUP BY orientacaosexual ORDER BY COUNT(id) DESC");
+                }
             break;
+
             // Deficiente
             case 6:
-                $records = DB::select("SELECT COUNT(id) as quantidade, deficiente as labelcategoria FROM processos WHERE YEAR(created_at) = $ano_especifico AND MONTH(created_at) = $mes_especifico GROUP BY deficiente ORDER BY COUNT(id) DESC");
+                if($mes_especifico == 0){
+                    $records = DB::select("SELECT COUNT(id) as quantidade, deficiente as labelcategoria FROM processos WHERE YEAR(created_at) = $ano_especifico GROUP BY deficiente ORDER BY COUNT(id) DESC");
+                } else {
+                    $records = DB::select("SELECT COUNT(id) as quantidade, deficiente as labelcategoria FROM processos WHERE YEAR(created_at) = $ano_especifico AND MONTH(created_at) = $mes_especifico GROUP BY deficiente ORDER BY COUNT(id) DESC");
+                }
             break;
+
             // Estado Civil
             case 7:
-                $records = DB::select("SELECT COUNT(id) as quantidade, estadocivil as labelcategoria FROM processos WHERE YEAR(created_at) = $ano_especifico AND MONTH(created_at) = $mes_especifico GROUP BY estadocivil ORDER BY COUNT(id) DESC");
+                if($mes_especifico == 0){
+                    $records = DB::select("SELECT COUNT(id) as quantidade, estadocivil as labelcategoria FROM processos WHERE YEAR(created_at) = $ano_especifico GROUP BY estadocivil ORDER BY COUNT(id) DESC");
+                } else {
+                    $records = DB::select("SELECT COUNT(id) as quantidade, estadocivil as labelcategoria FROM processos WHERE YEAR(created_at) = $ano_especifico AND MONTH(created_at) = $mes_especifico GROUP BY estadocivil ORDER BY COUNT(id) DESC");
+                }
             break;
+
             // Escolaridade
             case 8:
-                $records = DB::select("SELECT COUNT(id) as quantidade, escolaridade as labelcategoria FROM processos WHERE YEAR(created_at) = $ano_especifico AND MONTH(created_at) = $mes_especifico GROUP BY escolaridade ORDER BY COUNT(id) DESC");
+                if($mes_especifico == 0){
+                    $records = DB::select("SELECT COUNT(id) as quantidade, escolaridade as labelcategoria FROM processos WHERE YEAR(created_at) = $ano_especifico GROUP BY escolaridade ORDER BY COUNT(id) DESC");
+                } else {
+                    $records = DB::select("SELECT COUNT(id) as quantidade, escolaridade as labelcategoria FROM processos WHERE YEAR(created_at) = $ano_especifico AND MONTH(created_at) = $mes_especifico GROUP BY escolaridade ORDER BY COUNT(id) DESC");
+                }
             break;
         }
 

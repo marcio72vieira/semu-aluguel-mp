@@ -173,7 +173,7 @@
                             &nbsp;&nbsp;
                             {{-- <span id="selecionames" class="text-primary" style="margin: 5px;">Mês:</span> --}}
                             <select id="selectMesPesquisa_id" class="form-control col-form-label-sm selectsgraficopizzarosaca">
-                                <option value="" selected disabled>Mês...</option>
+                                <option value="0" selected>Mês...</option>
                                 @foreach($mesespesquisa as $key => $value)
                                     {{-- Obs: Os índices dos mêses são 1, 2, 3 ... 12 (sem zeros à esquerda) que corresponde exatamente aos seus índices, vindo do controller e seus valores são: Janeiro, Fevereiro, Março ... Dezembro, por isso a necessidade usarmos o parâmetro $key --}}
                                     {{-- <option value="{{ $value}}" {{date('n') == $key ? 'selected' : ''}} data-mespesquisa="{{$key}}" class="optionMesPesquisa"> {{ $value }} </option>  OU --}}
@@ -577,9 +577,14 @@
             // Capturando o tipo de gráfico desejado (pizza ou rosca)
             estilografico = $("#tipografico").val();
 
+            
+            // Definindo o texto do mês de acordo com a escolha do usuário
+            textmes = (textmes == "Mês..." ? "Ano" : textmes);
+
             // Definindo o título e o subtitulo do gráfico
             titulo = textcategoria;
             subtitulo = textmes + " - " + textano;
+            
 
 
             // var urltipo = "";

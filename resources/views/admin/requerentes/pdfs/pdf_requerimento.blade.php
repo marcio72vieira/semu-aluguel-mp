@@ -219,7 +219,12 @@
             <td style="width: 30px;" class="dados-normal">{{ $requerente->detalhe->possuiparenteporeminviavelcompartilhardomicilio == "1" ? "sim" : "não" }}</td>
         </tr>
         <tr>
-            <td style="width: 687px;" class="dados-normal">A requerente possui filhos menores de idade?</td>
+            <td style="width: 687px;" class="dados-normal">A requerente possui filhos menores de idade?
+                @if ($requerente->detalhe->filhosmenoresidade == "1")
+                    <br>
+                    <strong>Quantidade: {{ $requerente->detalhe->quantidadefilhosmenores }}</strong>
+                @endif
+            </td>
             <td style="width: 30px;" class="dados-normal">{{ $requerente->detalhe->filhosmenoresidade == "1" ? "sim" : "não" }}</td>
         </tr>
         <tr>
@@ -227,7 +232,7 @@
 
                 @if ($requerente->detalhe->trabalhaougerarenda == "1")
                     <br>
-                    <strong>R$ {{ mrc_turn_value($requerente->detalhe->valortrabalhorenda) }}</strong>
+                    <strong>Valor: R$ {{ mrc_turn_value($requerente->detalhe->valortrabalhorenda) }}</strong>
                 @endif
             </td>
             <td style="width: 30px;" class="dados-normal">{{ $requerente->detalhe->trabalhaougerarenda == "1" ? "sim" : "não" }}</td>
@@ -237,7 +242,7 @@
 
                 @if ($requerente->detalhe->temcadunico == "1")
                     <br>
-                    <strong>R$ {{ mrc_turn_value($requerente->detalhe->valortemcadunico) }}</strong>
+                    <strong>Valor: R$ {{ mrc_turn_value($requerente->detalhe->valortemcadunico) }}</strong>
                 @endif
             </td>
             <td style="width: 30px;" class="dados-normal">{{ $requerente->detalhe->temcadunico == "1" ? "sim" : "não" }}</td>

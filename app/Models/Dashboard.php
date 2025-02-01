@@ -81,10 +81,16 @@ class Dashboard extends Model
         return DB::table('processos')->whereMonth('created_at', date('n'))->count();
     }
 
-    // SEMPRE HAVERÁ UM MÊS E UM ANO DEFINIDO
+    // SEMPRE HAVERÁ UM MÊS E UM ANO DEFINIDO (MESMO QUE O MẼS SEJA ZERO, NESTE CASO SIGNIFICA QUE O USUÁRIO QUER OS DADOS DO ANO TODO)
     public static function totalProcessosMesAnoEspecifico($mes, $ano)
     {
-        return DB::table('processos')->whereMonth('created_at', date($mes))->whereYear('created_at', date($ano))->count();
+        if($mes == 0){
+            // Retorna os dados do apenas do ano especificado
+            return DB::table('processos')->whereYear('created_at', date($ano))->count();
+        }else{
+            // Retorna os dados do mês e ano específico
+            return DB::table('processos')->whereMonth('created_at', date($mes))->whereYear('created_at', date($ano))->count();
+        }
     }
 
     public static function processos()

@@ -202,7 +202,12 @@
 
 
                             {{-- item 2.6.9--}}
-                            <dt class="col-sm-11" style="margin-bottom:15px;">A requerente possui filhos menores de idade?</dt>
+                            <dt class="col-sm-11" style="margin-bottom:15px;">A requerente possui filhos menores de idade?
+                                @if ($requerente->detalhe->filhosmenoresidade == "1")
+                                <br>
+                                <label style="color: green; font-size: 20px;">- {{ $requerente->detalhe->quantidadefilhosmenores }}</label>
+                            @endif
+                            </dt>
                             <dd class="col-sm-1">{{ $requerente->detalhe->filhosmenoresidade == "1" ? "sim" : "não"  }}</dd>
 
 
@@ -230,11 +235,11 @@
                             <dd class="col-sm-1">{{ $requerente->detalhe->teminteresformprofisdesenvolvhabilid == "1" ? "sim" : "não"  }}</dd>
 
                             {{-- item 2.6.13--}}
-                            <dt class="col-sm-11" style="margin-bottom:50px;">A requerente apresentou documento de identificação?</dt>
+                            <dt class="col-sm-11" style="margin-bottom:40px;">A requerente apresentou documento de identificação?</dt>
                             <dd class="col-sm-1">{{ $requerente->detalhe->apresentoudocumentoidentificacao == "1" ? "sim" : "não"  }}</dd>
 
                             {{-- item 2.6.14--}}
-                            <dt class="col-sm-11" style="margin-bottom:40px;">A requerente cumpre os requisitos previstos nos itens marcados com (*), necessários para concessão do benefício?</dt>
+                            <dt class="col-sm-11" style="margin-bottom:10px;">A requerente cumpre os requisitos previstos nos itens marcados com (*), necessários para concessão do benefício?</dt>
                             <dd class="col-sm-1">{{ $requerente->detalhe->cumprerequisitositensnecessarios == "1" ? "sim" : "não"  }}</dd>
 
                         </dl>
