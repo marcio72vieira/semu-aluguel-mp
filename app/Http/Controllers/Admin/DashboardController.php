@@ -150,6 +150,10 @@ class DashboardController extends Controller
             $dataRecordsCategorias[''] =  0;
         }
 
+        // Recuperando e formantando o total de registros, para compor o subtítulo do gráfico do mês corrente
+        //$totalrecords = Dashboard::totalRequerentes();
+        ////$totalrecords = number_format($totalrecords, 0, ',', '.');
+
         // Recuperando todos os processos para a tabela de PROCESSOS
         $processos =  Dashboard::processos();
 

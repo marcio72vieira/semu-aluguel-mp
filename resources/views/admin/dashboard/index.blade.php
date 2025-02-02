@@ -401,8 +401,13 @@
         //  ÁREA DE DEFINIÇÃO DE VARIÁVEIS  //
         //////////////////////////////////////
 
-        var valmespesquisa = "{{ $mesespesquisa[$mes_corrente] }} ";   // valor padão vindo da view
-        var valanopesquisa = "{{ $ano_corrente }}";                    // valor padão vindo da view
+        var valmespesquisa = "{{ $mesespesquisa[$mes_corrente] }}";     // valor padão vindo da view
+        var valanopesquisa = "{{ $ano_corrente }}";                     // valor padão vindo da view
+        var valtotalrequerentes = "{{ $totRequerentes }}";              // valor padrão total de requerimentos
+            valtotalrequerentes = Number(valtotalrequerentes);          // Transformando o valor em "número" para o javascript
+        
+        var valtotProcessosMesAnoCorrente = "{{ $totProcessosMesAnoCorrente }}";
+            valtotProcessosMesAnoCorrente = Number(valtotProcessosMesAnoCorrente);
 
         // var titulomesanoatual = "{{ $mesespesquisa[$mes_corrente] }} " + " - " + "{{ $ano_corrente }}"; // Valores vindo da "view" através do "compac()"
         var valcategoria = 0;
@@ -411,7 +416,8 @@
         var textano = "";
         var estilo = "";                                            // estilo do gráfico de pizza ou rosca quando escolhido
         var titulo =  "SEXO BIOLÓGICO";                             // valor da pesquisa padão definido no carregamento da página
-        var subtitulo = valmespesquisa + " - " + valanopesquisa;    // valor da pesquisa padão vindo da no carregamento da pagina
+        //var subtitulo = valmespesquisa + " - " + valanopesquisa;    // valor da pesquisa padão vindo no carregamento da pagina
+        var subtitulo = valmespesquisa + " - " + valanopesquisa + " (registros: " + valtotProcessosMesAnoCorrente + ")";    // valor da pesquisa padão vindo no carregamento da pagina
 
 
         ///////////////////////////////////////
@@ -425,7 +431,7 @@
             data: {
                 labels: ["Andamento", "Análise", "Pendente", "Corrigido", "Concluído"],
                 datasets: [{
-                    label: "status",
+                    label: "status" + " (registros: " + valtotalrequerentes + ")",
                     lineTension: 0.1,
                     backgroundColor: "rgba(54, 162, 235,0.3)",
                     borderColor: "rgba(2,117,216,1)",
@@ -449,7 +455,9 @@
                     yAxes: [{ ticks: { min: 0, max: 40000, maxTicksLimit: 5 }, gridLines: { color: "rgba(0, 0, 0, .125)", } }],
                 },
                 */
-                scales: {y: {min: 0, max: 20 }},
+                
+                // scales: {y: {min: 0, max: 20 }},
+                scales: {y: {min: 0, max: valtotalrequerentes + 5}},
                 legend: {
                     display: false
                 },
@@ -577,14 +585,14 @@
             // Capturando o tipo de gráfico desejado (pizza ou rosca)
             estilografico = $("#tipografico").val();
 
-            
+            //******** LUGAR ORIGINAL
             // Definindo o texto do mês de acordo com a escolha do usuário
-            textmes = (textmes == "Mês..." ? "Ano" : textmes);
+            //textmes = (textmes == "Mês..." ? "Ano" : textmes);
 
             // Definindo o título e o subtitulo do gráfico
-            titulo = textcategoria;
-            subtitulo = textmes + " - " + textano;
-            
+            // titulo = textcategoria;
+            // subtitulo = textmes + " - " + textano;
+            //********
 
 
             // var urltipo = "";
@@ -612,6 +620,15 @@
                     var arr_rotuloscategoria = [];
                     var arr_valorescategoria = [];
                     var arr_cores = [];
+
+                    //**********
+                    // Definindo o texto do mês de acordo com a escolha do usuário
+                    textmes = (textmes == "Mês..." ? "Ano" : textmes);
+
+                    // Definindo o título e o subtitulo do gráfico
+                    titulo = textcategoria;
+                    subtitulo = textmes + " - " + textano + " (registros: " + totalregistros + ")";
+                    //**********
 
 
                     //Iterando sobre o array['dados'] e // Obtém o valor da soma de todas as compras realizadas, para cálculo da %
