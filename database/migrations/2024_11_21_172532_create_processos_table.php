@@ -109,6 +109,8 @@ return new class extends Migration
 
             $table->tinyInteger('filhosmenoresidade_id')->nullable();
             $table->tinyText('filhosmenoresidade')->nullable();
+            $table->integer('quantidadefilhosmenores')->nullable();
+
 
             $table->tinyInteger('trabalhaougerarenda_id')->nullable();
             $table->tinyText('trabalhaougerarenda')->nullable();

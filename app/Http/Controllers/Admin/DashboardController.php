@@ -307,7 +307,7 @@ class DashboardController extends Controller
                     regional_id, regional, municipio_id, municipio, tipounidade_id, tipounidade, unidadeatendimento_id, unidadeatendimento, endereco, numero, complemento, bairro, cep, foneresidencial, fonecelular, email, DATE_FORMAT(datacadastro,"%d/%m/%Y") AS datacadastro,
                     processojudicial, orgaojudicial, comarca, prazomedidaprotetiva, DATE_FORMAT(dataconcessaomedidaprotetiva,"%d/%m/%Y") AS dataconcessaomedidaprotetiva,
                     medproturgcaminhaprogoficial, medproturgafastamentolar, riscmortvioldomesmoradprotegsigilosa, riscvidaaguardmedproturg, relatodescomprmedproturgagressor, sitvulnerabnaoconsegarcardespmoradia, temrendfamiliardoissalconvivagressor,
-                    possuiparenteporeminviavelcompartilhardomicilio, parentesinviavelcompartilhardomicilio, filhosmenoresidade, trabalhaougerarenda, valortrabalhorenda, temcadunico, valortemcadunico, teminteresformprofisdesenvolvhabilid, apresentoudocumentoidentificacao, cumprerequisitositensnecessarios,
+                    possuiparenteporeminviavelcompartilhardomicilio, parentesinviavelcompartilhardomicilio, filhosmenoresidade, quantidadefilhosmenores, trabalhaougerarenda, valortrabalhorenda, temcadunico, valortemcadunico, teminteresformprofisdesenvolvhabilid, apresentoudocumentoidentificacao, cumprerequisitositensnecessarios,
                     assistente_id, assistente, funcionariosemu_id, funcionario')
                 ->whereYear('created_at', $ano)
                 ->get();
@@ -322,7 +322,7 @@ class DashboardController extends Controller
                     regional_id, regional, municipio_id, municipio, tipounidade_id, tipounidade, unidadeatendimento_id, unidadeatendimento, endereco, numero, complemento, bairro, cep, foneresidencial, fonecelular, email, DATE_FORMAT(datacadastro,"%d/%m/%Y") AS datacadastro,
                     processojudicial, orgaojudicial, comarca, prazomedidaprotetiva, DATE_FORMAT(dataconcessaomedidaprotetiva,"%d/%m/%Y") AS dataconcessaomedidaprotetiva,
                     medproturgcaminhaprogoficial, medproturgafastamentolar, riscmortvioldomesmoradprotegsigilosa, riscvidaaguardmedproturg, relatodescomprmedproturgagressor, sitvulnerabnaoconsegarcardespmoradia, temrendfamiliardoissalconvivagressor,
-                    possuiparenteporeminviavelcompartilhardomicilio, parentesinviavelcompartilhardomicilio, filhosmenoresidade, trabalhaougerarenda, valortrabalhorenda, temcadunico, valortemcadunico, teminteresformprofisdesenvolvhabilid, apresentoudocumentoidentificacao, cumprerequisitositensnecessarios,
+                    possuiparenteporeminviavelcompartilhardomicilio, parentesinviavelcompartilhardomicilio, filhosmenoresidade, quantidadefilhosmenores, trabalhaougerarenda, valortrabalhorenda, temcadunico, valortemcadunico, teminteresformprofisdesenvolvhabilid, apresentoudocumentoidentificacao, cumprerequisitositensnecessarios,
                     assistente_id, assistente, funcionariosemu_id, funcionario')
                 ->whereMonth('created_at', $mes)
                 ->whereYear('created_at', $ano)
@@ -438,6 +438,7 @@ class DashboardController extends Controller
                     'possuiparenteporeminviavelcompartilhardomicilio' => $record->possuiparenteporeminviavelcompartilhardomicilio,
                     'parentesinviavelcompartilhardomicilio' => $record->parentesinviavelcompartilhardomicilio,
                     'filhosmenoresidade' => $record->filhosmenoresidade,
+                    'quantidadefilhosmenores' => $record->quantidadefilhosmenores,
                     'trabalhaougerarenda' => $record->trabalhaougerarenda,
                     'valortrabalhorenda' => ($record->valortrabalhorenda != null ? (float)$record->valortrabalhorenda : (float)0),      // converte para float
                     'temcadunico' => $record->temcadunico,
