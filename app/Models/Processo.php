@@ -102,6 +102,7 @@ class Processo extends Model
 
         'filhosmenoresidade_id',
         'filhosmenoresidade',
+        'quantidadefilhosmenores',
 
         'trabalhaougerarenda_id',
         'trabalhaougerarenda',

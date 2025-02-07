@@ -347,6 +347,7 @@ class DashboardController extends Controller
                 'A requerente possui parentes em linha reta no município, porém não é viável o compartilhamento de domicílio',
                 'Parentes com inviável compartilhamento de domicílio',
                 'A requerente possui filhos menores de idade',
+                'Quantidade filhos',
                 'A requerente está trabalhando ou possui alguma forma de gerar renda no momento',
                 'Valor trabalho ou renda',
                 'A requerente está cadastrada no Cadastro Único (CADUNICO)',

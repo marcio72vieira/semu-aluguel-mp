@@ -339,6 +339,7 @@ class DocumentoController extends Controller
 
                     $processo->filhosmenoresidade_id = $requerente->detalhe->filhosmenoresidade;
                     $processo->filhosmenoresidade = $arr_padraosimnao[$requerente->detalhe->filhosmenoresidade];
+                    $processo->quantidadefilhosmenores = $requerente->detalhe->quantidadefilhosmenores;
 
                     $processo->trabalhaougerarenda_id = $requerente->detalhe->trabalhaougerarenda;
                     $processo->trabalhaougerarenda = $arr_padraosimnao[$requerente->detalhe->trabalhaougerarenda];
