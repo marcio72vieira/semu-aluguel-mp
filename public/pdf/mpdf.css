@@ -67,6 +67,11 @@
     border-right: 0.5px solid #000000;
   }
 
+  .numeracao {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 5px;
+  }
+
   td.dados-ficha {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 10px;
