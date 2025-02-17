@@ -91,6 +91,10 @@ class ChecklistController extends Controller
             'users.nome AS nomeoperador', 'documentos.user_id AS idAnalista',
             'usersanalista.nome AS nomeanalista')
 
+        // Os requerentes com estatus de "Em andamento" e "concluidos" não interessam serem visualizados. Só os "para analise", "pendentes" e "corrigidos"
+        ->where('requerentes.estatus', '!=', '1')
+        ->where('requerentes.estatus', '!=', '5')
+
 
         ->when($request->has('requerente'), function($query) use($request) {
                 $query->where('requerentes.nomecompleto', 'like', '%'. $request->requerente . '%');

@@ -14,7 +14,7 @@ class UnidadeAtendimentoSeeder extends Seeder
     {
         $unidadeatendimento = new Unidadeatendimento();
             $unidadeatendimento->tipounidade_id = 1;
-            $unidadeatendimento->nome = "Secreataria de Estado da Mulher";
+            $unidadeatendimento->nome = "SEMU - ÓRGAO CENTRAL";
             $unidadeatendimento->endereco =  "Rua tal de tal";
             $unidadeatendimento->numero = "s/n";
             $unidadeatendimento->complemento =  "";

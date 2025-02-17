@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('tipounidades', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
+            $table->string('descricao');
             $table->boolean('ativo');
             $table->timestamps();
         });

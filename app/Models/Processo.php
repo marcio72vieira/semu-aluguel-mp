@@ -57,6 +57,7 @@ class Processo extends Model
         'municipio',
         'tipounidade_id',
         'tipounidade',
+        'tipounidadedescricao',
         'unidadeatendimento_id',
         'unidadeatendimento',
         'endereco',

@@ -46,7 +46,7 @@
                             <label class="form-label" for="role">Tipo</label>
                             <input type="text" name="tipounidade" id="tipounidade" class="form-control" value="{{ $tipounidade }}" placeholder="Tipo unidade">
                         </div>
-                        
+
                         <div class="col-md-2 col-sm-12">
                             <label class="form-label" for="role">Unidade</label>
                             <input type="text" name="unidade" id="unidade" class="form-control" value="{{ $unidade }}" placeholder="Unidade de atendimento">
@@ -62,11 +62,11 @@
                                 <label class="form-label" for="role">Estatus</label>
                                 <select name="estatus" id="estatus" class="form-control">
                                     <option value="" selected disabled>Escolha ...</option>
-                                    <option value="1" {{ $estatus == '1' ? 'selected' : '' }}>em andamento</option>
+                                    {{-- <option value="1" {{ $estatus == '1' ? 'selected' : '' }}>em andamento</option> --}}
                                     <option value="2" {{ $estatus == '2' ? 'selected' : '' }}>para análise</option>
                                     <option value="3" {{ $estatus == '3' ? 'selected' : '' }}>pendente</option>
                                     <option value="4" {{ $estatus == '4' ? 'selected' : '' }}>corrigido</option>
-                                    <option value="5" {{ $estatus == '5' ? 'selected' : '' }}>concluído</option>
+                                    {{-- <option value="5" {{ $estatus == '5' ? 'selected' : '' }}>concluído</option> --}}
                                 </select>
                             </div>
                         </div>

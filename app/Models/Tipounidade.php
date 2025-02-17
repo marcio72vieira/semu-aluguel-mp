@@ -14,6 +14,7 @@ class Tipounidade extends Model
 
     protected $fillable = [
         'nome',
+        'descricao',
         'ativo',
     ];
 

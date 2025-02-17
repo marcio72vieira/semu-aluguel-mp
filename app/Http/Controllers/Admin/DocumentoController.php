@@ -291,6 +291,7 @@ class DocumentoController extends Controller
                     $processo->municipio = $requerente->municipio->nome;
                     $processo->tipounidade_id = $requerente->tipounidade_id;
                     $processo->tipounidade = $requerente->tipounidade->nome;
+                    $processo->tipounidadedescricao = $requerente->tipounidade->descricao;
                     $processo->unidadeatendimento_id = $requerente->unidadeatendimento_id;
                     $processo->unidadeatendimento = $requerente->unidadeatendimento->nome;
                     $processo->endereco = $requerente->endereco;

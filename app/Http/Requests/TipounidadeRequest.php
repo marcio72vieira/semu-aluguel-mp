@@ -25,6 +25,7 @@ class TipounidadeRequest extends FormRequest
 
         return [
             'nome' => 'bail|required|unique:tipounidades,nome,'. ($tipounidadeId ? $tipounidadeId->id : null),
+            'descricao' => 'bail|required',
             'ativo' => 'bail|required',
         ];
     }
@@ -34,6 +35,7 @@ class TipounidadeRequest extends FormRequest
         return[
             'nome.required' => 'Campo nome é obrigatório!',
             'nome.unique' => 'Este tipo já está cadastrado!',
+            'descricao.required' => 'Campo descrição é obrigatório',
             'ativo.required' => 'Campo ativo é obrigatório!',
         ];
     }

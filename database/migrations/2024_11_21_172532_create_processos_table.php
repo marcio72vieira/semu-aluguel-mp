@@ -63,6 +63,7 @@ return new class extends Migration
             $table->string('municipio')->nullable();
             $table->integer('tipounidade_id')->nullable();
             $table->string('tipounidade')->nullable();
+            $table->string('tipounidadedescricao')->nullable();
             $table->integer('unidadeatendimento_id')->nullable();
             $table->string('unidadeatendimento')->nullable();
             $table->string('endereco')->nullable();

@@ -26,7 +26,7 @@
 
                     <div class="row">
                         {{-- Nome --}}
-                        <div class="col-6">
+                        <div class="col-2">
                             <div class="form-group focused">
                                 <label class="form-control-label" for="nome">Nome<span class="small text-danger">*</span></label>
                                 <input type="text" class="form-control" id="nome" name="nome" value="{{ old('nome', $tipounidade->nome) }}" placeholder="Tipo de Unidade"  >
@@ -37,8 +37,20 @@
                         </div>
 
 
+                        {{-- descricao --}}
+                        <div class="col-5">
+                            <div class="form-group focused">
+                                <label class="form-control-label" for="descricao">Descrição<span class="small text-danger">*</span></label>
+                                <input type="text" class="form-control" id="descricao" name="descricao" value="{{ old('descricao', $tipounidade->descricao) }}" placeholder="Descrição da Unidade"  >
+                                @error('descricao')
+                                    <small style="color: red">{{$message}}</small>
+                                @enderror
+                            </div>
+                        </div>
+
+
                         {{-- ativo --}}
-                        <div class="col-3">
+                        <div class="col-2">
                             <div class="form-group focused">
                                 <label class="form-control-label" for="ativo">Ativo ? <span class="small text-danger">*</span></label>
                                 <div style="margin-top: 7px">

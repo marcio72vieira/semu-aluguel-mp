@@ -14,6 +14,7 @@ class TipoUnidadeSeeder extends Seeder
     {
         $tipounidade = new Tipounidade();
             $tipounidade->nome = "SEMU";
+            $tipounidade->descricao = "SECRETARIA DE ESTADO DA MULHER";
             $tipounidade->ativo = true;
         $tipounidade->save();
     }

@@ -304,7 +304,7 @@ class DashboardController extends Controller
                     rg, orgaoexpedidor, cpf, banco, agencia, conta, contaespecifica_id, contaespecifica,
                     comunidade_id, comunidade, outracomunidade, racacor_id, racacor, outraracacor, identidadegenero_id, identidadegenero, outraidentidadegenero, orientacaosexual_id, orientacaosexual, outraorientacaosexual, deficiente_id, deficiente, deficiencia,
                     escolaridade_id, escolaridade, profissao, estadocivil_id, estadocivil,
-                    regional_id, regional, municipio_id, municipio, tipounidade_id, tipounidade, unidadeatendimento_id, unidadeatendimento, endereco, numero, complemento, bairro, cep, foneresidencial, fonecelular, email, DATE_FORMAT(datacadastro,"%d/%m/%Y") AS datacadastro,
+                    regional_id, regional, municipio_id, municipio, tipounidade_id, tipounidade, tipounidadedescricao, unidadeatendimento_id, unidadeatendimento, endereco, numero, complemento, bairro, cep, foneresidencial, fonecelular, email, DATE_FORMAT(datacadastro,"%d/%m/%Y") AS datacadastro,
                     processojudicial, orgaojudicial, comarca, prazomedidaprotetiva, DATE_FORMAT(dataconcessaomedidaprotetiva,"%d/%m/%Y") AS dataconcessaomedidaprotetiva,
                     medproturgcaminhaprogoficial, medproturgafastamentolar, riscmortvioldomesmoradprotegsigilosa, riscvidaaguardmedproturg, relatodescomprmedproturgagressor, sitvulnerabnaoconsegarcardespmoradia, temrendfamiliardoissalconvivagressor,
                     possuiparenteporeminviavelcompartilhardomicilio, parentesinviavelcompartilhardomicilio, filhosmenoresidade, quantidadefilhosmenores, trabalhaougerarenda, valortrabalhorenda, temcadunico, valortemcadunico, teminteresformprofisdesenvolvhabilid, apresentoudocumentoidentificacao, cumprerequisitositensnecessarios,
@@ -319,7 +319,7 @@ class DashboardController extends Controller
                     rg, orgaoexpedidor, cpf, banco, agencia, conta, contaespecifica_id, contaespecifica,
                     comunidade_id, comunidade, outracomunidade, racacor_id, racacor, outraracacor, identidadegenero_id, identidadegenero, outraidentidadegenero, orientacaosexual_id, orientacaosexual, outraorientacaosexual, deficiente_id, deficiente, deficiencia,
                     escolaridade_id, escolaridade, profissao, estadocivil_id, estadocivil,
-                    regional_id, regional, municipio_id, municipio, tipounidade_id, tipounidade, unidadeatendimento_id, unidadeatendimento, endereco, numero, complemento, bairro, cep, foneresidencial, fonecelular, email, DATE_FORMAT(datacadastro,"%d/%m/%Y") AS datacadastro,
+                    regional_id, regional, municipio_id, municipio, tipounidade_id, tipounidade, tipounidadedescricao, unidadeatendimento_id, unidadeatendimento, endereco, numero, complemento, bairro, cep, foneresidencial, fonecelular, email, DATE_FORMAT(datacadastro,"%d/%m/%Y") AS datacadastro,
                     processojudicial, orgaojudicial, comarca, prazomedidaprotetiva, DATE_FORMAT(dataconcessaomedidaprotetiva,"%d/%m/%Y") AS dataconcessaomedidaprotetiva,
                     medproturgcaminhaprogoficial, medproturgafastamentolar, riscmortvioldomesmoradprotegsigilosa, riscvidaaguardmedproturg, relatodescomprmedproturgagressor, sitvulnerabnaoconsegarcardespmoradia, temrendfamiliardoissalconvivagressor,
                     possuiparenteporeminviavelcompartilhardomicilio, parentesinviavelcompartilhardomicilio, filhosmenoresidade, quantidadefilhosmenores, trabalhaougerarenda, valortrabalhorenda, temcadunico, valortemcadunico, teminteresformprofisdesenvolvhabilid, apresentoudocumentoidentificacao, cumprerequisitositensnecessarios,
@@ -335,7 +335,7 @@ class DashboardController extends Controller
                 'RG', 'Órgão Expedidor', 'CPF', 'Banco', 'Agência', 'Conta Corrente', 'Cod. Conta Específica', 'Conta Específica',
                 'Cod. Comunidade', 'Comunidade', 'Outra Comunidade', 'Cod. Raça Cor Etnia', 'Raça Cor','Outra Raça', 'Cod. Identidade Gênero', 'Identidade Gênero', 'Outra Identidade Gênero', 'Cod. Orientação Sexual', 'Orientação Sexual', 'Outra Orientação Sexual', 'Deficiente ID', 'Deficiente', 'Deficiência',
                 'Cod. Escolaridade', 'Escolaridade', 'Profissão', 'Cod. Estado Civil', 'Estado Civil',
-                'Cod. Regional', 'Regional', 'Cod. Município', 'Município', 'Cod. Tipo Unidade', 'Tipo Unidade', 'Cod. Unid. Atendimento', 'Unidade de Atendiemnto', 'Endereço', 'Número', 'Complemento', 'Bairro', 'CEP', 'Fone Residencial', 'Fone Celular', 'E-mail', 'Cadastrado Em',
+                'Cod. Regional', 'Regional', 'Cod. Município', 'Município', 'Cod. Tipo Unidade', 'Tipo Unidade', 'Tipo Unidade Descrição', 'Cod. Unid. Atendimento', 'Unidade de Atendiemnto', 'Endereço', 'Número', 'Complemento', 'Bairro', 'CEP', 'Fone Residencial', 'Fone Celular', 'E-mail', 'Cadastrado Em',
                 'Processo Judicial', 'Órgão Judicial', 'Comarca', 'Prazo da Medida Protetiva (dias)', 'Data da Concessão Med. Protetiva',
                 'Medida protetiva de urgência de encaminhamento a programa oficial ou comunitário de proteção ou atendimento',
                 'A requerente foi atendida com a medida protetiva de urgência de afastamento do lar',
@@ -411,6 +411,7 @@ class DashboardController extends Controller
                     'municipio' => $record->municipio,
                     'tipounidade_id' => $record->tipounidade_id,
                     'tipounidade' => $record->tipounidade,
+                    'tipounidadedescricao' => $record->tipounidadedescricao,
                     'unidadeatendimento_id' => $record->unidadeatendimento_id,
                     'unidadeatendimento' => $record->unidadeatendimento,
                     'endereco' => $record->endereco,
@@ -470,9 +471,5 @@ class DashboardController extends Controller
 
 
     }
-
-
-
-
 
 }

@@ -23,7 +23,7 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Nome</th>
+                        <th>Nome / Descrição</th>
                         <th class="d-none d-md-table-cell">Ativo</th>
                         <th class="d-none d-md-table-cell">Unidades</th>
                         <th class="d-none d-md-table-cell">Cadastrado</th>
@@ -35,7 +35,7 @@
                     @forelse ($tipounidades as $tipounidade)
                         <tr>
                             <td>{{ $tipounidade->id }}</th>
-                            <td>{{ $tipounidade->nome }}</td>
+                            <td>{{ $tipounidade->nome }} / {{ $tipounidade->descricao }}</td>
                             <td>{{ $tipounidade->ativo == 1 ? "Sim" : "Não" }}</td>
                             <td>{{ $tipounidade->qtdunidadesatendimento($tipounidade->id) > 0 ? $tipounidade->qtdunidadesatendimento($tipounidade->id) : ''  }}</td>
                             <td>{{ \Carbon\Carbon::parse($tipounidade->created_at)->format('d/m/Y') }}</td>

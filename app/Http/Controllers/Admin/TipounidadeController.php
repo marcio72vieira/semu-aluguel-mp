@@ -36,6 +36,7 @@ class TipounidadeController extends Controller
 
             Tipounidade::create([
                 'nome' => Str::upper($request->nome),
+                'descricao' => Str::upper($request->descricao),
                 'ativo' => $request->ativo,
             ]);
 
@@ -66,6 +67,7 @@ class TipounidadeController extends Controller
         try{
             $tipounidade->update([
                 'nome' => Str::upper($request->nome),
+                'descricao' => Str::upper($request->descricao),
                 'ativo' => $request->ativo,
             ]);
 

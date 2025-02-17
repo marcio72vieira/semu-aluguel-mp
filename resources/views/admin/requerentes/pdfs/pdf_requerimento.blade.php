@@ -341,7 +341,7 @@
             </td>
         </tr>
         <tr>
-            <td style="width: 500px;" class="label-ficha">Órgão</td>
+            <td style="width: 500px;" class="label-ficha">Órgão: {{ $requerente->unidadeatendimento->tipounidade->descricao }}</td>
             <td style="width: 217px;" class="label-ficha">Data do encaminhamento</td>
         </tr>
         <tr>
