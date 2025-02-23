@@ -20,6 +20,13 @@ class DocumentoController extends Controller
 {
     public function index(Requerente $requerente)
     {
+        // Evita com que o ANALISTA tente acessar via URL o ID de uma REQUERENTE cujo ESTATUS seja setado como
+        // PENDENTE(documentos ja submetidos para correção) ou CONCLUÍDO (documentos corrigidos e gerado o processo)
+        if($requerente->estatus == '3' || $requerente->estatus == '5' ){
+            // Redirecionar o usuário(Assistente Social), enviar a mensagem de sucesso
+            return redirect()->route('checklist.index')->with('warning', 'Tentativa INAPROPRIADA!');
+        }
+
         // Recuperando todos os documentos anexados da requerente
         $documentos =  Documento::where('requerente_id', '=', $requerente->id)->orderBy('ordem', 'ASC')->get();
 
