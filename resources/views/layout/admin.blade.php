@@ -117,8 +117,8 @@
                                 </nav>
                             </div>
 
-                            {{-- Só o ADMINISTRADOR cujo ID é "1" acessa esse menu (MENU EXCLUSIVO) --}}
-                            @if(Auth::user()->id == 1)
+                            {{-- Só o ADMINISTRADOR cujo CPF é do "administrador Marcio Vieira" acessa esse menu (MENU EXCLUSIVO) --}}
+                            @if(Auth::user()->cpf == '471.183.423-00')
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseSuporte" aria-expanded="false" aria-controls="collapseSuporte">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-truck-medical"></i></div>
                                 Suporte

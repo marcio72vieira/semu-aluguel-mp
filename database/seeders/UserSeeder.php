@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
         $user = new User();
             $user->nomecompleto = "Marcio Nonato F Vieira";
             $user->nome = "Marcio Vieira";
-            $user->cpf = "471.183.423-11";
+            $user->cpf = "471.183.423-00";
             $user->regional_id = 1;
             $user->municipio_id = 1;
             $user->tipounidade_id = 1;
