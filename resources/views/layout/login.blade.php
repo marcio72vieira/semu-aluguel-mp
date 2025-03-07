@@ -8,7 +8,7 @@
 
     {{-- Inclusão do Bootstrap via Vite--}}
     {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
-    
+
     {{-- LINKS CSS --}}
     <link href="{{ asset('css/styles_sbadmin.css') }}" rel="stylesheet">
     <link href="{{ asset('css/all.min.css') }}" rel="stylesheet">
@@ -18,9 +18,9 @@
     <style>
         body{
             background-image: url('{{ asset("images/background_06.png")}}');
-            background-repeat: no-repeat; 
-            background-attachment: fixed; 
-            background-size: cover; 
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
             background-size: 100% 100%;
         }
 
@@ -37,7 +37,7 @@
         <div id="layoutAuthentication_content">
             <main>
                 <div class="container">
-                    <div class="row justify-content-center" style="margin-top: 15%">
+                    <div class="row justify-content-center" style="margin-top: 20%">
 
                         @yield('content')
 

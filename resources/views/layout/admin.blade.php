@@ -191,7 +191,7 @@
         </div>
 
         {{-- CONTEÚDO --}}
-        <div id="layoutSidenav_content" style ="background-image: url('{{ asset("images/background_06_opct10.png")}}'); background-repeat: no-repeat; background-attachment: fixed; background-size: cover; background-size: 100% 100%;">
+        <div id="layoutSidenav_content" style ="background-image: url('{{ asset("images/background_06_opct15.png")}}'); background-repeat: no-repeat; background-attachment: fixed; background-size: cover; background-size: 100% 100%;">
             <main>
 
                  @yield('content')
